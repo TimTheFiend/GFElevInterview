@@ -25,6 +25,8 @@ namespace GFElevInterview
     {
         public MainWindow() {
             InitializeComponent();
+
+            DbTools db = new DbTools();
         }
     }
 }
