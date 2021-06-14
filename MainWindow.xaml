@@ -2,11 +2,88 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GFElevInterview"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1200">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <Border Grid.Column="0" Margin="2" Background="WhiteSmoke" Width="250" HorizontalAlignment="Center" BorderThickness="2" BorderBrush="Gray">
+
+            <StackPanel >
+                <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnHome" Click="btnHome_Click" >Home</Button>
+                <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
+                <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
+                <Image Margin="10,200" Height="150" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
+
+            </StackPanel>
+
+        </Border>
+
+
+        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="Gray" Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Stretch" Background="WhiteSmoke" RenderTransformOrigin="0.38,0.595"  >
+                <Label FontSize="54" FontWeight="Heavy" HorizontalAlignment="Center" FontFamily="Times New Roman" Margin="0,50,0,0" >Velkommen til TEC App</Label>
+                <fa:ImageAwesome Icon="Spinner"  SpinDuration="50" Spin="true" Width="191"  Height="196" Margin="150"/>
+
+            </StackPanel>
+
+        </Border>
+
+
+        <Border Grid.Column="1" Background="WhiteSmoke" Name="UnderviserPanel" BorderThickness="2" BorderBrush="Gray" Visibility="Visible">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="500"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <WrapPanel>
+                                <Label FontSize="20"  >Søge elev :</Label>
+                                <TextBox x:Name="SearchStudentTxt"  Margin="10" Width="300" Height="30"  Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged"  />
+                            </WrapPanel>
+                            <ListBox x:Name="SearchStudentBox" Background="WhiteSmoke" Margin="20"  SelectionChanged="SearchStudentBox_SelectionChanged" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding FullInfo}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+
+                            <WrapPanel>
+                                
+                                <Label FontSize="20"  Content="" Name="StudentsFullInfo" />
+                                <Label FontSize="20" Content="Alderen er :"/>
+                                <TextBlock x:Name="ViseAlder" FontSize="19" HorizontalAlignment="left" Height="20" Width="30"  />
+                            </WrapPanel>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+
+
+                <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    
+                    
+                </ContentControl>
+
+
+            </Grid>
+
+        </Border>
+        
+        
+        
     </Grid>
 </Window>

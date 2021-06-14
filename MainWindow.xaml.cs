@@ -22,6 +22,39 @@ namespace GFElevInterview
     {
         public MainWindow() {
             InitializeComponent();
+
+        }
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            HomePanel.Visibility = Visibility.Visible;
+            UnderviserPanel.Visibility = Visibility.Collapsed;
+           // LederPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnUnderviser_Click(object sender, RoutedEventArgs e)
+        {
+            mainContent.Content = new GFElevInterview.Views.maritBlanket();
+            UnderviserPanel.Visibility = Visibility.Visible;
+            HomePanel.Visibility = Visibility.Collapsed;
+           //LederPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnLeder_Click(object sender, RoutedEventArgs e)
+        {
+           // LederPanel.Visibility = Visibility.Visible;
+            HomePanel.Visibility = Visibility.Collapsed;
+            UnderviserPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
