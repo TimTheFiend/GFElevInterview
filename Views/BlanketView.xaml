@@ -44,16 +44,12 @@
                 <Border  BorderBrush="Gray" BorderThickness="1"  Grid.Row="1">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
-
                             <ContentControl x:Name="MeritContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                
                                 <ContentControl x:Name="WordContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <!--<ContentControl x:Name="RkvContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    </ContentControl>-->
                                 </ContentControl>
-
                             </ContentControl>
-
-
                         </ContentControl>
                     </ScrollViewer>
                 </Border>
