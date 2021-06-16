@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GFElevInterview.Models
 {
-    public class Elev
+    public class ElevModel
     {
         [Key]
         public int CprNr { get; set; }
