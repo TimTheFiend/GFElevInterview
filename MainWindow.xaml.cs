@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using GFElevInterview.Models;
+
 
 namespace GFElevInterview
 {
@@ -22,7 +25,6 @@ namespace GFElevInterview
     {
         public MainWindow() {
             InitializeComponent();
-
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -64,7 +66,7 @@ namespace GFElevInterview
 
         private void passwordText_KeyDown(object sender, KeyEventArgs e)
         {
-
+        
         }
     }
 }
