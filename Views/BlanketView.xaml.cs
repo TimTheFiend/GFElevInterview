@@ -52,7 +52,7 @@ namespace GFElevInterview.Views
         private void btnWordView_Click(object sender, RoutedEventArgs e)
         {
             MeritContent.Content = new GFElevInterview.Views.maritBlanket();
-            
+            btnWordView.IsEnabled = false;
         }
     }
 }
