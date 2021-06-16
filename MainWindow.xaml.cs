@@ -31,7 +31,7 @@ namespace GFElevInterview
         {
             HomePanel.Visibility = Visibility.Visible;
             UnderviserPanel.Visibility = Visibility.Collapsed;
-           // LederPanel.Visibility = Visibility.Collapsed;
+            LederPanel.Visibility = Visibility.Collapsed;
         }
 
         private void btnUnderviser_Click(object sender, RoutedEventArgs e)
@@ -39,12 +39,12 @@ namespace GFElevInterview
             mainContent.Content = new GFElevInterview.Views.maritBlanket();
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
-           //LederPanel.Visibility = Visibility.Collapsed;
+           LederPanel.Visibility = Visibility.Collapsed;
         }
 
         private void btnLeder_Click(object sender, RoutedEventArgs e)
         {
-           // LederPanel.Visibility = Visibility.Visible;
+            LederPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             UnderviserPanel.Visibility = Visibility.Collapsed;
         }
