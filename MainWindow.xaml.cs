@@ -36,10 +36,11 @@ namespace GFElevInterview
 
         private void btnUnderviser_Click(object sender, RoutedEventArgs e)
         {
-            mainContent.Content = new GFElevInterview.Views.maritBlanket();
+            //mainContent.Content = new GFElevInterview.Views.maritBlanket();
+            mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
-           LederPanel.Visibility = Visibility.Collapsed;
+            LederPanel.Visibility = Visibility.Collapsed;
         }
 
         private void btnLeder_Click(object sender, RoutedEventArgs e)
@@ -61,7 +62,26 @@ namespace GFElevInterview
 
         private void signinButton_Click(object sender, RoutedEventArgs e)
         {
+            GFElevInterview.Views.LederSide lederSide = new Views.LederSide();
+            if (passwordText.Password == "1234")
+            {
+                lederSide.Show();
+                this.Close();
+            }
+            else if(passwordText.Password=="")
+            {
+                MessageBox.Show("Indtast adgangskode!!");
+                passwordText.Focus();
+            }
+            else
+            {
+                MessageBox.Show("Ugyldig adgangskode!!");
+                passwordText.Clear();
+                passwordText.Focus();
+                
+               
 
+            }
         }
 
         private void passwordText_KeyDown(object sender, KeyEventArgs e)
