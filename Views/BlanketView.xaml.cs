@@ -37,22 +37,41 @@ namespace GFElevInterview.Views
 
         }
 
-        private void WordView_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        
         private void btnMeritView_Click(object sender, RoutedEventArgs e)
         {
 
-            MeritContent.Content = new GFElevInterview.Views.WordView();
-            btnWordView.IsEnabled = true;
+
+            if (MeritContent.IsEnabled)
+            {
+                MeritContent.Content = new GFElevInterview.Views.WordView();
+                btnWordView.IsEnabled = true;
+
+                if(WordContent.IsEnabled)
+                {
+                    int age = 30;
+                    if (age < 25)
+                    {
+                        //gem pdf file
+                    }
+                    else //åben RKV 
+                    {
+                        WordContent.Content = new GFElevInterview.Views.RkvView();
+                        btnWordView.IsEnabled = true;
+                    }
+                }
+
+            }
+                                   
         }
 
         private void btnWordView_Click(object sender, RoutedEventArgs e)
         {
-            MeritContent.Content = new GFElevInterview.Views.maritBlanket();
-            btnWordView.IsEnabled = false;
+            
+                MeritContent.Content = new GFElevInterview.Views.maritBlanket();
+                btnWordView.IsEnabled = false;
+            
+           
         }
     }
 }

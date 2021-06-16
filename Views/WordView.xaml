@@ -7,6 +7,71 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="Word dokument" FontSize="50"/>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+               
+                    <Label Content="Interview guide til Visitations elever"  FontSize="20" FontWeight="Bold" FontStyle="Italic" Margin="10"/>
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="educationArea">
+                    <StackPanel Margin="10">
+                        <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="20" />
+                        <ComboBox x:Name="educationComboBox"  />
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="educationAdresse">
+                    <StackPanel Margin="10">
+                        <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="20" />
+                        <ComboBox x:Name="educationAdresseComboBox"  />
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="spsSupport">
+                    <StackPanel Margin="10">
+                        <Label  Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="20" />
+
+                        <DockPanel>
+                            <Label Content="Ja" FontSize="20" Margin="10" HorizontalAlignment="Left"/>
+                        <CheckBox x:Name="spsSupportCheckBoxJa" VerticalAlignment="Center"  >
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2" />
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+
+                            <Label Content="Nej" FontSize="20" Margin="10" HorizontalAlignment="Right"/>
+                            <CheckBox x:Name="spsSupportCheckBoxNej" VerticalAlignment="Center"   >
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+
+                <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="eudSupport">
+                    <StackPanel Margin="10">
+                        <Label  Content="Ønsker du en samtale med eud vejleder?" FontSize="20" />
+
+                        <DockPanel>
+                            <Label Content="Ja" FontSize="20" Margin="10" HorizontalAlignment="Left"/>
+                            <CheckBox x:Name="eudSupportCheckBoxJa" VerticalAlignment="Center"  >
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+
+                            <Label Content="Nej" FontSize="20" Margin="10" HorizontalAlignment="Right"/>
+                            <CheckBox x:Name="eudSupportCheckBoxNej" VerticalAlignment="Center"   >
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>
