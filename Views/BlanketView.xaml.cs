@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GFElevInterview.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,11 +19,21 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class BlanketView : UserControl
     {
+        IBlanket currentView;
         public BlanketView()
         {
             InitializeComponent();
-            MeritContent.Content = new GFElevInterview.Views.maritBlanket();
-            btnWordView.IsEnabled = false;
+
+            if (currentView == null) {
+                currentView = new GFElevInterview.Views.MeritBlanketView();
+            }
+
+            MeritContent.Content = currentView;
+
+            IBlanket _;
+            btnTilbage.IsEnabled = currentView.Tilbage(out _);
+
+            //btnWordView.IsEnabled = false;
         }
 
         
@@ -37,22 +48,22 @@ namespace GFElevInterview.Views
 
         }
 
-        private void WordView_Click_1(object sender, RoutedEventArgs e)
-        {
 
+        private void Frem_Click(object sender, RoutedEventArgs e)
+        {
+            IBlanket _blanket;
+            if (currentView.Frem(out _blanket)) {
+                currentView = _blanket;
+                MeritContent.Content = currentView;
+            }
         }
 
-        private void btnMeritView_Click(object sender, RoutedEventArgs e)
+        private void Tilbage_Click(object sender, RoutedEventArgs e)
         {
-
-            MeritContent.Content = new GFElevInterview.Views.WordView();
-            btnWordView.IsEnabled = true;
-        }
-
-        private void btnWordView_Click(object sender, RoutedEventArgs e)
-        {
-            MeritContent.Content = new GFElevInterview.Views.maritBlanket();
-            btnWordView.IsEnabled = false;
+            if (currentView.Frem(out currentView)) {
+                Console.WriteLine();
+                MeritContent.Content = currentView;
+            }
         }
     }
 }

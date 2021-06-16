@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using GFElevInterview.Data;
+using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
 
 namespace GFElevInterview.Views
@@ -12,30 +13,52 @@ namespace GFElevInterview.Views
     /// <summary>
     /// Interaction logic for maritBlanket.xaml
     /// </summary>
-    public partial class maritBlanket : UserControl
+    public partial class MeritBlanketView : UserControl, IBlanket
     {
-        public maritBlanket()
+        public int TESTTESTTEST;
+
+        public MeritBlanketView()
         {
             InitializeComponent();
             InitializeComboBox();
 
             if (CurrentElev.meritBlanket.IsFilled)
             {
+                ComboboDansk.SelectedIndex = (int)CurrentElev.meritBlanket.Dansk.Niveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
+                ComboboxEngelsk.SelectedIndex = (int)CurrentElev.meritBlanket.Engelsk.Niveau - 1;
+                ComboboxMatematik.SelectedIndex = (int)CurrentElev.meritBlanket.Matematik.Niveau - 1;
                 //Merit blanketten er fyldt ud.
             }
         }
+
+        public bool Frem(out IBlanket nextBlanket) {
+            if (ComboboDansk.SelectedIndex >= 0 && ComboboxEngelsk.SelectedIndex >= 0 && ComboboxMatematik.SelectedIndex >= 0) {
+                CurrentElev.meritBlanket.Dansk = new Fag((bool)DanskEksamenChecked.IsChecked, (bool)DanskUndervisChecked.IsChecked, (FagNiveau)ComboboDansk.SelectedIndex);
+                CurrentElev.meritBlanket.Engelsk = new Fag((bool)EngelskEksamenChecked.IsChecked, (bool)EngelskUndervisChecked.IsChecked, (FagNiveau)ComboboxEngelsk.SelectedIndex);
+                CurrentElev.meritBlanket.Matematik = new Fag((bool)MatematikEksamenChecked.IsChecked, (bool)MatematikUndervisChecked.IsChecked, (FagNiveau)ComboboxMatematik.SelectedIndex);
+
+                nextBlanket = new WordView();
+                return true;
+            }
+            nextBlanket = this;
+            return false;
+        }
+
+        public bool Tilbage(out IBlanket previousBlanket) {
+            previousBlanket = null;
+            return false;
+        }
+
         private void InitializeComboBox()
         {
             var enumKeysArray = Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString());
-            //ComboboDansk.ItemsSource = null;
-            //ComboboDansk.ItemsSource = enumItems;
             ComboboDansk.ItemsSource = enumKeysArray;
             ComboboxEngelsk.ItemsSource = enumKeysArray;
             ComboboxMatematik.ItemsSource = enumKeysArray;
         }
 
         //TO DO overfør data fra dansk over til MeritBlanketModel
-        private void _IsValidated(object sender, RoutedEventArgs e)
+        private void IsValidated()
         {
             if(ComboboDansk.SelectedIndex >= 0 && ComboboxEngelsk.SelectedIndex >= 0 && ComboboxMatematik.SelectedIndex >= 0)
             {
