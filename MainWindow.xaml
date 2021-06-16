@@ -38,17 +38,57 @@
 
         <Border Grid.Column="1" Background="WhiteSmoke" Name="UnderviserPanel" BorderThickness="2" BorderBrush="Gray" Visibility="Visible">
 
-           
-            <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="500"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="2">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <WrapPanel>
+                                <Label FontSize="20"  >Søge elev :</Label>
+                                <TextBox x:Name="SearchStudentTxt"  Margin="10" Width="300" Height="30"  Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged"  />
+                            </WrapPanel>
+                            <ListBox x:Name="SearchStudentBox" Background="WhiteSmoke" Margin="20"  SelectionChanged="SearchStudentBox_SelectionChanged" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding FullInfo}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+
+                            </ListBox>
+
+                            <WrapPanel>
+                                
+                                <Label FontSize="20"  Content="" Name="StudentsFullInfo" />
+                                <Label FontSize="20" Content="Alderen er :"/>
+                                <TextBlock x:Name="ViseAlder" FontSize="19" HorizontalAlignment="left" Height="20" Width="30"  />
+                            </WrapPanel>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
 
 
-            </ContentControl>
+                <Border  BorderBrush="Gray" BorderThickness="2"  Grid.Row="1">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+
+                    </ContentControl>
+                    </ScrollViewer>
+                </Border>
+
+            </Grid>
 
         </Border>
 
 
 
-        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="4" BorderBrush="Gray" Visibility="Collapsed">
+        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="Gray" Visibility="Visible">
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
