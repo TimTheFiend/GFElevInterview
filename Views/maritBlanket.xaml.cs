@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,25 +17,31 @@ namespace GFElevInterview.Views
         public maritBlanket()
         {
             InitializeComponent();
-            var enumItems = Enum.GetNames(typeof(FagNiveau));
-            ComboboDansk.ItemsSource = null;
-            ComboboDansk.ItemsSource = enumItems;
+            InitializeComboBox();
+
+            if (CurrentElev.meritBlanket.IsFilled)
+            {
+                //Merit blanketten er fyldt ud.
+            }
+        }
+        private void InitializeComboBox()
+        {
+            var enumKeysArray = Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString());
+            //ComboboDansk.ItemsSource = null;
+            //ComboboDansk.ItemsSource = enumItems;
+            ComboboDansk.ItemsSource = enumKeysArray;
+            ComboboxEngelsk.ItemsSource = enumKeysArray;
+            ComboboxMatematik.ItemsSource = enumKeysArray;
         }
 
         //TO DO overfør data fra dansk over til MeritBlanketModel
         private void _IsValidated(object sender, RoutedEventArgs e)
         {
-            if(ComboboDansk.SelectedIndex >= 0)
+            if(ComboboDansk.SelectedIndex >= 0 && ComboboxEngelsk.SelectedIndex >= 0 && ComboboxMatematik.SelectedIndex >= 0)
             {
                 CurrentElev.meritBlanket.Dansk = new Fag((bool)DanskEksamenChecked.IsChecked,(bool)DanskUndervisChecked.IsChecked,(FagNiveau)ComboboDansk.SelectedIndex);
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (ComboboDansk.SelectedIndex >= 0)
-            {
-                CurrentElev.meritBlanket.Dansk.Niveau = (FagNiveau)ComboboDansk.SelectedIndex;
+                CurrentElev.meritBlanket.Engelsk = new Fag((bool)EngelskEksamenChecked.IsChecked, (bool)EngelskUndervisChecked.IsChecked, (FagNiveau)ComboboxEngelsk.SelectedIndex);
+                CurrentElev.meritBlanket.Matematik = new Fag((bool)MatematikEksamenChecked.IsChecked, (bool)MatematikUndervisChecked.IsChecked, (FagNiveau)ComboboxMatematik.SelectedIndex);
             }
         }
     }

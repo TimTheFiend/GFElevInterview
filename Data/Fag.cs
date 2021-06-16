@@ -7,6 +7,10 @@ namespace GFElevInterview.Data
         public bool Undervisning { get; set; }
         public FagNiveau Niveau { get; set; }
 
+        public Fag()
+        {
+        }
+
         public Fag(bool eksamen, bool undervisning, FagNiveau niveau)
         {
             Eksamen = eksamen;

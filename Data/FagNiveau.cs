@@ -6,6 +6,7 @@ namespace GFElevInterview.Data
 {
     public enum FagNiveau
     {
+        Null,
         G,
         F,
         E,

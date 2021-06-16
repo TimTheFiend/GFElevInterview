@@ -13,18 +13,21 @@ namespace GFElevInterview.Models
 
         public MeritBlanketModel()
         {
+            Dansk = new Fag();
+            Engelsk = new Fag();
+            Matematik = new Fag();
         }
 
-        public MeritBlanketModel(Fag dansk)
+        public bool IsFilled
         {
-            Dansk = dansk;
-        }
-
-        public MeritBlanketModel(Fag dansk, Fag engelsk, Fag matematik)
-        {
-            Dansk = dansk;
-            Engelsk = engelsk;
-            Matematik = matematik;
+            get
+            {
+                if (Dansk.Niveau != FagNiveau.Null && Engelsk.Niveau != FagNiveau.Null && Matematik.Niveau != FagNiveau.Null)
+                {
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }
