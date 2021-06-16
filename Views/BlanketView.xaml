@@ -66,8 +66,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                     
-                    <Button x:Name="btnMeritView" Content="Frem" Grid.Column="1" Background="Gray" Height="50" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" Click="btnMeritView_Click"/>
-                    <Button x:Name="btnWordView" Content="Tilbage" Grid.Column="0" Background="Gray" Height="50" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" Click="btnWordView_Click"/>
+                    <Button x:Name="btnFrem" Content="Frem" Grid.Column="1" Background="Gray" Height="50" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" Click="Frem_Click"/>
+                    <Button x:Name="btnTilbage" Content="Tilbage" Grid.Column="0" Background="Gray" Height="50" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" Click="Tilbage_Click"/>
 
 
 
