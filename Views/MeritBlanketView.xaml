@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="GFElevInterview.Views.maritBlanket"
+﻿<UserControl x:Class="GFElevInterview.Views.MeritBlanketView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFElevInterview.Views"
+             Background="White"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -11,8 +12,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="10"  Grid.Column="0" Grid.Row="4"  x:Name="meritBlanket" >
 
-
-                    <Label Content="Ansøgnig om merit på Grundforløb , GF2:" Margin="10" FontSize="20" FontWeight="Bold" FontStyle="Italic" />
+                    <Label Content="Ansøgning om merit på Grundforløb , GF2:" Margin="10" FontSize="20" FontWeight="Bold" />
                     <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="DanskValidation" >
                         <StackPanel Margin="10">
                             <Label Content="Dansk:" FontSize="20" FontWeight="Bold"/>
@@ -35,13 +35,6 @@
 
                                 <Label Content="Niveau" FontSize="20"/>
                                 <ComboBox x:Name="ComboboDansk" FontSize="20">
-                                    <ComboBoxItem Content="A"/>
-                                    <ComboBoxItem Content="B"/>
-                                    <ComboBoxItem Content="C"/>
-                                    <ComboBoxItem Content="D"/>
-                                    <ComboBoxItem Content="E"/>
-                                    <ComboBoxItem Content="F"/>
-                                    <ComboBoxItem Content="G"/>
                                 </ComboBox>
                             </DockPanel>
 
@@ -72,13 +65,6 @@
 
                                 <Label Content="Niveau" FontSize="20"/>
                                 <ComboBox x:Name="ComboboxEngelsk" FontSize="20">
-                                    <ComboBoxItem Content="A"/>
-                                    <ComboBoxItem Content="B"/>
-                                    <ComboBoxItem Content="C"/>
-                                    <ComboBoxItem Content="D"/>
-                                    <ComboBoxItem Content="E"/>
-                                    <ComboBoxItem Content="F"/>
-                                    <ComboBoxItem Content="G"/>
                                 </ComboBox>
                             </DockPanel>
 
@@ -110,13 +96,6 @@
 
                                 <Label Content="Niveau" FontSize="20"/>
                                 <ComboBox x:Name="ComboboxMatematik" FontSize="20">
-                                    <ComboBoxItem Content="A"/>
-                                    <ComboBoxItem Content="B"/>
-                                    <ComboBoxItem Content="C"/>
-                                    <ComboBoxItem Content="D"/>
-                                    <ComboBoxItem Content="E"/>
-                                    <ComboBoxItem Content="F"/>
-                                    <ComboBoxItem Content="G"/>
                                 </ComboBox>
                             </DockPanel>
 
