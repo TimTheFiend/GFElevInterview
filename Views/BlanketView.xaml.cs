@@ -48,41 +48,41 @@ namespace GFElevInterview.Views
 
         }
 
-        
-        private void btnMeritView_Click(object sender, RoutedEventArgs e)
-        {
 
-
-            if (MeritContent.IsEnabled)
-            {
-                MeritContent.Content = new GFElevInterview.Views.WordView();
-                btnWordView.IsEnabled = true;
-
-                if(WordContent.IsEnabled)
-                {
-                    int age = 30;
-                    if (age < 25)
-                    {
-                        //gem pdf file
-                    }
-                    else //åben RKV 
-                    {
-                        WordContent.Content = new GFElevInterview.Views.RkvView();
-                        btnWordView.IsEnabled = true;
-                    }
-                }
-
+        private void Frem_Click(object sender, RoutedEventArgs e) {
+            IBlanket _blanket;
+            if (currentView.Frem(out _blanket)) {
+                currentView = _blanket;
+                MeritContent.Content = currentView;
             }
-                                   
         }
 
-        private void Tilbage_Click(object sender, RoutedEventArgs e)
-        {
-            
-                MeritContent.Content = new GFElevInterview.Views.maritBlanket();
-                btnWordView.IsEnabled = false;
-            
-           
+        private void Tilbage_Click(object sender, RoutedEventArgs e) {
+            //if (currentView.Frem(out currentView)) {
+            //    Console.WriteLine();
+            //    MeritContent.Content = currentView;
+            //}
         }
+
+
+        //TODO: implementer ind i Frem_Click
+        //private void btnMeritView_Click(object sender, RoutedEventArgs e) {
+        //    if (MeritContent.IsEnabled) {
+        //        MeritContent.Content = new GFElevInterview.Views.WordView();
+        //        btnWordView.IsEnabled = true;
+
+        //        if (WordContent.IsEnabled) {
+        //            int age = 30;
+        //            if (age < 25) {
+        //                //gem pdf file
+        //            }
+        //            else //åben RKV 
+        //            {
+        //                WordContent.Content = new GFElevInterview.Views.RkvView();
+        //                btnWordView.IsEnabled = true;
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

@@ -22,6 +22,7 @@ namespace GFElevInterview.Views
         public WordView()
         {
             InitializeComponent();
+
         }
 
         public bool Frem(out IBlanket nextBlanket) {
