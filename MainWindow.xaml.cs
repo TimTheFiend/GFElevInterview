@@ -56,5 +56,15 @@ namespace GFElevInterview
         {
 
         }
+
+        private void signinButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void passwordText_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

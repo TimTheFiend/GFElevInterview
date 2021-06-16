@@ -13,7 +13,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Margin="2" Background="WhiteSmoke" Width="250" HorizontalAlignment="Center" BorderThickness="2" BorderBrush="Gray">
+        <Border Grid.Column="0" Margin="2" Background="WhiteSmoke" Width="250" HorizontalAlignment="Center" BorderThickness="4" BorderBrush="Gray">
 
             <StackPanel >
                 <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnHome" Click="btnHome_Click" >Home</Button>
@@ -26,7 +26,7 @@
         </Border>
 
 
-        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="Gray" Visibility="Collapsed">
+        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="4" BorderBrush="Gray" Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Stretch" Background="WhiteSmoke" RenderTransformOrigin="0.38,0.595"  >
                 <Label FontSize="54" FontWeight="Heavy" HorizontalAlignment="Center" FontFamily="Times New Roman" Margin="0,50,0,0" >Velkommen til TEC App</Label>
                 <fa:ImageAwesome Icon="Spinner"  SpinDuration="50" Spin="true" Width="191"  Height="196" Margin="150"/>
@@ -45,7 +45,7 @@
                     <RowDefinition Height="500"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0">
+                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="2">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <WrapPanel>
@@ -73,17 +73,49 @@
                 </Border>
 
 
-                <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    
-                    
-                </ContentControl>
+                <Border  BorderBrush="Gray" BorderThickness="2"  Grid.Row="1">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
+
+                    </ContentControl>
+                    </ScrollViewer>
+                </Border>
 
             </Grid>
 
         </Border>
-        
-        
-        
+
+
+
+        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="2" BorderBrush="Gray" Visibility="Visible">
+
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Password :" FontSize="30" Height="64"  Grid.ColumnSpan="2"   />
+                <PasswordBox  PasswordChar="*" x:Name="passwordText" KeyDown="passwordText_KeyDown"  FontSize="40"  Grid.Column="1" Grid.Row="1" Height="64" Width="300" Background="#eee" Margin="10" />
+
+                <Button x:Name="signinButton"  Background="Gray" Content="Sign In" Margin="10" FontSize="30" Foreground="White" Click="signinButton_Click"   Grid.Column="1"  Grid.Row="2"   Height="64" Width="300"    />
+            </Grid>
+
+
+
+
+
+        </Border>
+
+
+
     </Grid>
 </Window>
