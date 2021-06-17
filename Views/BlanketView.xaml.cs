@@ -55,7 +55,7 @@ namespace GFElevInterview.Views
 
 
         public void SetFrem() {
-            
+
         }
 
         public void SetTilbage() {
@@ -78,7 +78,7 @@ namespace GFElevInterview.Views
         //            if (age < 25) {
         //                //gem pdf file
         //            }
-        //            else //åben RKV 
+        //            else //åben RKV
         //            {
         //                WordContent.Content = new GFElevInterview.Views.RkvView();
         //                btnWordView.IsEnabled = true;
