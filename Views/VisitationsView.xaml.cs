@@ -35,8 +35,11 @@ namespace GFElevInterview.Views
             SetButtons();
 
             educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
+            if (educationAdresseComboBox.Items.Count == 1) {
 
-            //TODO
+            }
+
+            //TODO RKV
             educationComboBox.ItemsSource = new List<string>() {
                 "IT-supporter",
                 "Programmør",
@@ -57,7 +60,11 @@ namespace GFElevInterview.Views
         public void Frem() {
             if (true) {
                 //TODO Hvis ikke RKV
+                //TODO Udprint
                 parent.mainContent.Content = null;
+            }
+            else {
+                //TODO Til RKV½
             }
         }
 
