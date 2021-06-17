@@ -40,7 +40,7 @@ namespace GFElevInterview.Data
             doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
             doc.SaveToFile(nyMeritFile, Spire.Doc.FileFormat.PDF);
         }
-        public void udprintTilWord()
+        public void indPrintTilDataBase()
         {
             //Henter "Template" fil fra given string sti.
             doc.LoadFromFile(wordFileSti);
