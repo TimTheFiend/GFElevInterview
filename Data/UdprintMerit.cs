@@ -14,8 +14,8 @@ namespace GFElevInterview.Data
          * Der skal findes en måde at køre replace bedre på.
          * Tilføj Merit og RKV til udprintning.
          */
-        private string fileSti = "C:\\Users\\viga\\Desktop\\Meritblanketter VISI blank.docx";
-        private string nyFile = "C:\\Users\\viga\\Desktop\\Test Merit.pdf";
+        private string fileSti = @"C:\Users\joak\Desktop\Meritblanketter VISI blank.docx";
+        private string nyFile = @"C:\Users\joak\Desktop\TEST.pdf";
 
         public void udprintFraWord()
         {

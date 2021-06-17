@@ -61,10 +61,9 @@ namespace GFElevInterview.Views
             if (true) {
                 //TODO Hvis ikke RKV
                 //TODO Udprint
-                parent.mainContent.Content = null;
-            }
-            else {
-                //TODO Til RKV½
+                UdprintMerit udprint = new UdprintMerit();
+                udprint.udprintFraWord();
+                MessageBox.Show("Dokument gemt! TODO");
             }
         }
 

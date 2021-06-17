@@ -54,15 +54,6 @@ namespace GFElevInterview.Views
             currentView.Tilbage();
         }
 
-
-        public void SetFrem() {
-
-        }
-
-        public void SetTilbage() {
-
-        }
-
         public void ChangeView(IBlanket newView) {
             currentView = newView;
             mainContent.Content = currentView;
