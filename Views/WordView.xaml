@@ -5,8 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
-        <Label Content="Word dokument" FontSize="50"/>
+        <StackPanel>
+        <TextBlock Width="400" Text="Word Side" FontSize="45" TextAlignment="Center" Margin="0,0,0,20" />
+            <Border BorderBrush="Black" BorderThickness="2" Height="50">
+                <DockPanel>
+                    <TextBlock Height="30" Text="Elev Navn:" FontSize="20" Margin="250,0,0,0"/>
+                    <TextBlock Width="250" Height="30" Margin="0,0,200,0"/>
+                </DockPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="2" Height="50">
+                <DockPanel>
+                    <TextBlock Height="30" Text="Dansk niveau på/over 10.klasse?" FontSize="20"/>
+                    <RadioButton Width="50" Height="30" Content="Ja" FontSize="20" Margin="100,0,0,0"/>
+                    <RadioButton Width="50" Height="30" Content="Nej" FontSize="20" Margin="0,0,100,0"/>
+                </DockPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="2" Height="50">
+                <DockPanel>
+                    <TextBlock Height="30" Text="Hvilken Uddannelse ønskes eleven at påbegynde:" FontSize="20"/>
+                    <ComboBox Width="320">
+                        <ComboBoxItem Content="It-supporter"/>
+                        <ComboBoxItem Content="Programmering"/>
+                        <ComboBoxItem Content="Infrastruktur"/>
+                        <ComboBoxItem Content="Ved ikke"/>
+                    </ComboBox>
+                </DockPanel>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="2" Height="100">
+                <StackPanel>
+                    <TextBlock Text="Hvilken addresse ønsker eleven at starte på:" FontSize="20" Margin="0,0,0,10" TextAlignment="Center"/>
+                    <DockPanel>
+                        <TextBlock Text="Prioritet 1:" FontSize="15" TextAlignment="Center"/>
+                        <ComboBox Width="320" Height="25">
+                            <ComboBoxItem Content="Ballerup"/>
+                            <ComboBoxItem Content="Fredriksberg"/>
+                            <ComboBoxItem Content="Lyngby"/>
+                        </ComboBox>
+                        <TextBlock Text="Prioritet 2:" FontSize="15" TextAlignment="Center" Margin="0,5,0,0"/>
+                        <ComboBox Width="320" Height="25" >
+                            <ComboBoxItem Content="Ballerup"/>
+                            <ComboBoxItem Content="Fredriksberg"/>
+                            <ComboBoxItem Content="Lyngby"/>
+                        </ComboBox>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </UserControl>

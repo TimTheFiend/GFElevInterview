@@ -1,4 +1,5 @@
 ﻿using GFElevInterview.Interfaces;
+using GFElevInterview.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -55,6 +56,8 @@ namespace GFElevInterview.Views
             if (currentView.Frem(out _blanket)) {
                 currentView = _blanket;
                 MeritContent.Content = currentView;
+                UdprintMerit print = new UdprintMerit();
+                print.udprintFraWord();
             }
         }
 
