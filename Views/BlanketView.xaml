@@ -10,7 +10,7 @@
         <Border Background="WhiteSmoke" x:Name="blanketView" BorderBrush="Gray" BorderThickness="2" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
@@ -29,6 +29,8 @@
                                 </ListBox.ItemTemplate>
 
                             </ListBox>
+
+                       
 
                             <WrapPanel>
 

@@ -23,6 +23,7 @@ namespace GFElevInterview.Views
     {
         IBlanket currentView;
         DbTools db = new DbTools();
+        public ElevModel currentElev { get; set; } = new ElevModel();
 
         public BlanketView()
         {
@@ -45,14 +46,16 @@ namespace GFElevInterview.Views
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if(SearchStudentBox.SelectedIndex >=0)
+            {
+                currentElev = SearchStudentBox.SelectedItem as ElevModel;
+                StudentsFullInfo.Content = currentElev.FullInfo;
+            }
         }
 
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
             string text = SearchStudentTxt.Text;
-
-
             List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.Fornavn.ToLower().StartsWith(text.ToLower())).ToList();
             SearchStudentBox.ItemsSource = elevModels;
         }
