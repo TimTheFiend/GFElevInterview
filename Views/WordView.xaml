@@ -28,19 +28,18 @@
                     <Label  Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="20" />
 
                     <DockPanel>
-                        <Label Content="Ja" FontSize="20" Margin="10" HorizontalAlignment="Left"/>
-                    <CheckBox x:Name="spsSupportCheckBoxJa" VerticalAlignment="Center"  >
-                        <CheckBox.LayoutTransform>
-                            <ScaleTransform ScaleX="2" ScaleY="2" />
-                        </CheckBox.LayoutTransform>
-                    </CheckBox>
+                        <RadioButton GroupName="spsSupport" ClickMode="Press"  Margin="20" x:Name="spsSupportJa" Content="Ja" >
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
+                        <RadioButton GroupName="spsSupport" ClickMode="Press" Margin="20" x:Name="spsSupportNej" Content="Nej" >
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
 
-                        <Label Content="Nej" FontSize="20" Margin="10" HorizontalAlignment="Right"/>
-                        <CheckBox x:Name="spsSupportCheckBoxNej" VerticalAlignment="Center"   >
-                            <CheckBox.LayoutTransform>
-                                <ScaleTransform ScaleX="2" ScaleY="2" />
-                            </CheckBox.LayoutTransform>
-                        </CheckBox>
+
                     </DockPanel>
                 </StackPanel>
             </Border>
@@ -51,19 +50,16 @@
                     <Label  Content="Ønsker du en samtale med eud vejleder?" FontSize="20" />
 
                     <DockPanel>
-                        <Label Content="Ja" FontSize="20" Margin="10" HorizontalAlignment="Left"/>
-                        <CheckBox x:Name="eudSupportCheckBoxJa" VerticalAlignment="Center"  >
-                            <CheckBox.LayoutTransform>
-                                <ScaleTransform ScaleX="2" ScaleY="2" />
-                            </CheckBox.LayoutTransform>
-                        </CheckBox>
-
-                        <Label Content="Nej" FontSize="20" Margin="10" HorizontalAlignment="Right"/>
-                        <CheckBox x:Name="eudSupportCheckBoxNej" VerticalAlignment="Center"   >
-                            <CheckBox.LayoutTransform>
-                                <ScaleTransform ScaleX="2" ScaleY="2" />
-                            </CheckBox.LayoutTransform>
-                        </CheckBox>
+                        <RadioButton GroupName="eudSupport" ClickMode="Press"  Margin="20" x:Name="eudSupportJa" Content="Ja" >
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
+                        <RadioButton GroupName="eudSupport" ClickMode="Press" Margin="20" x:Name="eudSupportNej" Content="Nej" >
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
                     </DockPanel>
                 </StackPanel>
             </Border>
