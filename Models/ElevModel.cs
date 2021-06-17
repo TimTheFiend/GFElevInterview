@@ -24,7 +24,13 @@ namespace GFElevInterview.Models
         }
 
         public override string ToString() {
-            return $"({CprNr} - {EfternavnFornavn}";
+            return $"({CprNr}) - {EfternavnFornavn}";
+        }
+
+        public string FullInfo
+        {
+            get { return this.ToString(); }
+            
         }
     }
 }
