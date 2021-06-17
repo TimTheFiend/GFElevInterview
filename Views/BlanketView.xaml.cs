@@ -23,20 +23,16 @@ namespace GFElevInterview.Views
         public BlanketView()
         {
             InitializeComponent();
-
-            if (currentView == null) {
-                currentView = new GFElevInterview.Views.MeritBlanketView();
-            }
-
-            MeritContent.Content = currentView;
-
-            IBlanket _;
-            btnTilbage.IsEnabled = currentView.Tilbage(out _);
-
-            //btnWordView.IsEnabled = false;
+            InitializeBlanket();
         }
 
-        
+        private void InitializeBlanket() {
+            if (currentView == null) {
+                currentView = new MeritBlanketView(this);
+            }
+
+            mainContent.Content = currentView;
+        }
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -49,21 +45,46 @@ namespace GFElevInterview.Views
         }
 
 
-        private void Frem_Click(object sender, RoutedEventArgs e)
-        {
-            IBlanket _blanket;
-            if (currentView.Frem(out _blanket)) {
-                currentView = _blanket;
-                MeritContent.Content = currentView;
-            }
+        private void Frem_Click(object sender, RoutedEventArgs e) {
+            currentView.Frem();
         }
 
-        private void Tilbage_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentView.Frem(out currentView)) {
-                Console.WriteLine();
-                MeritContent.Content = currentView;
-            }
+        private void Tilbage_Click(object sender, RoutedEventArgs e) {
+            currentView.Tilbage();
         }
+
+
+        public void SetFrem() {
+            
+        }
+
+        public void SetTilbage() {
+
+        }
+
+        public void ChangeView(IBlanket newView) {
+            currentView = newView;
+            mainContent.Content = currentView;
+        }
+
+        //TODO: implementer ind i Frem_Click
+        //private void btnMeritView_Click(object sender, RoutedEventArgs e) {
+        //    if (MeritContent.IsEnabled) {
+        //        MeritContent.Content = new GFElevInterview.Views.WordView();
+        //        btnWordView.IsEnabled = true;
+
+        //        if (WordContent.IsEnabled) {
+        //            int age = 30;
+        //            if (age < 25) {
+        //                //gem pdf file
+        //            }
+        //            else //åben RKV 
+        //            {
+        //                WordContent.Content = new GFElevInterview.Views.RkvView();
+        //                btnWordView.IsEnabled = true;
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

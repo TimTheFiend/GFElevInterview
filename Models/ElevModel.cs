@@ -12,6 +12,8 @@ namespace GFElevInterview.Models
         public int CprNr { get; set; }
         public string Fornavn { get; set; }
         public string Efternavn { get; set; }
+        public bool SPS { get; set; }
+        public bool EUD { get; set; }
 
         [NotMapped]
         public string FornavnEfternavn {

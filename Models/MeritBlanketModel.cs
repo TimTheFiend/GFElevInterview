@@ -29,5 +29,22 @@ namespace GFElevInterview.Models
                 return false;
             }
         }
+
+        public List<string> AvailableSchools() {
+            if (Dansk.Niveau <= FagNiveau.F) {
+                return new List<string>() {
+                    "Ballerup"
+                };
+            }
+            return new List<string>() {
+                "Frederiksberg",
+                "Lyngby"
+            };
+        }
+
+        //TODO: Proper check
+        public List<string> AvailableEducations() {
+            return new List<string>();
+        }
     }
 }

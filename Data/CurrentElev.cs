@@ -8,5 +8,7 @@ namespace GFElevInterview.Data
     {
         public static ElevModel elev = new ElevModel();
         public static MeritBlanketModel meritBlanket = new MeritBlanketModel();
+
+        public static VisitationsBlanketModel visitationsBlanket = new VisitationsBlanketModel();  // <25 år
     }
 }
