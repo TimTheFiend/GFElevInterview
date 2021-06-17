@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GFElevInterview.Models;
 
 namespace GFElevInterview.Views
 {
@@ -21,10 +22,12 @@ namespace GFElevInterview.Views
     public partial class BlanketView : UserControl
     {
         IBlanket currentView;
+        DbTools db = new DbTools();
         public BlanketView()
         {
             InitializeComponent();
             InitializeBlanket();
+            db.Database.EnsureCreated();
         }
 
         private void InitializeBlanket() {
@@ -58,7 +61,11 @@ namespace GFElevInterview.Views
             currentView = newView;
             mainContent.Content = currentView;
         }
-
+        public void UpdateDatabase()
+        {
+            db.Elever.Update(CurrentElev.elev);
+            db.SaveChangesAsync();
+        }
         //TODO: implementer ind i Frem_Click
         //private void btnMeritView_Click(object sender, RoutedEventArgs e) {
         //    if (MeritContent.IsEnabled) {

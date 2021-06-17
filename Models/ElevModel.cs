@@ -12,6 +12,9 @@ namespace GFElevInterview.Models
         public int CprNr { get; set; }
         public string Fornavn { get; set; }
         public string Efternavn { get; set; }
+        public string Uddannelse { get; set; }
+        public string UdannelseAdresse { get; set; }
+
         public bool SPS { get; set; }
         public bool EUD { get; set; }
 

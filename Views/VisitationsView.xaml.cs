@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GFElevInterview.Data;
-
+using System.Linq;
 
 namespace GFElevInterview.Views
 {
@@ -58,11 +58,24 @@ namespace GFElevInterview.Views
         }
 
         public void Frem() {
-            if (true) {
+            if (IsValidated()) {
                 //TODO Hvis ikke RKV
                 //TODO Udprint
+                //TODO Få fra Søgning
+                CurrentElev.elev.Fornavn = "Fornavn";
+                CurrentElev.elev.Efternavn = "Efternavn";
+                CurrentElev.elev.CprNr = 1111931111;
+                //ENDTODO
+                CurrentElev.visitationsBlanket.UdannelseAdresse = educationAdresseComboBox.Text;
+                CurrentElev.visitationsBlanket.Uddannelse = educationComboBox.Text;
+                CurrentElev.visitationsBlanket.SPS = (bool)spsSupportJa.IsChecked;
+                CurrentElev.visitationsBlanket.EUD = (bool)eudSupportJa.IsChecked;
+
+
                 UdprintMerit udprint = new UdprintMerit();
-                udprint.udprintFraWord();
+                udprint.udprintTilMerit();
+                udprint.udprintTilWord();
+                parent.UpdateDatabase();
                 MessageBox.Show("Dokument gemt! TODO");
             }
         }
@@ -73,9 +86,49 @@ namespace GFElevInterview.Views
 
         //TODO: Valider blanket
         private bool IsValidated() {
-            if (true) {
+            IEnumerable<RadioButton> spsRadioButton = spsSupportGroup.Children.OfType<RadioButton>();
+            IEnumerable<RadioButton> eudRadioButton = eudSupportGroup.Children.OfType<RadioButton>();
+
+            if (educationComboBox.SelectedIndex >= 0)
+            {
+                educationArea.BorderBrush = Brushes.Gray;
+            }
+            else
+            {
+                educationArea.BorderBrush = Brushes.Red;
+            }
+            if (educationAdresseComboBox.SelectedIndex >= 0)
+            {
+                educationAdresse.BorderBrush = Brushes.Gray;
+            }
+            else
+            {
+                educationAdresse.BorderBrush = Brushes.Red;
+            }
+            if ((bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked)
+            {
+                spsSupport.BorderBrush = Brushes.Gray;
+            }
+            else
+            {
+                spsSupport.BorderBrush = Brushes.Red;
+            }
+            if ((bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked)
+            {
+                eudSupport.BorderBrush = Brushes.Gray;
+            }
+            else
+            {
+                eudSupport.BorderBrush = Brushes.Red;
+            }
+            if (educationComboBox.SelectedIndex >= 0 && educationAdresseComboBox.SelectedIndex >= 0)
+            {
+
+
+                //nextBlanket = new WordView(); // skal skiftes til RkvView()
                 return true;
             }
+            //nextBlanket = this;
             return false;
         }
 
