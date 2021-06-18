@@ -67,7 +67,7 @@ namespace GFElevInterview.Views
                 CurrentElev.meritBlanket.Engelsk = new Fag((bool)EngelskEksamenChecked.IsChecked, (bool)EngelskUndervisChecked.IsChecked, (FagNiveau)ComboboxEngelsk.SelectedIndex);
                 CurrentElev.meritBlanket.Matematik = new Fag((bool)MatematikEksamenChecked.IsChecked, (bool)MatematikUndervisChecked.IsChecked, (FagNiveau)ComboboxMatematik.SelectedIndex);
 
-                nextBlanket = new WordView();
+                nextBlanket = new VisitationsView();
                 return true;
             }
             nextBlanket = this;

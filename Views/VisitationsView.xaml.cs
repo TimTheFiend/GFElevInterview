@@ -19,9 +19,9 @@ namespace GFElevInterview.Views
     /// <summary>
     /// Interaction logic for WordView.xaml
     /// </summary>
-    public partial class WordView : UserControl, IBlanket
+    public partial class VisitationsView : UserControl, IBlanket
     {
-        public WordView()
+        public VisitationsView()
         {
             InitializeComponent();
             
@@ -69,7 +69,7 @@ namespace GFElevInterview.Views
             {
 
 
-                nextBlanket = new WordView(); // skal skiftes til RkvView()
+                nextBlanket = new VisitationsView(); // skal skiftes til RkvView()
                 return true;
             }
             nextBlanket = this;
