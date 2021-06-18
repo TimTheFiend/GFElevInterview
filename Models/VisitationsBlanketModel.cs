@@ -4,6 +4,7 @@ using System.Text;
 
 namespace GFElevInterview.Models
 {
+    //NOTE: Skal ikke bruges
     public class VisitationsBlanketModel
     {
         public string Uddannelse { get; set; }

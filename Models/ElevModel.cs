@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace GFElevInterview.Models
 {
@@ -12,6 +9,9 @@ namespace GFElevInterview.Models
         public int CprNr { get; set; }
         public string Fornavn { get; set; }
         public string Efternavn { get; set; }
+
+        public string UddannelsesLinje { get; set; }
+        public string UddannelsesAdresse { get; set; }
         public bool SPS { get; set; }
         public bool EUD { get; set; }
 
