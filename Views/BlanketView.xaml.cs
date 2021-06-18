@@ -1,6 +1,8 @@
 ﻿using GFElevInterview.Interfaces;
+using GFElevInterview.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +22,9 @@ namespace GFElevInterview.Views
     public partial class BlanketView : UserControl
     {
         IBlanket currentView;
+        DbTools db = new DbTools();
+        public ElevModel currentElev { get; set; } = new ElevModel();
+
         public BlanketView()
         {
             InitializeComponent();
@@ -28,24 +33,31 @@ namespace GFElevInterview.Views
                 currentView = new GFElevInterview.Views.MeritBlanketView();
             }
 
+
             MeritContent.Content = currentView;
 
             IBlanket _;
             btnTilbage.IsEnabled = currentView.Tilbage(out _);
 
+            db.Database.EnsureCreated();
             //btnWordView.IsEnabled = false;
         }
 
-        
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if(SearchStudentBox.SelectedIndex >=0)
+            {
+                currentElev = SearchStudentBox.SelectedItem as ElevModel;
+                StudentsFullInfo.Content = currentElev.FullInfo;
+            }
         }
 
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            string text = SearchStudentTxt.Text;
+            List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.Fornavn.ToLower().StartsWith(text.ToLower())).ToList();
+            SearchStudentBox.ItemsSource = elevModels;
         }
 
 
