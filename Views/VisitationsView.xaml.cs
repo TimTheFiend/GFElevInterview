@@ -58,26 +58,34 @@ namespace GFElevInterview.Views
         }
 
         public void Frem() {
-            if (IsValidated()) {
+            if (IsValidated())
+            {
                 //TODO Hvis ikke RKV
                 //TODO Udprint
                 //TODO Få fra Søgning
-                CurrentElev.elev.Fornavn = "Fornavn";
-                CurrentElev.elev.Efternavn = "Efternavn";
-                CurrentElev.elev.CprNr = 1111931111;
-                //ENDTODO
-                CurrentElev.visitationsBlanket.UdannelseAdresse = educationAdresseComboBox.Text;
-                CurrentElev.visitationsBlanket.Uddannelse = educationComboBox.Text;
-                CurrentElev.visitationsBlanket.SPS = (bool)spsSupportJa.IsChecked;
-                CurrentElev.visitationsBlanket.EUD = (bool)eudSupportJa.IsChecked;
-
-
-                UdprintMerit udprint = new UdprintMerit();
-                udprint.udprintTilMerit();
-                udprint.udprintTilWord();
-                parent.UpdateDatabase();
-                MessageBox.Show("Dokument gemt! TODO");
+                UpdateElevAndSave();
             }
+        }
+
+        private void UpdateElevAndSave()
+        {
+            //TODO: Få info fra søgefeldt
+            //NOTE: Hardcoded
+            CurrentElev.elev.Fornavn = "Fornavn";
+            CurrentElev.elev.Efternavn = "Efternavn";
+            //CurrentElev.elev.CprNr = 1111931111;
+            //ENDTODO
+            CurrentElev.elev.UdannelseAdresse = educationAdresseComboBox.Text;
+            CurrentElev.elev.Uddannelse = educationComboBox.Text;
+            CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
+            CurrentElev.elev.EUD = (bool)eudSupportJa.IsChecked;
+
+
+            UdprintMerit udprint = new UdprintMerit();
+            udprint.udprintTilMerit();
+            parent.UpdateDatabase();
+            //udprint.indPrintTilDataBase();
+            MessageBox.Show("Dokument gemt! TODO");
         }
 
         public void Tilbage() {
@@ -86,49 +94,26 @@ namespace GFElevInterview.Views
 
         //TODO: Valider blanket
         private bool IsValidated() {
+            SolidColorBrush gray = Brushes.Gray;
+            SolidColorBrush red = Brushes.Red;
             IEnumerable<RadioButton> spsRadioButton = spsSupportGroup.Children.OfType<RadioButton>();
             IEnumerable<RadioButton> eudRadioButton = eudSupportGroup.Children.OfType<RadioButton>();
 
-            if (educationComboBox.SelectedIndex >= 0)
-            {
-                educationArea.BorderBrush = Brushes.Gray;
-            }
-            else
-            {
-                educationArea.BorderBrush = Brushes.Red;
-            }
-            if (educationAdresseComboBox.SelectedIndex >= 0)
-            {
-                educationAdresse.BorderBrush = Brushes.Gray;
-            }
-            else
-            {
-                educationAdresse.BorderBrush = Brushes.Red;
-            }
-            if ((bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked)
-            {
-                spsSupport.BorderBrush = Brushes.Gray;
-            }
-            else
-            {
-                spsSupport.BorderBrush = Brushes.Red;
-            }
-            if ((bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked)
-            {
-                eudSupport.BorderBrush = Brushes.Gray;
-            }
-            else
-            {
-                eudSupport.BorderBrush = Brushes.Red;
-            }
-            if (educationComboBox.SelectedIndex >= 0 && educationAdresseComboBox.SelectedIndex >= 0)
+            bool _educationArea = educationComboBox.SelectedIndex >= 0;
+            bool _educationAdresse = educationAdresseComboBox.SelectedIndex >= 0;
+            bool _spsSupport = (bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked;
+            bool _eudSupport = (bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked;
+
+            educationArea.BorderBrush = _educationArea ? gray : red;
+            educationAdresse.BorderBrush = _educationAdresse ? gray : red;
+            spsSupport.BorderBrush = _spsSupport ? gray : red;
+            eudSupport.BorderBrush = _eudSupport ? gray : red;
+
+            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
             {
 
-
-                //nextBlanket = new WordView(); // skal skiftes til RkvView()
                 return true;
             }
-            //nextBlanket = this;
             return false;
         }
 

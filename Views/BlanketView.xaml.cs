@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GFElevInterview.Models;
+using System.Linq;
 
 namespace GFElevInterview.Views
 {
@@ -28,6 +29,9 @@ namespace GFElevInterview.Views
             InitializeComponent();
             InitializeBlanket();
             db.Database.EnsureCreated();
+
+            //TODO: Debug
+            CurrentElev.elev = db.Elever.SingleOrDefault(x => x.Fornavn.ToLower() == "joakim");
         }
 
         private void InitializeBlanket() {
@@ -64,7 +68,7 @@ namespace GFElevInterview.Views
         public void UpdateDatabase()
         {
             db.Elever.Update(CurrentElev.elev);
-            db.SaveChangesAsync();
+            db.SaveChanges();
         }
         //TODO: implementer ind i Frem_Click
         //private void btnMeritView_Click(object sender, RoutedEventArgs e) {
