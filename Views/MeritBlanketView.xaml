@@ -33,7 +33,7 @@
                                 </CheckBox>
 
                                 <Label Content="Niveau" FontSize="20"/>
-                                <ComboBox x:Name="ComboboDansk" FontSize="20">
+                                <ComboBox x:Name="ComboboxDansk" FontSize="20">
                                 </ComboBox>
                             </DockPanel>
 

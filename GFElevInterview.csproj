@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="FreeSpire.Doc" Version="7.11.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.7" />
@@ -19,6 +20,18 @@
 
   <ItemGroup>
     <Resource Include="Resources\TECLOGO.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Blanketter\Templates\Meritblanketter VISI blank.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Blanketter\Lyngby\" />
+    <Folder Include="Blanketter\Ballerup\" />
+    <Folder Include="Blanketter\Frederiksberg\" />
   </ItemGroup>
 
 </Project>
