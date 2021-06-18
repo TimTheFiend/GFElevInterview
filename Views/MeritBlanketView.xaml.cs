@@ -31,7 +31,7 @@ namespace GFElevInterview.Views
             }
         }
 
-        public bool Frem(out IBlanket nextBlanket) {
+        public void Frem() {
 
             if(ComboboDansk.SelectedIndex >=0)
             {
@@ -67,16 +67,10 @@ namespace GFElevInterview.Views
                 CurrentElev.meritBlanket.Engelsk = new Fag((bool)EngelskEksamenChecked.IsChecked, (bool)EngelskUndervisChecked.IsChecked, (FagNiveau)ComboboxEngelsk.SelectedIndex);
                 CurrentElev.meritBlanket.Matematik = new Fag((bool)MatematikEksamenChecked.IsChecked, (bool)MatematikUndervisChecked.IsChecked, (FagNiveau)ComboboxMatematik.SelectedIndex);
 
-                nextBlanket = new VisitationsView();
-                return true;
             }
-            nextBlanket = this;
-            return false;
         }
 
-        public bool Tilbage(out IBlanket previousBlanket) {
-            previousBlanket = null;
-            return false;
+        public void Tilbage() {
         }
 
         private void InitializeComboBox()

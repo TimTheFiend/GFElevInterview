@@ -24,11 +24,9 @@ namespace GFElevInterview.Views
         public VisitationsView()
         {
             InitializeComponent();
-            
-
         }
 
-        public bool Frem(out IBlanket nextBlanket) {
+        public void Frem() {
 
             IEnumerable<RadioButton> spsRadioButton = spsSupportGroup.Children.OfType<RadioButton>();
             IEnumerable<RadioButton> eudRadioButton = eudSupportGroup.Children.OfType<RadioButton>();
@@ -68,18 +66,10 @@ namespace GFElevInterview.Views
             if(educationComboBox.SelectedIndex >= 0 && educationAdresseComboBox.SelectedIndex >= 0 )
             {
 
-
-                nextBlanket = new VisitationsView(); // skal skiftes til RkvView()
-                return true;
             }
-            nextBlanket = this;
-            return false;
-
-
-
         }
 
-        public bool Tilbage(out IBlanket previousBlanket) {
+        public void Tilbage() {
             throw new NotImplementedException();
         }
     }

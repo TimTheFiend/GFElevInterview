@@ -36,8 +36,7 @@ namespace GFElevInterview.Views
 
             MeritContent.Content = currentView;
 
-            IBlanket _;
-            btnTilbage.IsEnabled = currentView.Tilbage(out _);
+            //btnTilbage.IsEnabled = currentView.Tilbage();
 
             db.Database.EnsureCreated();
             //btnWordView.IsEnabled = false;
@@ -62,11 +61,11 @@ namespace GFElevInterview.Views
 
 
         private void Frem_Click(object sender, RoutedEventArgs e) {
-            IBlanket _blanket;
-            if (currentView.Frem(out _blanket)) {
-                currentView = _blanket;
-                MeritContent.Content = currentView;
-            }
+            //IBlanket _blanket;
+            //if (currentView.Frem(out _blanket)) {
+            //    currentView = _blanket;
+            //    MeritContent.Content = currentView;
+            //}
         }
 
         private void Tilbage_Click(object sender, RoutedEventArgs e) {
