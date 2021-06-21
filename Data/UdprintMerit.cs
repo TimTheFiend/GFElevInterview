@@ -8,8 +8,10 @@ namespace GFElevInterview.Data
     public class UdprintMerit
     {
         /*                                  SUMMARY:
-         * I denne klasse udprintes informationer fra skabelonerne til pdf´erne.
-         * Alt information vil blive hentet fra en template dokument og overført til et nyt dokument.
+         * 
+         * I denne klasse udprintes informationer fra skabelonerne til pdf filer.
+         * Udvalgte ord fra skabelonerne vil blive udskiftet med brugerens input og gemt i en pdf fil.
+         * Ting som Word delen af interviewet vil blive gemt i databasen.
          * TO DO:
          * Der skal findes en måde at køre replace bedre på.
          * Tilføj Merit og RKV til udprintning.
@@ -22,11 +24,12 @@ namespace GFElevInterview.Data
         Document doc = new Document();
         public void udprintTilMerit()
         {           
-            //Henter "Template" fil fra given string sti.
+            //Loads a template file from the selected path.
             doc.LoadFromFile(meritFileSti);
-            //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
-            doc.Replace("#navn#", "Mark Thomsen", true, true);
-            doc.Replace("#cpr#", "12345", true, true);
+            //Udkskifter de valgte ord fra word dokumentet med et nyt ord (Fra CurrentElev).
+            //Replace skal bruge et navn fra dokumentet og en værdi som skal erstatte det navn(Note: #navne findes allerede i dokumentet)
+            doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true, true);
+            doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
             //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
             //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
             doc.Replace("#DE#", CurrentElev.meritBlanket.Dansk.udprintEksammen, true, true);
@@ -40,20 +43,20 @@ namespace GFElevInterview.Data
             doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
             doc.SaveToFile(nyMeritFile, Spire.Doc.FileFormat.PDF);
         }
-        public void indPrintTilDataBase()
-        {
-            //Henter "Template" fil fra given string sti.
-            doc.LoadFromFile(wordFileSti);
-            //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
-            doc.Replace("#navn#", "Mark Thomsen", true, true);
-            doc.Replace("#cpr#", "12345", true, true);
-            //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
-            //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
-            doc.Replace("#Uddannelse#", CurrentElev.visitationsBlanket.Uddannelse, true, true);
-            doc.Replace("#UddannelseAddresse#", CurrentElev.visitationsBlanket.UdannelseAdresse, true, true);
-            doc.Replace("#Sps#", CurrentElev.visitationsBlanket.SPSVisitations, true, true);
-            doc.Replace("#Eud#", CurrentElev.visitationsBlanket.EUDVisitations, true, true);
-            doc.SaveToFile(nyWordFile, Spire.Doc.FileFormat.PDF);
-        }
+        //public void indPrintTilDataBase()
+        //{
+        //    //Henter "Template" fil fra given string sti.
+        //    doc.LoadFromFile(wordFileSti);
+        //    //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
+        //    doc.Replace("#navn#", "Mark Thomsen", true, true);
+        //    doc.Replace("#cpr#", "12345", true, true);
+        //    //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
+        //    //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
+        //    doc.Replace("#Uddannelse#", CurrentElev.visitationsBlanket.Uddannelse, true, true);
+        //    doc.Replace("#UddannelseAddresse#", CurrentElev.visitationsBlanket.UdannelseAdresse, true, true);
+        //    doc.Replace("#Sps#", CurrentElev.visitationsBlanket.SPSVisitations, true, true);
+        //    doc.Replace("#Eud#", CurrentElev.visitationsBlanket.EUDVisitations, true, true);
+        //    doc.SaveToFile(nyWordFile, Spire.Doc.FileFormat.PDF);
+        //}
     }
 }

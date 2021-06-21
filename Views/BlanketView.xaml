@@ -22,7 +22,7 @@
                                 <Label FontSize="20"  >Søge elev :</Label>
                                 <TextBox x:Name="SearchStudentTxt"  Margin="10" Width="300" Height="30"  Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged"  />
                             </WrapPanel>
-                            <ListBox x:Name="SearchStudentBox" Background="WhiteSmoke" Margin="20"  SelectionChanged="SearchStudentBox_SelectionChanged" >
+                            <ListBox x:Name="SearchStudentBox" Background="WhiteSmoke" Margin="20"  SelectionChanged="SearchStudentBox_SelectionChanged" Height="100" >
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding FullInfo}"/>

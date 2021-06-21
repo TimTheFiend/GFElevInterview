@@ -71,9 +71,6 @@ namespace GFElevInterview.Views
         {
             //TODO: Få info fra søgefeldt
             //NOTE: Hardcoded
-            CurrentElev.elev.Fornavn = "Fornavn";
-            CurrentElev.elev.Efternavn = "Efternavn";
-            //CurrentElev.elev.CprNr = 1111931111;
             //ENDTODO
             CurrentElev.elev.UdannelseAdresse = educationAdresseComboBox.Text;
             CurrentElev.elev.Uddannelse = educationComboBox.Text;
@@ -96,14 +93,15 @@ namespace GFElevInterview.Views
         private bool IsValidated() {
             SolidColorBrush gray = Brushes.Gray;
             SolidColorBrush red = Brushes.Red;
+
             IEnumerable<RadioButton> spsRadioButton = spsSupportGroup.Children.OfType<RadioButton>();
             IEnumerable<RadioButton> eudRadioButton = eudSupportGroup.Children.OfType<RadioButton>();
-
+            //
             bool _educationArea = educationComboBox.SelectedIndex >= 0;
             bool _educationAdresse = educationAdresseComboBox.SelectedIndex >= 0;
             bool _spsSupport = (bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked;
             bool _eudSupport = (bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked;
-
+            //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
             educationArea.BorderBrush = _educationArea ? gray : red;
             educationAdresse.BorderBrush = _educationAdresse ? gray : red;
             spsSupport.BorderBrush = _spsSupport ? gray : red;
@@ -111,7 +109,6 @@ namespace GFElevInterview.Views
 
             if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
             {
-
                 return true;
             }
             return false;

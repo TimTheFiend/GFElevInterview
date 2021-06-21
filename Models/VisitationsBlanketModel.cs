@@ -9,10 +9,9 @@ namespace GFElevInterview.Models
         public string Uddannelse { get; set; }
         public string UdannelseAdresse { get; set; }
 
-
         public bool SPS { get; set; }
         public bool EUD { get; set; }
-        public string SPSVisitations { get { return SPS ? "Ja" : "Nej"; } set { } }
-        public string EUDVisitations { get { return EUD ? "Ja" : "Nej"; } set { } }
+        //public string SPSVisitations { get { return SPS ? "Ja" : "Nej"; } set { } }
+        //public string EUDVisitations { get { return EUD ? "Ja" : "Nej"; } set { } }
     }
 }
