@@ -51,7 +51,7 @@ namespace GFElevInterview.Views
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
             string text = SearchStudentTxt.Text;
             SearchStudentBox.ItemsSource = null;
-            List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.Fornavn.ToLower().StartsWith(text.ToLower())).ToList();
+            List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.CprNr.StartsWith(text)).ToList();
             SearchStudentBox.ItemsSource = elevModels;
         }
 
