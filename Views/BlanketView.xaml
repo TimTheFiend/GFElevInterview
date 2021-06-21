@@ -10,7 +10,7 @@
         <Border Background="WhiteSmoke" x:Name="blanketView" BorderBrush="Gray" BorderThickness="2" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="200"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
@@ -21,7 +21,6 @@
                                 <Label FontSize="20" FontWeight="Bold" FontStyle="Italic" >Søge elev :</Label>
                                 <TextBox x:Name="SearchStudentTxt"  Margin="10" Width="650"  Height="30"  Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged"  />
                             </WrapPanel>
-
                         <ListBox x:Name="SearchStudentBox" MaxHeight="50" Background="WhiteSmoke"  SelectionChanged="SearchStudentBox_SelectionChanged" Panel.ZIndex="1" Grid.RowSpan="2" >
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
