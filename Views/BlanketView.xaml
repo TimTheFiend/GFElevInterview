@@ -43,7 +43,7 @@
                 </Border>
 
                 <Border  BorderBrush="Gray" BorderThickness="1"  Grid.Row="1" Panel.ZIndex="0">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="scrollview">
                         <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ContentControl x:Name="MeritContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <ContentControl x:Name="WordContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

@@ -21,6 +21,11 @@ namespace GFElevInterview.Views
             InitializeComponent();
             this.parent = parent;
             InitializeBlanket();
+
+            //Combobox gets it dropdownclosed from the method called "Combobox_DropDownClosed".
+            ComboboxMatematik.DropDownClosed += Combobox_DropDownClosed;
+            ComboboxDansk.DropDownClosed += Combobox_DropDownClosed;
+            ComboboxEngelsk.DropDownClosed += Combobox_DropDownClosed;
         }
 
         #region Klargøring
@@ -127,6 +132,13 @@ namespace GFElevInterview.Views
                 return true;
             }
             return false;
+        }
+
+
+        private void Combobox_DropDownClosed(object sender, EventArgs e)
+        {
+            //Change the focus to scrollview in BlanketView.
+            parent.scrollview.Focus();
         }
     }
 }
