@@ -9,7 +9,7 @@ namespace GFElevInterview.Models
     public class ElevModel
     {
         [Key]
-        public int CprNr { get; set; }
+        public string CprNr { get; set; }
         public string Fornavn { get; set; }
         public string Efternavn { get; set; }
         public string Uddannelse { get; set; }
