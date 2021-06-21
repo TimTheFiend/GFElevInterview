@@ -17,8 +17,8 @@ namespace GFElevInterview.Views
     {
         public BlanketView parent;
 
-        public MeritBlanketView(BlanketView parent)
-        {
+
+        public MeritBlanketView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
             InitializeBlanket();
@@ -84,8 +84,8 @@ namespace GFElevInterview.Views
 
         //TODO: Overfør info fra checkbox
         //NOTE: Kluntet
-        private bool IsValidated()
-        {
+
+        private bool IsValidated() {
             // NYT
             if (ComboboxDansk.SelectedIndex >= 0) {
                 CurrentElev.meritBlanket.Dansk = new Fag((bool)DanskEksamenChecked.IsChecked, (bool)DanskUndervisChecked.IsChecked, (FagNiveau)ComboboxDansk.SelectedIndex);

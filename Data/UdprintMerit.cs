@@ -1,31 +1,33 @@
 ﻿using Spire.Doc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GFElevInterview.Data
 {
     public class UdprintMerit
     {
         /*                                  SUMMARY:
-         * I denne klasse udprintes informationer fra skabelonerne til pdf´erne.
-         * Alt information vil blive hentet fra en template dokument og overført til et nyt dokument.
+         * 
+         * I denne klasse udprintes informationer fra skabelonerne til pdf filer.
+         * Udvalgte ord fra skabelonerne vil blive udskiftet med brugerens input og gemt i en pdf fil.
+         * Ting som Word delen af interviewet vil blive gemt i databasen.
          * TO DO:
          * Der skal findes en måde at køre replace bedre på.
          * Tilføj Merit og RKV til udprintning.
          */
-        private string fileSti = @"C:\Users\joak\Desktop\Meritblanketter VISI blank.docx";
-        private string nyFile = @"C:\Users\joak\Desktop\TEST.pdf";
 
-        public void udprintFraWord()
-        {
-            //FreeSpire.Doc Version//
-            Document doc = new Document();
+        private string meritFileSti = "Blanketter\\Templates\\Meritblanketter VISI blank.docx";
+        
+        private string _nyMeritFile = $"{CurrentElev.elev.Fornavn}.pdf";
+
+        private string nyMeritFile = @"C:\Users\joak\Downloads\[TEST]\";
+
+        //FreeSpire.Doc Version//
+        Document doc = new Document();
+        public void udprintTilMerit() {
             //Henter "Template" fil fra given string sti.
-            doc.LoadFromFile(fileSti);
+            doc.LoadFromFile(meritFileSti);
             //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
-            doc.Replace("#navn#", "Mark Thomsen", true, true);
-            doc.Replace("#cpr#", "12345", true, true);
+            doc.Replace("#navn#", CurrentElev.elev.EfternavnFornavn, true, true);
+            doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
             //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
             //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
             doc.Replace("#DE#", CurrentElev.meritBlanket.Dansk.udprintEksammen, true, true);
@@ -37,7 +39,8 @@ namespace GFElevInterview.Data
             doc.Replace("#ME#", CurrentElev.meritBlanket.Matematik.udprintEksammen, true, true);
             doc.Replace("#MU#", CurrentElev.meritBlanket.Matematik.udprintUndervisning, true, true);
             doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
-            doc.SaveToFile(nyFile, Spire.Doc.FileFormat.PDF);
+
+            doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
         }
     }
 }

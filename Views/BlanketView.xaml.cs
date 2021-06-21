@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GFElevInterview.Models;
+using System.Linq;
 
 namespace GFElevInterview.Views
 {
@@ -21,10 +23,15 @@ namespace GFElevInterview.Views
     public partial class BlanketView : UserControl
     {
         IBlanket currentView;
-        public BlanketView()
-        {
+        DbTools db = new DbTools();
+
+        public BlanketView() {
             InitializeComponent();
             InitializeBlanket();
+            db.Database.EnsureCreated();
+
+            //TODO: Debug
+            //CurrentElev.elev = db.Elever.FirstOrDefault(x => x.Fornavn.ToLower() == "joakim");
         }
 
         private void InitializeBlanket() {
@@ -35,14 +42,24 @@ namespace GFElevInterview.Views
             mainContent.Content = currentView;
         }
 
-        private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
+        private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (SearchStudentBox.SelectedIndex >= 0) {
+                CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
+                StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
+            }
         }
 
-        private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
+            string text = SearchStudentTxt.Text;
+            SearchStudentBox.ItemsSource = null;
+            if(String.IsNullOrEmpty(text))
+            {
+                return;
+            }
 
+            List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.CprNr.StartsWith(text)).ToList();
+            SearchStudentBox.ItemsSource = elevModels;
         }
 
 
@@ -59,24 +76,9 @@ namespace GFElevInterview.Views
             mainContent.Content = currentView;
         }
 
-        //TODO: implementer ind i Frem_Click
-        //private void btnMeritView_Click(object sender, RoutedEventArgs e) {
-        //    if (MeritContent.IsEnabled) {
-        //        MeritContent.Content = new GFElevInterview.Views.WordView();
-        //        btnWordView.IsEnabled = true;
-
-        //        if (WordContent.IsEnabled) {
-        //            int age = 30;
-        //            if (age < 25) {
-        //                //gem pdf file
-        //            }
-        //            else //åben RKV
-        //            {
-        //                WordContent.Content = new GFElevInterview.Views.RkvView();
-        //                btnWordView.IsEnabled = true;
-        //            }
-        //        }
-        //    }
-        //}
+        public void UpdateDatabase() {
+            db.Elever.Update(CurrentElev.elev);
+            db.SaveChanges();
+        }
     }
 }

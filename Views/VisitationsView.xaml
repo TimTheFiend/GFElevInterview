@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d" 
-             Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
@@ -28,7 +27,7 @@
                 <StackPanel Margin="10">
                     <Label  Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="20" />
 
-                    <DockPanel>
+                    <DockPanel x:Name="spsSupportGroup">
                         <RadioButton GroupName="spsSupport" ClickMode="Press"  Margin="20" x:Name="spsSupportJa" Content="Ja" >
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
@@ -50,7 +49,7 @@
                 <StackPanel Margin="10">
                     <Label  Content="Ønsker du en samtale med eud vejleder?" FontSize="20" />
 
-                    <DockPanel>
+                    <DockPanel x:Name="eudSupportGroup">
                         <RadioButton GroupName="eudSupport" ClickMode="Press"  Margin="20" x:Name="eudSupportJa" Content="Ja" >
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
