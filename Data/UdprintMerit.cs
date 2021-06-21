@@ -1,5 +1,4 @@
 ﻿using Spire.Doc;
-using System.IO;
 
 namespace GFElevInterview.Data
 {
@@ -15,7 +14,7 @@ namespace GFElevInterview.Data
          */
 
         private string meritSkabelon = "Blanketter\\Templates\\Meritblanket.docx";
-        private string saveFolder = "Blanketter\\Udfyldte blanketter";
+        private string saveFolder = "..\\Blanketter\\Udfyldte blanketter";
         private string nyMeritFile = @"C:\Users\joak\Downloads\[TEST]\";
 
 
@@ -49,9 +48,8 @@ namespace GFElevInterview.Data
         }
 
         private string GetSavePath() {
-            //string currentDir = Directory.GetCurrentDirectory();
-            if (!Directory.Exists(saveFolder)) {
-                Directory.CreateDirectory(saveFolder);
+            if (!System.IO.Directory.Exists(saveFolder)) {
+                System.IO.Directory.CreateDirectory(saveFolder);
             }
 
             return System.IO.Path.Combine(saveFolder, CurrentElev.elev.EfternavnFornavn + ".pdf");

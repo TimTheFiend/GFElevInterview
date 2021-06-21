@@ -43,6 +43,14 @@ namespace GFElevInterview.Views
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
+                //TODO Tjek hvis ændring af elev undervejs, dette funker ikke.
+                if (CurrentElev.ValgtElev && CurrentElev.HasSetValues) {
+                    if (Services.AlertsBoxes.SelectingNewElevAlert()) {
+                        //TODO: Kald metode som nulstiller `CurrentElev`
+                        Console.WriteLine();
+                    }
+
+                }
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
             }
@@ -55,7 +63,7 @@ namespace GFElevInterview.Views
             SearchStudentBox.ItemsSource = elevModels;
         }
 
-
+        #region Knapper
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
         }
@@ -63,6 +71,7 @@ namespace GFElevInterview.Views
         private void Tilbage_Click(object sender, RoutedEventArgs e) {
             currentView.Tilbage();
         }
+        #endregion
 
         public void ChangeView(IBlanket newView) {
             currentView = newView;

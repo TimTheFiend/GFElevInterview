@@ -26,6 +26,15 @@ namespace GFElevInterview.Models
             }
         }
 
+        public bool HasSetValue {
+            get {
+                if (Dansk.HasSetValues || Matematik.HasSetValues || Engelsk.HasSetValues) {
+                    return true;
+                }
+                return false;
+            }
+        }
+
         public List<string> AvailableSchools() {
             if (Dansk.Niveau <= FagNiveau.F) {
                 return new List<string>() {
