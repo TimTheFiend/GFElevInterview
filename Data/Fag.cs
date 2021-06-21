@@ -11,9 +11,8 @@
 
         public string udprintNiveau { get { return Niveau.ToString(); } }
 
-        public Fag()
-        {
-
+        public Fag() {
+        }
 
         public Fag(bool eksamen, bool undervisning, FagNiveau niveau) {
             Eksamen = eksamen;
