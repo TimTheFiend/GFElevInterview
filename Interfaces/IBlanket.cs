@@ -8,6 +8,5 @@ namespace GFElevInterview.Interfaces
     {
         public void Frem();
         public void Tilbage();
-        
     }
 }

@@ -24,63 +24,42 @@ namespace GFElevInterview.Views
     {
         IBlanket currentView;
         DbTools db = new DbTools();
-        public BlanketView()
-        {
+
+        public BlanketView() {
             InitializeComponent();
             InitializeBlanket();
             db.Database.EnsureCreated();
-            SearchStudentBox.ItemsSource = db.Elever;
-            SearchStudentBox.Visibility = Visibility.Collapsed;
+
             //TODO: Debug
-            CurrentElev.elev = db.Elever.SingleOrDefault(x => x.Fornavn.ToLower() == "joakim");
+            //CurrentElev.elev = db.Elever.FirstOrDefault(x => x.Fornavn.ToLower() == "joakim");
         }
 
         private void InitializeBlanket() {
-            //if (currentView == null) {
-            //    currentView = new MeritBlanketView(this);
-            //}
+            if (currentView == null) {
+                currentView = new MeritBlanketView(this);
+            }
 
             mainContent.Content = currentView;
         }
 
-        private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(SearchStudentBox.SelectedIndex >= 0)
-            {
-                if (currentView == null)
-                {
-                    currentView = new MeritBlanketView(this);
-                }
+
+        private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (SearchStudentBox.SelectedIndex >= 0) {
+                CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
+                StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
             }
         }
 
-        private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (SearchStudentTxt.Text.Trim() != "")
+        private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
+            string text = SearchStudentTxt.Text;
+            SearchStudentBox.ItemsSource = null;
+            if(String.IsNullOrEmpty(text))
             {
-                SearchStudentBox.Visibility = Visibility.Visible;
-                string txtOrig = SearchStudentTxt.Text;
-                string upper = txtOrig.ToUpper();
-                string lower = txtOrig.ToLower();
-
-                var elevFiltered = from elev in db.Elever
-                                   let eFornavn = elev.Fornavn
-                                   let eEfternavn = elev.Efternavn
-                                   where
-                eFornavn.StartsWith(lower)
-                || eFornavn.StartsWith(upper)
-                || eFornavn.Contains(txtOrig)
-                || eEfternavn.StartsWith(lower)
-                || eEfternavn.StartsWith(upper)
-                || eEfternavn.ToString().Contains(txtOrig)
-                                   select elev;
-
-                SearchStudentBox.ItemsSource = elevFiltered;
+                return;
             }
-            else
-            {
-                SearchStudentBox.Visibility = Visibility.Collapsed;
-            }
+
+            List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.CprNr.StartsWith(text)).ToList();
+            SearchStudentBox.ItemsSource = elevModels;
         }
 
 
@@ -96,29 +75,10 @@ namespace GFElevInterview.Views
             currentView = newView;
             mainContent.Content = currentView;
         }
-        public void UpdateDatabase()
-        {
+
+        public void UpdateDatabase() {
             db.Elever.Update(CurrentElev.elev);
             db.SaveChanges();
         }
-        //TODO: implementer ind i Frem_Click
-        //private void btnMeritView_Click(object sender, RoutedEventArgs e) {
-        //    if (MeritContent.IsEnabled) {
-        //        MeritContent.Content = new GFElevInterview.Views.WordView();
-        //        btnWordView.IsEnabled = true;
-
-        //        if (WordContent.IsEnabled) {
-        //            int age = 30;
-        //            if (age < 25) {
-        //                //gem pdf file
-        //            }
-        //            else //åben RKV
-        //            {
-        //                WordContent.Content = new GFElevInterview.Views.RkvView();
-        //                btnWordView.IsEnabled = true;
-        //            }
-        //        }
-        //    }
-        //}
     }
 }

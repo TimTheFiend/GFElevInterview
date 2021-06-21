@@ -13,10 +13,9 @@
 
         public Fag()
         {
-        }
 
-        public Fag(bool eksamen, bool undervisning, FagNiveau niveau)
-        {
+
+        public Fag(bool eksamen, bool undervisning, FagNiveau niveau) {
             Eksamen = eksamen;
             Undervisning = undervisning;
             Niveau = niveau;

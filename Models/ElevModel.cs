@@ -9,7 +9,7 @@ namespace GFElevInterview.Models
     public class ElevModel
     {
         [Key]
-        public int CprNr { get; set; }
+        public string CprNr { get; set; }
         public string Fornavn { get; set; }
         public string Efternavn { get; set; }
         public string Uddannelse { get; set; }
@@ -24,12 +24,16 @@ namespace GFElevInterview.Models
         }
 
         [NotMapped]
-        public string EfternavnFornavn { 
+        public string EfternavnFornavn {
             get { return $"{Efternavn}, {Fornavn}"; }
         }
 
         public override string ToString() {
-            return $"({CprNr} - {EfternavnFornavn}";
+            return $"({CprNr}) - {EfternavnFornavn}";
+        }
+
+        public string FullInfo {
+            get { return this.ToString(); }
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Spire.Doc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GFElevInterview.Data
 {
@@ -16,19 +13,20 @@ namespace GFElevInterview.Data
          * Der skal findes en måde at køre replace bedre på.
          * Tilføj Merit og RKV til udprintning.
          */
-        private string meritFileSti = "C:\\Users\\viga\\Desktop\\Meritblanketter VISI blank.docx";
-        private string nyMeritFile = "C:\\Users\\viga\\Desktop\\Test Merit.pdf";
-        private string wordFileSti = "C:\\Users\\viga\\Desktop\\Wordblanketter.docx";
-        private string nyWordFile = "C:\\Users\\viga\\Desktop\\Test Word Interview.pdf";
+
+        private string meritFileSti = "Blanketter\\Templates\\Meritblanketter VISI blank.docx";
+        
+        private string _nyMeritFile = $"{CurrentElev.elev.Fornavn}.pdf";
+
+        private string nyMeritFile = @"C:\Users\joak\Downloads\[TEST]\";
+
         //FreeSpire.Doc Version//
         Document doc = new Document();
-        public void udprintTilMerit()
-        {           
-            //Loads a template file from the selected path.
+        public void udprintTilMerit() {
+            //Henter "Template" fil fra given string sti.
             doc.LoadFromFile(meritFileSti);
-            //Udkskifter de valgte ord fra word dokumentet med et nyt ord (Fra CurrentElev).
-            //Replace skal bruge et navn fra dokumentet og en værdi som skal erstatte det navn(Note: #navne findes allerede i dokumentet)
-            doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true, true);
+            //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
+            doc.Replace("#navn#", CurrentElev.elev.EfternavnFornavn, true, true);
             doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
             //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
             //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
@@ -41,22 +39,8 @@ namespace GFElevInterview.Data
             doc.Replace("#ME#", CurrentElev.meritBlanket.Matematik.udprintEksammen, true, true);
             doc.Replace("#MU#", CurrentElev.meritBlanket.Matematik.udprintUndervisning, true, true);
             doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
-            doc.SaveToFile(nyMeritFile, Spire.Doc.FileFormat.PDF);
+
+            doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
         }
-        //public void indPrintTilDataBase()
-        //{
-        //    //Henter "Template" fil fra given string sti.
-        //    doc.LoadFromFile(wordFileSti);
-        //    //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
-        //    doc.Replace("#navn#", "Mark Thomsen", true, true);
-        //    doc.Replace("#cpr#", "12345", true, true);
-        //    //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
-        //    //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
-        //    doc.Replace("#Uddannelse#", CurrentElev.visitationsBlanket.Uddannelse, true, true);
-        //    doc.Replace("#UddannelseAddresse#", CurrentElev.visitationsBlanket.UdannelseAdresse, true, true);
-        //    doc.Replace("#Sps#", CurrentElev.visitationsBlanket.SPSVisitations, true, true);
-        //    doc.Replace("#Eud#", CurrentElev.visitationsBlanket.EUDVisitations, true, true);
-        //    doc.SaveToFile(nyWordFile, Spire.Doc.FileFormat.PDF);
-        //}
     }
 }

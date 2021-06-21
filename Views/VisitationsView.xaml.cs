@@ -22,11 +22,9 @@ namespace GFElevInterview.Views
     public partial class VisitationsView : UserControl, IBlanket
     {
         BlanketView parent;
-
-        public VisitationsView(BlanketView parent)
-        {
+        
+        public VisitationsView(BlanketView parent) {
             InitializeComponent();
-
             this.parent = parent;
             InitializeBlanket();
         }
@@ -60,6 +58,7 @@ namespace GFElevInterview.Views
         public void Frem() {
             if (IsValidated())
             {
+
                 //TODO Hvis ikke RKV
                 //TODO Udprint
                 //TODO Få fra Søgning
@@ -71,6 +70,7 @@ namespace GFElevInterview.Views
         {
             //TODO: Få info fra søgefeldt
             //NOTE: Hardcoded
+
             //ENDTODO
             CurrentElev.elev.UdannelseAdresse = educationAdresseComboBox.Text;
             CurrentElev.elev.Uddannelse = educationComboBox.Text;
@@ -96,19 +96,22 @@ namespace GFElevInterview.Views
 
             IEnumerable<RadioButton> spsRadioButton = spsSupportGroup.Children.OfType<RadioButton>();
             IEnumerable<RadioButton> eudRadioButton = eudSupportGroup.Children.OfType<RadioButton>();
-            //
+
             bool _educationArea = educationComboBox.SelectedIndex >= 0;
             bool _educationAdresse = educationAdresseComboBox.SelectedIndex >= 0;
             bool _spsSupport = (bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked;
             bool _eudSupport = (bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked;
+
             //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
             educationArea.BorderBrush = _educationArea ? gray : red;
             educationAdresse.BorderBrush = _educationAdresse ? gray : red;
             spsSupport.BorderBrush = _spsSupport ? gray : red;
             eudSupport.BorderBrush = _eudSupport ? gray : red;
 
+
             if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
             {
+
                 return true;
             }
             return false;
