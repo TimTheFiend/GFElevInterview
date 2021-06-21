@@ -24,6 +24,7 @@ namespace GFElevInterview.Views
     {
         IBlanket currentView;
         DbTools db = new DbTools();
+
         public BlanketView() {
             InitializeComponent();
             InitializeBlanket();
@@ -40,6 +41,7 @@ namespace GFElevInterview.Views
 
             mainContent.Content = currentView;
         }
+
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
