@@ -45,6 +45,7 @@ namespace GFElevInterview.Views
             if (SearchStudentBox.SelectedIndex >= 0) {
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
+                Console.WriteLine(CurrentElev.elev.IsRKV);
             }
         }
 
