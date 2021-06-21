@@ -6,7 +6,7 @@
         public bool Undervisning { get; set; }
         public FagNiveau Niveau { get; set; }
 
-        public string udprintEksammen { get { return Eksamen ? "Ja" : "Nej"; } }
+        public string udprintEksamen { get { return Eksamen ? "Ja" : "Nej"; } }
         public string udprintUndervisning { get { return Undervisning ? "Ja" : "Nej"; } }
 
         public string udprintNiveau { get { return Niveau.ToString(); } }

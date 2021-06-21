@@ -23,15 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Blanketter\Templates\Meritblanketter VISI blank.docx">
+    <None Update="Blanketter\Templates\Meritblanket.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Blanketter\Lyngby\" />
-    <Folder Include="Blanketter\Ballerup\" />
-    <Folder Include="Blanketter\Frederiksberg\" />
   </ItemGroup>
 
 </Project>

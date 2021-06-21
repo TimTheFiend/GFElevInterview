@@ -4,6 +4,7 @@ using System.Text;
 
 namespace GFElevInterview.Data
 {
+    //Enum for grades
     public enum FagNiveau
     {
         Null,

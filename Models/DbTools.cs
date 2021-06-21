@@ -1,25 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Threading;
+
 
 namespace GFElevInterview.Models
 {
     public class DbTools : DbContext
     {
+        // For easier editing later.
+        private const string dbName = "elevDB";
+
         public DbTools() {
-            // If database already exists, load Elever tabel
+            //EnsureDeleted er for udvikling kun, og skal fjernes senere
             this.Database.EnsureDeleted();
             this.Database.EnsureCreated();
-            
         }
 
+        #region Database tables
         public DbSet<ElevModel> Elever { get; set; }
+        #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseSqlite("Data Source=elevDB.db");
+            optionsBuilder.UseSqlite($"Data Source={dbName}.db");
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
 
-        // Creates Dummy Data on creation
+        //NOTE: Creates Dummy Data on creation
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<ElevModel>().HasData(
                 new ElevModel { CprNr = 1111931234, Fornavn = "Joakim0", Efternavn = "Krugstrup" }, 
