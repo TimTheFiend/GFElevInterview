@@ -27,7 +27,7 @@ namespace GFElevInterview.Views
 
         public BlanketView() {
             InitializeComponent();
-            InitializeBlanket();
+            //InitializeBlanket();
             db.Database.EnsureCreated();
 
             //TODO: Debug
@@ -45,6 +45,7 @@ namespace GFElevInterview.Views
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
+                InitializeBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
             }
@@ -62,13 +63,18 @@ namespace GFElevInterview.Views
             SearchStudentBox.ItemsSource = elevModels;
         }
 
-
+        private void OnButtonClick()
+        {
+            scrollview.ScrollToTop();
+        }
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
+            OnButtonClick();
         }
 
         private void Tilbage_Click(object sender, RoutedEventArgs e) {
             currentView.Tilbage();
+            OnButtonClick();
         }
 
         public void ChangeView(IBlanket newView) {

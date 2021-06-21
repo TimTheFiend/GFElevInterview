@@ -27,6 +27,8 @@ namespace GFElevInterview.Views
             InitializeComponent();
             this.parent = parent;
             InitializeBlanket();
+            educationComboBox.DropDownClosed += Combobox_DropDownClosed;
+            educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
         private void InitializeBlanket() {
@@ -115,6 +117,10 @@ namespace GFElevInterview.Views
                 return true;
             }
             return false;
+        }
+        private void Combobox_DropDownClosed(object sender, EventArgs e)
+        {
+            parent.scrollview.Focus();
         }
 
     }
