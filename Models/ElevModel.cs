@@ -77,5 +77,15 @@ namespace GFElevInterview.Models
                 return false;
             }
         }
+
+        public string FilNavn {
+            get {
+                string fileName = $"{CprNr} - {EfternavnFornavn}";
+                foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
+                    fileName = fileName.Replace(invalidLetter, '_');
+                }
+                return fileName + ".pdf";
+            }
+        }
     }
 }

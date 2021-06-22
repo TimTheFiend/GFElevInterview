@@ -15,7 +15,8 @@ namespace GFElevInterview.Data
          */
 
         private string meritFileSti = "Blanketter\\Templates\\Meritblanketter VISI blank.docx";
-        
+        private string udprintSti = "..\\Blanketter";
+
         private string _nyMeritFile = $"{CurrentElev.elev.Fornavn}.pdf";
 
         private string nyMeritFile = @"C:\Users\joak\Downloads\[TEST]\";
@@ -27,7 +28,7 @@ namespace GFElevInterview.Data
             doc.LoadFromFile(meritFileSti);
             //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
             doc.Replace("#navn#", CurrentElev.elev.EfternavnFornavn, true, true);
-            doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
+            doc.Replace("#cpr#", CurrentElev.elev.CprNr, true, true);
             //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
             //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
             doc.Replace("#DE#", CurrentElev.meritBlanket.Dansk.udprintEksammen, true, true);
@@ -40,7 +41,8 @@ namespace GFElevInterview.Data
             doc.Replace("#MU#", CurrentElev.meritBlanket.Matematik.udprintUndervisning, true, true);
             doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
 
-            doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
+            doc.SaveToFile(System.IO.Path.Combine(udprintSti, CurrentElev.elev.FilNavn), FileFormat.PDF);
+            //doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
         }
     }
 }
