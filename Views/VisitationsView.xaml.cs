@@ -36,17 +36,14 @@ namespace GFElevInterview.Views
 
             educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
             if (educationAdresseComboBox.Items.Count == 1) {
-
+                educationAdresseComboBox.SelectedIndex = 0;
             }
 
             //TODO RKV
-            educationComboBox.ItemsSource = new List<string>() {
-                "IT-supporter",
-                "Programmør",
-                "Infrastruktur",
-                "Ved ikke"
-            };
+            educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
         }
+
+        
 
         private void SetButtons() {
             if (true) {

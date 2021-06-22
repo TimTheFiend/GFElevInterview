@@ -4,6 +4,7 @@ using System.Text;
 
 namespace GFElevInterview.Models
 {
+    //DEPRECATED
     //NOTE: Skal ikke bruges
     public class VisitationsBlanketModel
     {
