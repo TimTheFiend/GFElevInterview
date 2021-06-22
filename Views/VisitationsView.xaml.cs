@@ -23,11 +23,47 @@ namespace GFElevInterview.Views
     {
         BlanketView parent;
 
+
+
         public VisitationsView(BlanketView parent) {
             InitializeComponent();
 
             this.parent = parent;
             InitializeBlanket();
+        }
+
+        private void UdfyldBlanket()
+        {
+            if(!String.IsNullOrEmpty (CurrentElev.elev.Uddannelse))
+            {
+                educationComboBox.SelectedItem = CurrentElev.elev.Uddannelse;
+            }
+            if(!String.IsNullOrEmpty(CurrentElev.elev.UdannelseAdresse))
+            {
+                if(educationAdresseComboBox.Items.Contains(CurrentElev.elev.UdannelseAdresse))
+                {
+                    educationAdresseComboBox.SelectedItem = CurrentElev.elev.UdannelseAdresse;
+                }
+            }
+            if (CurrentElev.elev.SPS)
+            {
+                spsSupportJa.IsChecked = true;
+            }
+            else
+            {
+                spsSupportNej.IsChecked = true;
+            }
+            if (CurrentElev.elev.EUD)
+            {
+                eudSupportJa.IsChecked = true;
+            }
+            else
+            {
+                eudSupportNej.IsChecked = true;
+            }
+
+
+
         }
 
         private void InitializeBlanket() {
@@ -45,6 +81,8 @@ namespace GFElevInterview.Views
                 "Infrastruktur",
                 "Ved ikke"
             };
+
+            UdfyldBlanket();
         }
 
         private void SetButtons() {
@@ -111,5 +149,26 @@ namespace GFElevInterview.Views
             return false;
         }
 
-    }
+        private void educationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentElev.elev.Uddannelse = (sender as ComboBox).SelectedItem.ToString();
+        }
+
+        private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentElev.elev.UdannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
+        }
+
+        
+        private void SPSSupport_Checked(object sender, RoutedEventArgs e)
+        {
+            CurrentElev.elev.SPS = (sender as RadioButton) == spsSupportJa ? true : false;
+        }
+
+        private void EUDSupport_Checked(object sender, RoutedEventArgs e)
+        {
+            CurrentElev.elev.EUD = (sender as RadioButton) == eudSupportJa ? true : false;
+            Console.WriteLine();
+        }
+    }  
 }
