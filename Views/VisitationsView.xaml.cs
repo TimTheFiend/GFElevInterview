@@ -22,12 +22,13 @@ namespace GFElevInterview.Views
     public partial class VisitationsView : UserControl, IBlanket
     {
         BlanketView parent;
-
+        
         public VisitationsView(BlanketView parent) {
             InitializeComponent();
-
             this.parent = parent;
             InitializeBlanket();
+            educationComboBox.DropDownClosed += Combobox_DropDownClosed;
+            educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
         private void InitializeBlanket() {
@@ -57,7 +58,9 @@ namespace GFElevInterview.Views
         }
 
         public void Frem() {
-            if (IsValidated()) {
+            if (IsValidated())
+            {
+
                 //TODO Hvis ikke RKV
                 //TODO Udprint
                 //TODO Få fra Søgning
@@ -65,7 +68,8 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void UpdateElevAndSave() {
+        private void UpdateElevAndSave()
+        {
             //TODO: Få info fra søgefeldt
             //NOTE: Hardcoded
 
@@ -91,6 +95,7 @@ namespace GFElevInterview.Views
         private bool IsValidated() {
             SolidColorBrush gray = Brushes.Gray;
             SolidColorBrush red = Brushes.Red;
+
             IEnumerable<RadioButton> spsRadioButton = spsSupportGroup.Children.OfType<RadioButton>();
             IEnumerable<RadioButton> eudRadioButton = eudSupportGroup.Children.OfType<RadioButton>();
 
@@ -99,16 +104,23 @@ namespace GFElevInterview.Views
             bool _spsSupport = (bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked;
             bool _eudSupport = (bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked;
 
+            //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
             educationArea.BorderBrush = _educationArea ? gray : red;
             educationAdresse.BorderBrush = _educationAdresse ? gray : red;
             spsSupport.BorderBrush = _spsSupport ? gray : red;
             eudSupport.BorderBrush = _eudSupport ? gray : red;
 
-            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport) {
+
+            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
+            {
 
                 return true;
             }
             return false;
+        }
+        private void Combobox_DropDownClosed(object sender, EventArgs e)
+        {
+            parent.scrollview.Focus();
         }
 
     }
