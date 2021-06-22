@@ -45,7 +45,6 @@ namespace GFElevInterview.Models
                 ///Der kan ikke konverteres på samme linje som vi henter tallet via Substring
                 ///Hvis sektionen starter med `0` vil den tage den næste position med værdien >0
                 ///Hvilket vil sige at vi skal tage hver sektion som en string, og bagefter konverterer det til en int
-                
                 //NOTE: Det er kun nødvendigt at kigge på `år` til at starte med.
                 //Det er først når der er tvivl i om vi kan sortere dem i RKV eller ej at vi behøver at kigge på dd/mm/yy
                 string _år = CprNr.ToString().Substring(4, 2);
@@ -66,11 +65,15 @@ namespace GFElevInterview.Models
                 int dag = Int32.Parse(_dag);
                 int måned = Int32.Parse(_måned);
 
+                // fra 0-99 til 19(00-99)
                 år += 1900;
                 if (!(år >= DateTime.Now.Year - 25)) {
+                    //Eftersom vi allerede har sorteret alle der er fra før CurrentYear - 25 fra, så kigger vi fra resten med >90 årstal
+                    //Hvis tallet er mindre end 90, så er de fra efter 2000, og 100 skal tilføjes
                     år += 100;
                 }
 
+                //Hvis deres fødselsdag er mindre(før) eller lig med (de har fødselsdag i dag) så skal de have RKV.
                 if (new DateTime(år, måned, dag) <= DateTime.Now.AddYears(-25)) {
                     return true;
                 }
