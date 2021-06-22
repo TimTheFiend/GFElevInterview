@@ -23,6 +23,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Blanketter\Templates\EUV1 - Infrastruktur.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV1 - IT-supporter.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV1 - Programmering.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV2 - Infrastruktur.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV2 - IT-supporter.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV2 - Programmering.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV3 - Infrastruktur.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV3 - IT-supporter.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Blanketter\Templates\EUV3 - Programmering.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Blanketter\Templates\Meritblanketter VISI blank.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

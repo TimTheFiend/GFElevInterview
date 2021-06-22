@@ -18,7 +18,7 @@ namespace GFElevInterview.Data
         
         private string _nyMeritFile = $"{CurrentElev.elev.Fornavn}.pdf";
 
-        private string nyMeritFile = @"C:\Users\joak\Downloads\[TEST]\";
+        private string nyMeritFile = @"C:\Users\viga\Downloads\[TEST]\";
 
         //FreeSpire.Doc Version//
         Document doc = new Document();
