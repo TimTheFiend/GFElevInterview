@@ -31,7 +31,41 @@ namespace GFElevInterview.Models
         }
 
         public string FullInfo {
+
             get { return this.ToString(); }
+
+        }
+
+        public bool IsRKV
+        {
+            get
+            {
+                string _dag = CprNr.ToString().Substring(0, 2);
+                string _måned = CprNr.ToString().Substring(2, 2);
+                string _år = CprNr.ToString().Substring(4, 2);
+
+                int dag = Int32.Parse(_dag);
+                int måned = Int32.Parse(_måned);
+                int år = Int32.Parse(_år);
+
+                //010179
+                if (år < DateTime.Now.Year - 1900 - 25 && år > DateTime.Now.Year - 2000) {
+                    
+                    return true;
+                }
+
+                år += 1900;
+                if (!(år >= DateTime.Now.Year - 25))
+                {
+                    år += 100;
+                }
+
+                if (new DateTime(år, måned, dag) <= DateTime.Now.AddYears(-25))
+                {
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }

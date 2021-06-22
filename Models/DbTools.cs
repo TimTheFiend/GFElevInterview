@@ -22,6 +22,7 @@ namespace GFElevInterview.Models
         // Creates Dummy Data on creation
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<ElevModel>().HasData(
+
                 new ElevModel { CprNr = "1111931234", Fornavn = "Joakim0", Efternavn = "Krugstrup" }, 
                 new ElevModel { CprNr = "0101954321", Fornavn = "Peder", Efternavn = "Eriksen" }, 
                 new ElevModel { CprNr = "1202341233", Fornavn = "Søm", Efternavn = "Johammer" } ,
@@ -38,6 +39,7 @@ namespace GFElevInterview.Models
                 new ElevModel { CprNr = "1141901934", Fornavn = "Joakim11", Efternavn = "Krugstrup" },
                 new ElevModel { CprNr = "1101901234", Fornavn = "Joakim12", Efternavn = "Krugstrup" },
                 new ElevModel { CprNr = "1101901934", Fornavn = "Joakim13", Efternavn = "Krugstrup" }
+
             );
         }
     }

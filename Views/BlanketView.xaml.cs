@@ -48,6 +48,7 @@ namespace GFElevInterview.Views
                 InitializeBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
+                Console.WriteLine(CurrentElev.elev.IsRKV);
             }
         }
 
