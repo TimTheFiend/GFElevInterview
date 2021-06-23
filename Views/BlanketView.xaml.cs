@@ -23,7 +23,6 @@ namespace GFElevInterview.Views
     /// <summary>
     /// Interaction logic for BlanketView.xaml
     /// </summary>
-    public partial class BlanketView : UserControl
     public partial class BlanketView : UserControl {
         IBlanket currentView;
         DbTools db = new DbTools();
