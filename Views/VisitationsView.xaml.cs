@@ -38,14 +38,17 @@ namespace GFElevInterview.Views
         private void InitializeBlanket() {
             SetButtons();
             SetComboBoxes();
+
             UdfyldBlanket();
         }
 
         private void SetComboBoxes() {
             educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
-            if (educationAdresseComboBox.Items.Count == 1) {
-                educationAdresseComboBox.SelectedIndex = 0;
-            }
+
+            ///Får programmet til at crashe da SelectedItem = null (???)
+            //if (educationAdresseComboBox.Items.Count == 1) {
+            //    educationAdresseComboBox.SelectedIndex = 0;
+            //}
 
             educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
         }
@@ -55,8 +58,13 @@ namespace GFElevInterview.Views
             parent.btnTilbage.IsEnabled = true;
         }
 
-        private void UdfyldBlanket() {
-            if (!String.IsNullOrEmpty(CurrentElev.elev.Uddannelse)) {
+        /// <summary>
+        /// udfyldning af visitationsView
+        /// </summary>
+        private void UdfyldBlanket()
+        {
+            if (!String.IsNullOrEmpty (CurrentElev.elev.Uddannelse))
+            {
                 educationComboBox.SelectedItem = CurrentElev.elev.Uddannelse;
             }
 
@@ -93,7 +101,9 @@ namespace GFElevInterview.Views
         }
         #endregion
 
-        //TODO
+
+
+
         public void Frem() {
             if (IsValidated())
             {
@@ -101,7 +111,7 @@ namespace GFElevInterview.Views
                 //TODO Udprint
                 //TODO Få fra Søgning
                 UpdateElevAndSave();
-               
+
             }
         }
 
@@ -151,7 +161,7 @@ namespace GFElevInterview.Views
         }
 
         #region Combobox/Radiobutton Eventhandlers
-        #region Combobox        
+        #region Combobox
         /// <summary>Fjerner fokus fra combobox når den folder sammen.</summary>
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scrollview.Focus();
