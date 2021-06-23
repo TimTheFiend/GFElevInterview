@@ -16,7 +16,7 @@
                     <ComboBox x:Name="educationComboBox"/>
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="EUV1Area" Height="1400">
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="EUV1Area">
                 <StackPanel Margin="10">
                     <Label  Content="Har du 2 års relevant erhverserfarings, inde for de sidste 5?" FontSize="20"/>
                     <DockPanel>
@@ -25,62 +25,105 @@
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
-                        <RadioButton x:Name="EUV2NEJ" Content="Nej">
+                        <RadioButton x:Name="EUV1NEJ" Content="Nej">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
                     </DockPanel>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area1" Height="350">
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area1">
                         <StackPanel>
                             <Label  Content="Har du reglmæssigt udført følgende opgaver: " FontSize="20" Margin="0,10,0,0"/>
-                            <!--med tilhørende-->
-                            <Label Content="A. Dimensionering, installationm konfiguration, sikkerhedshåndtering og opgradering af computere med" FontSize="14.5" Height="34"/>
-                            <Label Content="tilhørende hardware og software, operativsystemer og serveroperativsystemer, administration og af" FontSize="14.5" Height="34"/>
-                            <Label Content="netværksservere, trådløse netværk og serverløsninger som fx databaseserver." FontSize="14.5" Height="34"  Margin="0,0,0,12"/>
-                            <Label Content="B. Fejlfinding til modulniveau på computere og på netværk i forbindelse med opbygning og" FontSize="14.5" Height="34"/>
-                            <Label Content="vedligeholdelse af lokalnet." FontSize="14.5" Height="34" Margin="0,0,0,12"/>
-                            <Label Content="C. Installation, opsætning og konfiguration af forskellige former for backup på servere, netværksenheder" FontSize="14.5" Height="34"/>
-                            <Label Content="som fx Routere, Switche mv. samt WAN-netværk med tilhørende adgangstyper" FontSize="14.5" Height="34"/>
-                            <Label Content="og sikkerhedsopsætninger." FontSize="14.5" Height="34"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="A. Dimensionering, installationm konfiguration, sikkerhedshåndtering og opgradering af computere med tilhørende hardware og software, operativsystemer og serveroperativsystemer, administration og af netværksservere, trådløse netværk og serverløsninger som fx databaseserver." FontSize="14.5"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="B. Fejlfinding til modulniveau på computere og på netværk i forbindelse med opbygning og vedligeholdelse af lokalnet."  FontSize="14.5" Margin="0,5,0,5"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text=" C. Installation, opsætning og konfiguration af forskellige former for backup på servere, netværksenheder som fx Routere, Switche mv. samt WAN-netværk med tilhørende adgangstyper og sikkerhedsopsætninger."  FontSize="14.5"/>
                         </StackPanel>
                     </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area2" Height="150">
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area2">
                         <StackPanel>
-                            <Label  Content="Herudover skal du i en vis udstrækning havde udført følgende opgaver: " FontSize="20" Margin="0,10,0,0"/>
-                            <!--med tilhørende-->
-                            <Label Content="A. Udvikling af scripts og mindre programmer under anvendelse af et scriptsprog" FontSize="14.5" Height="34"/>
-                            <Label Content="B. Design og opbygning af lokalnet med ekstern opkobling" FontSize="14.5" Height="34"/>
-                            <Label Content="C. Kundeservice" FontSize="14.5" Height="34"/>
+                            <Label Content="Herudover skal du i en vis udstrækning havde udført følgende opgaver: " FontSize="20" Margin="0,10,0,0"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="A. Udvikling af scripts og mindre programmer under anvendelse af et scriptsprog" FontSize="14.5"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="B. Design og opbygning af lokalnet med ekstern opkobling" FontSize="14.5" Margin="0,5,0,0"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="C. Kundeservice" FontSize="14.5" Margin="0,5,0,0"/>
                         </StackPanel>
                     </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area3" Height="190">
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area3">
                         <StackPanel>
-                            <Label  Content="Specialet datatekniker med speciale i infrastruktur:" FontSize="20" Margin="0,10,0,0"/>
-                            <Label Content="Du skal inde for perioden på 2 år havde arbejdet med ovennævnte generelle opgaver og have et års erfaring med at:" FontSize="14.5" Height="34"/>
-                            <Label Content="A. Opbygge, konfigurere, vedligeholde og administrere server- og netværksløsninger samt designe" FontSize="14.5" Height="34"/>
-                            <Label Content="avancerede LAN- og WAN-netværk." FontSize="14.5" Height="34"/>
-                            <Label Content="B. Analysere, designe, implementere og administrere sikkerhedsløsninger på serverbaserede netværk." FontSize="14.5" Height="34"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Specialet datatekniker med speciale i infrastruktur: Du skal inde for perioden på 2 år havde arbejdet med ovennævnte generelle opgaver og have et års erfaring med at:" FontSize="20" Margin="0,5,0,10"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="A. Opbygge, konfigurere, vedligeholde og administrere server- og netværksløsninger samt designe avancerede LAN- og WAN-netværk." FontSize="14.5" Margin="0,0,0,5"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="B. Analysere, designe, implementere og administrere sikkerhedsløsninger på serverbaserede netværk." FontSize="14.5"/>
                         </StackPanel>
                     </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area4" Height="220">
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area4">
                         <StackPanel>
-                            <Label  Content="Analysere, designe, implementere og administrere sikkerhedsløsninger" FontSize="20" Margin="0,10,0,0"/>
-                            <Label  Content="på serverbaserede netværk. Du skal inden for perioden på to år have arbejdet" FontSize="20"/>
-                            <Label  Content="med ovennævnte generelle opgaver og have et års erfaring med:" FontSize="20"/>
-                            <Label Content="A. Udvikling af programmer, herunder avanceret programudvikling af it-systemer som standalone applikationer," FontSize="14.5" Height="34"/>
-                            <Label Content="client-server applikationer, web applikationer m.v." FontSize="14.5" Height="34"/>
-                            <Label Content="B.Udviklingsopgaver inden for embeddede systemer og databasesystemer." FontSize="14.5" Height="34"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Analysere, designe, implementere og administrere sikkerhedsløsninger på serverbaserede netværk. Du skal inden for perioden på to år have arbejdet med ovennævnte generelle opgaver og have et års erfaring med:" FontSize="20" Margin="0,10,0,0"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="A. Udvikling af programmer, herunder avanceret programudvikling af it-systemer som standalone applikationer, client-server applikationer, web applikationer m.v." FontSize="14.5"  Margin="0,5,0,5"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="B.Udviklingsopgaver inden for embeddede systemer og databasesystemer." FontSize="14.5"/>
                         </StackPanel>
                     </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUVDokumentation" Height="220">
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUVDokumentation">
                         <StackPanel>
-                            <Label  Content="Hvis eleven kan dokumentere ovennævnt spørgsmål vil resultater være følgende:" FontSize="20" Margin="0,10,0,0"/>
-                            <Label  Content="Alle 3 retninger skal havde svaret ja til: Har du 2 års relevant erhvervserfaring," FontSize="20"/>
-                            <Label  Content="inde for de sidste 5 år?" FontSize="20"/>
-                            <Label Content="A. Udvikling af programmer, herunder avanceret programudvikling af it-systemer som standalone applikationer," FontSize="14.5" Height="34"/>
-                            <Label Content="client-server applikationer, web applikationer m.v." FontSize="14.5" Height="34"/>
-                            <Label Content="B.Udviklingsopgaver inden for embeddede systemer og databasesystemer." FontSize="14.5" Height="34"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Hvis eleven kan dokumentere ovennævnt spørgsmål vil resultater være følgende: Alle 3 retninger skal havde svaret ja til: Har du 2 års relevant erhvervserfaring, inde for de sidste 5 år?" FontSize="20" Margin="0,10,0,0"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="It supporter = ja til spørgsmål 1 og 2 = EUV1 It supporter" FontSize="14.5"  Margin="0,5,0,0"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Infrastruktur = ja til spørgsmål 1,2 og 3 = EUV1 infrastruktur" FontSize="14.5" Margin="0,5,0,5"/>
+                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Programmering= ja til spørgsmål 1,2 og 4 = EUV1 programmering" FontSize="14.5"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="EUV2Area">
+                <StackPanel Margin="10">
+                    <TextBlock TextWrapping="WrapWithOverflow" Text="Har du en dokumenteret afsluttet uddannelse og/eller har du mindre end 2 års relevant dokumenteret erhvervserfaring" FontSize="20"/>
+                    <DockPanel>
+                        <RadioButton x:Name="EUV2JA" Margin="0,5,60,0" Content="JA">
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
+                        <RadioButton x:Name="EUV2NEJ" Margin="0,5,0,0" Content="Nej">
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
+                    </DockPanel>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV2Area1">
+                        <StackPanel>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="Hvilken adresse ønske du at starte på?" FontSize="20" Margin="0,10,0,0"/>
+                            <ComboBox x:Name="prioritetbox"/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV2Area2" Height="80">
+                        <StackPanel>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="20" Margin="0,10,0,0"/>
+                            <DockPanel>
+                                <RadioButton x:Name="EUV2SPSJA" Margin="0,5,60,0" Content="JA">
+                                    <RadioButton.RenderTransform>
+                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    </RadioButton.RenderTransform>
+                                </RadioButton>
+                                <RadioButton x:Name="EUV2SPSNEJ" Margin="0,5,0,0" Content="Nej">
+                                    <RadioButton.RenderTransform>
+                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    </RadioButton.RenderTransform>
+                                </RadioButton>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV2Area3">
+                        <StackPanel>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="Ønsker du en samtale med eud vejleder?" FontSize="20" Margin="0,5,0,0"/>
+                            <DockPanel>
+                                <RadioButton x:Name="EUV2EUDJA" Margin="0,5,60,0" Content="JA">
+                                    <RadioButton.RenderTransform>
+                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    </RadioButton.RenderTransform>
+                                </RadioButton>
+                                <RadioButton x:Name="EUV2EUDNEJ" Margin="0,5,0,0" Content="Nej">
+                                    <RadioButton.RenderTransform>
+                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    </RadioButton.RenderTransform>
+                                </RadioButton>
+                            </DockPanel>
                         </StackPanel>
                     </Border>
                 </StackPanel>
