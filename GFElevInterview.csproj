@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Blanketter\Ballerup\**" />
+    <Compile Remove="Blanketter\Frederiksberg\**" />
+    <Compile Remove="Blanketter\Lyngby\**" />
+    <EmbeddedResource Remove="Blanketter\Ballerup\**" />
+    <EmbeddedResource Remove="Blanketter\Frederiksberg\**" />
+    <EmbeddedResource Remove="Blanketter\Lyngby\**" />
+    <None Remove="Blanketter\Ballerup\**" />
+    <None Remove="Blanketter\Frederiksberg\**" />
+    <None Remove="Blanketter\Lyngby\**" />
+    <Page Remove="Blanketter\Ballerup\**" />
+    <Page Remove="Blanketter\Frederiksberg\**" />
+    <Page Remove="Blanketter\Lyngby\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\TECLOGO.png" />
   </ItemGroup>
 
@@ -50,15 +65,9 @@
     <None Update="Blanketter\Templates\EUV3 - Programmering.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Blanketter\Templates\Meritblanketter VISI blank.docx">
+    <None Update="Blanketter\Templates\Merit-blanket.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Blanketter\Lyngby\" />
-    <Folder Include="Blanketter\Ballerup\" />
-    <Folder Include="Blanketter\Frederiksberg\" />
   </ItemGroup>
 
 </Project>

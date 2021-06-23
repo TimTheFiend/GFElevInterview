@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GFElevInterview.Models;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace GFElevInterview.Views
 {
@@ -87,9 +90,51 @@ namespace GFElevInterview.Views
             mainContent.Content = currentView;
         }
 
-        public void UpdateDatabase() {
-            db.Elever.Update(CurrentElev.elev);
-            db.SaveChanges();
+        private bool UpdateDatabase() {
+            try {
+                db.Elever.Update(CurrentElev.elev);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+        public void CompleteCurrentInterview() {
+
+            bool? isRKVSuccess = null;
+            bool isMeritSuccess = false;
+
+            BlanketUdskrivning print = new BlanketUdskrivning();
+
+            ///Task
+            Task meritTask = Task.Run(() => {
+                isMeritSuccess = print.UdskrivningMerit();
+            });
+
+            //isMeritSuccess = print.UdskrivningMerit();
+
+            Thread meritThread = new Thread(() => { print.UdskrivningMerit(); });
+            meritThread.Start();
+
+            if (CurrentElev.elev.IsRKV) {
+                isRKVSuccess = new BlanketUdskrivning().UdskrivningRKV();
+            }
+
+            // Task
+            while (!meritTask.IsCompleted) {
+            }
+
+
+            //Hvis merit er blevet udskrevet, og RKV enten også er, eller slet ikke (fordi eleven ikke er RKV), så opdater databasen.
+            if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
+                if (UpdateDatabase()) {
+                    CurrentElev.ResetCurrentElev();
+                    currentView = null;
+                    mainContent.Content = null;
+                    AlertBoxes.OnSuccessfulCompletion();
+                }
+            }
         }
     }
 }

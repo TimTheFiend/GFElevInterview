@@ -115,21 +115,14 @@ namespace GFElevInterview.Views
 
         private void UpdateElevAndSave()
         {
-            //TODO: Få info fra søgefeldt
-            //NOTE: Hardcoded
-
-            //ENDTODO
+            //NOTE: Bliver sat før vi overhovedet kommer hertil
             CurrentElev.elev.UdannelseAdresse = educationAdresseComboBox.Text;
             CurrentElev.elev.Uddannelse = educationComboBox.Text;
             CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
             CurrentElev.elev.EUD = (bool)eudSupportJa.IsChecked;
 
 
-            UdprintMerit udprint = new UdprintMerit();
-            udprint.udprintTilMerit();
-            parent.UpdateDatabase();
-            //udprint.indPrintTilDataBase();
-            MessageBox.Show("Dokument gemt! TODO");
+            parent.CompleteCurrentInterview();
         }
 
         public void clearRadioButtons()
