@@ -36,7 +36,6 @@ namespace GFElevInterview.Views
         /// udfyldning af visitationsView
         /// </summary>
         private void UdfyldBlanket()
-
         {
             
             if (!String.IsNullOrEmpty (CurrentElev.elev.Uddannelse))
@@ -80,10 +79,7 @@ namespace GFElevInterview.Views
 
 
         private void InitializeBlanket() {
-            
             SetButtons();
-            
-
             educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
             if (educationAdresseComboBox.Items.Count == 1) {
                 educationAdresseComboBox.SelectedIndex = 0;
@@ -91,6 +87,8 @@ namespace GFElevInterview.Views
 
             //TODO RKV
             educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
+
+            UdfyldBlanket();
         }
 
         

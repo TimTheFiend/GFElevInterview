@@ -47,12 +47,15 @@ namespace GFElevInterview.Views
             if (SearchStudentBox.SelectedIndex >= 0) {
                 if(CurrentElev.meritBlanket.IsFilled)
                 {
-                    Console.WriteLine();
+                    MessageBox.Show("Er du sikkert at ville skifte elev?");
                 }
                 InitializeBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
-                Console.WriteLine(CurrentElev.elev.IsRKV);
+
+                //Nulstiller textbox og listbox
+                SearchStudentTxt.Text = "";
+                SearchStudentBox.ItemsSource = null;
             }
         }
 
