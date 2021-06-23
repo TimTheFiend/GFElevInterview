@@ -33,7 +33,7 @@
                                 </CheckBox>
 
                                 <Label Content="Niveau" FontSize="20"/>
-                            <ComboBox x:Name="ComboboxDansk" FontSize="20">
+                            <ComboBox x:Name="ComboboxDansk" FontSize="20" SelectionChanged="ComboboxDansk_SelectionChanged">
                                 </ComboBox>
                             </DockPanel>
 
@@ -63,7 +63,7 @@
                                 </CheckBox>
 
                                 <Label Content="Niveau" FontSize="20"/>
-                            <ComboBox x:Name="ComboboxEngelsk" FontSize="20" >
+                            <ComboBox x:Name="ComboboxEngelsk" FontSize="20" SelectionChanged="ComboboxEngelsk_SelectionChanged" >
                                 </ComboBox>
                             </DockPanel>
 
@@ -94,7 +94,7 @@
                                 </CheckBox>
 
                                 <Label Content="Niveau" FontSize="20"/>
-                            <ComboBox x:Name="ComboboxMatematik" FontSize="20" >
+                            <ComboBox x:Name="ComboboxMatematik" FontSize="20" SelectionChanged="ComboboxMatematik_SelectionChanged" >
                                 </ComboBox>
                             </DockPanel>
 

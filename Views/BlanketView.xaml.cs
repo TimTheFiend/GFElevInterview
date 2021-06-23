@@ -45,6 +45,10 @@ namespace GFElevInterview.Views
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
+                if(CurrentElev.meritBlanket.IsFilled)
+                {
+                    Console.WriteLine();
+                }
                 InitializeBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FullInfo;

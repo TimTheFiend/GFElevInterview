@@ -86,9 +86,16 @@ namespace GFElevInterview.Views
             return;
         }
 
+<<<<<<< Updated upstream
         //TODO: Overfør info fra checkbox
         //NOTE: Kluntet
 
+=======
+        /// <summary>
+        /// check at der skal have værdi 
+        /// </summary>
+        /// <returns><c>true</c> hvis valideret; ellers <c>false</c></returns>
+>>>>>>> Stashed changes
         private bool IsValidated() {
             // NYT
             if (ComboboxDansk.SelectedIndex >= 0) {
@@ -140,6 +147,22 @@ namespace GFElevInterview.Views
         {
             //Change the focus to scrollview in BlanketView.
             parent.scrollview.Focus();
+        }
+
+        private void ComboboxDansk_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //CurrentElev.meritBlanket.Dansk.Niveau = (sender as ComboBox).SelectedItem.ToString();
+           
+        }
+
+        private void ComboboxEngelsk_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void ComboboxMatematik_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

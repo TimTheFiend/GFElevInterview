@@ -32,6 +32,9 @@ namespace GFElevInterview.Views
             educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
+        /// <summary>
+        /// udfyldning af visitationsView
+        /// </summary>
         private void UdfyldBlanket()
 
         {
@@ -132,18 +135,7 @@ namespace GFElevInterview.Views
             MessageBox.Show("Dokument gemt! TODO");
         }
 
-        public void clearRadioButtons()
-        {
-            if(spsSupportNej.IsChecked == true)
-            {
-                spsSupportNej.IsChecked = false;
-            }
-            if(eudSupportNej.IsChecked== true)
-            {
-                eudSupportNej.IsChecked = false;
-            }
-            
-        }
+        
 
         public void Tilbage() {
             parent.ChangeView(new MeritBlanketView(parent));
