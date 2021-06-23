@@ -15,8 +15,8 @@ namespace GFElevInterview.Models
         public string Uddannelse { get; set; }
         public string UdannelseAdresse { get; set; }
 
-        public bool SPS { get; set; }
-        public bool EUD { get; set; }
+        public bool? SPS { get; set; }
+        public bool? EUD { get; set; }
 
         //UddannelsesLængden starter på 16 uger.
         //Hvert fag hvor Elevens niveau ikke er tilstrækkelig nok tilføjer 2 uger til UddannelsesLængde;

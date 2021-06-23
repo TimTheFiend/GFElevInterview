@@ -21,6 +21,7 @@ namespace GFElevInterview.Views
             InitializeComponent();
             this.parent = parent;
             InitializeBlanket();
+            
         }
 
         #region Klargøring
