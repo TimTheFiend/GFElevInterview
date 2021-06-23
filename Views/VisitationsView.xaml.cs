@@ -172,7 +172,6 @@ namespace GFElevInterview.Views
 
             if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
             {
-
                 return true;
             }
             return false;
