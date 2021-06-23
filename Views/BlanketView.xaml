@@ -10,12 +10,12 @@
         <Border Background="WhiteSmoke" x:Name="blanketView" BorderBrush="Gray" BorderThickness="2" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="150"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Panel.ZIndex="10"  Grid.RowSpan="2">
+                <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Panel.ZIndex="10"  >
                     <StackPanel  >
                             <WrapPanel>
                                 <Label FontSize="20" FontWeight="Bold" FontStyle="Italic" >Søge elev :</Label>

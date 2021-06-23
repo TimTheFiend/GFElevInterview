@@ -32,8 +32,10 @@ namespace GFElevInterview.Views
             educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
+        /// <summary>
+        /// udfyldning af visitationsView
+        /// </summary>
         private void UdfyldBlanket()
-
         {
             
             if (!String.IsNullOrEmpty (CurrentElev.elev.Uddannelse))
@@ -77,10 +79,7 @@ namespace GFElevInterview.Views
 
 
         private void InitializeBlanket() {
-            
             SetButtons();
-            
-
             educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
             if (educationAdresseComboBox.Items.Count == 1) {
                 educationAdresseComboBox.SelectedIndex = 0;
@@ -88,6 +87,8 @@ namespace GFElevInterview.Views
 
             //TODO RKV
             educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
+
+            UdfyldBlanket();
         }
 
         
@@ -125,18 +126,7 @@ namespace GFElevInterview.Views
             parent.CompleteCurrentInterview();
         }
 
-        public void clearRadioButtons()
-        {
-            if(spsSupportNej.IsChecked == true)
-            {
-                spsSupportNej.IsChecked = false;
-            }
-            if(eudSupportNej.IsChecked== true)
-            {
-                eudSupportNej.IsChecked = false;
-            }
-            
-        }
+        
 
         public void Tilbage() {
             parent.ChangeView(new MeritBlanketView(parent));
