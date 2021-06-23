@@ -1,19 +1,22 @@
 ﻿using Spire.Doc;
 
-
 namespace GFElevInterview.Data
 {
     public class UdprintMerit
     {
         /*                                  SUMMARY:
-         * I denne klasse udprintes informationer fra skabelonerne til pdf´erne.
-         * Alt information vil blive hentet fra en template dokument og overført til et nyt dokument.
+         * 
+         * I denne klasse udprintes informationer fra skabelonerne til pdf filer.
+         * Udvalgte ord fra skabelonerne vil blive udskiftet med brugerens input og gemt i en pdf fil.
+         * Ting som Word delen af interviewet vil blive gemt i databasen.
          * TO DO:
          * Der skal findes en måde at køre replace bedre på.
          * Tilføj Merit og RKV til udprintning.
          */
+
         private string meritFileSti = "Blanketter\\Templates\\Meritblanketter VISI blank.docx";
-        
+        private string udprintSti = "..\\Blanketter";
+
         private string _nyMeritFile = $"{CurrentElev.elev.Fornavn}.pdf";
 
         private string nyMeritFile = @"C:\Users\joak\Downloads\[TEST]\";
@@ -25,7 +28,7 @@ namespace GFElevInterview.Data
             doc.LoadFromFile(meritFileSti);
             //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
             doc.Replace("#navn#", CurrentElev.elev.EfternavnFornavn, true, true);
-            doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
+            doc.Replace("#cpr#", CurrentElev.elev.CprNr, true, true);
             //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
             //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
             doc.Replace("#DE#", CurrentElev.meritBlanket.Dansk.udprintEksammen, true, true);
@@ -37,7 +40,9 @@ namespace GFElevInterview.Data
             doc.Replace("#ME#", CurrentElev.meritBlanket.Matematik.udprintEksammen, true, true);
             doc.Replace("#MU#", CurrentElev.meritBlanket.Matematik.udprintUndervisning, true, true);
             doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
-            doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
+
+            doc.SaveToFile(System.IO.Path.Combine(udprintSti, CurrentElev.elev.FilNavn), FileFormat.PDF);
+            //doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
         }
     }
 }

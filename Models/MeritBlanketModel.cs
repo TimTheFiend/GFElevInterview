@@ -38,9 +38,20 @@ namespace GFElevInterview.Models
             };
         }
 
-        //TODO: Proper check
+        /// <summary>
+        /// Viser hvilke uddannelser der er tilgængelig for eleven.
+        /// </summary>
         public List<string> AvailableEducations() {
-            return new List<string>();
+            List<string> uddannelser = new List<string>() {
+                "Infrastruktur",
+                "IT-supporter",
+                "Programmering"
+            };
+            if (!CurrentElev.elev.IsRKV) {
+                uddannelser.Add("Ved ikke");
+            }
+
+            return uddannelser;
         }
     }
 }

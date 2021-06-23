@@ -24,9 +24,10 @@ namespace GFElevInterview.Views
     {
         IBlanket currentView;
         DbTools db = new DbTools();
+
         public BlanketView() {
             InitializeComponent();
-            InitializeBlanket();
+            //InitializeBlanket();
             db.Database.EnsureCreated();
 
             //TODO: Debug
@@ -41,10 +42,13 @@ namespace GFElevInterview.Views
             mainContent.Content = currentView;
         }
 
+
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
+                InitializeBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
+                Console.WriteLine(CurrentElev.elev.IsRKV);
             }
         }
 
@@ -56,17 +60,26 @@ namespace GFElevInterview.Views
                 return;
             }
 
-            List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.CprNr.StartsWith(text)).ToList();
+            List<ElevModel> elevModels = db.Elever.Where(
+                elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower())
+                || elev.CprNr.StartsWith(text)
+                || elev.Fornavn.ToLower().StartsWith(text.ToLower())
+                ).ToList();
             SearchStudentBox.ItemsSource = elevModels;
         }
 
-
+        private void OnButtonClick()
+        {
+            scrollview.ScrollToTop();
+        }
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
+            OnButtonClick();
         }
 
         private void Tilbage_Click(object sender, RoutedEventArgs e) {
             currentView.Tilbage();
+            OnButtonClick();
         }
 
         public void ChangeView(IBlanket newView) {
