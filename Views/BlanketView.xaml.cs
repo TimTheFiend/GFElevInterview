@@ -24,7 +24,7 @@ namespace GFElevInterview.Views
     /// Interaction logic for BlanketView.xaml
     /// </summary>
     public partial class BlanketView : UserControl
-    {
+    public partial class BlanketView : UserControl {
         IBlanket currentView;
         DbTools db = new DbTools();
 
@@ -58,8 +58,7 @@ namespace GFElevInterview.Views
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
             string text = SearchStudentTxt.Text;
             SearchStudentBox.ItemsSource = null;
-            if(String.IsNullOrEmpty(text))
-            {
+            if (String.IsNullOrEmpty(text)) {
                 return;
             }
 
@@ -71,8 +70,7 @@ namespace GFElevInterview.Views
             SearchStudentBox.ItemsSource = elevModels;
         }
 
-        private void OnButtonClick()
-        {
+        private void OnButtonClick() {
             scrollview.ScrollToTop();
         }
         private void Frem_Click(object sender, RoutedEventArgs e) {

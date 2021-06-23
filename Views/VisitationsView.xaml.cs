@@ -21,10 +21,11 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class VisitationsView : UserControl, IBlanket
     {
-        
+        /* Fields */
         BlanketView parent;
+
+        /* Constructor */
         public VisitationsView(BlanketView parent) {
-            
             InitializeComponent();
             this.parent = parent;
             InitializeBlanket();
@@ -32,25 +33,43 @@ namespace GFElevInterview.Views
             educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
-        private void UdfyldBlanket()
 
-        {
-            
-            if (!String.IsNullOrEmpty (CurrentElev.elev.Uddannelse))
-            {
+        #region Klargøringsmetoder
+        private void InitializeBlanket() {
+            SetButtons();
+            SetComboBoxes();
+            UdfyldBlanket();
+        }
+
+        private void SetComboBoxes() {
+            educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
+            if (educationAdresseComboBox.Items.Count == 1) {
+                educationAdresseComboBox.SelectedIndex = 0;
+            }
+
+            educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
+        }
+
+        private void SetButtons() {
+            parent.btnFrem.Content = "Gem";
+            parent.btnTilbage.IsEnabled = true;
+        }
+
+        private void UdfyldBlanket() {
+            if (!String.IsNullOrEmpty(CurrentElev.elev.Uddannelse)) {
                 educationComboBox.SelectedItem = CurrentElev.elev.Uddannelse;
             }
-            if(!String.IsNullOrEmpty(CurrentElev.elev.UdannelseAdresse))
-            {
-                if(educationAdresseComboBox.Items.Contains(CurrentElev.elev.UdannelseAdresse))
-                {
+
+            if (!String.IsNullOrEmpty(CurrentElev.elev.UdannelseAdresse)) {
+                //Hvis der er ændret i Dansk karakter, så vil hverken Lyngby eller Frederiksberg blive vist.
+                if (educationAdresseComboBox.Items.Contains(CurrentElev.elev.UdannelseAdresse)) {
+                    CurrentElev.elev.UdannelseAdresse = null;
                     educationAdresseComboBox.SelectedItem = CurrentElev.elev.UdannelseAdresse;
                 }
             }
-           
 
-            switch (CurrentElev.elev.SPS)
-            {
+
+            switch (CurrentElev.elev.SPS) {
                 case true:
                     spsSupportJa.IsChecked = true;
                     break;
@@ -61,9 +80,7 @@ namespace GFElevInterview.Views
                     break;
             }
 
-
-            switch (CurrentElev.elev.EUD)
-            {
+            switch (CurrentElev.elev.EUD) {
                 case true:
                     eudSupportJa.IsChecked = true;
                     break;
@@ -74,37 +91,12 @@ namespace GFElevInterview.Views
                     break;
             }
         }
+        #endregion
 
-
-        private void InitializeBlanket() {
-            
-            SetButtons();
-            
-
-            educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
-            if (educationAdresseComboBox.Items.Count == 1) {
-                educationAdresseComboBox.SelectedIndex = 0;
-            }
-
-            //TODO RKV
-            educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
-        }
-
-        
-
-        private void SetButtons() {
-            if (true) {
-                //TODO Hvis ikke RKV
-                parent.btnFrem.Content = "Gem";
-            }
-
-            parent.btnTilbage.IsEnabled = true;
-        }
-
+        //TODO
         public void Frem() {
             if (IsValidated())
             {
-
                 //TODO Hvis ikke RKV
                 //TODO Udprint
                 //TODO Få fra Søgning
@@ -116,6 +108,7 @@ namespace GFElevInterview.Views
         private void UpdateElevAndSave()
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
+
             CurrentElev.elev.UdannelseAdresse = educationAdresseComboBox.Text;
             CurrentElev.elev.Uddannelse = educationComboBox.Text;
             CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
@@ -125,31 +118,20 @@ namespace GFElevInterview.Views
             parent.CompleteCurrentInterview();
         }
 
-        public void clearRadioButtons()
-        {
-            if(spsSupportNej.IsChecked == true)
-            {
-                spsSupportNej.IsChecked = false;
-            }
-            if(eudSupportNej.IsChecked== true)
-            {
-                eudSupportNej.IsChecked = false;
-            }
-            
-        }
-
+        /// <summary>Ændr <see cref="BlanketView"/>s <see cref="ContentControl"/> til <see cref="MeritBlanketView"/></summary>
         public void Tilbage() {
             parent.ChangeView(new MeritBlanketView(parent));
-            
         }
 
-        //TODO: Valider blanket
+        /// <summary>
+        /// Bestemmer om siden er valideret og klar til afslutning, og highlighter felter der mangler.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is validated; otherwise, <c>false</c>.
+        /// </returns>
         private bool IsValidated() {
             SolidColorBrush gray = Brushes.Gray;
             SolidColorBrush red = Brushes.Red;
-
-            IEnumerable<RadioButton> spsRadioButton = spsSupportGroup.Children.OfType<RadioButton>();
-            IEnumerable<RadioButton> eudRadioButton = eudSupportGroup.Children.OfType<RadioButton>();
 
             bool _educationArea = educationComboBox.SelectedIndex >= 0;
             bool _educationAdresse = educationAdresseComboBox.SelectedIndex >= 0;
@@ -162,39 +144,39 @@ namespace GFElevInterview.Views
             spsSupport.BorderBrush = _spsSupport ? gray : red;
             eudSupport.BorderBrush = _eudSupport ? gray : red;
 
-
-            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
-            {
-
+            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport) {
                 return true;
             }
             return false;
         }
-        private void Combobox_DropDownClosed(object sender, EventArgs e)
-        {
+
+        #region Combobox/Radiobutton Eventhandlers
+        #region Combobox        
+        /// <summary>Fjerner fokus fra combobox når den folder sammen.</summary>
+        private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scrollview.Focus();
         }
 
-        private void educationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
+        private void educationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             CurrentElev.elev.Uddannelse = (sender as ComboBox).SelectedItem.ToString();
         }
 
-        private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
+        private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             CurrentElev.elev.UdannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
         }
+        #endregion Combobox
 
-        
-        private void SPSSupport_Checked(object sender, RoutedEventArgs e)
-        {
+        #region RadioButton setters
+        private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
             CurrentElev.elev.SPS = (sender as RadioButton) == spsSupportJa ? true : false;
         }
 
-        private void EUDSupport_Checked(object sender, RoutedEventArgs e)
-        {
+        private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
             CurrentElev.elev.EUD = (sender as RadioButton) == eudSupportJa ? true : false;
-            
         }
-    }  
+        #endregion Radiobutton setters
+        #endregion
+    }
 }
