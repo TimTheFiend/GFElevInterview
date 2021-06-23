@@ -60,7 +60,11 @@ namespace GFElevInterview.Views
                 return;
             }
 
-            List<ElevModel> elevModels = db.Elever.Where(elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower()) || elev.CprNr.StartsWith(text)).ToList();
+            List<ElevModel> elevModels = db.Elever.Where(
+                elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower())
+                || elev.CprNr.StartsWith(text)
+                || elev.Fornavn.ToLower().StartsWith(text.ToLower())
+                ).ToList();
             SearchStudentBox.ItemsSource = elevModels;
         }
 

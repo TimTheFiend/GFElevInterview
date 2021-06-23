@@ -22,7 +22,6 @@ namespace GFElevInterview.Views
             InitializeComponent();
             this.parent = parent;
             InitializeBlanket();
-
             //Combobox gets it dropdownclosed from the method called "Combobox_DropDownClosed".
             ComboboxMatematik.DropDownClosed += Combobox_DropDownClosed;
             ComboboxDansk.DropDownClosed += Combobox_DropDownClosed;
