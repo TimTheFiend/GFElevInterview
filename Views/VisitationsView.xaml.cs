@@ -21,9 +21,10 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class VisitationsView : UserControl, IBlanket
     {
-        BlanketView parent;
         
+        BlanketView parent;
         public VisitationsView(BlanketView parent) {
+            
             InitializeComponent();
             this.parent = parent;
             InitializeBlanket();
@@ -31,8 +32,54 @@ namespace GFElevInterview.Views
             educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
+        private void UdfyldBlanket()
+
+        {
+            
+            if (!String.IsNullOrEmpty (CurrentElev.elev.Uddannelse))
+            {
+                educationComboBox.SelectedItem = CurrentElev.elev.Uddannelse;
+            }
+            if(!String.IsNullOrEmpty(CurrentElev.elev.UdannelseAdresse))
+            {
+                if(educationAdresseComboBox.Items.Contains(CurrentElev.elev.UdannelseAdresse))
+                {
+                    educationAdresseComboBox.SelectedItem = CurrentElev.elev.UdannelseAdresse;
+                }
+            }
+           
+
+            switch (CurrentElev.elev.SPS)
+            {
+                case true:
+                    spsSupportJa.IsChecked = true;
+                    break;
+                case false:
+                    spsSupportNej.IsChecked = true;
+                    break;
+                default:
+                    break;
+            }
+
+
+            switch (CurrentElev.elev.EUD)
+            {
+                case true:
+                    eudSupportJa.IsChecked = true;
+                    break;
+                case false:
+                    eudSupportNej.IsChecked = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
         private void InitializeBlanket() {
+            
             SetButtons();
+            
 
             educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
             if (educationAdresseComboBox.Items.Count == 1) {
@@ -62,6 +109,7 @@ namespace GFElevInterview.Views
                 //TODO Udprint
                 //TODO Få fra Søgning
                 UpdateElevAndSave();
+               
             }
         }
 
@@ -84,8 +132,22 @@ namespace GFElevInterview.Views
             MessageBox.Show("Dokument gemt! TODO");
         }
 
+        public void clearRadioButtons()
+        {
+            if(spsSupportNej.IsChecked == true)
+            {
+                spsSupportNej.IsChecked = false;
+            }
+            if(eudSupportNej.IsChecked== true)
+            {
+                eudSupportNej.IsChecked = false;
+            }
+            
+        }
+
         public void Tilbage() {
             parent.ChangeView(new MeritBlanketView(parent));
+            
         }
 
         //TODO: Valider blanket
@@ -120,5 +182,26 @@ namespace GFElevInterview.Views
             parent.scrollview.Focus();
         }
 
-    }
+        private void educationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentElev.elev.Uddannelse = (sender as ComboBox).SelectedItem.ToString();
+        }
+
+        private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentElev.elev.UdannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
+        }
+
+        
+        private void SPSSupport_Checked(object sender, RoutedEventArgs e)
+        {
+            CurrentElev.elev.SPS = (sender as RadioButton) == spsSupportJa ? true : false;
+        }
+
+        private void EUDSupport_Checked(object sender, RoutedEventArgs e)
+        {
+            CurrentElev.elev.EUD = (sender as RadioButton) == eudSupportJa ? true : false;
+            
+        }
+    }  
 }
