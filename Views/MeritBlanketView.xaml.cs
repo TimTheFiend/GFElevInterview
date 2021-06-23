@@ -75,6 +75,7 @@ namespace GFElevInterview.Views
             // Tjekker om fag niveau er blevet valgt, da det er det eneste vi med sikkerhed ved at eleven kan have.
             if (IsValidated()) {
                 //TODO hvis ikke RKV
+                new BlanketUdskrivning().UdskrivningRKV();
                 parent.ChangeView(new VisitationsView(parent));
             }
         }

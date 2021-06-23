@@ -8,5 +8,6 @@
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
         <Label Content="RKV dokument" FontSize="50"/>
+        <Button x:Name="Udskriv" Width="260" Height="50" Background="Gray" Foreground="White" Content="Udskriv" FontSize="20" Click="Udskriv_Click"/>
     </Grid>
 </UserControl>
