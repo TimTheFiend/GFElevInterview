@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace GFElevInterview.Models
 {
@@ -42,8 +43,18 @@ namespace GFElevInterview.Models
             get { return $"{Efternavn}, {Fornavn}"; }
         }
 
+        public string CPRNr {
+            get {
+                // CprNr "XXXXXXXXX"
+                StringBuilder sb = new StringBuilder(CprNr, CprNr.Length + 1);
+                sb.Insert(6, '-');
+
+                return sb.ToString();
+            }
+        }
+
         public override string ToString() {
-            return $"({CprNr}) - {EfternavnFornavn}";
+            return $"({CPRNr}) - {EfternavnFornavn}";
         }
 
         public string FullInfo {
@@ -104,6 +115,8 @@ namespace GFElevInterview.Models
                 }
                 return fileName + ".pdf";
             }
+
+
         }
     }
 }

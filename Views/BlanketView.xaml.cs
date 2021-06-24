@@ -49,7 +49,12 @@ namespace GFElevInterview.Views
             if (SearchStudentBox.SelectedIndex >= 0) {
                 if(CurrentElev.meritBlanket.IsFilled)
                 {
-                    MessageBox.Show("Er du sikkert at ville skifte elev?");
+                    MessageBoxResult result = MessageBox.Show("Er du sikkert at ville skifte elev?", "TEMP TEXT", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        CurrentElev.ResetCurrentElev();
+                        currentView = null;
+                    }
                 }
                 InitializeBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
