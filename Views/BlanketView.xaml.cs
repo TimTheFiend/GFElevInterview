@@ -121,14 +121,15 @@ namespace GFElevInterview.Views
                 isMeritSuccess = print.UdskrivningMerit();
             });
 
+
             //isMeritSuccess = print.UdskrivningMerit();
 
-            Thread meritThread = new Thread(() => { print.UdskrivningMerit(); });
-            meritThread.Start();
+            //Thread meritThread = new Thread(() => { print.UdskrivningMerit(); });
+            //meritThread.Start();
 
-            if (CurrentElev.elev.IsRKV) {
-                isRKVSuccess = new BlanketUdskrivning().UdskrivningRKV();
-            }
+            //if (CurrentElev.elev.IsRKV) {
+            //    isRKVSuccess = new BlanketUdskrivning().UdskrivningRKV();
+            //}
 
             // Task
             while (!meritTask.IsCompleted) {
