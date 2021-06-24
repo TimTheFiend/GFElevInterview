@@ -61,15 +61,18 @@ namespace GFElevInterview.Data
                 return true;
             }
             catch (Exception) {
-
+                return false;
                 throw;
             }
 
-            return false;
         }
 
         public bool UdskrivningMerit() {
             try {
+                if (CurrentElev.elev.IsRKV) {
+                    UdskrivningRKV();
+                }
+
                 Document doc = new Document();
                 //Henter "Template" fil fra given string sti.
                 doc.LoadFromFile(GetMeritTemplate);
@@ -101,7 +104,7 @@ namespace GFElevInterview.Data
 
         private string GetRKVTemplate()
         {
-            string foo = "EUV1 - Infrastruktur.pdf";
+            string foo = $"{CurrentElev.elev.ElevType.ToString()} - {CurrentElev.elev.Uddannelse}.pdf";
             return "Blanketter\\Templates\\" + foo;
         }
 

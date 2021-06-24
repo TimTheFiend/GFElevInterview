@@ -52,12 +52,7 @@ namespace GFElevInterview.Views
 
         private void SetButtons()
         {
-            if (true)
-            {
-                //TODO Hvis ikke RKV
-                parent.btnFrem.Content = "Gem";
-            }
-
+            parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
         }
 
@@ -65,6 +60,7 @@ namespace GFElevInterview.Views
         {
             IsEUVExpanded();
         }
+
         //Note skal kaldes indefra blanket view
         private void UpdateElevAndSave()
         {
@@ -79,7 +75,7 @@ namespace GFElevInterview.Views
 
             UdprintMerit udprint = new UdprintMerit();
             udprint.udprintTilMerit();
-            parent.UpdateDatabase();
+            //parent.UpdateDatabase();
             //udprint.indPrintTilDataBase();
             MessageBox.Show("Dokument gemt! TODO");
         }
@@ -88,9 +84,31 @@ namespace GFElevInterview.Views
         {
            if(IsValidated())
            {
-                //TODO
-                MessageBox.Show("Check");
+                SetElevType();
+                CurrentElev.elev.Uddannelse = educationComboBox.Text.ToString();
+                CurrentElev.elev.UdannelseAdresse = uddannelsesBox.Text.ToString();
+                CurrentElev.elev.SPS = spsSupportJa.IsChecked;
+                CurrentElev.elev.EUD = eudSupportJa.IsChecked;
+                parent.CompleteCurrentInterview();
            }
+        }
+
+        private void SetElevType() {
+            ElevType elevType;
+            
+            if ((bool)euv1Ja.IsChecked) {
+                elevType = ElevType.EUV1;
+            }
+            else {
+                if ((bool)euv2Ja.IsChecked) {
+                    elevType = ElevType.EUV2;
+                }
+                else {
+                    elevType = ElevType.EUV3;
+                }
+            }
+
+            CurrentElev.elev.ElevType = elevType;
         }
 
         public void Tilbage()
