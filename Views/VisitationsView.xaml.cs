@@ -75,7 +75,6 @@ namespace GFElevInterview.Views
             }
         }
 
-
         private void InitializeBlanket() {
             
             SetButtons();
@@ -88,9 +87,7 @@ namespace GFElevInterview.Views
 
             //TODO RKV
             educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
-        }
-
-        
+        }        
 
         private void SetButtons() {
             if (true) {
@@ -123,7 +120,6 @@ namespace GFElevInterview.Views
             CurrentElev.elev.Uddannelse = educationComboBox.Text;
             CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
             CurrentElev.elev.EUD = (bool)eudSupportJa.IsChecked;
-
 
             UdprintMerit udprint = new UdprintMerit();
             udprint.udprintTilMerit();
@@ -169,7 +165,6 @@ namespace GFElevInterview.Views
             spsSupport.BorderBrush = _spsSupport ? gray : red;
             eudSupport.BorderBrush = _eudSupport ? gray : red;
 
-
             if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
             {
                 return true;
@@ -190,7 +185,6 @@ namespace GFElevInterview.Views
         {
             CurrentElev.elev.UdannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
         }
-
         
         private void SPSSupport_Checked(object sender, RoutedEventArgs e)
         {

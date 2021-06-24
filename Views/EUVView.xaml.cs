@@ -2,6 +2,7 @@
 using GFElevInterview.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,22 +27,26 @@ namespace GFElevInterview.Views
         {
             InitializeComponent();
             this.parent = parent;
-            InitializeBlanket();
-            EUV2Expand.IsExpanded = false;
-            EUV1JA.Click += CheckEUVExpand;
-            EUV1NEJ.Click += CheckEUVExpand;
+            InitializeBlanket();            
+            euv1Ja.Click += CheckEUVExpand;
+            euv1Nej.Click += CheckEUVExpand;
+            educationComboBox.DropDownClosed += Combobox_DropDownClosed;
+            uddannelsesBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
         private void InitializeBlanket()
         {
             SetButtons();
 
-            prioritetbox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
-            if(prioritetbox.Items.Count == 1)
+            uddannelsesBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
+            if(uddannelsesBox.Items.Count == 1)
             {
-                prioritetbox.SelectedIndex = 0;
+                uddannelsesBox.SelectedIndex = 0;
             }
-
+            euv1Expand.IsExpanded = false;
+            euv1Expand.IsEnabled = false;
+            euv2Expand.IsExpanded = false;
+            euv2Expand.IsEnabled = false;
             educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
         }
 
@@ -60,6 +65,7 @@ namespace GFElevInterview.Views
         {
             IsEUVExpanded();
         }
+        //Note skal kaldes indefra blanket view
         private void UpdateElevAndSave()
         {
             //TODO: Få info fra søgefeldt
@@ -67,8 +73,8 @@ namespace GFElevInterview.Views
 
             //ENDTODO
             CurrentElev.elev.Uddannelse = educationComboBox.Text;
-            CurrentElev.elev.SPS = (bool)EUV2SPSJA.IsChecked;
-            CurrentElev.elev.EUD = (bool)EUV2EUDJA.IsChecked;
+            CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
+            CurrentElev.elev.EUD = (bool)eudSupportJa.IsChecked;
 
 
             UdprintMerit udprint = new UdprintMerit();
@@ -80,7 +86,11 @@ namespace GFElevInterview.Views
 
         public void Frem()
         {
-            throw new NotImplementedException();
+           if(IsValidated())
+           {
+                //TODO
+                MessageBox.Show("Check");
+           }
         }
 
         public void Tilbage()
@@ -88,25 +98,97 @@ namespace GFElevInterview.Views
             parent.ChangeView(new MeritBlanketView(parent));
         }
 
+        //TODO: Valider blanket
+        private bool IsValidated()
+        {
+            SolidColorBrush gray = Brushes.Gray;
+            SolidColorBrush red = Brushes.Red;
+
+            IEnumerable<RadioButton> spsRadioButton = spsSupport.Children.OfType<RadioButton>();
+            IEnumerable<RadioButton> eudRadioButton = eudSupport.Children.OfType<RadioButton>();
+            //Validation
+            bool overAllValidated = true;
+            //EUV 1
+            bool _euv1 = (bool)euv1Ja.IsChecked || (bool)euv1Nej.IsChecked;
+            bool _euv1Spg1 = (bool)euv1Spg1Ja.IsChecked || (bool)euv1Spg1Nej.IsChecked;
+            bool _euv1Spg2 = (bool)euv1Spg2Ja.IsChecked || (bool)euv1Spg2Nej.IsChecked;
+            bool _euv1Spg3 = (bool)euv1Spg3Ja.IsChecked || (bool)euv1Spg3Nej.IsChecked;
+            bool _euv1Spg4 = (bool)euv1Spg4Ja.IsChecked || (bool)euv1Spg4Nej.IsChecked;
+            //EUV 2
+            bool _euv2 = (bool)euv2Ja.IsChecked || (bool)euv2Nej.IsChecked;
+            //Education
+            bool _educationArea = educationComboBox.SelectedIndex >= 0;
+            bool _educationAdresse = uddannelsesBox.SelectedIndex >= 0;      
+            //Support
+            bool _spsSupport = (bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked;
+            bool _eudSupport = (bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked;
+
+            //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
+            euv1Area.BorderBrush = _euv1 ? gray: red;  
+
+            educationArea.BorderBrush = _educationArea ? gray : red;
+            adresse.BorderBrush = _educationAdresse ? gray : red;
+
+            sps.BorderBrush = _spsSupport ? gray : red;
+            eud.BorderBrush = _eudSupport ? gray : red;
+
+            if(!_educationArea || !_educationAdresse || !_euv1 || !_spsSupport || !_eudSupport)
+            {               
+                overAllValidated = false;
+            }
+            if (_euv1 && (bool)euv1Ja.IsChecked)
+            {
+                if (!_euv1Spg1 || !_euv1Spg2 || !_euv1Spg3 || !_euv1Spg4)
+                {
+                    euv1Area1.BorderBrush = _euv1Spg1 ? gray : red;
+                    euv1Area2.BorderBrush = _euv1Spg2 ? gray : red;
+                    euv1Area3.BorderBrush = _euv1Spg3 ? gray : red;
+                    euv1Area4.BorderBrush = _euv1Spg4 ? gray : red;
+                    overAllValidated = false;
+                }          
+            }
+            else if (_euv1 )
+            {
+                if (!_euv2)
+                {
+                    euv2Area.BorderBrush = _euv2 ? gray : red;
+                    overAllValidated = false;
+                }
+                //overAllValidated = true;
+            }
+
+            //if (_euv1Spg1 && _euv1Spg2 && _euv1Spg3 && _euv1Spg4 && _euv2 && _educationArea && _educationAdresse && _spsSupport && _eudSupport)
+            //{
+            //    MessageBox.Show("Check");
+            //    return true;
+            //}
+            return overAllValidated;
+        }
+
+        private void Combobox_DropDownClosed(object sender, EventArgs e)
+        {
+            parent.scrollview.Focus();
+        }
+
         private bool IsEUVExpanded()
         {
-            bool _euv1 = (bool)EUV1JA.IsChecked || !(bool)EUV1NEJ.IsChecked;
+            bool _euv1 = (bool)euv1Ja.IsChecked || !(bool)euv1Nej.IsChecked;
             if (!_euv1)
             {
-                EUV1Expand.IsExpanded = false;
-                EUV1Expand.IsEnabled = false;
-                EUV2Expand.IsEnabled = true;
+                euv1Expand.IsExpanded = false;
+                euv1Expand.IsEnabled = false;
+                euv2Expand.IsEnabled = true;
                 return true;
             }
-            EUV1Expand.IsEnabled = true;
-            EUV1Expand.IsExpanded = true;
-            EUV2Expand.IsEnabled = false;
+            euv1Expand.IsEnabled = true;
+            euv1Expand.IsExpanded = true;
+            euv2Expand.IsEnabled = false;
             return false;
         }
 
         private void CheckEUVExpand(object sender, RoutedEventArgs e)
         {
-            EUV2Expand.IsExpanded = IsEUVExpanded();
+            euv2Expand.IsExpanded = IsEUVExpanded();
         }
     }
 }
