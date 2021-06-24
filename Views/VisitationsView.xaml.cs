@@ -101,9 +101,6 @@ namespace GFElevInterview.Views
         }
         #endregion
 
-
-
-
         public void Frem() {
             if (IsValidated())
             {
@@ -123,8 +120,7 @@ namespace GFElevInterview.Views
             CurrentElev.elev.Uddannelse = educationComboBox.Text;
             CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
             CurrentElev.elev.EUD = (bool)eudSupportJa.IsChecked;
-
-
+            
             parent.CompleteCurrentInterview();
         }
 
@@ -154,7 +150,9 @@ namespace GFElevInterview.Views
             spsSupport.BorderBrush = _spsSupport ? gray : red;
             eudSupport.BorderBrush = _eudSupport ? gray : red;
 
-            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport) {
+            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
+            {
+
                 return true;
             }
             return false;
@@ -180,6 +178,7 @@ namespace GFElevInterview.Views
 
         #region RadioButton setters
         private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
+
             CurrentElev.elev.SPS = (sender as RadioButton) == spsSupportJa ? true : false;
         }
 

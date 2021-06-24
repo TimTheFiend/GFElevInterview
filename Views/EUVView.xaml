@@ -5,127 +5,209 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="1600" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <!--Default Height "450" Width "800"-->
     <Grid>
         <StackPanel>
-            <Label Content="Interview guide til Visitations elever"  FontSize="20" FontWeight="Bold" FontStyle="Italic" Margin="10"/>
+            <Label Content="Interview guide til RKV elever"  FontSize="20" FontWeight="Bold" FontStyle="Italic" Margin="10"/>
             <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="educationArea">
                 <StackPanel Margin="10">
                     <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="20" />
                     <ComboBox x:Name="educationComboBox"/>
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="EUV1Area">
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="10">
                 <StackPanel Margin="10">
-                    <Label  Content="Har du 2 års relevant erhverserfarings, inde for de sidste 5?" FontSize="20"/>
-                    <DockPanel>
-                        <RadioButton x:Name="EUV1JA" Margin="0,0,60,0" Content="JA">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="2" ScaleY="2"/>
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
-                        <RadioButton x:Name="EUV1NEJ" Content="Nej">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="2" ScaleY="2"/>
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
-                    </DockPanel>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area1">
-                        <StackPanel>
-                            <Label  Content="Har du reglmæssigt udført følgende opgaver: " FontSize="20" Margin="0,10,0,0"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="A. Dimensionering, installationm konfiguration, sikkerhedshåndtering og opgradering af computere med tilhørende hardware og software, operativsystemer og serveroperativsystemer, administration og af netværksservere, trådløse netværk og serverløsninger som fx databaseserver." FontSize="14.5"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="B. Fejlfinding til modulniveau på computere og på netværk i forbindelse med opbygning og vedligeholdelse af lokalnet."  FontSize="14.5" Margin="0,5,0,5"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text=" C. Installation, opsætning og konfiguration af forskellige former for backup på servere, netværksenheder som fx Routere, Switche mv. samt WAN-netværk med tilhørende adgangstyper og sikkerhedsopsætninger."  FontSize="14.5"/>
-                        </StackPanel>
+                    <Label  Content="Har du 2 års relevant erhvervserfaring, inde for de sidste 5 år?" FontSize="20"/>
+                    <Border x:Name="euv1Area" BorderThickness="1" BorderBrush="Gray" Margin="0,0,0,10">
+                        <DockPanel Height="32">
+                            <RadioButton x:Name="euv1Ja" Margin="0,0,60,0" Content="JA" GroupName="euv1">
+                                <RadioButton.RenderTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                </RadioButton.RenderTransform>
+                            </RadioButton>
+                            <RadioButton x:Name="euv1Nej" Content="Nej" GroupName="euv1">
+                                <RadioButton.RenderTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                </RadioButton.RenderTransform>
+                            </RadioButton>
+                        </DockPanel>
                     </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area2">
-                        <StackPanel>
-                            <Label Content="Herudover skal du i en vis udstrækning havde udført følgende opgaver: " FontSize="20" Margin="0,10,0,0"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="A. Udvikling af scripts og mindre programmer under anvendelse af et scriptsprog" FontSize="14.5"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="B. Design og opbygning af lokalnet med ekstern opkobling" FontSize="14.5" Margin="0,5,0,0"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="C. Kundeservice" FontSize="14.5" Margin="0,5,0,0"/>
-                        </StackPanel>
+                    <Border BorderBrush="Gray" x:Name="euv1Area1" BorderThickness="1">
+                        <Expander IsExpanded="True" x:Name="euv1Expand">
+                            <StackPanel>
+                                <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="euv1Area2">
+                                    <StackPanel>
+                                        <DockPanel x:Name="euv1spg1">
+                                            <StackPanel Width="644">
+                                                <Label  Content="Har du ralmæssige udført følgende opgaver:" FontSize="18" Margin="0,10,0,0"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="A. Dimensionering, installation, konfiguration, sikkerhedshåndtering og opgradering af computere med tilhørende hardware og software, operativsystemer og serveroperativsystemer, administration og vedligehold af netværksservere, trådløse netværk og serverløsninger som fx databaseserver." FontSize="14.5"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="B. Fejlfinding til modulniveau på computere og på netværk i forbindelse med opbygning og vedligehold af lokalnet."  FontSize="14.5" Margin="0,5,0,5"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="C. Installation, opsætning og konfiguration af forskellige former for backup på servere, netværksenheder som fx Routere, Switche mv. samt WAN-netværk med tilhørende adgangstyper og sikkerhedsopsætninger." FontSize="14.5"/>
+                                            </StackPanel>
+                                            <Border BorderBrush="Black" BorderThickness="1">
+                                                <StackPanel Margin="0,60,0,0">
+                                                    <RadioButton x:Name="euv1Spg1Ja" Content="Ja" Margin="15,0,0,50">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="euv1Spg1Nej" Content="Nej" Margin="15,0,0,0">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                </StackPanel>
+                                            </Border>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="euv1Area3">
+                                    <StackPanel >
+                                        <DockPanel x:Name="euv1Spg2">
+                                            <StackPanel Width="644">
+                                                <Label Content="Herudover skal du i en vis udstrækning havde udført følgende opgaver:" FontSize="18" Margin="0,10,0,0"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="A. Udvikling af scripts og mindre programmer under anvendelse af et scriptsprog" FontSize="14.5"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="B. Design og opbygning af lokalnet med ekstern opkobling" FontSize="14.5" Margin="0,8,0,0"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="C. Kundeservice" FontSize="14.5" Margin="0,8,0,0"/>
+                                            </StackPanel>
+                                            <Border BorderBrush="Black" BorderThickness="1">
+                                                <StackPanel Margin="0,25,0,0">
+                                                    <RadioButton x:Name="euv1Spg2Ja" Content="Ja"  Margin="15,0,0,25">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="euv1Spg2Nej" Content="Nej" Margin="15,0,0,0">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                </StackPanel>
+                                            </Border>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="euv1Area4">
+                                    <StackPanel>
+                                        <DockPanel x:Name="euv1Spg3">
+                                            <StackPanel Width="644">
+                                                <TextBlock TextWrapping="WrapWithOverflow"  Text="Specialet datatekniker med speciale i infrastruktur: Du skal inde for perioden på 2 år havde arbejdet med ovennævnte generelle opgaver og have et års erfaring med at:" FontSize="18" Margin="0,5,0,10"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="A. Opbygge, konfigurere, vedligeholde og administrere server- og netværksløsninger samt designe avancerede LAN- og WAN-netværk." FontSize="14.5" Margin="0,0,0,5"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow" Text="B. Analysere, designe, implementere og administrere sikkerhedsløsninger på serverbaserede netværk." FontSize="14.5"/>
+                                            </StackPanel>
+                                            <Border BorderBrush="Black" BorderThickness="1">
+                                                <StackPanel Margin="0,40,0,0">
+                                                    <RadioButton x:Name="euv1Spg3Ja" Content="Ja" Margin="15,0,0,50">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="euv1Spg3Nej" Content="Nej" Margin="15,0,0,0">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                </StackPanel>
+                                            </Border>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="euv1Area5">
+                                    <StackPanel>
+                                        <DockPanel x:Name="euv1Spg4">
+                                            <StackPanel Width="644">
+                                                <TextBlock TextWrapping="WrapWithOverflow"  Text="Analysere, designe, implementere og administrere sikkerhedsløsninger på serverbaserede netværk. Du skal inden for perioden på to år have arbejdet med ovennævnte generelle opgaver og have et års erfaring med:" FontSize="18" Margin="0,10,0,0"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow"  Text="A. Udvikling af programmer, herunder avanceret programudvikling af it-systemer som standalone applikationer, client-server applikationer, web applikationer m.v." FontSize="14.5"  Margin="0,5,0,5"/>
+                                                <TextBlock TextWrapping="WrapWithOverflow"  Text="B. Udviklingsopgaver inden for embeddede systemer og databasesystemer." FontSize="14.5"/>
+                                            </StackPanel>
+                                            <Border BorderBrush="Black" BorderThickness="1">
+                                                <StackPanel Margin="0,40,0,0">
+                                                    <RadioButton x:Name="euv1Spg4Ja" Content="Ja" Margin="15,0,0,50">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="euv1Spg4Nej" Content="Nej" Margin="15,0,0,0">
+                                                        <RadioButton.RenderTransform>
+                                                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        </RadioButton.RenderTransform>
+                                                    </RadioButton>
+                                                </StackPanel>
+                                            </Border>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="euvDokumentation">
+                                    <StackPanel>
+                                        <TextBlock TextWrapping="WrapWithOverflow"  Text="Hvis eleven kan dokumentere ovennævnt spørgsmål vil resultater være følgende: Alle 3 retninger skal havde svaret ja til: Har du 2 års relevant erhvervserfaring, inde for de sidste 5 år?" FontSize="18" Margin="0,10,0,0"/>
+                                        <TextBlock TextWrapping="WrapWithOverflow"  Text="It supporter = ja til spørgsmål 1 og 2 = EUV1 It supporter" FontSize="14.5"  Margin="0,5,0,0"/>
+                                        <TextBlock TextWrapping="WrapWithOverflow"  Text="Infrastruktur = ja til spørgsmål 1,2 og 3 = EUV1 infrastruktur" FontSize="14.5" Margin="0,5,0,5"/>
+                                        <TextBlock TextWrapping="WrapWithOverflow"  Text="Programmering= ja til spørgsmål 1,2 og 4 = EUV1 programmering" FontSize="14.5"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Expander>
                     </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area3">
-                        <StackPanel>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Specialet datatekniker med speciale i infrastruktur: Du skal inde for perioden på 2 år havde arbejdet med ovennævnte generelle opgaver og have et års erfaring med at:" FontSize="20" Margin="0,5,0,10"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="A. Opbygge, konfigurere, vedligeholde og administrere server- og netværksløsninger samt designe avancerede LAN- og WAN-netværk." FontSize="14.5" Margin="0,0,0,5"/>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="B. Analysere, designe, implementere og administrere sikkerhedsløsninger på serverbaserede netværk." FontSize="14.5"/>
-                        </StackPanel>
-                    </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV1Area4">
-                        <StackPanel>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Analysere, designe, implementere og administrere sikkerhedsløsninger på serverbaserede netværk. Du skal inden for perioden på to år have arbejdet med ovennævnte generelle opgaver og have et års erfaring med:" FontSize="20" Margin="0,10,0,0"/>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="A. Udvikling af programmer, herunder avanceret programudvikling af it-systemer som standalone applikationer, client-server applikationer, web applikationer m.v." FontSize="14.5"  Margin="0,5,0,5"/>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="B.Udviklingsopgaver inden for embeddede systemer og databasesystemer." FontSize="14.5"/>
-                        </StackPanel>
-                    </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUVDokumentation">
-                        <StackPanel>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Hvis eleven kan dokumentere ovennævnt spørgsmål vil resultater være følgende: Alle 3 retninger skal havde svaret ja til: Har du 2 års relevant erhvervserfaring, inde for de sidste 5 år?" FontSize="20" Margin="0,10,0,0"/>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="It supporter = ja til spørgsmål 1 og 2 = EUV1 It supporter" FontSize="14.5"  Margin="0,5,0,0"/>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Infrastruktur = ja til spørgsmål 1,2 og 3 = EUV1 infrastruktur" FontSize="14.5" Margin="0,5,0,5"/>
-                            <TextBlock TextWrapping="WrapWithOverflow"  Text="Programmering= ja til spørgsmål 1,2 og 4 = EUV1 programmering" FontSize="14.5"/>
-                        </StackPanel>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="euv2Area">
+                        <Expander x:Name="euv2Expand">
+                            <StackPanel Margin="10" >
+                                <TextBlock TextWrapping="WrapWithOverflow" Text="Har du en dokumenteret afsluttet uddannelse og/eller har du mindre end 2 års relevant dokumenteret erhvervserfaring." FontSize="20"/>
+                                <DockPanel >
+                                    <RadioButton x:Name="euv2Ja" Margin="0,5,60,0" Content="JA">
+                                        <RadioButton.RenderTransform>
+                                            <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                        </RadioButton.RenderTransform>
+                                    </RadioButton>
+                                    <RadioButton x:Name="euv2Nej" Margin="0,5,0,0" Content="Nej" >
+                                        <RadioButton.RenderTransform>
+                                            <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                        </RadioButton.RenderTransform>
+                                    </RadioButton>
+                                </DockPanel>
+                            </StackPanel>
+                        </Expander>
                     </Border>
                 </StackPanel>
             </Border>
-            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="EUV2Area">
-                <StackPanel Margin="10">
-                    <TextBlock TextWrapping="WrapWithOverflow" Text="Har du en dokumenteret afsluttet uddannelse og/eller har du mindre end 2 års relevant dokumenteret erhvervserfaring" FontSize="20"/>
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="adresse">
+                <StackPanel>
+                    <TextBlock TextWrapping="WrapWithOverflow" Text="Hvilken adresse ønske du at starte på?" FontSize="18" Margin="0,10,0,0"/>
+                    <ComboBox x:Name="uddannelsesBox"/>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="sps" Height="103">
+                <StackPanel x:Name="spsSupport">
+                    <TextBlock TextWrapping="WrapWithOverflow" Text="Har du modtaget særlige støtte eller ønsker du at søge om særlige pædagogiske støtte?" FontSize="18" Margin="0,10,0,0"/>
                     <DockPanel>
-                        <RadioButton x:Name="EUV2JA" Margin="0,5,60,0" Content="JA">
+                        <RadioButton x:Name="spsSupportJa" Margin="0,5,60,0" Content="JA">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
-                        <RadioButton x:Name="EUV2NEJ" Margin="0,5,0,0" Content="Nej">
+                        <RadioButton x:Name="spsSupportNej" Margin="0,5,0,0" Content="Nej">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
                     </DockPanel>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV2Area1">
-                        <StackPanel>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="Hvilken adresse ønske du at starte på?" FontSize="20" Margin="0,10,0,0"/>
-                            <ComboBox x:Name="prioritetbox"/>
-                        </StackPanel>
-                    </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV2Area2" Height="80">
-                        <StackPanel>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="20" Margin="0,10,0,0"/>
-                            <DockPanel>
-                                <RadioButton x:Name="EUV2SPSJA" Margin="0,5,60,0" Content="JA">
-                                    <RadioButton.RenderTransform>
-                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                    </RadioButton.RenderTransform>
-                                </RadioButton>
-                                <RadioButton x:Name="EUV2SPSNEJ" Margin="0,5,0,0" Content="Nej">
-                                    <RadioButton.RenderTransform>
-                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                    </RadioButton.RenderTransform>
-                                </RadioButton>
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,20,0,0" x:Name="EUV2Area3">
-                        <StackPanel>
-                            <TextBlock TextWrapping="WrapWithOverflow" Text="Ønsker du en samtale med eud vejleder?" FontSize="20" Margin="0,5,0,0"/>
-                            <DockPanel>
-                                <RadioButton x:Name="EUV2EUDJA" Margin="0,5,60,0" Content="JA">
-                                    <RadioButton.RenderTransform>
-                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                    </RadioButton.RenderTransform>
-                                </RadioButton>
-                                <RadioButton x:Name="EUV2EUDNEJ" Margin="0,5,0,0" Content="Nej">
-                                    <RadioButton.RenderTransform>
-                                        <ScaleTransform ScaleX="2" ScaleY="2"/>
-                                    </RadioButton.RenderTransform>
-                                </RadioButton>
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="eud" Height="70">
+                <StackPanel x:Name="eudSupport">
+                    <TextBlock TextWrapping="WrapWithOverflow" Text="Ønsker du en samtale med en eud vejleder?" FontSize="18" Margin="0,5,0,0"/>
+                    <DockPanel>
+                        <RadioButton x:Name="eudSupportJa" Margin="0,5,60,0" Content="JA">
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
+                        <RadioButton x:Name="eudSupportNej" Margin="0,5,0,0" Content="Nej">
+                            <RadioButton.RenderTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2"/>
+                            </RadioButton.RenderTransform>
+                        </RadioButton>
+                    </DockPanel>
                 </StackPanel>
             </Border>
         </StackPanel>

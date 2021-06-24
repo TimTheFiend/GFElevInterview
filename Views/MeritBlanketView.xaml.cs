@@ -96,9 +96,19 @@ namespace GFElevInterview.Views
         public void Frem() {
             // Tjekker om fag niveau er blevet valgt, da det er det eneste vi med sikkerhed ved at eleven kan have.
             if (IsValidated()) {
+                IBlanket newView;
+                if (CurrentElev.elev.IsRKV)
+                {
+                    newView = new EUVView(parent);
+                }
+                else 
+                {
+                    newView = new VisitationsView(parent);
+                }
+
                 //TODO hvis ikke RKV
-                new BlanketUdskrivning().UdskrivningRKV();
-                parent.ChangeView(new VisitationsView(parent));
+                //new BlanketUdskrivning().UdskrivningRKV();
+                parent.ChangeView(newView);
             }
         }
 
