@@ -29,8 +29,10 @@ namespace GFElevInterview.Views
 
         public BlanketView() {
             InitializeComponent();
+
+            CurrentElev.ResetCurrentElev();
             //InitializeBlanket();
-            db.Database.EnsureCreated();
+            //db.Database.EnsureCreated();
 
             //TODO: Debug
             //CurrentElev.elev = db.Elever.FirstOrDefault(x => x.Fornavn.ToLower() == "joakim");
@@ -114,6 +116,8 @@ namespace GFElevInterview.Views
             bool? isRKVSuccess = null;
             bool isMeritSuccess = false;
 
+            CurrentElev.meritBlanket.BeregnMeritIUger(CurrentElev.elev);
+
             BlanketUdskrivning print = new BlanketUdskrivning();
 
             ///Task
@@ -121,20 +125,7 @@ namespace GFElevInterview.Views
                 isMeritSuccess = print.UdskrivningMerit();
             });
 
-
-            //isMeritSuccess = print.UdskrivningMerit();
-
-            //Thread meritThread = new Thread(() => { print.UdskrivningMerit(); });
-            //meritThread.Start();
-
-            //if (CurrentElev.elev.IsRKV) {
-            //    isRKVSuccess = new BlanketUdskrivning().UdskrivningRKV();
-            //}
-
-            // Task
-            while (!meritTask.IsCompleted) {
-            }
-
+            while (!meritTask.IsCompleted) { }
 
             //Hvis merit er blevet udskrevet, og RKV enten også er, eller slet ikke (fordi eleven ikke er RKV), så opdater databasen.
             if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
@@ -142,6 +133,7 @@ namespace GFElevInterview.Views
                     CurrentElev.ResetCurrentElev();
                     currentView = null;
                     mainContent.Content = null;
+                    StudentsFullInfo.Content = "";
                     AlertBoxes.OnSuccessfulCompletion();
                 }
             }

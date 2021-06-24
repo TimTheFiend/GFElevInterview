@@ -47,9 +47,9 @@ namespace GFElevInterview.Data
                 pdfFormFields.SetField("Metrit 3", "Yes");
 
                 //TODO Side 4 Grundforløb
-                pdfFormFields.SetField("GF antal dage 1", "00");
-                pdfFormFields.SetField("GF Samlet antal dages merit", "10");
-                pdfFormFields.SetField("GF Samlet antal på GF", "25");
+                pdfFormFields.SetField("GF antal dage 1", "100");
+                pdfFormFields.SetField("GF Samlet antal dages merit", $"{ CurrentElev.meritBlanket.MeritLængdeIDage}");
+                pdfFormFields.SetField("GF Samlet antal på GF", $"{100 - CurrentElev.meritBlanket.MeritLængdeIDage}");
 
                 //TODO MAX
                 //Side 5 Special Støtte
@@ -90,6 +90,7 @@ namespace GFElevInterview.Data
                 doc.Replace("#ME#", CurrentElev.meritBlanket.Matematik.udprintEksammen, true, true);
                 doc.Replace("#MU#", CurrentElev.meritBlanket.Matematik.udprintUndervisning, true, true);
                 doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
+                doc.Replace("#uger#", CurrentElev.meritBlanket.UddannelsesLængdeIUger.ToString(), true, true);
 
                 doc.SaveToFile(System.IO.Path.Combine(outputDirectory, CurrentElev.elev.FilNavn), FileFormat.PDF);
                 //doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
