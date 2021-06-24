@@ -34,9 +34,9 @@
 
                             <WrapPanel>
 
-                                <Label FontSize="20"  Content="" Name="StudentsFullInfo" />
-                                <Label FontSize="20" Content="Alderen er :"/>
-                                <TextBlock x:Name="ViseAlder" FontSize="19" HorizontalAlignment="left" Height="20" Width="30"  />
+                                <Label FontSize="20"  Content="" Name="StudentsFullInfo" VerticalContentAlignment="Bottom" />
+                                <!--<Label FontSize="20" Content="Alderen er :"/>
+                                <TextBlock x:Name="ViseAlder" FontSize="19" HorizontalAlignment="left" Height="20" Width="30"  />-->
                             </WrapPanel>
                         </StackPanel>
                     
