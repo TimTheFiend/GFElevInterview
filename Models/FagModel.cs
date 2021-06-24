@@ -1,6 +1,8 @@
-﻿namespace GFElevInterview.Data
+﻿using GFElevInterview.Data;
+
+namespace GFElevInterview.Models
 {
-    public class Fag
+    public class FagModel
     {
         public bool Eksamen { get; set; }
         public bool Undervisning { get; set; }
@@ -11,10 +13,10 @@
 
         public string udprintNiveau { get { return Niveau.ToString(); } }
 
-        public Fag() {
+        public FagModel() {
         }
 
-        public Fag(bool eksamen, bool undervisning, FagNiveau niveau) {
+        public FagModel(bool eksamen, bool undervisning, FagNiveau niveau) {
             Eksamen = eksamen;
             Undervisning = undervisning;
             Niveau = niveau;
