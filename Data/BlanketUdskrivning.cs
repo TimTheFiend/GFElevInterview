@@ -2,13 +2,14 @@
 using System.IO;
 using Spire.Doc;
 using iTextSharp.text.pdf;
+using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Data
 {
     public class BlanketUdskrivning
     {
-        private const string outputDirectory = @"..\Blanketter";
-        
+        private readonly string outputDirectory = config.AppSettings["outputMappe"];
+
         public BlanketUdskrivning() {
             if (!Directory.Exists(outputDirectory)) {
                 Directory.CreateDirectory(outputDirectory);
@@ -19,7 +20,7 @@ namespace GFElevInterview.Data
         {
             try {
                 string inputFil = GetRKVTemplate();
-                //TODO
+                //Sæt hvor filen skal gemmes henne.
                 string outputFilePath = Path.Combine(outputDirectory, CurrentElev.elev.Fornavn + ".pdf");
 
                 PdfReader pdfReader = new PdfReader(inputFil);
@@ -92,7 +93,7 @@ namespace GFElevInterview.Data
                 doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
                 doc.Replace("#uger#", CurrentElev.meritBlanket.UddannelsesLængdeIUger.ToString(), true, true);
 
-                doc.SaveToFile(System.IO.Path.Combine(outputDirectory, CurrentElev.elev.FilNavn), FileFormat.PDF);
+                doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.FilNavn), FileFormat.PDF);
                 //doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
 
                 return true;
@@ -106,12 +107,12 @@ namespace GFElevInterview.Data
         private string GetRKVTemplate()
         {
             string foo = $"{CurrentElev.elev.ElevType.ToString()} - {CurrentElev.elev.Uddannelse}.pdf";
-            return "Blanketter\\Templates\\" + foo;
+            return Path.Combine(config.AppSettings["templates"], foo);
         }
 
         private string GetMeritTemplate {
             get {
-                return @"Blanketter\Templates\Merit-blanket.docx";
+                return Path.Combine(config.AppSettings["templates"], "Merit-blanket.docx");
             }
         }
     }

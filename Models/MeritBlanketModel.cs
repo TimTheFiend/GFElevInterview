@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using config = System.Configuration.ConfigurationManager;
 using GFElevInterview.Data;
+
 
 namespace GFElevInterview.Models
 {
@@ -37,7 +37,7 @@ namespace GFElevInterview.Models
             int ekstraUger = 4;
 
             if (Dansk.Niveau > minNiveau) {
-                minNiveau = elev.Uddannelse == "IT-supporter" ? FagNiveau.E : FagNiveau.D;
+                minNiveau = elev.Uddannelse == config.AppSettings["itsupporter"] ? FagNiveau.E : FagNiveau.D;
 
                 if (Engelsk.Niveau >= minNiveau) { ekstraUger -= 2; }
                 if (Matematik.Niveau >= minNiveau) { ekstraUger -= 2; }
@@ -64,12 +64,12 @@ namespace GFElevInterview.Models
         public List<string> AvailableSchools() {
             if (Dansk.Niveau <= FagNiveau.F) {
                 return new List<string>() {
-                    "Ballerup"
+                    config.AppSettings["ballerup"]
                 };
             }
             return new List<string>() {
-                "Frederiksberg",
-                "Lyngby"
+                config.AppSettings["frederiksberg"],
+                config.AppSettings["lyngby"]
             };
         }
 
@@ -78,12 +78,12 @@ namespace GFElevInterview.Models
         /// </summary>
         public List<string> AvailableEducations() {
             List<string> uddannelser = new List<string>() {
-                "Infrastruktur",
-                "IT-supporter",
-                "Programmering"
+                config.AppSettings["infrastruktur"],
+                config.AppSettings["itsupporter"],
+                config.AppSettings["programmering"]
             };
             if (!CurrentElev.elev.IsRKV) {
-                uddannelser.Add("Ved ikke");
+                uddannelser.Add(config.AppSettings["vedIkke"]);
             }
 
             return uddannelser;
