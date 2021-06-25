@@ -10,7 +10,6 @@ namespace GFElevInterview.Data
         public static MeritBlanketModel meritBlanket = new MeritBlanketModel();
 
         public static void ResetCurrentElev()
-
         {
             elev = new ElevModel();
             meritBlanket = new MeritBlanketModel();

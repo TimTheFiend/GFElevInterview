@@ -43,8 +43,6 @@ namespace GFElevInterview.Data
                 doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
 
                 doc.SaveToFile(System.IO.Path.Combine(udprintSti, CurrentElev.elev.FilNavn), FileFormat.PDF);
-                //doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
-
                 return true;
             }
             catch (System.Exception) {
