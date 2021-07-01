@@ -14,12 +14,12 @@ namespace GFElevInterview.Data
          * Tilføj Merit og RKV til udprintning.
          */
 
-        private string meritFileSti = "Blanketter\\Templates\\Meritblanketter VISI blank.docx";
+        private string meritFileSti = "Blanketter\\Templates\\Merit-blanket.docx";
         private string udprintSti = "..\\Blanketter";
 
         private string _nyMeritFile = $"{CurrentElev.elev.Fornavn}.pdf";
 
-        private string nyMeritFile = @"C:\Users\viga\Downloads\[TEST]\";
+        private string nyMeritFile = @"C:\Users\afba\Downloads\[TEST]\";
 
         //FreeSpire.Doc Version//
         Document doc = new Document();
