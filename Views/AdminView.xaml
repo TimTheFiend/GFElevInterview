@@ -26,9 +26,9 @@
 
         <TextBlock Text="ELevs navn skal stå her" Grid.Column="0" Grid.Row="1" FontSize="20"/>
 
-        <Button x:Name="btnKnap1" Content="Knap1" Grid.Column="0" Grid.Row="2" Background="Gray" Height="50" Width="150" HorizontalAlignment="left" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" Click="btnKnap1_Click"/>
-        <Button x:Name="btnKnap2" Content="Knap2" Grid.Column="0" Grid.Row="2" Background="Gray" Height="50" Width="150" HorizontalAlignment="center" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" Click="btnKnap2_Click"/>
-        <Button x:Name="btnKnap3" Content="Knap3" Grid.Column="0" Grid.Row="2" Background="Gray" Height="50" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" Click="btnKnap3_Click"/>
+        <Button x:Name="btnKnap1" Content="Knap1" Grid.Column="0" Grid.Row="2" Background="Gray" Height="50" Width="150" HorizontalAlignment="left" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" />
+        <Button x:Name="btnKnap2" Content="Knap2" Grid.Column="0" Grid.Row="2" Background="Gray" Height="50" Width="150" HorizontalAlignment="center" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" />
+        <Button x:Name="btnKnap3" Content="Knap3" Grid.Column="0" Grid.Row="2" Background="Gray" Height="50" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" Foreground="White" FontSize="22" />
 
         <StackPanel Grid.Column="1" Grid.Row="0">
                         
