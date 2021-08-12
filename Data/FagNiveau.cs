@@ -4,6 +4,9 @@ using System.Text;
 
 namespace GFElevInterview.Data
 {
+    /// <summary>
+    /// Indeholder fagniveau karakterene, i et format hvor de kan sammelignes som var de <c>int</c>.
+    /// </summary>
     public enum FagNiveau
     {
         Null,

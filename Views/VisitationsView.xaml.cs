@@ -43,14 +43,14 @@ namespace GFElevInterview.Views
         }
 
         private void SetComboBoxes() {
-            educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
+            educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederSkoler();
 
             ///Får programmet til at crashe da SelectedItem = null (???)
             //if (educationAdresseComboBox.Items.Count == 1) {
             //    educationAdresseComboBox.SelectedIndex = 0;
             //}
 
-            educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
+            educationComboBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederUddannelser();
         }
 
         private void SetButtons() {

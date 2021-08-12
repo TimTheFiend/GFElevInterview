@@ -5,6 +5,11 @@ using System.Windows;
 
 namespace GFElevInterview.Data
 {
+    /// <summary>
+    /// DEPRECATED!
+    /// Forsøg på at lave en statisk klasse der indeholder forskellige <see cref="MessageBox"/> variationer til forskellige situationer.
+    /// Blev aldrig implementeret, da jeg (Joakim) lavede den spontant og opdagede at det var unødvendigt.
+    /// </summary>
     public static class AlertBoxes
     {
         public static void OnSuccessfulCompletion() {

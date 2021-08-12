@@ -21,7 +21,7 @@ namespace GFElevInterview.Views
         public BlanketView() {
             InitializeComponent();
 
-            CurrentElev.ResetCurrentElev();
+            CurrentElev.NulstilCurrentElev();
             //InitializeBlanket();
             //db.Database.EnsureCreated();
 
@@ -40,18 +40,18 @@ namespace GFElevInterview.Views
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
-                if(CurrentElev.meritBlanket.IsFilled)
+                if(CurrentElev.meritBlanket.ErUdfyldt)
                 {
                     MessageBoxResult result = MessageBox.Show("Er du sikkert at ville skifte elev?", "TEMP TEXT", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
-                        CurrentElev.ResetCurrentElev();
+                        CurrentElev.NulstilCurrentElev();
                         currentView = null;
                     }
                 }
                 InitializeBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
-                StudentsFullInfo.Content = CurrentElev.elev.FullInfo;
+                StudentsFullInfo.Content = CurrentElev.elev.FuldInfo;
 
                 //Nulstiller textbox og listbox
                 SearchStudentTxt.Text = "";
@@ -123,7 +123,7 @@ namespace GFElevInterview.Views
             //Hvis merit er blevet udskrevet, og RKV enten også er, eller slet ikke (fordi eleven ikke er RKV), så opdater databasen.
             if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
                 if (UpdateDatabase()) {
-                    CurrentElev.ResetCurrentElev();
+                    CurrentElev.NulstilCurrentElev();
                     currentView = null;
                     mainContent.Content = null;
                     StudentsFullInfo.Content = "";

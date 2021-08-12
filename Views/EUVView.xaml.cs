@@ -38,7 +38,7 @@ namespace GFElevInterview.Views
         {
             SetButtons();
 
-            uddannelsesBox.ItemsSource = CurrentElev.meritBlanket.AvailableSchools();
+            uddannelsesBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederSkoler();
             if(uddannelsesBox.Items.Count == 1)
             {
                 uddannelsesBox.SelectedIndex = 0;
@@ -47,7 +47,7 @@ namespace GFElevInterview.Views
             euv1Expand.IsEnabled = false;
             euv2Expand.IsExpanded = false;
             euv2Expand.IsEnabled = false;
-            educationComboBox.ItemsSource = CurrentElev.meritBlanket.AvailableEducations();
+            educationComboBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederUddannelser();
         }
 
         private void SetButtons()

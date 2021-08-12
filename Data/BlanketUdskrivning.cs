@@ -82,7 +82,7 @@ namespace GFElevInterview.Data
         /// <returns><c>true</c> hvis udprintningen er succesfuld; ellers <c>false</c>.</returns>
         public bool UdskrivningMerit() {
             try {
-                if (CurrentElev.elev.IsRKV) {
+                if (CurrentElev.elev.ErRKV) {
                     UdskrivningRKV();
                 }
 
