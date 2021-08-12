@@ -2,7 +2,6 @@
 using config = System.Configuration.ConfigurationManager;
 using GFElevInterview.Data;
 
-
 namespace GFElevInterview.Models
 {
     public class MeritBlanketModel
@@ -11,23 +10,33 @@ namespace GFElevInterview.Models
         public FagModel Engelsk;
         public FagModel Matematik;
 
-        public int UddannelsesLængdeIUger { get; set; } = 16;  // 16 uger er det laveste man kan have, altså standarden.
+        private const int minUddannelsesLængdeIUger = 16;  // 16 uger er det laveste man kan have, altså standards-længden for alle.
+
+        public int UddannelsesLængdeIUger { get; set; } = minUddannelsesLængdeIUger;
+
+        /// <summary>
+        /// Hvor mange dages merit <see cref="CurrentElev"/> får.
+        /// </summary>
         public int MeritLængdeIDage {
             get {
                 if (CurrentElev.elev.ElevType == ElevType.EUV1) {
                     return 100;  // Hele forløbet er merit
                 }
-                int value = UddannelsesLængdeIUger - 16;  //
-                return value * 5 - 20;  //Uger * antal ugedage. 
+                int value = UddannelsesLængdeIUger - minUddannelsesLængdeIUger;
+                return (value * 5) - 20;  //Uger * antal ugedage.
             }
         }
+
         public MeritBlanketModel() {
             Dansk = new FagModel();
             Engelsk = new FagModel();
             Matematik = new FagModel();
         }
 
-
+        /// <summary>
+        /// Beregner hvor mange ugers merit <see cref="CurrentElev"/> har, baseret på deres fag niveauer.
+        /// </summary>
+        /// <param name="elev">Eleven der bliver interviewet.</param>
         public void BeregnMeritIUger(ElevModel elev) {
             if (elev.ElevType == ElevType.EUV1) {
                 UddannelsesLængdeIUger = 0;
@@ -47,12 +56,12 @@ namespace GFElevInterview.Models
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is filled.
+        /// Returnerer en værdi baseret på om <see cref="MeritBlanketModel"/> er udfyldt.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is filled; otherwise, <c>false</c>.
+        ///   <c>true</c> hvis udfyldt; ellers, <c>false</c>.
         /// </value>
-        public bool IsFilled {
+        public bool ErUdfyldt {
             get {
                 if (Dansk.Niveau != FagNiveau.Null || Engelsk.Niveau != FagNiveau.Null || Matematik.Niveau != FagNiveau.Null) {
                     return true;
@@ -61,7 +70,11 @@ namespace GFElevInterview.Models
             }
         }
 
-        public List<string> AvailableSchools() {
+        /// <summary>
+        /// Returnerer en liste med mulige skoler baseret på fagniveau.
+        /// </summary>
+        /// <returns><see cref="List{T}"/> med navne på skole(r).</returns>
+        public List<string> ValgmulighederSkoler() {
             if (Dansk.Niveau <= FagNiveau.F) {
                 return new List<string>() {
                     config.AppSettings["ballerup"]
@@ -74,15 +87,16 @@ namespace GFElevInterview.Models
         }
 
         /// <summary>
-        /// Viser hvilke uddannelser der er tilgængelig for eleven.
+        /// Returnerer en liste med mulige uddannelser baseret på elevtype.
         /// </summary>
-        public List<string> AvailableEducations() {
+        /// <returns><see cref="List{T}"/> med "Ved Ikke" som den eneste forskel.</returns>
+        public List<string> ValgmulighederUddannelser() {
             List<string> uddannelser = new List<string>() {
                 config.AppSettings["infrastruktur"],
                 config.AppSettings["itsupporter"],
                 config.AppSettings["programmering"]
             };
-            if (!CurrentElev.elev.IsRKV) {
+            if (!CurrentElev.elev.ErRKV) {
                 uddannelser.Add(config.AppSettings["vedIkke"]);
             }
 

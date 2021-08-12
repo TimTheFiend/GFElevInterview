@@ -70,7 +70,7 @@ namespace GFElevInterview.Data
 
         public bool UdskrivningMerit() {
             try {
-                if (CurrentElev.elev.IsRKV) {
+                if (CurrentElev.elev.ErRKV) {
                     UdskrivningRKV();
                 }
 

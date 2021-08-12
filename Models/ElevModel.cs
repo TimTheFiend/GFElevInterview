@@ -6,29 +6,52 @@ using System.Text;
 
 namespace GFElevInterview.Models
 {
+    /// <summary>
+    /// Elev-tabellen i databasen, som en klasse.
+    /// </summary>
     public class ElevModel
     {
         [Key]
         public string CprNr { get; set; }
+
         public string Fornavn { get; set; }
         public string Efternavn { get; set; }
 
         public string Uddannelse { get; set; }
         public string UdannelseAdresse { get; set; }
+
+        ///NOTE: Den måde vi har opbygget blanketterne PT gør at brugeren ikke behøver at sige nej til hverken `SPS` eller `EUD`.
+        ///Dette betyder at vi når vi prøver at sætte `CheckBox` værdien til den tilsvarende variabel,
+        ///at i tilfældet af at den ikke er blevet trykket på overhovedet at værdien vil være `null`.
+        ///Dette har vi fikset ved at gøre dem `nullable`.
+        ///En løsning på dette vil være at kun sætte værdien på disse værdier hvis `CheckBox` er `true`,
+        ///ellers fortsætter de med at være `false`, som er standard-værdien for `bool`.
         public bool? SPS { get; set; }
+
         public bool? EUD { get; set; }
+
+        /// Er sat til <see cref="ElevType.Null"/> som standard.
         public ElevType ElevType { get; set; }
 
+        /// <summary>
+        /// Returnerer elevens formateret "Fornavn Efternavn".
+        /// </summary>
         [NotMapped]
         public string FornavnEfternavn {
             get { return $"{Fornavn} {Efternavn}"; }
         }
 
+        /// <summary>
+        /// Returnerer elevens formateret "Efternavn, Fornavn".
+        /// </summary>
         [NotMapped]
         public string EfternavnFornavn {
             get { return $"{Efternavn}, {Fornavn}"; }
         }
 
+        /// <summary>
+        /// Returnerer det formateret CPR-nr.
+        /// </summary>
         public string CPRNr {
             get {
                 // CprNr "XXXXXXXXX"
@@ -43,16 +66,13 @@ namespace GFElevInterview.Models
             return $"({CPRNr}) - {EfternavnFornavn}";
         }
 
-        public string FullInfo {
-
+        ///NOTE: Unødvendig? Alt den gør er at returnerer <see cref="ToString"/>.
+        public string FuldInfo {
             get { return this.ToString(); }
-
         }
 
-        public bool IsRKV
-        {
-            get
-            {
+        public bool ErRKV {
+            get {
                 /// Forklaring på property
                 ///Der kan ikke konverteres på samme linje som vi henter tallet via Substring
                 ///Hvis sektionen starter med `0` vil den tage den næste position med værdien >0
@@ -67,7 +87,7 @@ namespace GFElevInterview.Models
                     ///Fx. 95 < 96[121 - 25] : Altså er personens fødselsår mindre end året for 25 år siden?
                     ///Dette sikre os at vi ikke tager folk der er født i slut-90erne
                     ///95 > 21 [2021 - 2000] : Dette gør at vi ikke tager 00 og frem med i regne stykket.
-                    ///Alle der kommer herind er født imellem 1922 og 1995 
+                    ///Alle der kommer herind er født imellem 1922 og 1995
                     return true;
                 }
 
@@ -93,6 +113,9 @@ namespace GFElevInterview.Models
             }
         }
 
+        /// <summary>
+        /// Returnerer en lovlig string der kan bruges som filnavn.
+        /// </summary>
         public string FilNavn {
             get {
                 string fileName = $"{CprNr} - {EfternavnFornavn}";
@@ -101,8 +124,6 @@ namespace GFElevInterview.Models
                 }
                 return fileName + ".pdf";
             }
-
-
         }
     }
 }

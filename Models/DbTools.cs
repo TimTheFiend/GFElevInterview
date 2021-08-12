@@ -5,29 +5,37 @@ namespace GFElevInterview.Models
     public class DbTools : DbContext
     {
         public DbTools() {
-            // If database already exists, load Elever tabel
+            //NOTE: `EnsureDeleted` skal kun bruges under development!
+            //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
             this.Database.EnsureDeleted();
-            this.Database.EnsureCreated();
-            
+            this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
         }
+
+        #region Database tabel
 
         public DbSet<ElevModel> Elever { get; set; }
 
+        #endregion Database tabel
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseSqlite("Data Source=elevDB.db");
+            optionsBuilder.UseSqlite($"Data Source={System.Configuration.ConfigurationManager.AppSettings["db"]}");  //Database navn bliver indsat
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
 
-        // Creates Dummy Data on creation
+        /// <summary>
+        /// NOTE! Bruges kun under development!
+        /// Bruges til at fylde databasen med dummy-data, så vi har noget at arbejde med.
+        /// </summary>
+        /// <param name="modelBuilder">ikke noget vi behøver at tænke på.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<ElevModel>().HasData(
 
-                new ElevModel { CprNr = "1111931234", Fornavn = "Joakim0", Efternavn = "Krugstrup" }, 
-                new ElevModel { CprNr = "0101004321", Fornavn = "Peder", Efternavn = "Eriksen" }, 
-                new ElevModel { CprNr = "0101011234", Fornavn = "Annelise", Efternavn = "Andkjær" }, 
-                new ElevModel { CprNr = "0101954321", Fornavn = "Peder", Efternavn = "Eriksen" }, 
-                new ElevModel { CprNr = "1202341233", Fornavn = "Søm", Efternavn = "Johammer" } ,
+                new ElevModel { CprNr = "1111931234", Fornavn = "Joakim0", Efternavn = "Krugstrup" },
+                new ElevModel { CprNr = "0101004321", Fornavn = "Peder", Efternavn = "Eriksen" },
+                new ElevModel { CprNr = "0101011234", Fornavn = "Annelise", Efternavn = "Andkjær" },
+                new ElevModel { CprNr = "0101954321", Fornavn = "Peder", Efternavn = "Eriksen" },
+                new ElevModel { CprNr = "1202341233", Fornavn = "Søm", Efternavn = "Johammer" },
                 new ElevModel { CprNr = "1151931234", Fornavn = "Joakim1", Efternavn = "Krugstrup" },
                 new ElevModel { CprNr = "1181931234", Fornavn = "Joakim2", Efternavn = "Krugstrup" },
                 new ElevModel { CprNr = "1191931234", Fornavn = "Joakim3", Efternavn = "Krugstrup" },

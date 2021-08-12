@@ -37,7 +37,7 @@ namespace GFElevInterview.Views
             InitializeComboBox();
             SetButtons();
             // Udfyld Blanketten hvis den allerede står som udfyldt i `CurrentElev`.
-            if (CurrentElev.meritBlanket.IsFilled) {
+            if (CurrentElev.meritBlanket.ErUdfyldt) {
                 //Combobox
                 ComboboxDansk.SelectedIndex = (int)CurrentElev.meritBlanket.Dansk.Niveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
                 ComboboxEngelsk.SelectedIndex = (int)CurrentElev.meritBlanket.Engelsk.Niveau - 1;
@@ -97,7 +97,7 @@ namespace GFElevInterview.Views
             // Tjekker om fag niveau er blevet valgt, da det er det eneste vi med sikkerhed ved at eleven kan have.
             if (IsValidated()) {
                 IBlanket newView;
-                if (CurrentElev.elev.IsRKV)
+                if (CurrentElev.elev.ErRKV)
                 {
                     newView = new EUVView(parent);
                 }
