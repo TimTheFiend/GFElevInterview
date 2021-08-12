@@ -56,8 +56,8 @@ namespace GFElevInterview.Data
 
                 //TODO Side 4 Grundforløb
                 pdfFormFields.SetField("GF antal dage 1", "100");
-                pdfFormFields.SetField("GF Samlet antal dages merit", $"{ CurrentElev.meritBlanket.MeritLængdeIDage}");
-                pdfFormFields.SetField("GF Samlet antal på GF", $"{100 - CurrentElev.meritBlanket.MeritLængdeIDage}");
+                pdfFormFields.SetField("GF Samlet antal dages merit", $"{ CurrentElev.meritBlanket.MeritLængdeIDage * -1}");
+                pdfFormFields.SetField("GF Samlet antal på GF", $"{100 + CurrentElev.meritBlanket.MeritLængdeIDage}");
 
                 //TODO MAX
                 //Side 5 Special Støtte

@@ -18,7 +18,7 @@ namespace GFElevInterview.Models
                     return 100;  // Hele forløbet er merit
                 }
                 int value = UddannelsesLængdeIUger - 16;  //
-                return value * 5;  //Uger * antal ugedage. 
+                return value * 5 - 20;  //Uger * antal ugedage. 
             }
         }
         public MeritBlanketModel() {
