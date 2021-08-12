@@ -5,7 +5,8 @@ using iTextSharp.text.pdf;
 using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Data
-{
+{   
+
     public class BlanketUdskrivning
     {
         private readonly string outputDirectory = config.AppSettings["outputMappe"];
@@ -16,18 +17,24 @@ namespace GFElevInterview.Data
             }
         }
 
-        public bool UdskrivningRKV()
+        /// <summary>
+        /// En stig til filens position laves og fil-objekt bliver oprettet.
+        /// Informationen over eleven hentes.
+        /// informationen indsættes i felterne, og gemmes som pdf fil.
+        /// </summary>
+        public void UdskrivningRKV()
         {
             try {
-                string inputFil = GetRKVTemplate();
-                //Sæt hvor filen skal gemmes henne.
+                string inputFil = GetRKVBlanketTemplate();
+                //Udskrivnings filen.
                 string outputFilePath = Path.Combine(outputDirectory, CurrentElev.elev.Fornavn + ".pdf");
-
                 PdfReader pdfReader = new PdfReader(inputFil);
+                //filen skabes i outputFilePath slut lokationen.
                 PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(outputFilePath, FileMode.Create));
                 var pdfFormFields = pdfStamper.AcroFields;
                 #region Indsætning af data
                 //Side 1 Elev Info
+                //Information sættes på feltes lokation ud fra deres navn
                 pdfFormFields.SetField("Navn", CurrentElev.elev.FornavnEfternavn);
                 pdfFormFields.SetField("Cprnr", CurrentElev.elev.CprNr);
                 pdfFormFields.SetField("RKV gennemført", DateTime.Now.Day + "/" + DateTime.Now.Month);
@@ -58,16 +65,21 @@ namespace GFElevInterview.Data
                 //pdfFormFields.SetField("GF Samlet antal dages merit", "10");
                 //pdfFormFields.SetField("GF Samlet antal på GF", "25");
                 #endregion
+
+                //Gemmer og lukker for fil-objektet.
                 pdfStamper.Close();
-                return true;
             }
             catch (Exception) {
-                return false;
                 throw;
             }
 
         }
 
+        /// <summary>
+        /// Opretter et <see cref="Document"/> og loader det tilsvarende blanket skabelon ind
+        /// baseret på <see cref="CurrentElev"/> elevtype og uddannelse, og gemmer filen.
+        /// </summary>
+        /// <returns><c>true</c> hvis udprintningen er succesfuld; ellers <c>false</c>.</returns>
         public bool UdskrivningMerit() {
             try {
                 if (CurrentElev.elev.IsRKV) {
@@ -76,8 +88,10 @@ namespace GFElevInterview.Data
 
                 Document doc = new Document();
                 //Henter "Template" fil fra given string sti.
-                doc.LoadFromFile(GetMeritTemplate);
-                //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
+                doc.LoadFromFile(GetMeritBlanketTemplate);
+
+                #region Udskiftning af værdier
+
                 doc.Replace("#navn#", CurrentElev.elev.EfternavnFornavn, true, true);
                 doc.Replace("#cpr#", CurrentElev.elev.CprNr, true, true);
                 //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
@@ -92,10 +106,10 @@ namespace GFElevInterview.Data
                 doc.Replace("#MU#", CurrentElev.meritBlanket.Matematik.udprintUndervisning, true, true);
                 doc.Replace("#MN#", CurrentElev.meritBlanket.Matematik.udprintNiveau, true, true);
                 doc.Replace("#uger#", CurrentElev.meritBlanket.UddannelsesLængdeIUger.ToString(), true, true);
-
+                
+                #endregion
+               
                 doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.FilNavn), FileFormat.PDF);
-                //doc.SaveToFile(nyMeritFile + _nyMeritFile, FileFormat.PDF);
-
                 return true;
             }
             catch (Exception) {
@@ -104,13 +118,13 @@ namespace GFElevInterview.Data
             }
         }
 
-        private string GetRKVTemplate()
+        private string GetRKVBlanketTemplate()
         {
-            string foo = $"{CurrentElev.elev.ElevType.ToString()} - {CurrentElev.elev.Uddannelse}.pdf";
-            return Path.Combine(config.AppSettings["templates"], foo);
+            string pdfElev = $"{CurrentElev.elev.ElevType.ToString()} - {CurrentElev.elev.Uddannelse}.pdf";
+            return Path.Combine(config.AppSettings["templates"], pdfElev);
         }
 
-        private string GetMeritTemplate {
+        private string GetMeritBlanketTemplate {
             get {
                 return Path.Combine(config.AppSettings["templates"], "Merit-blanket.docx");
             }

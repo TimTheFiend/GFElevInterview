@@ -2,17 +2,13 @@
 
 namespace GFElevInterview.Data
 {
+    /// <summary>
+    /// I denne klasse udprintes informationer fra skabelonerne til pdf filer.
+    /// Udvalgte ord fra skabelonerne vil blive udskiftet med brugerens input og gemt i en pdf fil.
+    /// Ting som Word delen af interviewet vil blive gemt i databasen.
+    /// </summary>
     public class UdprintMerit
     {
-        /*                                  SUMMARY:
-         * 
-         * I denne klasse udprintes informationer fra skabelonerne til pdf filer.
-         * Udvalgte ord fra skabelonerne vil blive udskiftet med brugerens input og gemt i en pdf fil.
-         * Ting som Word delen af interviewet vil blive gemt i databasen.
-         * TO DO:
-         * Der skal findes en måde at køre replace bedre på.
-         * Tilføj Merit og RKV til udprintning.
-         */
 
         private string meritFileSti = "Blanketter\\Templates\\Meritblanketter VISI blank.docx";
         private string udprintSti = "..\\Blanketter";
@@ -23,6 +19,7 @@ namespace GFElevInterview.Data
 
         //FreeSpire.Doc Version//
         Document doc = new Document();
+
         public bool udprintTilMerit() {
             try {
                 //Henter "Template" fil fra given string sti.
