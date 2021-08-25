@@ -31,24 +31,24 @@ namespace GFElevInterview.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<ElevModel>().HasData(
 
-                new ElevModel { CprNr = "1111931234", Fornavn = "Joakim0", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "0101004321", Fornavn = "Peder", Efternavn = "Eriksen" },
-                new ElevModel { CprNr = "0101011234", Fornavn = "Annelise", Efternavn = "Andkjær" },
-                new ElevModel { CprNr = "0101954321", Fornavn = "Peder", Efternavn = "Eriksen" },
-                new ElevModel { CprNr = "1202341233", Fornavn = "Søm", Efternavn = "Johammer" },
-                new ElevModel { CprNr = "1151931234", Fornavn = "Joakim1", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1181931234", Fornavn = "Joakim2", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1191931234", Fornavn = "Joakim3", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1141931234", Fornavn = "Joakim4", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1152931234", Fornavn = "Joakim5", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1181231234", Fornavn = "Joakim6", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1191951234", Fornavn = "Joakim7", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1141901234", Fornavn = "Joakim8", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1141908234", Fornavn = "Joakim9", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1131901234", Fornavn = "Joakim10", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1141901934", Fornavn = "Joakim11", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1101901234", Fornavn = "Joakim12", Efternavn = "Krugstrup" },
-                new ElevModel { CprNr = "1101901934", Fornavn = "Joakim13", Efternavn = "Krugstrup" }
+                new ElevModel { cprNr = "1111931234", fornavn = "Joakim0", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "0101004321", fornavn = "Peder", efternavn = "Eriksen" },
+                new ElevModel { cprNr = "0101011234", fornavn = "Annelise", efternavn = "Andkjær" },
+                new ElevModel { cprNr = "0101954321", fornavn = "Peder", efternavn = "Eriksen" },
+                new ElevModel { cprNr = "1202341233", fornavn = "Søm", efternavn = "Johammer" },
+                new ElevModel { cprNr = "1151931234", fornavn = "Joakim1", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1181931234", fornavn = "Joakim2", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1191931234", fornavn = "Joakim3", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1141931234", fornavn = "Joakim4", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1152931234", fornavn = "Joakim5", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1181231234", fornavn = "Joakim6", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1191951234", fornavn = "Joakim7", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1141901234", fornavn = "Joakim8", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1141908234", fornavn = "Joakim9", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1131901234", fornavn = "Joakim10", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1141901934", fornavn = "Joakim11", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1101901234", fornavn = "Joakim12", efternavn = "Krugstrup" },
+                new ElevModel { cprNr = "1101901934", fornavn = "Joakim13", efternavn = "Krugstrup" }
 
             );
         }

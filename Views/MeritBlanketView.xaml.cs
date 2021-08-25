@@ -37,18 +37,18 @@ namespace GFElevInterview.Views
             InitializeComboBox();
             SetButtons();
             // Udfyld Blanketten hvis den allerede står som udfyldt i `CurrentElev`.
-            if (CurrentElev.meritBlanket.ErUdfyldt) {
+            if (CurrentElev.elev.ErUdfyldt) {
                 //Combobox
-                ComboboxDansk.SelectedIndex = (int)CurrentElev.meritBlanket.Dansk.Niveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
-                ComboboxEngelsk.SelectedIndex = (int)CurrentElev.meritBlanket.Engelsk.Niveau - 1;
-                ComboboxMatematik.SelectedIndex = (int)CurrentElev.meritBlanket.Matematik.Niveau - 1;
+                ComboboxDansk.SelectedIndex = (int)CurrentElev.elev.Dansk.Niveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
+                ComboboxEngelsk.SelectedIndex = (int)CurrentElev.elev.Engelsk.Niveau - 1;
+                ComboboxMatematik.SelectedIndex = (int)CurrentElev.elev.Matematik.Niveau - 1;
                 //Checkbox
-                DanskEksamenChecked.IsChecked = CurrentElev.meritBlanket.Dansk.Eksamen;
-                DanskUndervisChecked.IsChecked = CurrentElev.meritBlanket.Dansk.Undervisning;
-                MatematikEksamenChecked.IsChecked = CurrentElev.meritBlanket.Matematik.Eksamen;
-                MatematikUndervisChecked.IsChecked = CurrentElev.meritBlanket.Matematik.Undervisning;
-                EngelskEksamenChecked.IsChecked = CurrentElev.meritBlanket.Engelsk.Eksamen;
-                EngelskUndervisChecked.IsChecked = CurrentElev.meritBlanket.Engelsk.Undervisning;
+                DanskEksamenChecked.IsChecked = CurrentElev.elev.Dansk.Eksamen;
+                DanskUndervisChecked.IsChecked = CurrentElev.elev.Dansk.Undervisning;
+                MatematikEksamenChecked.IsChecked = CurrentElev.elev.Matematik.Eksamen;
+                MatematikUndervisChecked.IsChecked = CurrentElev.elev.Matematik.Undervisning;
+                EngelskEksamenChecked.IsChecked = CurrentElev.elev.Engelsk.Eksamen;
+                EngelskUndervisChecked.IsChecked = CurrentElev.elev.Engelsk.Undervisning;
 
             }
         }
@@ -57,15 +57,15 @@ namespace GFElevInterview.Views
         {
             if(ComboboxDansk == null)
             {
-                ComboboxDansk.SelectedItem = CurrentElev.meritBlanket.Dansk.Niveau;
+                ComboboxDansk.SelectedItem = CurrentElev.elev.Dansk.Niveau;
             }
             if(ComboboxEngelsk == null)
             {
-                ComboboxEngelsk.SelectedItem = CurrentElev.meritBlanket.Engelsk.Niveau;
+                ComboboxEngelsk.SelectedItem = CurrentElev.elev.Engelsk.Niveau;
             }
             if(ComboboxMatematik == null)
             {
-                ComboboxMatematik.SelectedItem = CurrentElev.meritBlanket.Matematik.Niveau;
+                ComboboxMatematik.SelectedItem = CurrentElev.elev.Matematik.Niveau;
             }
         }
 
@@ -126,14 +126,14 @@ namespace GFElevInterview.Views
         private bool IsValidated() {
             // NYT
             if (ComboboxDansk.SelectedIndex >= 0) {
-                CurrentElev.meritBlanket.Dansk = new FagModel((bool)DanskEksamenChecked.IsChecked, (bool)DanskUndervisChecked.IsChecked, (FagNiveau)ComboboxDansk.SelectedIndex);
+                CurrentElev.elev.Dansk = new FagModel((bool)DanskEksamenChecked.IsChecked, (bool)DanskUndervisChecked.IsChecked, (FagNiveau)ComboboxDansk.SelectedIndex);
                 DanskValidation.BorderBrush = System.Windows.Media.Brushes.Gray;
             }
             else {
                 DanskValidation.BorderBrush = System.Windows.Media.Brushes.Red;
             }
             if (ComboboxEngelsk.SelectedIndex >= 0) {
-                CurrentElev.meritBlanket.Engelsk = new FagModel((bool)EngelskEksamenChecked.IsChecked, (bool)EngelskUndervisChecked.IsChecked, (FagNiveau)ComboboxEngelsk.SelectedIndex);
+                CurrentElev.elev.Engelsk = new FagModel((bool)EngelskEksamenChecked.IsChecked, (bool)EngelskUndervisChecked.IsChecked, (FagNiveau)ComboboxEngelsk.SelectedIndex);
                 EngelskValidation.BorderBrush = System.Windows.Media.Brushes.Gray;
             }
             else {
@@ -141,7 +141,7 @@ namespace GFElevInterview.Views
             }
 
             if (ComboboxMatematik.SelectedIndex >= 0) {
-                CurrentElev.meritBlanket.Matematik = new FagModel((bool)MatematikEksamenChecked.IsChecked, (bool)MatematikUndervisChecked.IsChecked, (FagNiveau)ComboboxMatematik.SelectedIndex);
+                CurrentElev.elev.Matematik = new FagModel((bool)MatematikEksamenChecked.IsChecked, (bool)MatematikUndervisChecked.IsChecked, (FagNiveau)ComboboxMatematik.SelectedIndex);
                 MatematikValidation.BorderBrush = System.Windows.Media.Brushes.Gray;
             }
             else {
@@ -149,16 +149,16 @@ namespace GFElevInterview.Views
             }
             //// GAMMEL
             if (ComboboxDansk.SelectedIndex >= 0 && ComboboxEngelsk.SelectedIndex >= 0 && ComboboxMatematik.SelectedIndex >= 0) {
-                CurrentElev.meritBlanket.Dansk = new FagModel(
+                CurrentElev.elev.Dansk = new FagModel(
                     (bool)DanskEksamenChecked.IsChecked,
                     (bool)DanskUndervisChecked.IsChecked,
                     (FagNiveau)ComboboxDansk.SelectedIndex + 1
                 );
-                CurrentElev.meritBlanket.Engelsk = new FagModel((bool)EngelskEksamenChecked.IsChecked,
+                CurrentElev.elev.Engelsk = new FagModel((bool)EngelskEksamenChecked.IsChecked,
                     (bool)EngelskUndervisChecked.IsChecked,
                     (FagNiveau)ComboboxEngelsk.SelectedIndex + 1
                 );
-                CurrentElev.meritBlanket.Matematik = new FagModel(
+                CurrentElev.elev.Matematik = new FagModel(
                     (bool)MatematikEksamenChecked.IsChecked,
                     (bool)MatematikUndervisChecked.IsChecked,
                     (FagNiveau)ComboboxMatematik.SelectedIndex + 1
@@ -183,15 +183,15 @@ namespace GFElevInterview.Views
 
             if (cb == ComboboxDansk)
             {
-                CurrentElev.meritBlanket.Dansk.Niveau = (FagNiveau)selectedIndex;
+                CurrentElev.elev.Dansk.Niveau = (FagNiveau)selectedIndex;
             }
             else if (cb == ComboboxEngelsk)
             {
-                CurrentElev.meritBlanket.Engelsk.Niveau = (FagNiveau)selectedIndex;
+                CurrentElev.elev.Engelsk.Niveau = (FagNiveau)selectedIndex;
             }
             else if (cb == ComboboxMatematik)
             {
-                CurrentElev.meritBlanket.Matematik.Niveau = (FagNiveau)selectedIndex;
+                CurrentElev.elev.Matematik.Niveau = (FagNiveau)selectedIndex;
             }
 
             

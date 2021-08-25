@@ -19,7 +19,7 @@ namespace GFElevInterview.Models
         /// </summary>
         public int MeritLængdeIDage {
             get {
-                if (CurrentElev.elev.ElevType == ElevType.EUV1) {
+                if (CurrentElev.elev.elevType == ElevType.EUV1) {
                     return 100;  // Hele forløbet er merit
                 }
                 int value = UddannelsesLængdeIUger - minUddannelsesLængdeIUger;
@@ -38,15 +38,16 @@ namespace GFElevInterview.Models
         /// </summary>
         /// <param name="elev">Eleven der bliver interviewet.</param>
         public void BeregnMeritIUger(ElevModel elev) {
-            if (elev.ElevType == ElevType.EUV1) {
+            if (elev.elevType == ElevType.EUV1) {
                 UddannelsesLængdeIUger = 0;
             }
 
             FagNiveau minNiveau = FagNiveau.F;
             int ekstraUger = 4;
 
-            if (Dansk.Niveau > minNiveau) {
-                minNiveau = elev.Uddannelse == config.AppSettings["itsupporter"] ? FagNiveau.E : FagNiveau.D;
+            if (Dansk.Niveau > minNiveau) 
+            {
+                minNiveau = elev.uddannelse == config.AppSettings["itsupporter"] ? FagNiveau.E : FagNiveau.D;
 
                 if (Engelsk.Niveau >= minNiveau) { ekstraUger -= 2; }
                 if (Matematik.Niveau >= minNiveau) { ekstraUger -= 2; }

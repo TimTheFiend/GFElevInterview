@@ -7,6 +7,7 @@ namespace GFElevInterview.Models
     /// </summary>
     public class FagModel
     {
+        //samme navn som i elev model
         public bool Eksamen { get; set; }
         public bool Undervisning { get; set; }
         public FagNiveau Niveau { get; set; }

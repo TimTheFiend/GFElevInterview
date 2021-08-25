@@ -38,7 +38,7 @@ namespace GFElevInterview.Views
         {
             SetButtons();
 
-            uddannelsesBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederSkoler();
+            uddannelsesBox.ItemsSource = CurrentElev.elev.ValgAfSkoler();
             if(uddannelsesBox.Items.Count == 1)
             {
                 uddannelsesBox.SelectedIndex = 0;
@@ -47,7 +47,7 @@ namespace GFElevInterview.Views
             euv1Expand.IsEnabled = false;
             euv2Expand.IsExpanded = false;
             euv2Expand.IsEnabled = false;
-            educationComboBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederUddannelser();
+            educationComboBox.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
         }
 
         private void SetButtons()
@@ -68,9 +68,9 @@ namespace GFElevInterview.Views
             //NOTE: Hardcoded
 
             //ENDTODO
-            CurrentElev.elev.Uddannelse = educationComboBox.Text;
-            CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
-            CurrentElev.elev.EUD = (bool)eudSupportJa.IsChecked;
+            CurrentElev.elev.uddannelse = educationComboBox.Text;
+            CurrentElev.elev.sPS = (bool)spsSupportJa.IsChecked;
+            CurrentElev.elev.eUD = (bool)eudSupportJa.IsChecked;
 
 
             UdprintMerit udprint = new UdprintMerit();
@@ -85,10 +85,10 @@ namespace GFElevInterview.Views
            if(IsValidated())
            {
                 SetElevType();
-                CurrentElev.elev.Uddannelse = educationComboBox.Text.ToString();
-                CurrentElev.elev.UdannelseAdresse = uddannelsesBox.Text.ToString();
-                CurrentElev.elev.SPS = spsSupportJa.IsChecked;
-                CurrentElev.elev.EUD = eudSupportJa.IsChecked;
+                CurrentElev.elev.uddannelse = educationComboBox.Text.ToString();
+                CurrentElev.elev.udannelseAdresse = uddannelsesBox.Text.ToString();
+                CurrentElev.elev.sPS = spsSupportJa.IsChecked;
+                CurrentElev.elev.eUD = eudSupportJa.IsChecked;
                 parent.CompleteCurrentInterview();
            }
         }
@@ -108,7 +108,7 @@ namespace GFElevInterview.Views
                 }
             }
 
-            CurrentElev.elev.ElevType = elevType;
+            CurrentElev.elev.elevType = elevType;
         }
 
         public void Tilbage()
