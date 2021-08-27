@@ -29,15 +29,15 @@ namespace GFElevInterview.Data
                 doc.Replace("#cpr#", CurrentElev.elev.cprNr, true, true);
                 //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
                 //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
-                doc.Replace("#DE#", CurrentElev.elev.Dansk.udprintEksammen, true, true);
-                doc.Replace("#DU#", CurrentElev.elev.Dansk.udprintUndervisning, true, true);
-                doc.Replace("#DN#", CurrentElev.elev.Dansk.udprintNiveau, true, true);
-                doc.Replace("#EE#", CurrentElev.elev.Engelsk.udprintEksammen, true, true);
-                doc.Replace("#EU#", CurrentElev.elev.Engelsk.udprintUndervisning, true, true);
-                doc.Replace("#EN#", CurrentElev.elev.Engelsk.udprintNiveau, true, true);
-                doc.Replace("#ME#", CurrentElev.elev.Matematik.udprintEksammen, true, true);
-                doc.Replace("#MU#", CurrentElev.elev.Matematik.udprintUndervisning, true, true);
-                doc.Replace("#MN#", CurrentElev.elev.Matematik.udprintNiveau, true, true);
+                doc.Replace("#DE#", CurrentElev.elev.danskPrintEksammen, true, true);
+                doc.Replace("#DU#", CurrentElev.elev.danskPrintUndervisning, true, true);
+                doc.Replace("#DN#", CurrentElev.elev.danskPrintNiveau, true, true);
+                doc.Replace("#EE#", CurrentElev.elev.engelskPrintEksammen, true, true);
+                doc.Replace("#EU#", CurrentElev.elev.engelskPrintUndervisning, true, true);
+                doc.Replace("#EN#", CurrentElev.elev.engelskPrintNiveau, true, true);
+                doc.Replace("#ME#", CurrentElev.elev.matematikPrintEksammen, true, true);
+                doc.Replace("#MU#", CurrentElev.elev.matematikPrintUndervisning, true, true);
+                doc.Replace("#MN#", CurrentElev.elev.matematikPrintNiveau, true, true);
 
                 doc.SaveToFile(System.IO.Path.Combine(udprintSti, CurrentElev.elev.FilNavn), FileFormat.PDF);
                 return true;

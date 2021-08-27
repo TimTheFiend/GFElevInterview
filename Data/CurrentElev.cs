@@ -10,14 +10,16 @@ namespace GFElevInterview.Data
     /// </summary>
     public static class CurrentElev
     {
-        public static ElevModel elev = new ElevModel();
+        //public static ElevModel elev = new ElevModel();
+        public static _ElevModel elev = new _ElevModel();
         //public static MeritBlanketModel meritBlanket = new MeritBlanketModel();
 
         /// <summary>
         /// Nulstiller data'en i <see cref="CurrentElev"/>
         /// </summary>
         public static void NulstilCurrentElev() {
-            elev = new ElevModel();
+            //elev = new ElevModel();
+            elev = new _ElevModel();
             //meritBlanket = new MeritBlanketModel();
         }
     }

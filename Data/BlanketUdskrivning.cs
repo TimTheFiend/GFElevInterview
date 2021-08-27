@@ -40,17 +40,17 @@ namespace GFElevInterview.Data
                 pdfFormFields.SetField("RKV gennemført", DateTime.Now.Day + "/" + DateTime.Now.Month);
 
                 //Side 3 Dansk
-                pdfFormFields.SetField("Bemærk 1", CurrentElev.elev.Dansk.Niveau.ToString());
+                pdfFormFields.SetField("Bemærk 1", CurrentElev.elev.danskNiveau.ToString());
                 pdfFormFields.SetField("kompetence 1", "Dansk");
                 pdfFormFields.SetField("Metrit 1", "Yes");
 
                 //Side 3 Matematik
-                pdfFormFields.SetField("Bemærk 2", CurrentElev.elev.Matematik.Niveau.ToString());
+                pdfFormFields.SetField("Bemærk 2", CurrentElev.elev.matematikNiveau.ToString());
                 pdfFormFields.SetField("kompetence 2", "Matematik");
                 pdfFormFields.SetField("Metrit 2", "Yes");
 
                 //Side 3 Engelsk
-                pdfFormFields.SetField("Bemærk 3", CurrentElev.elev.Engelsk.Niveau.ToString());
+                pdfFormFields.SetField("Bemærk 3", CurrentElev.elev.engelskNiveau.ToString());
                 pdfFormFields.SetField("kompetence 3", "Engelsk");
                 pdfFormFields.SetField("Metrit 3", "Yes");
 
@@ -96,15 +96,15 @@ namespace GFElevInterview.Data
                 doc.Replace("#cpr#", CurrentElev.elev.cprNr, true, true);
                 //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
                 //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
-                doc.Replace("#DE#", CurrentElev.elev.Dansk.udprintEksammen, true, true);
-                doc.Replace("#DU#", CurrentElev.elev.Dansk.udprintUndervisning, true, true);
-                doc.Replace("#DN#", CurrentElev.elev.Dansk.udprintNiveau, true, true);
-                doc.Replace("#EE#", CurrentElev.elev.Engelsk.udprintEksammen, true, true);
-                doc.Replace("#EU#", CurrentElev.elev.Engelsk.udprintUndervisning, true, true);
-                doc.Replace("#EN#", CurrentElev.elev.Engelsk.udprintNiveau, true, true);
-                doc.Replace("#ME#", CurrentElev.elev.Matematik.udprintEksammen, true, true);
-                doc.Replace("#MU#", CurrentElev.elev.Matematik.udprintUndervisning, true, true);
-                doc.Replace("#MN#", CurrentElev.elev.Matematik.udprintNiveau, true, true);
+                doc.Replace("#DE#", CurrentElev.elev.danskEksammen ? "Ja" : "Nej", true, true);
+                doc.Replace("#DU#", CurrentElev.elev.danskUndervisning ? "Ja" : "Nej", true, true);
+                doc.Replace("#DN#", CurrentElev.elev.danskNiveau.ToString(), true, true);
+                doc.Replace("#EE#", CurrentElev.elev.engelskEksammen ? "Ja" : "Nej", true, true);
+                doc.Replace("#EU#", CurrentElev.elev.engelskUndervisning ? "Ja" : "Nej", true, true);
+                doc.Replace("#EN#", CurrentElev.elev.engelskNiveau.ToString(), true, true);
+                doc.Replace("#ME#", CurrentElev.elev.matematikEksammen ? "Ja" : "Nej", true, true);
+                doc.Replace("#MU#", CurrentElev.elev.matematikUndervisning ? "Ja" : "Nej", true, true);
+                doc.Replace("#MN#", CurrentElev.elev.matematikNiveau.ToString(), true, true);
                 doc.Replace("#uger#", CurrentElev.elev.uddannelsesLængdeIUger.ToString(), true, true);
                 
                 #endregion

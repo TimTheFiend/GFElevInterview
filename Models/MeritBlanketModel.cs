@@ -37,7 +37,7 @@ namespace GFElevInterview.Models
         /// Beregner hvor mange ugers merit <see cref="CurrentElev"/> har, baseret på deres fag niveauer.
         /// </summary>
         /// <param name="elev">Eleven der bliver interviewet.</param>
-        public void BeregnMeritIUger(ElevModel elev) {
+        public void BeregnMeritIUger(_ElevModel elev) {
             if (elev.elevType == ElevType.EUV1) {
                 UddannelsesLængdeIUger = 0;
             }
