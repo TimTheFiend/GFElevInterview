@@ -30,6 +30,8 @@ namespace GFElevInterview.Views
             InitializeBlanket();            
             euv1Ja.Click += CheckEUVExpand;
             euv1Nej.Click += CheckEUVExpand;
+            euv1SporgsmalJa.Click += CheckEUVExpand;
+            euv1SporgsmalNej.Click += CheckEUVExpand;
             educationComboBox.DropDownClosed += Combobox_DropDownClosed;
             uddannelsesBox.DropDownClosed += Combobox_DropDownClosed;
         }
@@ -69,8 +71,8 @@ namespace GFElevInterview.Views
 
             //ENDTODO
             CurrentElev.elev.uddannelse = educationComboBox.Text;
-            CurrentElev.elev.sPS = (bool)spsSupportJa.IsChecked;
-            CurrentElev.elev.eUD = (bool)eudSupportJa.IsChecked;
+            CurrentElev.elev.sps = (bool)spsSupportJa.IsChecked;
+            CurrentElev.elev.eud = (bool)eudSupportJa.IsChecked;
 
 
             UdprintMerit udprint = new UdprintMerit();
@@ -87,8 +89,8 @@ namespace GFElevInterview.Views
                 SetElevType();
                 CurrentElev.elev.uddannelse = educationComboBox.Text.ToString();
                 CurrentElev.elev.udannelseAdresse = uddannelsesBox.Text.ToString();
-                CurrentElev.elev.sPS = spsSupportJa.IsChecked;
-                CurrentElev.elev.eUD = eudSupportJa.IsChecked;
+                CurrentElev.elev.sps = spsSupportJa.IsChecked;
+                CurrentElev.elev.eud = eudSupportJa.IsChecked;
                 parent.CompleteCurrentInterview();
            }
         }
@@ -128,10 +130,7 @@ namespace GFElevInterview.Views
             bool overAllValidated = true;
             //EUV 1
             bool _euv1 = (bool)euv1Ja.IsChecked || (bool)euv1Nej.IsChecked;
-            bool _euv1Spg1 = (bool)euv1Spg1Ja.IsChecked || (bool)euv1Spg1Nej.IsChecked;
-            bool _euv1Spg2 = (bool)euv1Spg2Ja.IsChecked || (bool)euv1Spg2Nej.IsChecked;
-            bool _euv1Spg3 = (bool)euv1Spg3Ja.IsChecked || (bool)euv1Spg3Nej.IsChecked;
-            bool _euv1Spg4 = (bool)euv1Spg4Ja.IsChecked || (bool)euv1Spg4Nej.IsChecked;
+            bool _euv1Spg = (bool)euv1SporgsmalJa.IsChecked || (bool)euv1SporgsmalNej.IsChecked;
             //EUV 2
             bool _euv2 = (bool)euv2Ja.IsChecked || (bool)euv2Nej.IsChecked;
             //Education
@@ -156,12 +155,9 @@ namespace GFElevInterview.Views
             }
             if (_euv1 && (bool)euv1Ja.IsChecked)
             {
-                if (!_euv1Spg1 || !_euv1Spg2 || !_euv1Spg3 || !_euv1Spg4)
+                if (!_euv1Spg)
                 {
-                    euv1Area1.BorderBrush = _euv1Spg1 ? gray : red;
-                    euv1Area2.BorderBrush = _euv1Spg2 ? gray : red;
-                    euv1Area3.BorderBrush = _euv1Spg3 ? gray : red;
-                    euv1Area4.BorderBrush = _euv1Spg4 ? gray : red;
+                    euv1sporgsmalBorder.BorderBrush = _euv1Spg ? gray : red;
                     overAllValidated = false;
                 }          
             }
@@ -191,11 +187,22 @@ namespace GFElevInterview.Views
         private bool IsEUVExpanded()
         {
             bool _euv1 = (bool)euv1Ja.IsChecked || !(bool)euv1Nej.IsChecked;
+            bool _euv1Spg = (bool)euv1SporgsmalJa.IsChecked || !(bool)euv1SporgsmalNej.IsChecked;
             if (!_euv1)
             {
                 euv1Expand.IsExpanded = false;
                 euv1Expand.IsEnabled = false;
                 euv2Expand.IsEnabled = true;
+                return true;
+            }
+            if (!_euv1Spg)
+            {
+                euv1Expand.IsExpanded = false;
+                euv1Expand.IsEnabled = false;
+                euv2Expand.IsEnabled = true;
+                euv1SporgsmalNej.IsChecked = false;
+                euv1Ja.IsChecked = false;
+                euv1Nej.IsChecked = true;
                 return true;
             }
             euv1Expand.IsEnabled = true;

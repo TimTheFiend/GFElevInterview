@@ -24,6 +24,7 @@ namespace GFElevInterview.Data
         /// </summary>
         public void UdskrivningRKV()
         {
+            //TODO `Metrit #` skal ændres til at matche med minimums karakter
             try {
                 string inputFil = GetRKVBlanketTemplate();
                 //Udskrivnings filen.
@@ -55,9 +56,12 @@ namespace GFElevInterview.Data
                 pdfFormFields.SetField("Metrit 3", "Yes");
 
                 //TODO Side 4 Grundforløb
+                //NOTE laver udregningen her, ellers er der ingen værdi.
+                CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
+
                 pdfFormFields.SetField("GF antal dage 1", "100");
-                pdfFormFields.SetField("GF Samlet antal dages merit", $"{ CurrentElev.elev.meritLængdeIDage * -1}");
-                pdfFormFields.SetField("GF Samlet antal på GF", $"{100 + CurrentElev.elev.meritLængdeIDage}");
+                pdfFormFields.SetField("GF Samlet antal dages merit", $"{ CurrentElev.elev.meritLængdeIDage}");
+                pdfFormFields.SetField("GF Samlet antal på GF", $"{100 - CurrentElev.elev.meritLængdeIDage}");
 
                 //TODO MAX
                 //Side 5 Special Støtte

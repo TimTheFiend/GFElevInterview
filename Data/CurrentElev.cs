@@ -11,7 +11,7 @@ namespace GFElevInterview.Data
     public static class CurrentElev
     {
         //public static ElevModel elev = new ElevModel();
-        public static _ElevModel elev = new _ElevModel();
+        public static ElevModel elev = new ElevModel();
         //public static MeritBlanketModel meritBlanket = new MeritBlanketModel();
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace GFElevInterview.Data
         /// </summary>
         public static void NulstilCurrentElev() {
             //elev = new ElevModel();
-            elev = new _ElevModel();
+            elev = new ElevModel();
             //meritBlanket = new MeritBlanketModel();
         }
     }

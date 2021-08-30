@@ -50,7 +50,7 @@ namespace GFElevInterview.Views
                     }
                 }
                 InitializeBlanket();
-                CurrentElev.elev = SearchStudentBox.SelectedItem as _ElevModel;
+                CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FuldInfo;
 
                 //Nulstiller textbox og listbox
@@ -66,7 +66,7 @@ namespace GFElevInterview.Views
                 return;
             }
 
-            List<_ElevModel> elevModels = db._Elever.Where(
+            List<ElevModel> elevModels = db.Elever.Where(
                 elev => (elev.efternavn.ToLower()).StartsWith(text.ToLower())
                 || elev.cprNr.StartsWith(text)
                 || elev.fornavn.ToLower().StartsWith(text.ToLower())
@@ -94,7 +94,7 @@ namespace GFElevInterview.Views
 
         private bool UpdateDatabase() {
             try {
-                db._Elever.Update(CurrentElev.elev);
+                db.Elever.Update(CurrentElev.elev);
                 db.SaveChanges();
                 return true;
             }
@@ -109,7 +109,7 @@ namespace GFElevInterview.Views
             bool? isRKVSuccess = null;
             bool isMeritSuccess = false;
 
-            CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
+            //CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
 
             BlanketUdskrivning print = new BlanketUdskrivning();
 

@@ -77,7 +77,7 @@ namespace GFElevInterview.Views
             }
 
 
-            switch (CurrentElev.elev.sPS) {
+            switch (CurrentElev.elev.sps) {
                 case true:
                     spsSupportJa.IsChecked = true;
                     break;
@@ -88,7 +88,7 @@ namespace GFElevInterview.Views
                     break;
             }
 
-            switch (CurrentElev.elev.eUD) {
+            switch (CurrentElev.elev.eud) {
                 case true:
                     eudSupportJa.IsChecked = true;
                     break;
@@ -118,8 +118,8 @@ namespace GFElevInterview.Views
 
             CurrentElev.elev.udannelseAdresse = educationAdresseComboBox.Text;
             CurrentElev.elev.uddannelse = educationComboBox.Text;
-            CurrentElev.elev.sPS = (bool)spsSupportJa.IsChecked;
-            CurrentElev.elev.eUD = (bool)eudSupportJa.IsChecked;
+            CurrentElev.elev.sps = (bool)spsSupportJa.IsChecked;
+            CurrentElev.elev.eud = (bool)eudSupportJa.IsChecked;
             
             parent.CompleteCurrentInterview();
         }
@@ -179,11 +179,11 @@ namespace GFElevInterview.Views
         #region RadioButton setters
         private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
 
-            CurrentElev.elev.sPS = (sender as RadioButton) == spsSupportJa ? true : false;
+            CurrentElev.elev.sps = (sender as RadioButton) == spsSupportJa ? true : false;
         }
 
         private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
-            CurrentElev.elev.eUD = (sender as RadioButton) == eudSupportJa ? true : false;
+            CurrentElev.elev.eud = (sender as RadioButton) == eudSupportJa ? true : false;
         }
         #endregion Radiobutton setters
         #endregion

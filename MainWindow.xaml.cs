@@ -22,54 +22,67 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow() {
+        public MainWindow()
+        {
             InitializeComponent();
         }
 
-        private void btnHome_Click(object sender, RoutedEventArgs e) {
+        #region Home
+        //TODO overvej at fjerne?
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
             HomePanel.Visibility = Visibility.Visible;
             UnderviserPanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
         }
+        #endregion
 
-        private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
+        #region Underviser View
+        private void btnUnderviser_Click(object sender, RoutedEventArgs e)
+        {
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
         }
+        #endregion
 
-        private void btnLeder_Click(object sender, RoutedEventArgs e) {
+        #region Lederside
+        //todo
+        private void btnLeder_Click(object sender, RoutedEventArgs e)
+        {
             LederPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             UnderviserPanel.Visibility = Visibility.Collapsed;
         }
 
-        private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
-        }
-
-        private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-        }
-
-        private void signinButton_Click(object sender, RoutedEventArgs e) {
+        //todo
+        private void signinButton_Click(object sender, RoutedEventArgs e)
+        {
             GFElevInterview.Views.LederSide lederSide = new Views.LederSide();
-            if (passwordText.Password == "1234") {
+            if (passwordText.Password == "1234")
+            {
                 lederSide.Show();
                 this.Close();
             }
-            else if (passwordText.Password == "") {
+            else if (passwordText.Password == "")
+            {
                 MessageBox.Show("Indtast adgangskode!!");
                 passwordText.Focus();
             }
-            else {
+            else
+            {
                 MessageBox.Show("Ugyldig adgangskode!!");
                 passwordText.Clear();
                 passwordText.Focus();
             }
         }
 
-        private void passwordText_KeyDown(object sender, KeyEventArgs e) {
+        private void passwordText_KeyDown(object sender, KeyEventArgs e)
+        {
         }
+
+        #endregion
     }
 }

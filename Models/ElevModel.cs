@@ -8,67 +8,74 @@ using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Models
 {
-    /// <summary>
-    /// Elev-tabellen i databasen, som en klasse.
-    /// </summary>
     public class ElevModel
     {
+        #region Person data
         [Key]
         public string cprNr { get; set; }
 
         public string fornavn { get; set; }
         public string efternavn { get; set; }
+        #endregion
 
+        #region TEC data
         public string uddannelse { get; set; }
         public string udannelseAdresse { get; set; }
 
-        ///NOTE: Den måde vi har opbygget blanketterne PT gør at brugeren ikke behøver at sige nej til hverken `SPS` eller `EUD`.
-        ///Dette betyder at vi når vi prøver at sætte `CheckBox` værdien til den tilsvarende variabel,
-        ///at i tilfældet af at den ikke er blevet trykket på overhovedet at værdien vil være `null`.
-        ///Dette har vi fikset ved at gøre dem `nullable`.
-        ///En løsning på dette vil være at kun sætte værdien på disse værdier hvis `CheckBox` er `true`,
-        ///ellers fortsætter de med at være `false`, som er standard-værdien for `bool`.
-        public bool? sPS { get; set; }
+        public bool? sps { get; set; }
+        public bool? eud { get; set; }
 
-        public bool? eUD { get; set; }
-
-        /// Er sat til <see cref="ElevType.Null"/> som standard.
         public ElevType elevType { get; set; }
+        #endregion
 
-        public FagModel Dansk;
-        public FagModel Engelsk;
-        public FagModel Matematik;
+        #region Dansk
+        public bool danskEksammen { get; set; }
+        public bool danskUndervisning { get; set; }
+        public FagNiveau danskNiveau { get; set; }
+        #endregion
+
+        #region Engelsk
+        public bool engelskEksammen { get; set; }
+        public bool engelskUndervisning { get; set; }
+        public FagNiveau engelskNiveau { get; set; }
+        #endregion
+
+        #region Matematik
+        public bool matematikEksammen { get; set; }
+        public bool matematikUndervisning { get; set; }
+        public FagNiveau matematikNiveau { get; set; } 
+        #endregion
 
         #region FagSektion
-        public bool eksamen { get; set; }
+        [NotMapped]
+        public string danskPrintEksammen { get; set; }
+        [NotMapped]
+        public string danskPrintUndervisning { get; set; }
+        [NotMapped]
+        public string danskPrintNiveau { get; set; }
 
-        public bool undervisning { get; set; }
+        [NotMapped]
+        public string engelskPrintEksammen { get; set; }
+        [NotMapped]
+        public string engelskPrintUndervisning { get; set; }
+        [NotMapped]
+        public string engelskPrintNiveau { get; set; }
 
-        public FagNiveau fagNiveau { get; set; }
-
-        public string printEksammen { get; set; }
-
-        public string printUndervisning { get; set; }
-
-        public string printNiveau { get; set; }
+        [NotMapped]
+        public string matematikPrintEksammen { get; set; }
+        [NotMapped]
+        public string matematikPrintUndervisning { get; set; }
+        [NotMapped]
+        public string matematikPrintNiveau { get; set; }
         #endregion
-        public ElevModel()
-        {
-            Dansk = new FagModel();
-            Engelsk = new FagModel();
-            Matematik = new FagModel();
-        }
-        public ElevModel(bool eksamens, bool undervisnings, FagNiveau niveau)
-        {
-            eksamen = eksamens;
-            undervisning = undervisnings;
-            fagNiveau = niveau;
-        }
+
+        public ElevModel() { }
 
         #region MeritSektion
+        //TODO Ryk ud herfra
         private const int minForløbslængdeIUger = 16;
 
-        public int uddannelsesLængdeIUger { get; set; } = minForløbslængdeIUger;
+        public int uddannelsesLængdeIUger { get; set; } = Int32.Parse(config.AppSettings["minimumGrundforløbLængde"]);
 
         public int meritLængdeIDage
         {
@@ -78,37 +85,43 @@ namespace GFElevInterview.Models
                 {
                     return 100; // Hele forløbet er merit
                 }
-                int value = uddannelsesLængdeIUger - minForløbslængdeIUger;
-                return (value * 5) - 20; // Uger * antal ugedage.
+                //TODO skriv bedre kommentar JOAKIM
+                //Der bliver fjernet 4 uger fra udregningen da resultatet af det første minus-stykke vil være 0
+                //ved at fjerne -4 fra resultatet gør vi at hvis man intet merit har går man i 0,
+                //merit i et fag betyder 2, og 4 hvis i alt. gang det med 5 mens man udligner minus tallet
+                //og man har uger i dage.
+                return (uddannelsesLængdeIUger - minForløbslængdeIUger - 4) * -5;
             }
         }
 
+        //TODO Rewrite parameter er dumt
         public void BeregnMeritIUger(ElevModel elev)
         {
             if (elev.elevType == ElevType.EUV1)
             {
                 uddannelsesLængdeIUger = 0;
+                return;
             }
 
             FagNiveau minNiveau = FagNiveau.F;
             int ekstraUger = 4;
 
-            if (Dansk.Niveau > minNiveau)
+            if (danskNiveau > minNiveau)
             {
                 minNiveau = elev.uddannelse == config.AppSettings["itsupporter"] ? FagNiveau.E : FagNiveau.D;
 
-                if (Engelsk.Niveau >= minNiveau) { ekstraUger -= 2; }
-                if (Matematik.Niveau >= minNiveau) { ekstraUger -= 2; }
+                if (engelskNiveau >= minNiveau) { ekstraUger -= 2; }
+                if (matematikNiveau >= minNiveau) { ekstraUger -= 2; }
             }
 
-            uddannelsesLængdeIUger += ekstraUger;
+            uddannelsesLængdeIUger = minForløbslængdeIUger + ekstraUger;
         }
 
         public bool ErUdfyldt
         {
             get
             {
-                if (Dansk.Niveau != FagNiveau.Null || Engelsk.Niveau != FagNiveau.Null || Matematik.Niveau != FagNiveau.Null)
+                if (danskNiveau != FagNiveau.Null || engelskNiveau != FagNiveau.Null || matematikNiveau != FagNiveau.Null)
                 {
                     return true;
                 }
@@ -118,13 +131,14 @@ namespace GFElevInterview.Models
 
         public List<string> ValgAfSkoler()
         {
-            if (Dansk.Niveau <= FagNiveau.F)
+            if (danskNiveau <= FagNiveau.F)
             {
                 return new List<string>() {
                     config.AppSettings["ballerup"]
                 };
             }
             return new List<string>() {
+                config.AppSettings["ballerup"],
                 config.AppSettings["frederiksberg"],
                 config.AppSettings["lyngby"]
             };
@@ -146,11 +160,9 @@ namespace GFElevInterview.Models
             return uddannelser;
         }
         #endregion
-        /// <summary>
-        /// Returnerer elevens formateret "Fornavn Efternavn".
-        /// </summary>
+
         [NotMapped]
-        public string FornavnEfternavn
+        public string fornavnEfternavn
         {
             get { return $"{fornavn} {efternavn}"; }
         }
@@ -159,7 +171,7 @@ namespace GFElevInterview.Models
         /// Returnerer elevens formateret "Efternavn, Fornavn".
         /// </summary>
         [NotMapped]
-        public string EfternavnFornavn
+        public string efternavnFornavn
         {
             get { return $"{efternavn}, {fornavn}"; }
         }
@@ -167,7 +179,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Returnerer det formateret CPR-nr.
         /// </summary>
-        public string CPRNr
+        public string cPRNr
         {
             get
             {
@@ -181,7 +193,7 @@ namespace GFElevInterview.Models
 
         public override string ToString()
         {
-            return $"({CPRNr}) - {EfternavnFornavn}";
+            return $"({cPRNr}) - {efternavnFornavn}";
         }
 
         ///NOTE: Unødvendig? Alt den gør er at returnerer <see cref="ToString"/>.
@@ -190,7 +202,7 @@ namespace GFElevInterview.Models
             get { return this.ToString(); }
         }
 
-        public bool ErRKV
+        public bool erRKV
         {
             get
             {
@@ -244,7 +256,7 @@ namespace GFElevInterview.Models
         {
             get
             {
-                string fileName = $"{cprNr} - {EfternavnFornavn}";
+                string fileName = $"{cprNr} - {efternavnFornavn}";
                 foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars())
                 {
                     fileName = fileName.Replace(invalidLetter, '_');
