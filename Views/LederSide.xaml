@@ -7,6 +7,38 @@
         mc:Ignorable="d"
         Title="LederSide" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="650"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="330"/>
+        </Grid.RowDefinitions>
+
+        <Button Width="80" Height="20" x:Name="RKV" Margin="225,42,345,42" Content="RKV"/>
+        <Button  Width="80" Height="20" x:Name="Merit" Margin="336,42,234,42" Content="Merit"/>
+        <ComboBox Width="200" Height="20" x:Name="SkoleDropDown" Margin="10,74,440,10" />
+        <Button Width="80" Height="20" x:Name="SPS" Margin="225,74,345,10" Content="SPS"/>
+        <Button Width="80" Height="20" x:Name="EUD" Margin="336,74,234,10" Content="EUD"/>
+        <TextBox Width="200" Height="20" x:Name="Sogefelt" Margin="440,74,10,10"/>
+
+        <Border Grid.Column="1" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
+            <TextBlock  Text="Admin" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <StackPanel Background="#495057" Grid.Column="1" Grid.Row="1">
+            <Button Content="Merit Export" Margin="0,10,0,0" Width="130" Height="40" Background="Gray"/>
+            <Button Content="RKV Export" Margin="0,10,0,10" Width="130" Height="40" Background="Gray"/>
+            <Border BorderThickness="4" BorderBrush="Gray">
+                <StackPanel>
+                    <TextBlock Text="EXCEL" HorizontalAlignment="Center" FontSize="25" Margin="5"/>
+                    <Button Width="100" Height="40" Background="Gray" Content="Tilføj" FontSize="15" Margin="2"/>
+                    <Button Width="100" Height="40" Background="Gray" Content="Reset" FontSize="15" Margin="8"/>
+                </StackPanel>
+            </Border>
+            <Button Content="Tilbage" Width="100" Height="20" Background="Gray" Margin="10"/>
+        </StackPanel>
+        <Label Height="30" Content="Søgefelt" Margin="506,44,76,30" FontSize="14"/>
+        <DataGrid Grid.Column="0" Grid.Row="1" Width="600" Height="300"/>
     </Grid>
 </Window>
