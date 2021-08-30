@@ -97,7 +97,7 @@ namespace GFElevInterview.Models
                 config.AppSettings["itsupporter"],
                 config.AppSettings["programmering"]
             };
-            if (!CurrentElev.elev.ErRKV) {
+            if (!CurrentElev.elev.erRKV) {
                 uddannelser.Add(config.AppSettings["vedIkke"]);
             }
 

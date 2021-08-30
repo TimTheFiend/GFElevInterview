@@ -35,7 +35,7 @@ namespace GFElevInterview.Data
                 #region Indsætning af data
                 //Side 1 Elev Info
                 //Information sættes på feltes lokation ud fra deres navn
-                pdfFormFields.SetField("Navn", CurrentElev.elev.FornavnEfternavn);
+                pdfFormFields.SetField("Navn", CurrentElev.elev.fornavnEfternavn);
                 pdfFormFields.SetField("Cprnr", CurrentElev.elev.cprNr);
                 pdfFormFields.SetField("RKV gennemført", DateTime.Now.Day + "/" + DateTime.Now.Month);
 
@@ -82,7 +82,7 @@ namespace GFElevInterview.Data
         /// <returns><c>true</c> hvis udprintningen er succesfuld; ellers <c>false</c>.</returns>
         public bool UdskrivningMerit() {
             try {
-                if (CurrentElev.elev.ErRKV) {
+                if (CurrentElev.elev.erRKV) {
                     UdskrivningRKV();
                 }
 
@@ -92,7 +92,7 @@ namespace GFElevInterview.Data
 
                 #region Udskiftning af værdier
 
-                doc.Replace("#navn#", CurrentElev.elev.EfternavnFornavn, true, true);
+                doc.Replace("#navn#", CurrentElev.elev.efternavnFornavn, true, true);
                 doc.Replace("#cpr#", CurrentElev.elev.cprNr, true, true);
                 //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
                 //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);

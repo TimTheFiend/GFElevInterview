@@ -97,7 +97,7 @@ namespace GFElevInterview.Views
             // Tjekker om fag niveau er blevet valgt, da det er det eneste vi med sikkerhed ved at eleven kan have.
             if (IsValidated()) {
                 IBlanket newView;
-                if (CurrentElev.elev.ErRKV)
+                if (CurrentElev.elev.erRKV)
                 {
                     newView = new EUVView(parent);
                 }

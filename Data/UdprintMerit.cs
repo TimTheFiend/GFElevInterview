@@ -25,7 +25,7 @@ namespace GFElevInterview.Data
                 //Henter "Template" fil fra given string sti.
                 doc.LoadFromFile(meritFileSti);
                 //Udksifter det valgt ord fra pdf´en med en ny værdi (Fra CurrentElev)
-                doc.Replace("#navn#", CurrentElev.elev.EfternavnFornavn, true, true);
+                doc.Replace("#navn#", CurrentElev.elev.efternavnFornavn, true, true);
                 doc.Replace("#cpr#", CurrentElev.elev.cprNr, true, true);
                 //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
                 //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);

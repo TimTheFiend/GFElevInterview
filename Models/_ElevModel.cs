@@ -142,7 +142,7 @@ namespace GFElevInterview.Models
                 config.AppSettings["itsupporter"],
                 config.AppSettings["programmering"]
             };
-            if (!CurrentElev.elev.ErRKV)
+            if (!CurrentElev.elev.erRKV)
             {
                 uddannelser.Add(config.AppSettings["vedIkke"]);
             }
@@ -152,7 +152,7 @@ namespace GFElevInterview.Models
         #endregion
 
         [NotMapped]
-        public string FornavnEfternavn
+        public string fornavnEfternavn
         {
             get { return $"{fornavn} {efternavn}"; }
         }
@@ -161,7 +161,7 @@ namespace GFElevInterview.Models
         /// Returnerer elevens formateret "Efternavn, Fornavn".
         /// </summary>
         [NotMapped]
-        public string EfternavnFornavn
+        public string efternavnFornavn
         {
             get { return $"{efternavn}, {fornavn}"; }
         }
@@ -169,7 +169,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Returnerer det formateret CPR-nr.
         /// </summary>
-        public string CPRNr
+        public string cPRNr
         {
             get
             {
@@ -183,7 +183,7 @@ namespace GFElevInterview.Models
 
         public override string ToString()
         {
-            return $"({CPRNr}) - {EfternavnFornavn}";
+            return $"({cPRNr}) - {efternavnFornavn}";
         }
 
         ///NOTE: Unødvendig? Alt den gør er at returnerer <see cref="ToString"/>.
@@ -192,7 +192,7 @@ namespace GFElevInterview.Models
             get { return this.ToString(); }
         }
 
-        public bool ErRKV
+        public bool erRKV
         {
             get
             {
@@ -246,7 +246,7 @@ namespace GFElevInterview.Models
         {
             get
             {
-                string fileName = $"{cprNr} - {EfternavnFornavn}";
+                string fileName = $"{cprNr} - {efternavnFornavn}";
                 foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars())
                 {
                     fileName = fileName.Replace(invalidLetter, '_');
