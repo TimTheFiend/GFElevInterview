@@ -42,7 +42,7 @@
                 <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}"/>
                 <DataGridTextColumn Header="Efternavn" Binding="{Binding efternavn}"/>
                 <DataGridTextColumn Header="Uddannelse" Binding="{Binding uddannelse}"/>
-                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding udannelseAdresse}"/>
+                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding uddannelseAdresse}"/>
                 <DataGridTextColumn Header="SPS" Binding="{Binding sps}"/>
                 <DataGridTextColumn Header="EUD" Binding="{Binding eud}"/>
                 <DataGridTextColumn Header="ElevType" Binding="{Binding elevType}"/>

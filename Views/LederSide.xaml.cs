@@ -32,7 +32,6 @@ namespace GFElevInterview.Views
         {
             InitializeComponent();
             InitialiseView();
-            VisAlle();
             InitializeComboBox();
         }
 
@@ -41,6 +40,12 @@ namespace GFElevInterview.Views
         {
             db = new DbTools();
             InitializeComboBox();
+            InitialiserDataGrid();
+        }
+
+        private void InitialiserDataGrid()
+        {
+            VisAlle();
         }
 
         //Putter info ind fra App.Config i ComboBox
@@ -56,9 +61,6 @@ namespace GFElevInterview.Views
 
         private void OpdaterDataGrid(List<ElevModel> elevData)
         {
-            //List<ElevModel> elever = (from e in db.Elever
-            //                          select e).ToList();
-            //elevTabel.ItemsSource = elever;
             elevTabel.ItemsSource = elevData;
         }
 
