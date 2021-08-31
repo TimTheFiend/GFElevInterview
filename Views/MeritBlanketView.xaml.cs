@@ -201,69 +201,82 @@ namespace GFElevInterview.Views
         /// </summary>
         /// <returns><c>true</c> hvis valideret; ellers <c>false</c></returns>
         private bool IsValidated() {
-            //TODO
-            //Hvordan skal vi give
-            // NYT
-            #region Highlight fejl
-            if (ComboboxDansk.SelectedIndex >= 0)
-            {
-                //CurrentElev.elev = new _ElevModel((bool)DanskEksamenChecked.IsChecked, (bool)DanskUndervisChecked.IsChecked, (FagNiveau)ComboboxDansk.SelectedIndex);
-                DanskValidation.BorderBrush = System.Windows.Media.Brushes.Gray;
-            }
-            else
-            {
-                DanskValidation.BorderBrush = System.Windows.Media.Brushes.Red;
-            }
-            if (ComboboxEngelsk.SelectedIndex >= 0)
-            {
-                //CurrentElev.elev = new _ElevModel((bool)EngelskEksamenChecked.IsChecked, (bool)EngelskUndervisChecked.IsChecked, (FagNiveau)ComboboxEngelsk.SelectedIndex);
-                EngelskValidation.BorderBrush = System.Windows.Media.Brushes.Gray;
-            }
-            else
-            {
-                EngelskValidation.BorderBrush = System.Windows.Media.Brushes.Red;
-            }
 
-            if (ComboboxMatematik.SelectedIndex >= 0)
+            bool erValideret = true;
+            Control[] danskControls = new Control[]
             {
-                //CurrentElev.elev = new _ElevModel((bool)MatematikEksamenChecked.IsChecked, (bool)MatematikUndervisChecked.IsChecked, (FagNiveau)ComboboxMatematik.SelectedIndex);
-                MatematikValidation.BorderBrush = System.Windows.Media.Brushes.Gray;
-            }
-            else
+                ComboboxDansk,
+                DanskEksamenJa,
+                DanskEksamenNej,
+                DanskUndervisJa,
+                DanskUndervisNej
+            };
+            Control[] engelskControls = new Control[]
             {
-                MatematikValidation.BorderBrush = System.Windows.Media.Brushes.Red;
-            } 
+                ComboboxEngelsk,
+                EngelskEksamenJa,
+                EngelskEksamenNej,
+                EngelskUndervisJa,
+                EngelskUndervisNej
+            };
+            Control[] matematikControls = new Control[]
+            {
+                ComboboxMatematik,
+                MatematikEksamenJa,
+                MatematikEksamenNej,
+                MatematikUndervisJa,
+                MatematikUndervisNej
+            };
+
+            #region Dropdown menu
+            if (!ValidateQuestion(DanskValidation, danskControls))
+                erValideret = false;
+            if (!ValidateQuestion(EngelskValidation, engelskControls))
+                erValideret = false;
+            if (!ValidateQuestion(MatematikValidation, matematikControls))
+                erValideret = false;
+
+
             #endregion
-            //// GAMMEL
-            if (ComboboxDansk.SelectedIndex >= 0 && ComboboxEngelsk.SelectedIndex >= 0 && ComboboxMatematik.SelectedIndex >= 0) {
-                //CurrentElev.elev = new _ElevModel(
-                //    (bool)DanskEksamenChecked.IsChecked,
-                //    (bool)DanskUndervisChecked.IsChecked,
-                //    (FagNiveau)ComboboxDansk.SelectedIndex + 1
-                //);
-                //CurrentElev.elev = new _ElevModel((bool)EngelskEksamenChecked.IsChecked,
-                //    (bool)EngelskUndervisChecked.IsChecked,
-                //    (FagNiveau)ComboboxEngelsk.SelectedIndex + 1
-                //);
-                //CurrentElev.elev = new _ElevModel(
-                //    (bool)MatematikEksamenChecked.IsChecked,
-                //    (bool)MatematikUndervisChecked.IsChecked,
-                //    (FagNiveau)ComboboxMatematik.SelectedIndex + 1
-                //);
-                //CurrentElev.elev.danskEksammen = (bool)DanskEksamenChecked.IsChecked;
-                //CurrentElev.elev.danskUndervisning = (bool)DanskUndervisChecked.IsChecked;
-                //CurrentElev.elev.danskNiveau = (FagNiveau)ComboboxDansk.SelectedIndex + 1;
+            #region RadioButtons
 
-                //CurrentElev.elev.engelskEksammen = (bool)EngelskEksamenChecked.IsChecked;
-                //CurrentElev.elev.engelskUndervisning = (bool)EngelskUndervisChecked.IsChecked;
-                //CurrentElev.elev.engelskNiveau = (FagNiveau)ComboboxEngelsk.SelectedIndex + 1;
+            #endregion
+            return erValideret;
+        }
 
-                //CurrentElev.elev.matematikEksammen = (bool)MatematikEksamenChecked.IsChecked;
-                //CurrentElev.elev.matematikUndervisning = (bool)MatematikUndervisChecked.IsChecked;
-                //CurrentElev.elev.matematikNiveau = (FagNiveau)ComboboxMatematik.SelectedIndex + 1;
-                return true;
+        //[Combobox, eksamenJa, eksamenNej, UndervisJa, undervisNej]
+        private bool ValidateQuestion(Border border, Control[] control)
+        {
+            System.Windows.Media.SolidColorBrush brushTrue = System.Windows.Media.Brushes.Gray;
+            System.Windows.Media.SolidColorBrush brushFalse = System.Windows.Media.Brushes.Red;
+            bool erValideret = true;
+
+            ComboBox comboBox = control[0] as ComboBox;
+            if (comboBox.SelectedIndex == -1)
+            {
+                border.BorderBrush = brushFalse;
+                erValideret = false;
             }
-            return false;
+            else
+            {
+                border.BorderBrush = brushTrue;
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                //første omgang = 0 * 2 = 0 + 1 = 1.
+                //anden omgang = 1 * 2 = 2 + 1 = 3;
+                RadioButton radioJa = control[i * 2 + 1] as RadioButton;
+                RadioButton radioNej = control[i * 2 + 2] as RadioButton;
+
+                if (!(bool)radioJa.IsChecked && !(bool)radioNej.IsChecked)
+                {
+                    border.BorderBrush = brushFalse;
+                    erValideret = false;
+                }
+            }
+
+            return erValideret;
         }
 
         private void Combobox_DropDownClosed(object sender, EventArgs e)

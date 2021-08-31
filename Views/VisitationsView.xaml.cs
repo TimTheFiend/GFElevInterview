@@ -68,11 +68,11 @@ namespace GFElevInterview.Views
                 educationComboBox.SelectedItem = CurrentElev.elev.uddannelse;
             }
 
-            if (!String.IsNullOrEmpty(CurrentElev.elev.udannelseAdresse)) {
+            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelseAdresse)) {
                 //Hvis der er ændret i Dansk karakter, så vil hverken Lyngby eller Frederiksberg blive vist.
-                if (educationAdresseComboBox.Items.Contains(CurrentElev.elev.udannelseAdresse)) {
-                    CurrentElev.elev.udannelseAdresse = null;
-                    educationAdresseComboBox.SelectedItem = CurrentElev.elev.udannelseAdresse;
+                if (educationAdresseComboBox.Items.Contains(CurrentElev.elev.uddannelseAdresse)) {
+                    CurrentElev.elev.uddannelseAdresse = null;
+                    educationAdresseComboBox.SelectedItem = CurrentElev.elev.uddannelseAdresse;
                 }
             }
 
@@ -116,7 +116,7 @@ namespace GFElevInterview.Views
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
-            CurrentElev.elev.udannelseAdresse = educationAdresseComboBox.Text;
+            CurrentElev.elev.uddannelseAdresse = educationAdresseComboBox.Text;
             CurrentElev.elev.uddannelse = educationComboBox.Text;
             CurrentElev.elev.sps = (bool)spsSupportJa.IsChecked;
             CurrentElev.elev.eud = (bool)eudSupportJa.IsChecked;
@@ -172,7 +172,7 @@ namespace GFElevInterview.Views
 
         /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
         private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            CurrentElev.elev.udannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
+            CurrentElev.elev.uddannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
         }
         #endregion Combobox
 

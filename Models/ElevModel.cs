@@ -20,7 +20,7 @@ namespace GFElevInterview.Models
 
         #region TEC data
         public string uddannelse { get; set; }
-        public string udannelseAdresse { get; set; }
+        public string uddannelseAdresse { get; set; }
 
         public bool? sps { get; set; }
         public bool? eud { get; set; }

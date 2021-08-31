@@ -88,7 +88,7 @@ namespace GFElevInterview.Views
            {
                 SetElevType();
                 CurrentElev.elev.uddannelse = educationComboBox.Text.ToString();
-                CurrentElev.elev.udannelseAdresse = uddannelsesBox.Text.ToString();
+                CurrentElev.elev.uddannelseAdresse = uddannelsesBox.Text.ToString();
                 CurrentElev.elev.sps = spsSupportJa.IsChecked;
                 CurrentElev.elev.eud = eudSupportJa.IsChecked;
                 parent.CompleteCurrentInterview();

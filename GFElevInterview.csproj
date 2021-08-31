@@ -31,6 +31,8 @@
     <PackageReference Include="iTextSharp" Version="5.5.13.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.7" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115" />
   </ItemGroup>
 
   <ItemGroup>
