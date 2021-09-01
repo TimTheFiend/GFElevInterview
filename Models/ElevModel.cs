@@ -263,7 +263,7 @@ namespace GFElevInterview.Models
                 {
                     fileName = fileName.Replace(invalidLetter, '_');
                 }
-                return fileName + "_M" + ".pdf";
+                return fileName + config.AppSettings.Get("endMerit");
             }
         }
 
@@ -276,7 +276,7 @@ namespace GFElevInterview.Models
                 {
                     fileName = fileName.Replace(invalidLetter, '_');
                 }
-                return fileName + "_RKV" + ".pdf";
+                return fileName + config.AppSettings.Get("endRKV");
             }
         }
     }

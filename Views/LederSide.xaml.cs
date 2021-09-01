@@ -137,7 +137,7 @@ namespace GFElevInterview.Views
                                       where e.danskNiveau > 0
                                       select e).ToList();
             OpdaterDataGrid(elever);
-        } 
+        }
         #endregion
 
         #region Knap metoder
@@ -164,19 +164,19 @@ namespace GFElevInterview.Views
         private void visAlle_Click(object sender, RoutedEventArgs e)
         {
             VisAlle();
-        } 
+        }
         #endregion
 
         private void SkoleDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string skole = (sender as ComboBox).SelectedItem.ToString();
 
-            if(skole.Contains(' '))
+            if (skole.Contains(' '))
             {
-                string ændretSkole = skole.Substring(0,skole.IndexOf(' '));
+                string ændretSkole = skole.Substring(0, skole.IndexOf(' '));
                 Console.WriteLine();
                 //Merit forløb
-                if(skole.Contains('+'))
+                if (skole.Contains('+'))
                 {
                     //Tekst fra skole variablen, fra start til mellemrummet.
                     //Også skal vi sætte det rigtige fagniveau.
@@ -192,7 +192,7 @@ namespace GFElevInterview.Views
             {
                 VisSkole(skole);
             }
-                        
+
         }
 
         //TODO kan sætte elev som tom række
@@ -206,18 +206,18 @@ namespace GFElevInterview.Views
                 Open_RKV.IsEnabled = false;
                 return;
             }
-            
+
             if (elev.danskNiveau == FagNiveau.Null)
                 Open_Merit.IsEnabled = false;
-            else            
+            else
                 Open_Merit.IsEnabled = true;
-            
+
 
             if (elev.elevType == ElevType.Null)
                 Open_RKV.IsEnabled = false;
             else
                 Open_RKV.IsEnabled = true;
-            
+
             //Er eleven færdig med interview?
             //Hvis ja, enable knap,
             //Hvis nej, disable knap.
@@ -255,6 +255,22 @@ namespace GFElevInterview.Views
             else
             {
                 AlertBoxes.OnOpenFileFailure();
+            }
+        }
+
+        private void ExportMerit_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlertBoxes.OnExport())
+            {
+                AdminTools.KombinerMeritFiler();
+            }
+        }
+
+        private void ExportRKV_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlertBoxes.OnExport())
+            {
+                AdminTools.ZipRKVFiler();
             }
         }
     }

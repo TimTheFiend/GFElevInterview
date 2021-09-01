@@ -20,5 +20,11 @@ namespace GFElevInterview.Data
         {
             MessageBox.Show("Den valgte blanket findes ikke i mappen", "Fejl!", MessageBoxButton.OK);
         }
+
+        public static bool OnExport()
+        {
+            MessageBoxResult result = MessageBox.Show("er du sikker?", "Export", MessageBoxButton.YesNo);
+            return result == MessageBoxResult.Yes ? true : false;
+        }
     }
 }
