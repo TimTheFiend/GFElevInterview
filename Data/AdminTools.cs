@@ -73,21 +73,14 @@ namespace GFElevInterview.Data
         {
             DbTools db = new DbTools();
 
-            string[] skoler = new string[]
-            {
-                config.AppSettings.Get("ballerup"),
-                config.AppSettings.Get("lyngby"),
-                config.AppSettings.Get("frederiksberg")
-            };
+            int ballerupTotal = db.Elever.Where(x => x.uddannelseAdresse == config.AppSettings.Get("ballerup")).ToList().Count;
+            int frederiksberg = db.Elever.Where(x => x.uddannelseAdresse == config.AppSettings.Get("frederiksberg")).ToList().Count;
+            int lyngby = db.Elever.Where(x => x.uddannelseAdresse == config.AppSettings.Get("lyngby")).ToList().Count;
+            int ballerupMerit = db.Elever.Where(x => x.uddannelseAdresse == config.AppSettings.Get("ballerup") && x.danskNiveau > FagNiveau.F).ToList().Count;
+            int ballerupFuldt = db.Elever.Where(x => x.uddannelseAdresse == config.AppSettings.Get("ballerup") && x.danskNiveau < FagNiveau.E).ToList().Count;
 
-            List<int> x = new List<int>();
-
-            foreach (string skole in skoler)
-            {
-                x.Add(db.Elever.Where(elev => elev.uddannelseAdresse == skole).ToArray().Count());
-            }
-            
-            Console.WriteLine(x);
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
         }
