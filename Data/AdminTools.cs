@@ -8,7 +8,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO.Compression;
 using config = System.Configuration.ConfigurationManager;
-
+using GFElevInterview.Models;
 
 namespace GFElevInterview.Data
 {
@@ -67,6 +67,29 @@ namespace GFElevInterview.Data
         {
             string[] filer = Directory.GetFiles(config.AppSettings.Get("outputMappe"), $"*{endelse}");
             return filer;
+        }
+
+        public static void HentAntalEleverPåSkole()
+        {
+            DbTools db = new DbTools();
+
+            string[] skoler = new string[]
+            {
+                config.AppSettings.Get("ballerup"),
+                config.AppSettings.Get("lyngby"),
+                config.AppSettings.Get("frederiksberg")
+            };
+
+            List<int> x = new List<int>();
+
+            foreach (string skole in skoler)
+            {
+                x.Add(db.Elever.Where(elev => elev.uddannelseAdresse == skole).ToArray().Count());
+            }
+            
+            Console.WriteLine(x);
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }

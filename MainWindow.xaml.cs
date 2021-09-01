@@ -25,6 +25,8 @@ namespace GFElevInterview
         public MainWindow()
         {
             InitializeComponent();
+
+            Data.AdminTools.HentAntalEleverPåSkole();
         }
 
         #region Home
