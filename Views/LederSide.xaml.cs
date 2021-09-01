@@ -31,7 +31,6 @@ namespace GFElevInterview.Views
         private DbTools db;
         private ElevModel elev;
         private string blanketMappe;
-        private List<string> skoler;
 
         public LederSide()
         {
