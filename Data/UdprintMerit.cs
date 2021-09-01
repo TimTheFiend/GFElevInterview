@@ -1,4 +1,5 @@
 ﻿using Spire.Doc;
+using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Data
 {
@@ -11,7 +12,7 @@ namespace GFElevInterview.Data
     {
 
         private string meritFileSti = "Blanketter\\Templates\\Merit-blanket.docx";
-        private string udprintSti = "..\\Blanketter";
+        private string udprintSti = config.AppSettings.Get("outputMappe");
 
         private string _nyMeritFile = $"{CurrentElev.elev.fornavn}.pdf";
 
@@ -39,7 +40,7 @@ namespace GFElevInterview.Data
                 doc.Replace("#MU#", CurrentElev.elev.matematikPrintUndervisning, true, true);
                 doc.Replace("#MN#", CurrentElev.elev.matematikPrintNiveau, true, true);
 
-                doc.SaveToFile(System.IO.Path.Combine(udprintSti, CurrentElev.elev.FilNavn), FileFormat.PDF);
+                doc.SaveToFile(System.IO.Path.Combine(udprintSti, CurrentElev.elev.MeritFilNavn), FileFormat.PDF);
                 return true;
             }
             catch (System.Exception) {

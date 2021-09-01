@@ -193,7 +193,7 @@ namespace GFElevInterview.Views
             CurrentElev.elev.engelskNiveau = (FagNiveau)ComboboxEngelsk.SelectedIndex + 1;
             CurrentElev.elev.matematikNiveau = (FagNiveau)ComboboxMatematik.SelectedIndex + 1;
 
-            parent.CompleteCurrentInterview();
+            //parent.CompleteCurrentInterview();
         }
 
         /// <summary>

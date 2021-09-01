@@ -28,7 +28,7 @@ namespace GFElevInterview.Data
             try {
                 string inputFil = GetRKVBlanketTemplate();
                 //Udskrivnings filen.
-                string outputFilePath = Path.Combine(outputDirectory, CurrentElev.elev.fornavn + ".pdf");
+                string outputFilePath = Path.Combine(outputDirectory, CurrentElev.elev.RKVFilNavn);
                 PdfReader pdfReader = new PdfReader(inputFil);
                 //filen skabes i outputFilePath slut lokationen.
                 PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(outputFilePath, FileMode.Create));
@@ -113,7 +113,7 @@ namespace GFElevInterview.Data
                 
                 #endregion
                
-                doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.FilNavn), FileFormat.PDF);
+                doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.MeritFilNavn), FileFormat.PDF);
                 return true;
             }
             catch (Exception) {

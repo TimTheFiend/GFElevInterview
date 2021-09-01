@@ -18,7 +18,7 @@
 
         <Button Width="80" Height="20" x:Name="RKV" Content="RKV" Click="RKV_Click" Margin="288,10,328,40" Grid.Column="0" Grid.Row="0"/>
         <Button  Width="80" Height="20" x:Name="Merit" Content="Merit" Click="Merit_Click" Margin="399,10,217,40" Grid.Column="0" Grid.Row="0"/>
-        <ComboBox Width="200" Height="25" x:Name="SkoleDropDown" Margin="48,22,448,22" Grid.Column="0" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged">
+        <ComboBox Width="200" Height="25" x:Name="SkoleDropDown" Margin="10,39,486,6" Grid.Column="0" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged">
         </ComboBox>
         <Button Width="80" Height="20" x:Name="SPS" Content="SPS" Click="SPS_Click" Margin="288,44,328,6" Grid.Column="0" Grid.Row="0"/>
         <Button Width="80" Height="20" x:Name="EUD" Content="EUD" Click="EUD_Click" Margin="399,44,217,6" Grid.Column="0" Grid.Row="0"/>
@@ -36,7 +36,7 @@
             <Button Width="80" Height="40" Background="Gray" Content="Reset" FontSize="15" Margin="8"/>
         </StackPanel>
 
-        <DataGrid x:Name="elevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27">
+        <DataGrid x:Name="elevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="CPR" Binding="{Binding cprNr}"/>
                 <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}"/>
@@ -58,5 +58,7 @@
                 <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Width="80" Height="20" x:Name="Open_RKV" Content="Åben RKV" Click="Open_RKV_Click" Margin="14,283,10,27" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
+        <Button  Width="80" Height="20" x:Name="Open_Merit" Content="Åben Merit" Click="Open_Merit_Click" Margin="14,315,10,-5" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
     </Grid>
 </UserControl>

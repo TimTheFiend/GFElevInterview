@@ -117,6 +117,8 @@ namespace GFElevInterview.Models
             uddannelsesLængdeIUger = minForløbslængdeIUger + ekstraUger;
         }
 
+        //TODO OUTDATED
+        //bliver brugt til at skifte elev før man er færdig med deb nuværende elev.
         public bool ErUdfyldt
         {
             get
@@ -252,7 +254,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Returnerer en lovlig string der kan bruges som filnavn.
         /// </summary>
-        public string FilNavn
+        public string MeritFilNavn
         {
             get
             {
@@ -261,7 +263,20 @@ namespace GFElevInterview.Models
                 {
                     fileName = fileName.Replace(invalidLetter, '_');
                 }
-                return fileName + ".pdf";
+                return fileName + "_M" + ".pdf";
+            }
+        }
+
+        public string RKVFilNavn
+        {
+            get
+            {
+                string fileName = $"{cprNr} - {efternavnFornavn}";
+                foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars())
+                {
+                    fileName = fileName.Replace(invalidLetter, '_');
+                }
+                return fileName + "_RKV" + ".pdf";
             }
         }
     }

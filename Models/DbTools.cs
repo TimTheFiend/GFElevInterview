@@ -10,7 +10,7 @@ namespace GFElevInterview.Models
         public DbTools() {
             //NOTE: `EnsureDeleted` skal kun bruges under development!
             //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
-            this.Database.EnsureDeleted();
+            //this.Database.EnsureDeleted();
             this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
         }
 
@@ -43,7 +43,7 @@ namespace GFElevInterview.Models
             modelBuilder.Entity<ElevModel>().HasData(
                 new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
                 new ElevModel { cprNr = "0101901234", fornavn = "Johammer", efternavn = "Søm", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-                //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
+                new ElevModel { cprNr = "1111011254", fornavn = "Joakim1", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
                 //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
                 //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
                 //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },

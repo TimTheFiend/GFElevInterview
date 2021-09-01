@@ -14,8 +14,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GFElevInterview.Models;
+using GFElevInterview.Data;
 using Microsoft.Data.Sqlite;
 using System.Linq;
+using System.IO;
 using config = System.Configuration.ConfigurationManager;
 
 
@@ -27,12 +29,16 @@ namespace GFElevInterview.Views
     public partial class LederSide : UserControl
     {
         private DbTools db;
+        private ElevModel elev;
+        private string blanketMappe;
 
         public LederSide()
         {
             InitializeComponent();
             InitialiseView();
             InitializeComboBox();
+
+            blanketMappe = config.AppSettings.Get("outputMappe");
         }
 
         //On Constructor call
@@ -64,6 +70,7 @@ namespace GFElevInterview.Views
             elevTabel.ItemsSource = elevData;
         }
 
+        #region DatabaseQueries
         private void VisAlle()
         {
             List<ElevModel> elever = (from e in db.Elever
@@ -105,10 +112,11 @@ namespace GFElevInterview.Views
         private void VisMerit()
         {
             List<ElevModel> elever = (from e in db.Elever
-                                      where e.uddannelsesLængdeIUger == 16
+                                      where e.danskNiveau > 0
                                       select e).ToList();
             OpdaterDataGrid(elever);
-        }
+        } 
+        #endregion
 
         #region Knap metoder
         private void SPS_Click(object sender, RoutedEventArgs e)
@@ -142,6 +150,69 @@ namespace GFElevInterview.Views
             string skole = (sender as ComboBox).SelectedItem.ToString();
 
             VisSkole(skole);
+        }
+
+        //TODO kan sætte elev som tom række
+        private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            elev = (sender as DataGrid).SelectedItem as ElevModel;
+
+            if (elev == null)
+            {
+                Open_Merit.IsEnabled = false;
+                Open_RKV.IsEnabled = false;
+                return;
+            }
+            
+            if (elev.danskNiveau == FagNiveau.Null)
+                Open_Merit.IsEnabled = false;
+            else            
+                Open_Merit.IsEnabled = true;
+            
+
+            if (elev.elevType == ElevType.Null)
+                Open_RKV.IsEnabled = false;
+            else
+                Open_RKV.IsEnabled = true;
+            
+            //Er eleven færdig med interview?
+            //Hvis ja, enable knap,
+            //Hvis nej, disable knap.
+
+        }
+
+        private void Open_Merit_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Reduce redundancy
+            //if (elev == null)
+            //{
+            //    return;
+            //}
+            OpenExploreOnFile(elev.MeritFilNavn);
+        }
+
+        private void Open_RKV_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Reduce redundancy
+            //if (elev == null)
+            //{
+            //    return;
+            //}
+            OpenExploreOnFile(elev.RKVFilNavn);
+        }
+
+        private void OpenExploreOnFile(string blanketNavn)
+        {
+            string filNavn = System.IO.Path.Combine(blanketMappe, blanketNavn);
+
+            if (File.Exists(filNavn))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{filNavn}");
+            }
+            else
+            {
+                AlertBoxes.OnOpenFileFailure();
+            }
         }
     }
 }
