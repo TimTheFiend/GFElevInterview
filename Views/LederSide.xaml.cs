@@ -31,12 +31,13 @@ namespace GFElevInterview.Views
         private DbTools db;
         private ElevModel elev;
         private string blanketMappe;
+        private List<string> skoler;
 
         public LederSide()
         {
             InitializeComponent();
             InitialiseView();
-            InitializeComboBox();
+            InitialiserSkoleComboBox();
 
             blanketMappe = config.AppSettings.Get("outputMappe");
         }
@@ -45,7 +46,6 @@ namespace GFElevInterview.Views
         private void InitialiseView()
         {
             db = new DbTools();
-            InitializeComboBox();
             InitialiserDataGrid();
         }
 
@@ -55,12 +55,14 @@ namespace GFElevInterview.Views
         }
 
         //Putter info ind fra App.Config i ComboBox
-        private void InitializeComboBox()
+        private void InitialiserSkoleComboBox()
         {
             List<string> uddannelsesAdresser = new List<string>() {
                 config.AppSettings.Get("ballerup"),
                 config.AppSettings.Get("lyngby"),
-                config.AppSettings.Get("frederiksberg")
+                config.AppSettings.Get("frederiksberg"),
+                config.AppSettings.Get("ballerupMerit"),
+                config.AppSettings.Get("ballerupFuldt")
             };
             SkoleDropDown.ItemsSource = uddannelsesAdresser;
         }
@@ -83,6 +85,27 @@ namespace GFElevInterview.Views
             List<ElevModel> elever = (from e in db.Elever
                                       where e.uddannelseAdresse == skole
                                       select e).ToList();
+            OpdaterDataGrid(elever);
+        }
+
+        private void VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
+        {
+            List<ElevModel> elever = new List<ElevModel>();
+            if (erNiveauHøjere)
+            {
+                elever = (from e in db.Elever
+                          where e.uddannelseAdresse == skole &&
+                          e.danskNiveau > ekslusivNiveau
+                          select e).ToList();
+            }
+            else
+            {
+                elever = (from e in db.Elever
+                          where e.uddannelseAdresse == skole
+                          && e.danskNiveau < ekslusivNiveau
+                          && e.danskNiveau > FagNiveau.Null
+                          select e).ToList();
+            }
             OpdaterDataGrid(elever);
         }
 
@@ -149,7 +172,28 @@ namespace GFElevInterview.Views
         {
             string skole = (sender as ComboBox).SelectedItem.ToString();
 
-            VisSkole(skole);
+            if(skole.Contains(' '))
+            {
+                string ændretSkole = skole.Substring(0,skole.IndexOf(' '));
+                Console.WriteLine();
+                //Merit forløb
+                if(skole.Contains('+'))
+                {
+                    //Tekst fra skole variablen, fra start til mellemrummet.
+                    //Også skal vi sætte det rigtige fagniveau.
+                    VisSkole(ændretSkole, FagNiveau.F, true);
+                }
+                //Ingen merit
+                else
+                {
+                    VisSkole(ændretSkole, FagNiveau.E, false);
+                }
+            }
+            else
+            {
+                VisSkole(skole);
+            }
+                        
         }
 
         //TODO kan sætte elev som tom række
