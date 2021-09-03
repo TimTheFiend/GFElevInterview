@@ -25,10 +25,20 @@ namespace GFElevInterview
         public MainWindow()
         {
             InitializeComponent();
+            //this.DataContext =;
+            //Data.AdminTools.HentAntalEleverPåSkole();
 
-            Data.AdminTools.HentAntalEleverPåSkole();
+            new DbTools().TilføjElever();
+
+            OpdaterCounter();
         }
-
+        private void OpdaterCounter()
+        {
+            var dict = Data.AdminTools.HentAntalEleverPåSkole();
+            LyngbyTXT.Text = dict["Lyngby"].ToString();
+            BallerupTXT.Text = dict["Ballerup"].ToString();
+            FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
+        }
         #region Home
         //TODO overvej at fjerne?
         private void btnHome_Click(object sender, RoutedEventArgs e)

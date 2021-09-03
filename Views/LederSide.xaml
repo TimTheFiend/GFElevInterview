@@ -36,7 +36,7 @@
             <Button Width="80" Height="40" Background="Gray" Content="Reset" FontSize="15" Margin="8"/>
         </StackPanel>
 
-        <DataGrid x:Name="elevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged">
+        <DataGrid x:Name="elevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="CPR" Binding="{Binding cprNr}"/>
                 <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}"/>

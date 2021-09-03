@@ -35,14 +35,14 @@ namespace GFElevInterview.Views
         public LederSide()
         {
             InitializeComponent();
-            InitialiseView();
+            InitialiserView();
             InitialiserSkoleComboBox();
 
             blanketMappe = config.AppSettings.Get("outputMappe");
         }
 
         //On Constructor call
-        private void InitialiseView()
+        private void InitialiserView()
         {
             db = new DbTools();
             InitialiserDataGrid();
