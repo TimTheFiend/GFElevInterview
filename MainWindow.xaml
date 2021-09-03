@@ -19,6 +19,22 @@
                 <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnHome" Click="btnHome_Click" >Home</Button>
                 <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
                 <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
+                <Border BorderBrush="Gray" BorderThickness="4" Margin="10,0,10,0">
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock Text="Lyngby: " FontSize="20"/>
+                            <TextBlock x:Name="LyngbyTXT" FontSize="20"/>
+                        </DockPanel>
+                        <DockPanel Margin="0,6,0,0">
+                            <TextBlock Text="Fredriksberg: " FontSize="20"/>
+                            <TextBlock x:Name="FredriksbergTXT" FontSize="20"/>
+                        </DockPanel>
+                        <DockPanel Margin="0,6,0,0">
+                            <TextBlock Text="Ballerup: " FontSize="20"/>
+                            <TextBlock x:Name="BallerupTXT" FontSize="20"/>
+                        </DockPanel>
+                    </StackPanel>
+                </Border>
                 <Image Margin="10,200" Height="150" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
 
             </StackPanel>
