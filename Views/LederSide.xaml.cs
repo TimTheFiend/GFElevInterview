@@ -163,12 +163,17 @@ namespace GFElevInterview.Views
 
         private void visAlle_Click(object sender, RoutedEventArgs e)
         {
+            SkoleDropDown.SelectedIndex = -1;
             VisAlle();
         }
         #endregion
 
         private void SkoleDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if((sender as ComboBox).SelectedIndex == -1)
+            {
+                return;
+            }
             string skole = (sender as ComboBox).SelectedItem.ToString();
 
             if (skole.Contains(' '))
