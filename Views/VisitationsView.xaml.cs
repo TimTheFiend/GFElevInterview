@@ -43,14 +43,14 @@ namespace GFElevInterview.Views
         }
 
         private void SetComboBoxes() {
-            educationAdresseComboBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederSkoler();
+            educationAdresseComboBox.ItemsSource = CurrentElev.elev.ValgAfSkoler();
 
             ///Får programmet til at crashe da SelectedItem = null (???)
             //if (educationAdresseComboBox.Items.Count == 1) {
             //    educationAdresseComboBox.SelectedIndex = 0;
             //}
 
-            educationComboBox.ItemsSource = CurrentElev.meritBlanket.ValgmulighederUddannelser();
+            educationComboBox.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
         }
 
         private void SetButtons() {
@@ -63,21 +63,21 @@ namespace GFElevInterview.Views
         /// </summary>
         private void UdfyldBlanket()
         {
-            if (!String.IsNullOrEmpty (CurrentElev.elev.Uddannelse))
+            if (!String.IsNullOrEmpty (CurrentElev.elev.uddannelse))
             {
-                educationComboBox.SelectedItem = CurrentElev.elev.Uddannelse;
+                educationComboBox.SelectedItem = CurrentElev.elev.uddannelse;
             }
 
-            if (!String.IsNullOrEmpty(CurrentElev.elev.UdannelseAdresse)) {
+            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelseAdresse)) {
                 //Hvis der er ændret i Dansk karakter, så vil hverken Lyngby eller Frederiksberg blive vist.
-                if (educationAdresseComboBox.Items.Contains(CurrentElev.elev.UdannelseAdresse)) {
-                    CurrentElev.elev.UdannelseAdresse = null;
-                    educationAdresseComboBox.SelectedItem = CurrentElev.elev.UdannelseAdresse;
+                if (educationAdresseComboBox.Items.Contains(CurrentElev.elev.uddannelseAdresse)) {
+                    CurrentElev.elev.uddannelseAdresse = null;
+                    educationAdresseComboBox.SelectedItem = CurrentElev.elev.uddannelseAdresse;
                 }
             }
 
 
-            switch (CurrentElev.elev.SPS) {
+            switch (CurrentElev.elev.sps) {
                 case true:
                     spsSupportJa.IsChecked = true;
                     break;
@@ -88,7 +88,7 @@ namespace GFElevInterview.Views
                     break;
             }
 
-            switch (CurrentElev.elev.EUD) {
+            switch (CurrentElev.elev.eud) {
                 case true:
                     eudSupportJa.IsChecked = true;
                     break;
@@ -116,10 +116,10 @@ namespace GFElevInterview.Views
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
-            CurrentElev.elev.UdannelseAdresse = educationAdresseComboBox.Text;
-            CurrentElev.elev.Uddannelse = educationComboBox.Text;
-            CurrentElev.elev.SPS = (bool)spsSupportJa.IsChecked;
-            CurrentElev.elev.EUD = (bool)eudSupportJa.IsChecked;
+            CurrentElev.elev.uddannelseAdresse = educationAdresseComboBox.Text;
+            CurrentElev.elev.uddannelse = educationComboBox.Text;
+            CurrentElev.elev.sps = (bool)spsSupportJa.IsChecked;
+            CurrentElev.elev.eud = (bool)eudSupportJa.IsChecked;
             
             parent.CompleteCurrentInterview();
         }
@@ -167,23 +167,23 @@ namespace GFElevInterview.Views
 
         /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
         private void educationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            CurrentElev.elev.Uddannelse = (sender as ComboBox).SelectedItem.ToString();
+            CurrentElev.elev.uddannelse = (sender as ComboBox).SelectedItem.ToString();
         }
 
         /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
         private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            CurrentElev.elev.UdannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
+            CurrentElev.elev.uddannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
         }
         #endregion Combobox
 
         #region RadioButton setters
         private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
 
-            CurrentElev.elev.SPS = (sender as RadioButton) == spsSupportJa ? true : false;
+            CurrentElev.elev.sps = (sender as RadioButton) == spsSupportJa ? true : false;
         }
 
         private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
-            CurrentElev.elev.EUD = (sender as RadioButton) == eudSupportJa ? true : false;
+            CurrentElev.elev.eud = (sender as RadioButton) == eudSupportJa ? true : false;
         }
         #endregion Radiobutton setters
         #endregion

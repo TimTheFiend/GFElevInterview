@@ -15,5 +15,16 @@ namespace GFElevInterview.Data
         public static void OnSuccessfulCompletion() {
             MessageBox.Show("Success!", "Færdig", MessageBoxButton.OK, MessageBoxImage.None);
         }
+
+        public static void OnOpenFileFailure()
+        {
+            MessageBox.Show("Den valgte blanket findes ikke i mappen", "Fejl!", MessageBoxButton.OK);
+        }
+
+        public static bool OnExport()
+        {
+            MessageBoxResult result = MessageBox.Show("er du sikker?", "Export", MessageBoxButton.YesNo);
+            return result == MessageBoxResult.Yes ? true : false;
+        }
     }
 }

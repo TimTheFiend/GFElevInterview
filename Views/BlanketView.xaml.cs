@@ -40,7 +40,7 @@ namespace GFElevInterview.Views
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
-                if(CurrentElev.meritBlanket.ErUdfyldt)
+                if(CurrentElev.elev.ErUdfyldt)
                 {
                     MessageBoxResult result = MessageBox.Show("Er du sikkert at ville skifte elev?", "TEMP TEXT", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
@@ -67,9 +67,9 @@ namespace GFElevInterview.Views
             }
 
             List<ElevModel> elevModels = db.Elever.Where(
-                elev => (elev.Efternavn.ToLower()).StartsWith(text.ToLower())
-                || elev.CprNr.StartsWith(text)
-                || elev.Fornavn.ToLower().StartsWith(text.ToLower())
+                elev => (elev.efternavn.ToLower()).StartsWith(text.ToLower())
+                || elev.cprNr.StartsWith(text)
+                || elev.fornavn.ToLower().StartsWith(text.ToLower())
                 ).ToList();
             SearchStudentBox.ItemsSource = elevModels;
         }
@@ -109,7 +109,7 @@ namespace GFElevInterview.Views
             bool? isRKVSuccess = null;
             bool isMeritSuccess = false;
 
-            CurrentElev.meritBlanket.BeregnMeritIUger(CurrentElev.elev);
+            //CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
 
             BlanketUdskrivning print = new BlanketUdskrivning();
 

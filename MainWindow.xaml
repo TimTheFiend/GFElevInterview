@@ -63,10 +63,10 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="Password :" FontSize="30" Height="64"  Grid.ColumnSpan="2"   />
-                <PasswordBox  PasswordChar="*" x:Name="passwordText" KeyDown="passwordText_KeyDown"  FontSize="40"  Grid.Column="1" Grid.Row="1" Height="64" Width="300" Background="#eee" Margin="10" />
+                <!--<TextBlock Grid.Column="0" Grid.Row="0" Text="Password :" FontSize="30" Height="64"  Grid.ColumnSpan="2"   />-->
+                <!--<PasswordBox  PasswordChar="*" x:Name="passwordText" KeyDown="passwordText_KeyDown"  FontSize="40"  Grid.Column="1" Grid.Row="1" Height="64" Width="300" Background="#eee" Margin="10" />-->
 
-                <Button x:Name="signinButton"  Background="Gray" Content="Sign In" Margin="10" FontSize="30" Foreground="White" Click="signinButton_Click"   Grid.Column="1"  Grid.Row="2"   Height="64" Width="300"    />
+                <!--<Button x:Name="signinButton"  Background="Gray" Content="Sign In" Margin="10" FontSize="30" Foreground="White" Click="signinButton_Click"   Grid.Column="1"  Grid.Row="2"   Height="64" Width="300"    />-->
             </Grid>
 
 
