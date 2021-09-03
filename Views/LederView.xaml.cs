@@ -24,15 +24,15 @@ using config = System.Configuration.ConfigurationManager;
 namespace GFElevInterview.Views
 {
     /// <summary>
-    /// Interaction logic for LederSide.xaml
+    /// Interaction logic for LederView.xaml
     /// </summary>
-    public partial class LederSide : UserControl
+    public partial class LederView : UserControl
     {
         private DbTools db;
         private ElevModel elev;
         private string blanketMappe;
 
-        public LederSide()
+        public LederView()
         {
             InitializeComponent();
             InitialiserView();
