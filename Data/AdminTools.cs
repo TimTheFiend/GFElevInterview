@@ -63,7 +63,7 @@ namespace GFElevInterview.Data
         }
 
 
-        private static string[] HentFiler(string endelse)
+        public static string[] HentFiler(string endelse)
         {
             string[] filer = Directory.GetFiles(config.AppSettings.Get("outputMappe"), $"*{endelse}");
             return filer;
