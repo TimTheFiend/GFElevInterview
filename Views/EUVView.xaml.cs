@@ -27,18 +27,18 @@ namespace GFElevInterview.Views
         {
             InitializeComponent();
             this.parent = parent;
-            InitializeBlanket();            
-            euv1Ja.Click += CheckEUVExpand;
-            euv1Nej.Click += CheckEUVExpand;
-            euv1SporgsmalJa.Click += CheckEUVExpand;
-            euv1SporgsmalNej.Click += CheckEUVExpand;
+            InitialiserBlanket();            
+            euv1Ja.Click += CheckEUVUdvidet;
+            euv1Nej.Click += CheckEUVUdvidet;
+            euv1SporgsmalJa.Click += CheckEUVUdvidet;
+            euv1SporgsmalNej.Click += CheckEUVUdvidet;
             educationComboBox.DropDownClosed += Combobox_DropDownClosed;
             uddannelsesBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
-        private void InitializeBlanket()
+        private void InitialiserBlanket()
         {
-            SetButtons();
+            SætButtons();
 
             uddannelsesBox.ItemsSource = CurrentElev.elev.ValgAfSkoler();
             if(uddannelsesBox.Items.Count == 1)
@@ -52,19 +52,19 @@ namespace GFElevInterview.Views
             educationComboBox.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
         }
 
-        private void SetButtons()
+        private void SætButtons()
         {
             parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
         }
 
-        private void ExpandEUV()
+        private void UdvidEUV()
         {
-            IsEUVExpanded();
+            EREUVUdvidet();
         }
 
         //Note skal kaldes indefra blanket view
-        private void UpdateElevAndSave()
+        private void OpdaterElev()
         {
             //TODO: Få info fra søgefeldt
             //NOTE: Hardcoded
@@ -84,18 +84,18 @@ namespace GFElevInterview.Views
 
         public void Frem()
         {
-           if(IsValidated())
+           if(ErValideret())
            {
-                SetElevType();
+                SætElevType();
                 CurrentElev.elev.uddannelse = educationComboBox.Text.ToString();
                 CurrentElev.elev.uddannelseAdresse = uddannelsesBox.Text.ToString();
                 CurrentElev.elev.sps = spsSupportJa.IsChecked;
                 CurrentElev.elev.eud = eudSupportJa.IsChecked;
-                parent.CompleteCurrentInterview();
+                parent.FærdiggørInterview();
            }
         }
 
-        private void SetElevType() {
+        private void SætElevType() {
             ElevType elevType;
             
             if ((bool)euv1Ja.IsChecked) {
@@ -119,7 +119,7 @@ namespace GFElevInterview.Views
         }
 
         //TODO: Valider blanket
-        private bool IsValidated()
+        private bool ErValideret()
         {
             SolidColorBrush gray = Brushes.Gray;
             SolidColorBrush red = Brushes.Red;
@@ -179,12 +179,7 @@ namespace GFElevInterview.Views
             return overAllValidated;
         }
 
-        private void Combobox_DropDownClosed(object sender, EventArgs e)
-        {
-            parent.scrollview.Focus();
-        }
-
-        private bool IsEUVExpanded()
+        private bool EREUVUdvidet()
         {
             bool _euv1 = (bool)euv1Ja.IsChecked || !(bool)euv1Nej.IsChecked;
             bool _euv1Spg = (bool)euv1SporgsmalJa.IsChecked || !(bool)euv1SporgsmalNej.IsChecked;
@@ -210,10 +205,15 @@ namespace GFElevInterview.Views
             euv2Expand.IsEnabled = false;
             return false;
         }
-
-        private void CheckEUVExpand(object sender, RoutedEventArgs e)
+        //Events
+        private void Combobox_DropDownClosed(object sender, EventArgs e)
         {
-            euv2Expand.IsExpanded = IsEUVExpanded();
+            parent.scrollview.Focus();
+        }
+
+        private void CheckEUVUdvidet(object sender, RoutedEventArgs e)
+        {
+            euv2Expand.IsExpanded = EREUVUdvidet();
         }
     }
 }

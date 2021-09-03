@@ -22,14 +22,9 @@ namespace GFElevInterview.Views
             InitializeComponent();
 
             CurrentElev.NulstilCurrentElev();
-            //InitializeBlanket();
-            //db.Database.EnsureCreated();
-
-            //TODO: Debug
-            //CurrentElev.elev = db.Elever.FirstOrDefault(x => x.Fornavn.ToLower() == "joakim");
         }
 
-        private void InitializeBlanket() {
+        private void InitialiserBlanket() {
             if (currentView == null) {
                 currentView = new MeritBlanketView(this);
             }
@@ -37,11 +32,52 @@ namespace GFElevInterview.Views
             mainContent.Content = currentView;
         }
 
+        private bool OpdaterElevIDatabase() {
+            try {
+                db.Elever.Update(CurrentElev.elev);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+
+        public void FærdiggørInterview() {
+
+            bool? isRKVSuccess = null;
+            bool isMeritSuccess = false;
+
+            //CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
+
+            BlanketUdskrivning print = new BlanketUdskrivning();
+
+            ///Task
+            Task meritTask = Task.Run(() => {
+                isMeritSuccess = print.UdskrivningMerit();
+            });
+
+            while (!meritTask.IsCompleted) { }
+
+            //Hvis merit er blevet udskrevet, og RKV enten også er, eller slet ikke (fordi eleven ikke er RKV), så opdater databasen.
+            if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
+                if (OpdaterElevIDatabase()) {
+                    CurrentElev.NulstilCurrentElev();
+                    currentView = null;
+                    mainContent.Content = null;
+                    StudentsFullInfo.Content = "";
+                    AlertBoxes.OnSuccessfulCompletion();
+                }
+            }
+        }
+
+        //Event Handler
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
                 if(CurrentElev.elev.ErUdfyldt)
                 {
+                    //OBS
                     MessageBoxResult result = MessageBox.Show("Er du sikkert at ville skifte elev?", "TEMP TEXT", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
@@ -49,7 +85,7 @@ namespace GFElevInterview.Views
                         currentView = null;
                     }
                 }
-                InitializeBlanket();
+                InitialiserBlanket();
                 CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
                 StudentsFullInfo.Content = CurrentElev.elev.FuldInfo;
 
@@ -77,6 +113,7 @@ namespace GFElevInterview.Views
         private void OnButtonClick() {
             scrollview.ScrollToTop();
         }
+        
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
             OnButtonClick();
@@ -92,44 +129,5 @@ namespace GFElevInterview.Views
             mainContent.Content = currentView;
         }
 
-        private bool UpdateDatabase() {
-            try {
-                db.Elever.Update(CurrentElev.elev);
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception) {
-                return false;
-            }
-        }
-
-
-        public void CompleteCurrentInterview() {
-
-            bool? isRKVSuccess = null;
-            bool isMeritSuccess = false;
-
-            //CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
-
-            BlanketUdskrivning print = new BlanketUdskrivning();
-
-            ///Task
-            Task meritTask = Task.Run(() => {
-                isMeritSuccess = print.UdskrivningMerit();
-            });
-
-            while (!meritTask.IsCompleted) { }
-
-            //Hvis merit er blevet udskrevet, og RKV enten også er, eller slet ikke (fordi eleven ikke er RKV), så opdater databasen.
-            if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
-                if (UpdateDatabase()) {
-                    CurrentElev.NulstilCurrentElev();
-                    currentView = null;
-                    mainContent.Content = null;
-                    StudentsFullInfo.Content = "";
-                    AlertBoxes.OnSuccessfulCompletion();
-                }
-            }
-        }
     }
 }

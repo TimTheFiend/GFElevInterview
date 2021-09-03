@@ -17,11 +17,10 @@ namespace GFElevInterview.Views
     {
         public BlanketView parent;
 
-
         public MeritBlanketView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
-            InitializeBlanket();
+            InitialiserBlanket();
             //Combobox gets it dropdownclosed from the method called "Combobox_DropDownClosed".
             ComboboxMatematik.DropDownClosed += Combobox_DropDownClosed;
             ComboboxDansk.DropDownClosed += Combobox_DropDownClosed;
@@ -33,9 +32,9 @@ namespace GFElevInterview.Views
         }
 
         #region Klargøring
-        private void InitializeBlanket() {
-            InitializeComboBox();
-            SetButtons();
+        private void InitialiserBlanket() {
+            InitialiserComboBox();
+            SætButtons();
             // Udfyld Blanketten hvis den allerede står som udfyldt i `CurrentElev`.
             if (CurrentElev.elev.ErUdfyldt) {
                 //Combobox
@@ -51,6 +50,19 @@ namespace GFElevInterview.Views
                 EngelskUndervisJa.IsChecked = CurrentElev.elev.engelskUndervisning;
 
             }
+        }
+
+        /// <summary>
+        /// Fylder ComboBoxene op med karaktere.
+        /// </summary>
+        private void InitialiserComboBox()
+        {
+            var enumKeysArray = Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString());
+            ComboboxDansk.ItemsSource = enumKeysArray;
+            ComboboxEngelsk.ItemsSource = enumKeysArray;
+            ComboboxMatematik.ItemsSource = enumKeysArray;
+
+            UdfyldBlanket();
         }
 
         private void UdfyldBlanket()
@@ -129,7 +141,7 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void SetButtons() {
+        private void SætButtons() {
             // Bliver ændret i VisitationsView
             parent.btnFrem.Content = "Frem";
 
@@ -137,17 +149,7 @@ namespace GFElevInterview.Views
             parent.btnFrem.IsEnabled = true;
         }
 
-        /// <summary>
-        /// Fylder ComboBoxene op med karaktere.
-        /// </summary>
-        private void InitializeComboBox() {
-            var enumKeysArray = Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString());
-            ComboboxDansk.ItemsSource = enumKeysArray;
-            ComboboxEngelsk.ItemsSource = enumKeysArray;
-            ComboboxMatematik.ItemsSource = enumKeysArray;
 
-            UdfyldBlanket();
-        }
         #endregion
 
         /// <summary>
@@ -155,9 +157,9 @@ namespace GFElevInterview.Views
         /// </summary>
         public void Frem() {
             // Tjekker om fag niveau er blevet valgt, da det er det eneste vi med sikkerhed ved at eleven kan have.
-            if (IsValidated()) {
+            if (ErValideret()) {
                 IBlanket newView;
-                UpdateElevAndSave();
+                OpdaterElev();
                 if (CurrentElev.elev.erRKV)
                 {
                     newView = new EUVView(parent);
@@ -179,7 +181,7 @@ namespace GFElevInterview.Views
             return;
         }
 
-        private void UpdateElevAndSave()
+        private void OpdaterElev()
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
@@ -200,7 +202,7 @@ namespace GFElevInterview.Views
         /// check at der skal have værdi 
         /// </summary>
         /// <returns><c>true</c> hvis valideret; ellers <c>false</c></returns>
-        private bool IsValidated() {
+        private bool ErValideret() {
 
             bool erValideret = true;
             Control[] danskControls = new Control[]
@@ -229,23 +231,20 @@ namespace GFElevInterview.Views
             };
 
             #region Dropdown menu
-            if (!ValidateQuestion(DanskValidation, danskControls))
+            if (!ValiderFag(DanskValidation, danskControls))
                 erValideret = false;
-            if (!ValidateQuestion(EngelskValidation, engelskControls))
+            if (!ValiderFag(EngelskValidation, engelskControls))
                 erValideret = false;
-            if (!ValidateQuestion(MatematikValidation, matematikControls))
+            if (!ValiderFag(MatematikValidation, matematikControls))
                 erValideret = false;
 
-
-            #endregion
-            #region RadioButtons
 
             #endregion
             return erValideret;
         }
 
         //[Combobox, eksamenJa, eksamenNej, UndervisJa, undervisNej]
-        private bool ValidateQuestion(Border border, Control[] control)
+        private bool ValiderFag(Border border, Control[] control)
         {
             System.Windows.Media.SolidColorBrush brushTrue = System.Windows.Media.Brushes.Gray;
             System.Windows.Media.SolidColorBrush brushFalse = System.Windows.Media.Brushes.Red;
@@ -279,6 +278,7 @@ namespace GFElevInterview.Views
             return erValideret;
         }
 
+        //Events
         private void Combobox_DropDownClosed(object sender, EventArgs e)
         {
             //Change the focus to scrollview in BlanketView.

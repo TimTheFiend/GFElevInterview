@@ -28,21 +28,21 @@ namespace GFElevInterview.Views
         public VisitationsView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
-            InitializeBlanket();
+            InitialiserBlanket();
             educationComboBox.DropDownClosed += Combobox_DropDownClosed;
             educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
         }
 
 
         #region Klargøringsmetoder
-        private void InitializeBlanket() {
-            SetButtons();
-            SetComboBoxes();
+        private void InitialiserBlanket() {
+            SætKnapper();
+            SætKombokse();
 
             UdfyldBlanket();
         }
 
-        private void SetComboBoxes() {
+        private void SætKombokse() {
             educationAdresseComboBox.ItemsSource = CurrentElev.elev.ValgAfSkoler();
 
             ///Får programmet til at crashe da SelectedItem = null (???)
@@ -53,7 +53,7 @@ namespace GFElevInterview.Views
             educationComboBox.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
         }
 
-        private void SetButtons() {
+        private void SætKnapper() {
             parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
         }
@@ -102,17 +102,17 @@ namespace GFElevInterview.Views
         #endregion
 
         public void Frem() {
-            if (IsValidated())
+            if (ErValideret())
             {
                 //TODO Hvis ikke RKV
                 //TODO Udprint
                 //TODO Få fra Søgning
-                UpdateElevAndSave();
+                OpdaterElev();
 
             }
         }
 
-        private void UpdateElevAndSave()
+        private void OpdaterElev()
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
@@ -121,7 +121,7 @@ namespace GFElevInterview.Views
             CurrentElev.elev.sps = (bool)spsSupportJa.IsChecked;
             CurrentElev.elev.eud = (bool)eudSupportJa.IsChecked;
             
-            parent.CompleteCurrentInterview();
+            parent.FærdiggørInterview();
         }
 
         /// <summary>Ændr <see cref="BlanketView"/>s <see cref="ContentControl"/> til <see cref="MeritBlanketView"/></summary>
@@ -135,7 +135,7 @@ namespace GFElevInterview.Views
         /// <returns>
         ///   <c>true</c> if this instance is validated; otherwise, <c>false</c>.
         /// </returns>
-        private bool IsValidated() {
+        private bool ErValideret() {
             SolidColorBrush gray = Brushes.Gray;
             SolidColorBrush red = Brushes.Red;
 
@@ -158,6 +158,7 @@ namespace GFElevInterview.Views
             return false;
         }
 
+        //Events
         #region Combobox/Radiobutton Eventhandlers
         #region Combobox
         /// <summary>Fjerner fokus fra combobox når den folder sammen.</summary>

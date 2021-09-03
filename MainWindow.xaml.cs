@@ -28,10 +28,19 @@ namespace GFElevInterview
             //this.DataContext =;
             //Data.AdminTools.HentAntalEleverPåSkole();
 
-            new DbTools().TilføjElever();
-
+            //new DbTools().TilføjElever();
+            KaldPy();
             OpdaterCounter();
         }
+
+        private void KaldPy()
+        {
+            string exe = @"C:\Python39\python.exe";
+            string script = @"C:\Users\viga\Documents\GitHub\GFElevInterview\bin\Debug\Blanketter\py.py";
+            string attempt = @"C:\Users\viga\Documents\GitHub\GFElevInterview\bin\Debug\Blanketter\2211334455 - Baghave, Blomsterkasse_RKV.pdf";
+            System.Diagnostics.Process.Start(exe, $"{script} \"{attempt}\"");
+        }
+
         private void OpdaterCounter()
         {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();

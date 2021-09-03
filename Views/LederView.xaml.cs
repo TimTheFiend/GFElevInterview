@@ -19,7 +19,7 @@ using Microsoft.Data.Sqlite;
 using System.Linq;
 using System.IO;
 using config = System.Configuration.ConfigurationManager;
-
+using Microsoft.Win32;
 
 namespace GFElevInterview.Views
 {
@@ -69,6 +69,29 @@ namespace GFElevInterview.Views
         private void OpdaterDataGrid(List<ElevModel> elevData)
         {
             elevTabel.ItemsSource = elevData;
+        }
+
+        private void ÅbenFilPlacering(string blanketNavn)
+        {
+            string filNavn = System.IO.Path.Combine(blanketMappe, blanketNavn);
+
+            if (File.Exists(filNavn))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{filNavn}");
+            }
+            else
+            {
+                AlertBoxes.OnOpenFileFailure();
+            }
+        }
+
+        private void ÅbenFil()
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.InitialDirectory = @"C:\Users\viga\Documents\GitHub\GFElevInterview\bin\Debug\Blanketter";
+            openFile.ShowDialog();
+            Console.WriteLine(openFile.FileName);
+            Console.WriteLine();
         }
 
         #region DatabaseQueries
@@ -139,7 +162,7 @@ namespace GFElevInterview.Views
             OpdaterDataGrid(elever);
         }
         #endregion
-
+        #region Events
         #region Knap metoder
         private void SPS_Click(object sender, RoutedEventArgs e)
         {
@@ -168,9 +191,45 @@ namespace GFElevInterview.Views
         }
         #endregion
 
+        private void Open_Merit_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Reduce redundancy
+            //if (elev == null)
+            //{
+            //    return;
+            //}
+            ÅbenFilPlacering(elev.MeritFilNavn);
+        }
+
+        private void Open_RKV_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Reduce redundancy
+            //if (elev == null)
+            //{
+            //    return;
+            //}
+            ÅbenFilPlacering(elev.RKVFilNavn);
+        }
+
+        private void ExportMerit_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlertBoxes.OnExport())
+            {
+                AdminTools.KombinerMeritFiler();
+            }
+        }
+
+        private void ExportRKV_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlertBoxes.OnExport())
+            {
+                AdminTools.ZipRKVFiler();
+            }
+        }
+
         private void SkoleDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if((sender as ComboBox).SelectedIndex == -1)
+            if ((sender as ComboBox).SelectedIndex == -1)
             {
                 return;
             }
@@ -199,7 +258,6 @@ namespace GFElevInterview.Views
             }
 
         }
-
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -228,55 +286,11 @@ namespace GFElevInterview.Views
             //Hvis nej, disable knap.
 
         }
+        #endregion
 
-        private void Open_Merit_Click(object sender, RoutedEventArgs e)
+        private void TilføjKnp_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
-            OpenExploreOnFile(elev.MeritFilNavn);
-        }
-
-        private void Open_RKV_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
-            OpenExploreOnFile(elev.RKVFilNavn);
-        }
-
-        private void OpenExploreOnFile(string blanketNavn)
-        {
-            string filNavn = System.IO.Path.Combine(blanketMappe, blanketNavn);
-
-            if (File.Exists(filNavn))
-            {
-                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{filNavn}");
-            }
-            else
-            {
-                AlertBoxes.OnOpenFileFailure();
-            }
-        }
-
-        private void ExportMerit_Click(object sender, RoutedEventArgs e)
-        {
-            if (AlertBoxes.OnExport())
-            {
-                AdminTools.KombinerMeritFiler();
-            }
-        }
-
-        private void ExportRKV_Click(object sender, RoutedEventArgs e)
-        {
-            if (AlertBoxes.OnExport())
-            {
-                AdminTools.ZipRKVFiler();
-            }
+            ÅbenFil();
         }
     }
 }
