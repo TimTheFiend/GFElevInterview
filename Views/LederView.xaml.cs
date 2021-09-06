@@ -89,7 +89,19 @@ namespace GFElevInterview.Views
         {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = @"C:\Users\viga\Documents\GitHub\GFElevInterview\bin\Debug\Blanketter";
-            openFile.ShowDialog();
+            //openFile.InitialDirectory = Environment.SpecialFolder.DesktopDirectory;
+            Nullable<bool> result = openFile.ShowDialog();
+            if((bool) result)
+            {
+                //string filnavn = openFile.FileName;
+                //FileStream stream = File.Open(openFile.FileName, FileMode.Open);
+                //string conString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + openFile.FileName + ";Extended Properties='Excel 12.0 XML;HDR=YES;';";
+                //string readfile = File.OpenRead(filnavn).ToString();
+                //using (StreamReader reader = new StreamReader(filnavn))
+                //{
+                //    string
+                //}
+            }
             Console.WriteLine(openFile.FileName);
             Console.WriteLine();
         }
