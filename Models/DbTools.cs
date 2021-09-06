@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GFElevInterview.Views;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,9 +53,74 @@ namespace GFElevInterview.Models
             }
 
         }
+        #region
+        private void VisAlle()
+        {
+            List<ElevModel> elever = (from e in db.Elever
+                                      select e).ToList();
+            OpdaterDataGrid(elever);
+        }
 
+        private void VisSkole(string skole)
+        {
+            List<ElevModel> elever = (from e in db.Elever
+                                      where e.uddannelseAdresse == skole
+                                      select e).ToList();
+            OpdaterDataGrid(elever);
+        }
 
+        private void VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
+        {
+            List<ElevModel> elever = new List<ElevModel>();
+            if (erNiveauHøjere)
+            {
+                elever = (from e in db.Elever
+                          where e.uddannelseAdresse == skole &&
+                          e.danskNiveau > ekslusivNiveau
+                          select e).ToList();
+            }
+            else
+            {
+                elever = (from e in db.Elever
+                          where e.uddannelseAdresse == skole
+                          && e.danskNiveau < ekslusivNiveau
+                          && e.danskNiveau > FagNiveau.Null
+                          select e).ToList();
+            }
+            OpdaterDataGrid(elever);
+        }
 
+        private void VisSPS()
+        {
+            List<ElevModel> elever = (from e in db.Elever
+                                      where e.sps == true
+                                      select e).ToList();
+            OpdaterDataGrid(elever);
+        }
+
+        private void VisEUD()
+        {
+            List<ElevModel> elever = (from e in db.Elever
+                                      where e.eud == true
+                                      select e).ToList();
+            OpdaterDataGrid(elever);
+        }
+
+        private void VisRKV()
+        {
+            List<ElevModel> elever = (from e in db.Elever
+                                      where e.elevType != 0
+                                      select e).ToList();
+            OpdaterDataGrid(elever);
+        }
+        private void VisMerit()
+        {
+            List<ElevModel> elever = (from e in db.Elever
+                                      where e.danskNiveau > 0
+                                      select e).ToList();
+            OpdaterDataGrid(elever);
+        }
+        #endregion
         #region Database tabel
 
         // public DbSet<ElevModel> Elever { get; set; }

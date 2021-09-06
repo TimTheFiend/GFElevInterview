@@ -20,6 +20,7 @@ using System.Linq;
 using System.IO;
 using config = System.Configuration.ConfigurationManager;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace GFElevInterview.Views
 {
@@ -87,92 +88,62 @@ namespace GFElevInterview.Views
 
         private void ÅbenFil()
         {
+
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = @"C:\Users\viga\Documents\GitHub\GFElevInterview\bin\Debug\Blanketter";
             //openFile.InitialDirectory = Environment.SpecialFolder.DesktopDirectory;
+            
+            
             Nullable<bool> result = openFile.ShowDialog();
             if((bool) result)
             {
-                //string filnavn = openFile.FileName;
-                //FileStream stream = File.Open(openFile.FileName, FileMode.Open);
-                //string conString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + openFile.FileName + ";Extended Properties='Excel 12.0 XML;HDR=YES;';";
-                //string readfile = File.OpenRead(filnavn).ToString();
-                //using (StreamReader reader = new StreamReader(filnavn))
+                //string pythonExe = @"C:\Users\viga\Documents\GitHub\GFElevInterview\.venv\Scripts\python.exe";
+                string pythonExe = System.IO.Path.Combine(System.IO.Path.GetFullPath(@".venv\Scripts\python.exe"));
+                string pythonScript = @"C:\Users\viga\Documents\GitHub\GFElevInterview\Data\GFElevInterviewExcel.py";
+                //string pythonScript = @"Data\GFElevInterviewExcel.py";
+
+                //Relativ path til python.exe
+                //ProcessStartInfo objekt
+                Process process = new Process();
+                process.StartInfo.FileName = pythonExe;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.UseShellExecute = false;
+                #region Victor
+                process.Start();
+                process.StandardInput.WriteLine(@".venv\Scripts\activate.bat");
+                process.StandardInput.WriteLine(@"cd Data\GFElevInterviewExcel.py");
+                //process.StandardInput.WriteLine("python GFElevInterviewExcel.py");
+                //process.StandardInput.Flush();
+                process.StandardInput.Close();
+                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                Console.Read();
+                #endregion
+                //ProcessStartInfo info = new ProcessStartInfo();
+                //info.UseShellExecute = false;
+                //info.RedirectStandardOutput = true;
+
+                //info.FileName = pythonExe;
+                //info.Arguments = string.Format("{0} {1}", pythonScript, openFile.FileName);
+
+                //using (Process process = Process.Start(info))
                 //{
-                //    string
+                //    using (StreamReader reader = process.StandardOutput)
+                //    {
+                //        string _result = reader.ReadToEnd();
+                //        Console.WriteLine();
+                //    }
                 //}
+
+                //Process.Start(info);
             }
             Console.WriteLine(openFile.FileName);
             Console.WriteLine();
         }
 
         #region DatabaseQueries
-        private void VisAlle()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-
-        private void VisSkole(string skole)
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.uddannelseAdresse == skole
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-
-        private void VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
-        {
-            List<ElevModel> elever = new List<ElevModel>();
-            if (erNiveauHøjere)
-            {
-                elever = (from e in db.Elever
-                          where e.uddannelseAdresse == skole &&
-                          e.danskNiveau > ekslusivNiveau
-                          select e).ToList();
-            }
-            else
-            {
-                elever = (from e in db.Elever
-                          where e.uddannelseAdresse == skole
-                          && e.danskNiveau < ekslusivNiveau
-                          && e.danskNiveau > FagNiveau.Null
-                          select e).ToList();
-            }
-            OpdaterDataGrid(elever);
-        }
-
-        private void VisSPS()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.sps == true
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-
-        private void VisEUD()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.eud == true
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-
-        private void VisRKV()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.elevType != 0
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-        private void VisMerit()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.danskNiveau > 0
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
+        
         #endregion
         #region Events
         #region Knap metoder
