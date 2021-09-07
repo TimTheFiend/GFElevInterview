@@ -59,11 +59,6 @@ namespace GFElevInterview.Views
             parent.btnTilbage.IsEnabled = true;
         }
 
-        private void UdvidEUV()
-        {
-            ErEUVUdvidet();
-        }
-
         public void Frem()
         {
            if(ErValideret())

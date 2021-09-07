@@ -145,9 +145,6 @@ namespace GFElevInterview.Views
             Console.WriteLine();
         }
 
-        #region DatabaseQueries
-        
-        #endregion
         #region Events
         #region Knap metoder
         private void SPS_Click(object sender, RoutedEventArgs e)
