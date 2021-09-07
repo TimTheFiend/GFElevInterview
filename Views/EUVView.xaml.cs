@@ -27,7 +27,8 @@ namespace GFElevInterview.Views
         {
             InitializeComponent();
             this.parent = parent;
-            InitialiserBlanket();            
+            InitialiserBlanket();         
+            //TODO
             euv1Ja.Click += CheckEUVUdvidet;
             euv1Nej.Click += CheckEUVUdvidet;
             euv1SporgsmalJa.Click += CheckEUVUdvidet;
@@ -60,26 +61,7 @@ namespace GFElevInterview.Views
 
         private void UdvidEUV()
         {
-            EREUVUdvidet();
-        }
-
-        //Note skal kaldes indefra blanket view
-        private void OpdaterElev()
-        {
-            //TODO: Få info fra søgefeldt
-            //NOTE: Hardcoded
-
-            //ENDTODO
-            CurrentElev.elev.uddannelse = educationComboBox.Text;
-            CurrentElev.elev.sps = (bool)spsSupportJa.IsChecked;
-            CurrentElev.elev.eud = (bool)eudSupportJa.IsChecked;
-
-
-            UdprintMerit udprint = new UdprintMerit();
-            //udprint.udprintTilMerit();
-            //parent.UpdateDatabase();
-            //udprint.indPrintTilDataBase();
-            MessageBox.Show("Dokument gemt! TODO");
+            ErEUVUdvidet();
         }
 
         public void Frem()
@@ -118,7 +100,7 @@ namespace GFElevInterview.Views
             parent.ChangeView(new MeritBlanketView(parent));
         }
 
-        //TODO: Valider blanket
+
         private bool ErValideret()
         {
             SolidColorBrush gray = Brushes.Gray;
@@ -179,7 +161,7 @@ namespace GFElevInterview.Views
             return overAllValidated;
         }
 
-        private bool EREUVUdvidet()
+        private bool ErEUVUdvidet()
         {
             bool _euv1 = (bool)euv1Ja.IsChecked || !(bool)euv1Nej.IsChecked;
             bool _euv1Spg = (bool)euv1SporgsmalJa.IsChecked || !(bool)euv1SporgsmalNej.IsChecked;
@@ -213,7 +195,7 @@ namespace GFElevInterview.Views
 
         private void CheckEUVUdvidet(object sender, RoutedEventArgs e)
         {
-            euv2Expand.IsExpanded = EREUVUdvidet();
+            euv2Expand.IsExpanded = ErEUVUdvidet();
         }
     }
 }

@@ -32,16 +32,7 @@ namespace GFElevInterview.Views
             mainContent.Content = currentView;
         }
 
-        private bool OpdaterElevIDatabase() {
-            try {
-                db.Elever.Update(CurrentElev.elev);
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception) {
-                return false;
-            }
-        }
+
 
         public void FærdiggørInterview() {
 
@@ -63,6 +54,7 @@ namespace GFElevInterview.Views
             if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
                 if (OpdaterElevIDatabase()) {
                     CurrentElev.NulstilCurrentElev();
+                    //TODO Lav metode to rest
                     currentView = null;
                     mainContent.Content = null;
                     StudentsFullInfo.Content = "";
@@ -70,16 +62,26 @@ namespace GFElevInterview.Views
                 }
             }
         }
-
+        private bool OpdaterElevIDatabase()
+        {
+            try
+            {
+                db.Elever.Update(CurrentElev.elev);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         //Event Handler
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (SearchStudentBox.SelectedIndex >= 0) {
                 if(CurrentElev.elev.ErUdfyldt)
                 {
-                    //OBS
-                    MessageBoxResult result = MessageBox.Show("Er du sikkert at ville skifte elev?", "TEMP TEXT", MessageBoxButton.YesNo);
-                    if (result == MessageBoxResult.Yes)
+                    if (AlertBoxes.OnSelectingNewStudents())
                     {
                         CurrentElev.NulstilCurrentElev();
                         currentView = null;
@@ -101,7 +103,7 @@ namespace GFElevInterview.Views
             if (String.IsNullOrEmpty(text)) {
                 return;
             }
-
+            //TODO Ryk til DbTools
             List<ElevModel> elevModels = db.Elever.Where(
                 elev => (elev.efternavn.ToLower()).StartsWith(text.ToLower())
                 || elev.cprNr.StartsWith(text)

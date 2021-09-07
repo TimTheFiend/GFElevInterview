@@ -26,5 +26,11 @@ namespace GFElevInterview.Data
             MessageBoxResult result = MessageBox.Show("er du sikker?", "Export", MessageBoxButton.YesNo);
             return result == MessageBoxResult.Yes ? true : false;
         }
+
+        public static bool OnSelectingNewStudents()
+        {
+            MessageBoxResult result = MessageBox.Show("Er du sikkert at ville skifte elev?", "ADVARSEL", MessageBoxButton.YesNo);
+            return result == MessageBoxResult.Yes ? true : false;
+        }
     }
 }

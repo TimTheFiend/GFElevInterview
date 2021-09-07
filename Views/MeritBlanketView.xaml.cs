@@ -65,6 +65,7 @@ namespace GFElevInterview.Views
             UdfyldBlanket();
         }
 
+        //TODO Ændre navn på metoden
         private void UdfyldBlanket()
         {
             if(ComboboxDansk == null)
@@ -159,7 +160,7 @@ namespace GFElevInterview.Views
             // Tjekker om fag niveau er blevet valgt, da det er det eneste vi med sikkerhed ved at eleven kan have.
             if (ErValideret()) {
                 IBlanket newView;
-                OpdaterElev();
+                OpdaterCurrentElev();
                 if (CurrentElev.elev.erRKV)
                 {
                     newView = new EUVView(parent);
@@ -181,7 +182,8 @@ namespace GFElevInterview.Views
             return;
         }
 
-        private void OpdaterElev()
+        //
+        private void OpdaterCurrentElev()
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 

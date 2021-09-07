@@ -37,12 +37,12 @@ namespace GFElevInterview.Views
         #region Klargøringsmetoder
         private void InitialiserBlanket() {
             SætKnapper();
-            SætKombokse();
+            SætKomboBokse();
 
             UdfyldBlanket();
         }
 
-        private void SætKombokse() {
+        private void SætKomboBokse() {
             educationAdresseComboBox.ItemsSource = CurrentElev.elev.ValgAfSkoler();
 
             ///Får programmet til at crashe da SelectedItem = null (???)
@@ -107,12 +107,12 @@ namespace GFElevInterview.Views
                 //TODO Hvis ikke RKV
                 //TODO Udprint
                 //TODO Få fra Søgning
-                OpdaterElev();
+                OpdaterCurrentElev();
 
             }
         }
 
-        private void OpdaterElev()
+        private void OpdaterCurrentElev()
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 

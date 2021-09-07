@@ -90,13 +90,16 @@ namespace GFElevInterview.Views
         {
 
             OpenFileDialog openFile = new OpenFileDialog();
-            openFile.InitialDirectory = @"C:\Users\viga\Documents\GitHub\GFElevInterview\bin\Debug\Blanketter";
+            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+      
+            openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
             //openFile.InitialDirectory = Environment.SpecialFolder.DesktopDirectory;
-            
-            
+
+
             Nullable<bool> result = openFile.ShowDialog();
             if((bool) result)
             {
+                //TODO indsæt Process.Start(Python) her
                 //string pythonExe = @"C:\Users\viga\Documents\GitHub\GFElevInterview\.venv\Scripts\python.exe";
                 string pythonExe = System.IO.Path.Combine(System.IO.Path.GetFullPath(@".venv\Scripts\python.exe"));
                 string pythonScript = @"C:\Users\viga\Documents\GitHub\GFElevInterview\Data\GFElevInterviewExcel.py";
