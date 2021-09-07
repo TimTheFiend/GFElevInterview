@@ -1,4 +1,5 @@
-﻿using GFElevInterview.Views;
+﻿using GFElevInterview.Data;
+using GFElevInterview.Views;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace GFElevInterview.Models
         {
             //NOTE: `EnsureDeleted` skal kun bruges under development!
             //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
-            //this.Database.EnsureDeleted
+            this.Database.EnsureDeleted();
             //NulstilDatabase();
             this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
         }
@@ -53,72 +54,65 @@ namespace GFElevInterview.Models
             }
 
         }
-        #region
-        private void VisAlle()
+
+        #region 
+        public List<ElevModel> VisAlle()
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
+            return (from e in Elever
+                    select e).ToList();
         }
 
-        private void VisSkole(string skole)
+        public List<ElevModel> VisSkole(string skole)
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.uddannelseAdresse == skole
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
+            return (from e in Elever
+                    where e.uddannelseAdresse == skole
+                    select e).ToList();
         }
 
-        private void VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
+        public List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
         {
-            List<ElevModel> elever = new List<ElevModel>();
             if (erNiveauHøjere)
             {
-                elever = (from e in db.Elever
-                          where e.uddannelseAdresse == skole &&
-                          e.danskNiveau > ekslusivNiveau
-                          select e).ToList();
+                return (from e in Elever
+                        where e.uddannelseAdresse == skole &&
+                        e.danskNiveau > ekslusivNiveau
+                        select e).ToList();
             }
             else
             {
-                elever = (from e in db.Elever
-                          where e.uddannelseAdresse == skole
-                          && e.danskNiveau < ekslusivNiveau
-                          && e.danskNiveau > FagNiveau.Null
-                          select e).ToList();
+                return (from e in Elever
+                        where e.uddannelseAdresse == skole
+                        && e.danskNiveau < ekslusivNiveau
+                        && e.danskNiveau > FagNiveau.Null
+                        select e).ToList();
             }
-            OpdaterDataGrid(elever);
         }
 
-        private void VisSPS()
+        public List<ElevModel> VisSPS()
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.sps == true
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
+            return (from e in Elever
+                    where e.sps == true
+                    select e).ToList();
         }
 
-        private void VisEUD()
+        public List<ElevModel> VisEUD()
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.eud == true
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
+            return (from e in Elever
+                    where e.eud == true
+                    select e).ToList();
         }
 
-        private void VisRKV()
+        public List<ElevModel> VisRKV()
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.elevType != 0
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
+            return (from e in Elever
+                    where e.elevType != 0
+                    select e).ToList();
         }
-        private void VisMerit()
+        public List<ElevModel> VisMerit()
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.danskNiveau > 0
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
+            return (from e in Elever
+                    where e.danskNiveau > 0
+                    select e).ToList();
         }
         #endregion
         #region Database tabel
@@ -154,9 +148,9 @@ namespace GFElevInterview.Models
             //NulstilDatabase();
             List<ElevModel> nyElever = new List<ElevModel>()
             {
-                new ElevModel { cprNr = "5544332211", fornavn = "Havesaks", efternavn = "Baghave"},
-                new ElevModel { cprNr = "2211334455", fornavn = "Blomsterkasse", efternavn = "Baghave"},
-                new ElevModel { cprNr = "1122334455", fornavn = "Blomst", efternavn = "Forhave"}
+                //new ElevModel { cprNr = "5544332211", fornavn = "Havesaks", efternavn = "Baghave"},
+                //new ElevModel { cprNr = "2211334455", fornavn = "Blomsterkasse", efternavn = "Baghave"},
+                //new ElevModel { cprNr = "1122334455", fornavn = "Blomst", efternavn = "Forhave"}
             };
             //hvis der er elever i databasen så køres TilføjEleverTilEksisterendeDatabase, hvis ikke så køres TilføjEleverTilTomDatabase.
             if (Elever.Count() > 0)
@@ -208,18 +202,11 @@ namespace GFElevInterview.Models
             Random rng = new Random();
 
             modelBuilder.Entity<ElevModel>().HasData(
-                new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-                new ElevModel { cprNr = "0101901234", fornavn = "Johammer", efternavn = "Søm", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    new ElevModel { cprNr = "1111011254", fornavn = "Joakim1", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    new ElevModel { cprNr = "0201952134", fornavn = "Joakim2", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-                new ElevModel { cprNr = "2405054587", fornavn = "Victor", efternavn = "Gawron", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false }
-
+            new ElevModel("1203851123", "Johammer", "Søm"),
+            new ElevModel("1103891245", "Eriksen", "Svend"),
+            new ElevModel("123456-4321", "Samuel", "Jackson"),
+            new ElevModel("2012009856", "Spacejam", "Michael Jordan"),
+            new ElevModel("111193-1234", "Joakim", "Krugstrup")
             );
         }
 

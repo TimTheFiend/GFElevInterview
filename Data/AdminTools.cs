@@ -14,7 +14,7 @@ namespace GFElevInterview.Data
 {
     public static class AdminTools
     {
-        //TODO DOKU
+        //TODO SUDOKU
         public static void KombinerMeritFiler()
         {
             string[] filNavne = HentFiler(config.AppSettings.Get("endMerit"));

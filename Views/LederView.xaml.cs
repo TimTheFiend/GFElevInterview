@@ -51,7 +51,7 @@ namespace GFElevInterview.Views
 
         private void InitialiserDataGrid()
         {
-            VisAlle();
+            OpdaterDataGrid(new DbTools().VisAlle());
         }
 
         //Putter info ind fra App.Config i ComboBox
@@ -67,7 +67,7 @@ namespace GFElevInterview.Views
             SkoleDropDown.ItemsSource = uddannelsesAdresser;
         }
 
-        private void OpdaterDataGrid(List<ElevModel> elevData)
+        public void OpdaterDataGrid(List<ElevModel> elevData)
         {
             elevTabel.ItemsSource = elevData;
         }
@@ -149,28 +149,28 @@ namespace GFElevInterview.Views
         #region Knap metoder
         private void SPS_Click(object sender, RoutedEventArgs e)
         {
-            VisSPS();
+            OpdaterDataGrid(new DbTools().VisSPS());
         }
 
         private void EUD_Click(object sender, RoutedEventArgs e)
         {
-            VisEUD();
+            OpdaterDataGrid(new DbTools().VisEUD());
         }
 
         private void RKV_Click(object sender, RoutedEventArgs e)
         {
-            VisRKV();
+            OpdaterDataGrid(new DbTools().VisRKV());
         }
 
         private void Merit_Click(object sender, RoutedEventArgs e)
         {
-            VisMerit();
+            OpdaterDataGrid(new DbTools().VisMerit());
         }
 
         private void visAlle_Click(object sender, RoutedEventArgs e)
         {
             SkoleDropDown.SelectedIndex = -1;
-            VisAlle();
+            OpdaterDataGrid(new DbTools().VisAlle());
         }
         #endregion
 
@@ -227,17 +227,17 @@ namespace GFElevInterview.Views
                 {
                     //Tekst fra skole variablen, fra start til mellemrummet.
                     //Også skal vi sætte det rigtige fagniveau.
-                    VisSkole(ændretSkole, FagNiveau.F, true);
+                    OpdaterDataGrid(new DbTools().VisSkole(ændretSkole, FagNiveau.F, true));
                 }
                 //Ingen merit
                 else
                 {
-                    VisSkole(ændretSkole, FagNiveau.E, false);
+                    OpdaterDataGrid(new DbTools().VisSkole(ændretSkole, FagNiveau.E, false));
                 }
             }
             else
             {
-                VisSkole(skole);
+                OpdaterDataGrid(new DbTools().VisSkole(skole));
             }
 
         }

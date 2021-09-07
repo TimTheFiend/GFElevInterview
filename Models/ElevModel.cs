@@ -13,7 +13,6 @@ namespace GFElevInterview.Models
         #region Person data
         [Key]
         public string cprNr { get; set; }
-
         public string fornavn { get; set; }
         public string efternavn { get; set; }
         #endregion
@@ -29,49 +28,44 @@ namespace GFElevInterview.Models
         #endregion
 
         #region Dansk
-        public bool danskEksammen { get; set; }
-        public bool danskUndervisning { get; set; }
+        public bool? danskEksammen { get; set; }
+        public bool? danskUndervisning { get; set; }
         public FagNiveau danskNiveau { get; set; }
         #endregion
 
         #region Engelsk
-        public bool engelskEksammen { get; set; }
-        public bool engelskUndervisning { get; set; }
+        public bool? engelskEksammen { get; set; }
+        public bool? engelskUndervisning { get; set; }
         public FagNiveau engelskNiveau { get; set; }
         #endregion
 
         #region Matematik
-        public bool matematikEksammen { get; set; }
-        public bool matematikUndervisning { get; set; }
-        public FagNiveau matematikNiveau { get; set; } 
+        public bool? matematikEksammen { get; set; }
+        public bool? matematikUndervisning { get; set; }
+        public FagNiveau matematikNiveau { get; set; }
         #endregion
 
-        #region FagSektion
-        [NotMapped]
-        public string danskPrintEksammen { get; set; }
-        [NotMapped]
-        public string danskPrintUndervisning { get; set; }
-        [NotMapped]
-        public string danskPrintNiveau { get; set; }
-
-        [NotMapped]
-        public string engelskPrintEksammen { get; set; }
-        [NotMapped]
-        public string engelskPrintUndervisning { get; set; }
-        [NotMapped]
-        public string engelskPrintNiveau { get; set; }
-
-        [NotMapped]
-        public string matematikPrintEksammen { get; set; }
-        [NotMapped]
-        public string matematikPrintUndervisning { get; set; }
-        [NotMapped]
-        public string matematikPrintNiveau { get; set; }
-        #endregion
-
+        #region Constructors
         public ElevModel() { }
 
-        #region MeritSektion
+        public ElevModel(string cprNr)
+        {
+            if (!cprNr.Contains('-'))
+            {
+                StringBuilder sb = new StringBuilder(cprNr, cprNr.Length + 1);
+                cprNr = sb.Insert(6, '-').ToString();
+            }
+            this.cprNr = cprNr;
+        }
+
+        public ElevModel(string cprNr, string fornavn, string efternavn) : this(cprNr)
+        {
+            this.fornavn = fornavn;
+            this.efternavn = efternavn;
+        }
+
+        #endregion
+
         //TODO Ryk ud herfra
         private const int minForløbslængdeIUger = 16;
 
@@ -131,37 +125,6 @@ namespace GFElevInterview.Models
             }
         }
 
-        public List<string> ValgAfSkoler()
-        {
-            if (danskNiveau <= FagNiveau.F)
-            {
-                return new List<string>() {
-                    config.AppSettings["ballerup"]
-                };
-            }
-            return new List<string>() {
-                config.AppSettings["ballerup"],
-                config.AppSettings["frederiksberg"],
-                config.AppSettings["lyngby"]
-            };
-        }
-
-
-        public List<string> ValgAfUddannelser()
-        {
-            List<string> uddannelser = new List<string>() {
-                config.AppSettings["infrastruktur"],
-                config.AppSettings["itsupporter"],
-                config.AppSettings["programmering"]
-            };
-            if (!CurrentElev.elev.erRKV)
-            {
-                uddannelser.Add(config.AppSettings["vedIkke"]);
-            }
-
-            return uddannelser;
-        }
-        #endregion
 
         [NotMapped]
         public string fornavnEfternavn
@@ -178,6 +141,7 @@ namespace GFElevInterview.Models
             get { return $"{efternavn}, {fornavn}"; }
         }
 
+        //FixMe
         /// <summary>
         /// Returnerer det formateret CPR-nr.
         /// </summary>
@@ -185,6 +149,7 @@ namespace GFElevInterview.Models
         {
             get
             {
+                return this.cprNr;
                 // CprNr "XXXXXXXXX"
                 StringBuilder sb = new StringBuilder(cprNr, cprNr.Length + 1);
                 sb.Insert(6, '-');
@@ -193,9 +158,12 @@ namespace GFElevInterview.Models
             }
         }
 
-        public override string ToString()
+        private string CprEfternavnFornavn
         {
-            return $"({cPRNr}) - {efternavnFornavn}";
+            get
+            {
+                return $"{cprNr} - {efternavnFornavn}";
+            }
         }
 
         ///NOTE: Unødvendig? Alt den gør er at returnerer <see cref="ToString"/>.
@@ -279,5 +247,42 @@ namespace GFElevInterview.Models
                 return fileName + config.AppSettings.Get("endRKV");
             }
         }
+
+        public override string ToString()
+        {
+            return $"({cPRNr}) - {efternavnFornavn}";
+        }
+
+        public List<string> ValgAfSkoler()
+        {
+            if (danskNiveau <= FagNiveau.F)
+            {
+                return new List<string>() {
+                    config.AppSettings["ballerup"]
+                };
+            }
+            return new List<string>() {
+                config.AppSettings["ballerup"],
+                config.AppSettings["frederiksberg"],
+                config.AppSettings["lyngby"]
+            };
+        }
+
+
+        public List<string> ValgAfUddannelser()
+        {
+            List<string> uddannelser = new List<string>() {
+                config.AppSettings["infrastruktur"],
+                config.AppSettings["itsupporter"],
+                config.AppSettings["programmering"]
+            };
+            if (!CurrentElev.elev.erRKV)
+            {
+                uddannelser.Add(config.AppSettings["vedIkke"]);
+            }
+
+            return uddannelser;
+        }
+
     }
 }

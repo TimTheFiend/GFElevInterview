@@ -100,14 +100,14 @@ namespace GFElevInterview.Data
                 doc.Replace("#cpr#", CurrentElev.elev.cprNr, true, true);
                 //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
                 //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
-                doc.Replace("#DE#", CurrentElev.elev.danskEksammen ? "Ja" : "Nej", true, true);
-                doc.Replace("#DU#", CurrentElev.elev.danskUndervisning ? "Ja" : "Nej", true, true);
+                doc.Replace("#DE#", (bool)CurrentElev.elev.danskEksammen ? "Ja" : "Nej", true, true);
+                doc.Replace("#DU#", (bool)CurrentElev.elev.danskUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#DN#", CurrentElev.elev.danskNiveau.ToString(), true, true);
-                doc.Replace("#EE#", CurrentElev.elev.engelskEksammen ? "Ja" : "Nej", true, true);
-                doc.Replace("#EU#", CurrentElev.elev.engelskUndervisning ? "Ja" : "Nej", true, true);
+                doc.Replace("#EE#", (bool)CurrentElev.elev.engelskEksammen ? "Ja" : "Nej", true, true);
+                doc.Replace("#EU#", (bool)CurrentElev.elev.engelskUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#EN#", CurrentElev.elev.engelskNiveau.ToString(), true, true);
-                doc.Replace("#ME#", CurrentElev.elev.matematikEksammen ? "Ja" : "Nej", true, true);
-                doc.Replace("#MU#", CurrentElev.elev.matematikUndervisning ? "Ja" : "Nej", true, true);
+                doc.Replace("#ME#", (bool)CurrentElev.elev.matematikEksammen ? "Ja" : "Nej", true, true);
+                doc.Replace("#MU#", (bool)CurrentElev.elev.matematikUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#MN#", CurrentElev.elev.matematikNiveau.ToString(), true, true);
                 doc.Replace("#uger#", CurrentElev.elev.uddannelsesLængdeIUger.ToString(), true, true);
                 

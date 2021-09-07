@@ -76,7 +76,7 @@ namespace GFElevInterview.Views
 
 
             UdprintMerit udprint = new UdprintMerit();
-            udprint.udprintTilMerit();
+            //udprint.udprintTilMerit();
             //parent.UpdateDatabase();
             //udprint.indPrintTilDataBase();
             MessageBox.Show("Dokument gemt! TODO");
