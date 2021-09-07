@@ -6,7 +6,7 @@ using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Data
 {   
-
+    //TODO Gør statics
     public class BlanketUdskrivning
     {
         private readonly string outputDirectory = config.AppSettings["outputMappe"];

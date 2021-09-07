@@ -55,7 +55,7 @@ namespace GFElevInterview.Models
 
         }
 
-        #region 
+        #region Gets
         public List<ElevModel> VisAlle()
         {
             return (from e in Elever

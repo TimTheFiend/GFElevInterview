@@ -285,4 +285,24 @@ namespace GFElevInterview.Models
         }
 
     }
+
+    public enum ElevType
+    {
+        Null,
+        EUV1,
+        EUV2,
+        EUV3
+    }
+
+    public enum FagNiveau
+    {
+        Null,
+        G,
+        F,
+        E,
+        D,
+        C,
+        B,
+        A
+    }
 }
