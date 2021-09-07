@@ -16,24 +16,24 @@
             <RowDefinition Height="330"/>
         </Grid.RowDefinitions>
 
-        <Button Width="80" Height="20" x:Name="RKV" Content="RKV" Click="RKV_Click" Margin="288,10,328,40" Grid.Column="0" Grid.Row="0"/>
-        <Button  Width="80" Height="20" x:Name="Merit" Content="Merit" Click="Merit_Click" Margin="399,10,217,40" Grid.Column="0" Grid.Row="0"/>
+        <Button x:Name="RKV" Content="RKV" Click="RKV_Click" Margin="288,10,328,40" Style="{StaticResource VisButtons}"/>
+        <Button x:Name="Merit" Content="Merit" Click="Merit_Click" Margin="399,10,217,40" Style="{StaticResource VisButtons}"/>
         <ComboBox Width="200" Height="25" x:Name="SkoleDropDown" Margin="10,39,486,6" Grid.Column="0" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged">
         </ComboBox>
-        <Button Width="80" Height="20" x:Name="SPS" Content="SPS" Click="SPS_Click" Margin="288,44,328,6" Grid.Column="0" Grid.Row="0"/>
-        <Button Width="80" Height="20" x:Name="EUD" Content="EUD" Click="EUD_Click" Margin="399,44,217,6" Grid.Column="0" Grid.Row="0"/>
+        <Button x:Name="SPS" Content="SPS" Click="SPS_Click" Margin="288,44,328,6" Style="{StaticResource VisButtons}"/>
+        <Button x:Name="EUD" Content="EUD" Click="EUD_Click" Margin="399,44,217,6" Style="{StaticResource VisButtons}"/>
         <TextBox Width="160" Height="20" x:Name="Sogefelt" Grid.Column="0" Grid.Row="0" Margin="506,44,30,6"/>
-        <Button Width="80" Height="20" x:Name="visAlle" Content="Vis Alle" Click="visAlle_Click" Margin="506,10,110,40" Grid.Column="0" Grid.Row="0"/>
+        <Button x:Name="visAlle" Content="Vis Alle" Click="visAlle_Click" Margin="506,10,110,40" Style="{StaticResource VisButtons}"/>
 
         <Border Grid.Column="1" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
             <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <StackPanel Background="#495057" Grid.Column="1" Grid.Row="1">
-            <Button Content="Merit Export" Margin="0,10,0,0" Width="80" Height="40" Background="Gray" Click="ExportMerit_Click"/>
-            <Button Content="RKV Export" Margin="0,10,0,10" Width="80" Height="40" Background="Gray" Click="ExportRKV_Click"/>
+        <StackPanel Background="#495057" Grid.Column="1" Grid.Row="1" Margin="0,0,0,-50">
+            <Button Content="Merit Export" Margin="0,10,0,0" Click="ExportMerit_Click" Style="{StaticResource AdminButtons}"/>
+            <Button Content="RKV Export" Margin="0,10,0,10" Click="ExportRKV_Click"  Style="{StaticResource AdminButtons}"/>
             <TextBlock Text="EXCEL" HorizontalAlignment="Center" FontSize="25" Margin="5"/>
-            <Button Width="80" Height="40" Background="Gray" Content="Tilføj" FontSize="15" Margin="2" x:Name="TilføjKnp" Click="TilføjKnp_Click"/>
-            <Button Width="80" Height="40" Background="Gray" Content="Reset" FontSize="15" Margin="8"/>
+            <Button Content="Tilføj" Margin="2" x:Name="TilføjKnp" Click="TilføjKnp_Click" Style="{StaticResource AdminButtons}"/>
+            <Button Content="Reset" Margin="8" Style="{StaticResource AdminButtons}"/>
         </StackPanel>
 
         <DataGrid x:Name="elevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True">

@@ -88,61 +88,47 @@ namespace GFElevInterview.Views
 
         private void ÅbenFil()
         {
-
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
       
             openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
-            //openFile.InitialDirectory = Environment.SpecialFolder.DesktopDirectory;
 
 
             Nullable<bool> result = openFile.ShowDialog();
             if((bool) result)
             {
-                //TODO indsæt Process.Start(Python) her
-                //string pythonExe = @"C:\Users\viga\Documents\GitHub\GFElevInterview\.venv\Scripts\python.exe";
-                string pythonExe = System.IO.Path.Combine(System.IO.Path.GetFullPath(@".venv\Scripts\python.exe"));
-                string pythonScript = @"C:\Users\viga\Documents\GitHub\GFElevInterview\Data\GFElevInterviewExcel.py";
-                //string pythonScript = @"Data\GFElevInterviewExcel.py";
+                //ProcessstartInfo bruges til at køre python scriptet.
+                ProcessStartInfo info = new ProcessStartInfo();
+                List<ElevModel> elever = new List<ElevModel>();
 
-                //Relativ path til python.exe
-                //ProcessStartInfo objekt
-                Process process = new Process();
-                process.StartInfo.FileName = pythonExe;
-                process.StartInfo.CreateNoWindow = true;
-                process.StartInfo.RedirectStandardInput = true;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.UseShellExecute = false;
-                #region Victor
-                process.Start();
-                process.StandardInput.WriteLine(@".venv\Scripts\activate.bat");
-                process.StandardInput.WriteLine(@"cd Data\GFElevInterviewExcel.py");
-                //process.StandardInput.WriteLine("python GFElevInterviewExcel.py");
-                //process.StandardInput.Flush();
-                process.StandardInput.Close();
-                Console.WriteLine(process.StandardOutput.ReadToEnd());
-                Console.Read();
-                #endregion
-                //ProcessStartInfo info = new ProcessStartInfo();
-                //info.UseShellExecute = false;
-                //info.RedirectStandardOutput = true;
+                //Python filen bliver hentet ned til filename fil lokationen.
+                info.FileName = config.AppSettings.Get("pythonExe");
+                //Python scripted bliver hentet og kørt ved hjælp af fileName.
+                info.Arguments = string.Format("{0} \"{1}\"", config.AppSettings.Get("pythonScript"), openFile.FileName);
+                info.UseShellExecute = false;
+                info.RedirectStandardOutput = true;
+                info.CreateNoWindow = true;
+                info.UseShellExecute = false;
 
-                //info.FileName = pythonExe;
-                //info.Arguments = string.Format("{0} {1}", pythonScript, openFile.FileName);
-
-                //using (Process process = Process.Start(info))
-                //{
-                //    using (StreamReader reader = process.StandardOutput)
-                //    {
-                //        string _result = reader.ReadToEnd();
-                //        Console.WriteLine();
-                //    }
-                //}
-
-                //Process.Start(info);
+                //processeren bliver kørt, med informationerne fra ProcessStartInfo.
+                using (Process process = Process.Start(info))
+                {
+                    using (StreamReader reader = process.StandardOutput)
+                    {
+                        //data´en fra reader(python) bliver overført til linje(string) en linje adgangen så længe den ikke finde et null.
+                        string linje;
+                        while((linje = reader.ReadLine()) != null)
+                        {
+                            //Data´en fra linje, bliver splittet op i et string array. 
+                            string[] elev = linje.Split(';');
+                            //Data´en fra String Array´et bliver tilføjet til elev listen.
+                            elever.Add(new ElevModel(elev[0], elev[1], elev[2]));
+                        }
+                    }
+                }
+                //DbTools TilføjElever bliver kaldt, hvorefter at eleverne bliver tilføjet til databasen.
+                new DbTools().TilføjElever(elever);
             }
-            Console.WriteLine(openFile.FileName);
-            Console.WriteLine();
         }
 
         #region Events

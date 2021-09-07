@@ -14,7 +14,7 @@ namespace GFElevInterview.Models
         {
             //NOTE: `EnsureDeleted` skal kun bruges under development!
             //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
-            this.Database.EnsureDeleted();
+            //this.Database.EnsureDeleted();
             //NulstilDatabase();
             this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
         }
