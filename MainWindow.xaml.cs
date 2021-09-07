@@ -28,10 +28,11 @@ namespace GFElevInterview
             //this.DataContext =;
             //Data.AdminTools.HentAntalEleverPåSkole();
 
-            new DbTools().TilføjElever();
-
+            //new DbTools().TilføjElever();
             OpdaterCounter();
         }
+
+        //TODO Ryk til DbTools
         private void OpdaterCounter()
         {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();

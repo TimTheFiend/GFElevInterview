@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GFElevInterview.Data;
+using GFElevInterview.Views;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ namespace GFElevInterview.Models
         {
             //NOTE: `EnsureDeleted` skal kun bruges under development!
             //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
-            //this.Database.EnsureDeleted
+            //this.Database.EnsureDeleted();
             //NulstilDatabase();
             this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
         }
@@ -53,8 +55,66 @@ namespace GFElevInterview.Models
 
         }
 
+        #region Gets
+        public List<ElevModel> VisAlle()
+        {
+            return (from e in Elever
+                    select e).ToList();
+        }
 
+        public List<ElevModel> VisSkole(string skole)
+        {
+            return (from e in Elever
+                    where e.uddannelseAdresse == skole
+                    select e).ToList();
+        }
 
+        public List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
+        {
+            if (erNiveauHøjere)
+            {
+                return (from e in Elever
+                        where e.uddannelseAdresse == skole &&
+                        e.danskNiveau > ekslusivNiveau
+                        select e).ToList();
+            }
+            else
+            {
+                return (from e in Elever
+                        where e.uddannelseAdresse == skole
+                        && e.danskNiveau < ekslusivNiveau
+                        && e.danskNiveau > FagNiveau.Null
+                        select e).ToList();
+            }
+        }
+
+        public List<ElevModel> VisSPS()
+        {
+            return (from e in Elever
+                    where e.sps == true
+                    select e).ToList();
+        }
+
+        public List<ElevModel> VisEUD()
+        {
+            return (from e in Elever
+                    where e.eud == true
+                    select e).ToList();
+        }
+
+        public List<ElevModel> VisRKV()
+        {
+            return (from e in Elever
+                    where e.elevType != 0
+                    select e).ToList();
+        }
+        public List<ElevModel> VisMerit()
+        {
+            return (from e in Elever
+                    where e.danskNiveau > 0
+                    select e).ToList();
+        }
+        #endregion
         #region Database tabel
 
         // public DbSet<ElevModel> Elever { get; set; }
@@ -88,9 +148,9 @@ namespace GFElevInterview.Models
             //NulstilDatabase();
             List<ElevModel> nyElever = new List<ElevModel>()
             {
-                new ElevModel { cprNr = "5544332211", fornavn = "Havesaks", efternavn = "Baghave"},
-                new ElevModel { cprNr = "2211334455", fornavn = "Blomsterkasse", efternavn = "Baghave"},
-                new ElevModel { cprNr = "1122334455", fornavn = "Blomst", efternavn = "Forhave"}
+                //new ElevModel { cprNr = "5544332211", fornavn = "Havesaks", efternavn = "Baghave"},
+                //new ElevModel { cprNr = "2211334455", fornavn = "Blomsterkasse", efternavn = "Baghave"},
+                //new ElevModel { cprNr = "1122334455", fornavn = "Blomst", efternavn = "Forhave"}
             };
             //hvis der er elever i databasen så køres TilføjEleverTilEksisterendeDatabase, hvis ikke så køres TilføjEleverTilTomDatabase.
             if (Elever.Count() > 0)
@@ -142,18 +202,11 @@ namespace GFElevInterview.Models
             Random rng = new Random();
 
             modelBuilder.Entity<ElevModel>().HasData(
-                new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-                new ElevModel { cprNr = "0101901234", fornavn = "Johammer", efternavn = "Søm", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    new ElevModel { cprNr = "1111011254", fornavn = "Joakim1", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    new ElevModel { cprNr = "0201952134", fornavn = "Joakim2", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-            //    //new ElevModel { cprNr = "1111001234", fornavn = "Joakim", efternavn = "Krugstrup", uddannelseAdresse = skoler[rng.Next(0,skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false },
-                new ElevModel { cprNr = "2405054587", fornavn = "Victor", efternavn = "Gawron", uddannelseAdresse = skoler[rng.Next(0, skoler.Count)], sps = rng.NextDouble() > 0.5 ? true : false, eud = rng.NextDouble() > 0.5 ? true : false }
-
+            new ElevModel("1203851123", "Johammer", "Søm"),
+            new ElevModel("1103891245", "Eriksen", "Svend"),
+            new ElevModel("123456-4321", "Samuel", "Jackson"),
+            new ElevModel("2012009856", "Spacejam", "Michael Jordan"),
+            new ElevModel("111193-1234", "Joakim", "Krugstrup")
             );
         }
 

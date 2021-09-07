@@ -7,15 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove=".venv - Copy\**" />
     <Compile Remove="Blanketter\Ballerup\**" />
     <Compile Remove="Blanketter\Frederiksberg\**" />
     <Compile Remove="Blanketter\Lyngby\**" />
+    <EmbeddedResource Remove=".venv - Copy\**" />
     <EmbeddedResource Remove="Blanketter\Ballerup\**" />
     <EmbeddedResource Remove="Blanketter\Frederiksberg\**" />
     <EmbeddedResource Remove="Blanketter\Lyngby\**" />
+    <None Remove=".venv - Copy\**" />
     <None Remove="Blanketter\Ballerup\**" />
     <None Remove="Blanketter\Frederiksberg\**" />
     <None Remove="Blanketter\Lyngby\**" />
+    <Page Remove=".venv - Copy\**" />
     <Page Remove="Blanketter\Ballerup\**" />
     <Page Remove="Blanketter\Frederiksberg\**" />
     <Page Remove="Blanketter\Lyngby\**" />

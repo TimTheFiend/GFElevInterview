@@ -19,7 +19,8 @@ using Microsoft.Data.Sqlite;
 using System.Linq;
 using System.IO;
 using config = System.Configuration.ConfigurationManager;
-
+using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace GFElevInterview.Views
 {
@@ -50,7 +51,7 @@ namespace GFElevInterview.Views
 
         private void InitialiserDataGrid()
         {
-            VisAlle();
+            OpdaterDataGrid(new DbTools().VisAlle());
         }
 
         //Putter info ind fra App.Config i ComboBox
@@ -66,111 +67,138 @@ namespace GFElevInterview.Views
             SkoleDropDown.ItemsSource = uddannelsesAdresser;
         }
 
-        private void OpdaterDataGrid(List<ElevModel> elevData)
+        public void OpdaterDataGrid(List<ElevModel> elevData)
         {
             elevTabel.ItemsSource = elevData;
         }
 
-        #region DatabaseQueries
-        private void VisAlle()
+        private void ÅbenFilPlacering(string blanketNavn)
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
+            string filNavn = System.IO.Path.Combine(blanketMappe, blanketNavn);
 
-        private void VisSkole(string skole)
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.uddannelseAdresse == skole
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-
-        private void VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
-        {
-            List<ElevModel> elever = new List<ElevModel>();
-            if (erNiveauHøjere)
+            if (File.Exists(filNavn))
             {
-                elever = (from e in db.Elever
-                          where e.uddannelseAdresse == skole &&
-                          e.danskNiveau > ekslusivNiveau
-                          select e).ToList();
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{filNavn}");
             }
             else
             {
-                elever = (from e in db.Elever
-                          where e.uddannelseAdresse == skole
-                          && e.danskNiveau < ekslusivNiveau
-                          && e.danskNiveau > FagNiveau.Null
-                          select e).ToList();
+                AlertBoxes.OnOpenFileFailure();
             }
-            OpdaterDataGrid(elever);
         }
 
-        private void VisSPS()
+        private void ÅbenFil()
         {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.sps == true
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+      
+            openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
+
+
+            Nullable<bool> result = openFile.ShowDialog();
+            if((bool) result)
+            {
+                //ProcessstartInfo bruges til at køre python scriptet.
+                ProcessStartInfo info = new ProcessStartInfo();
+                List<ElevModel> elever = new List<ElevModel>();
+
+                //Python filen bliver hentet ned til filename fil lokationen.
+                info.FileName = config.AppSettings.Get("pythonExe");
+                //Python scripted bliver hentet og kørt ved hjælp af fileName.
+                info.Arguments = string.Format("{0} \"{1}\"", config.AppSettings.Get("pythonScript"), openFile.FileName);
+                info.UseShellExecute = false;
+                info.RedirectStandardOutput = true;
+                info.CreateNoWindow = true;
+                info.UseShellExecute = false;
+
+                //processeren bliver kørt, med informationerne fra ProcessStartInfo.
+                using (Process process = Process.Start(info))
+                {
+                    using (StreamReader reader = process.StandardOutput)
+                    {
+                        //data´en fra reader(python) bliver overført til linje(string) en linje adgangen så længe den ikke finde et null.
+                        string linje;
+                        while((linje = reader.ReadLine()) != null)
+                        {
+                            //Data´en fra linje, bliver splittet op i et string array. 
+                            string[] elev = linje.Split(';');
+                            //Data´en fra String Array´et bliver tilføjet til elev listen.
+                            elever.Add(new ElevModel(elev[0], elev[1], elev[2]));
+                        }
+                    }
+                }
+                //DbTools TilføjElever bliver kaldt, hvorefter at eleverne bliver tilføjet til databasen.
+                new DbTools().TilføjElever(elever);
+            }
         }
 
-        private void VisEUD()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.eud == true
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-
-        private void VisRKV()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.elevType != 0
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-        private void VisMerit()
-        {
-            List<ElevModel> elever = (from e in db.Elever
-                                      where e.danskNiveau > 0
-                                      select e).ToList();
-            OpdaterDataGrid(elever);
-        }
-        #endregion
-
+        #region Events
         #region Knap metoder
         private void SPS_Click(object sender, RoutedEventArgs e)
         {
-            VisSPS();
+            OpdaterDataGrid(new DbTools().VisSPS());
         }
 
         private void EUD_Click(object sender, RoutedEventArgs e)
         {
-            VisEUD();
+            OpdaterDataGrid(new DbTools().VisEUD());
         }
 
         private void RKV_Click(object sender, RoutedEventArgs e)
         {
-            VisRKV();
+            OpdaterDataGrid(new DbTools().VisRKV());
         }
 
         private void Merit_Click(object sender, RoutedEventArgs e)
         {
-            VisMerit();
+            OpdaterDataGrid(new DbTools().VisMerit());
         }
 
         private void visAlle_Click(object sender, RoutedEventArgs e)
         {
             SkoleDropDown.SelectedIndex = -1;
-            VisAlle();
+            OpdaterDataGrid(new DbTools().VisAlle());
         }
         #endregion
 
+        private void Open_Merit_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Reduce redundancy
+            //if (elev == null)
+            //{
+            //    return;
+            //}
+            ÅbenFilPlacering(elev.MeritFilNavn);
+        }
+
+        private void Open_RKV_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO Reduce redundancy
+            //if (elev == null)
+            //{
+            //    return;
+            //}
+            ÅbenFilPlacering(elev.RKVFilNavn);
+        }
+
+        private void ExportMerit_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlertBoxes.OnExport())
+            {
+                AdminTools.KombinerMeritFiler();
+            }
+        }
+
+        private void ExportRKV_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlertBoxes.OnExport())
+            {
+                AdminTools.ZipRKVFiler();
+            }
+        }
+
         private void SkoleDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if((sender as ComboBox).SelectedIndex == -1)
+            if ((sender as ComboBox).SelectedIndex == -1)
             {
                 return;
             }
@@ -185,21 +213,20 @@ namespace GFElevInterview.Views
                 {
                     //Tekst fra skole variablen, fra start til mellemrummet.
                     //Også skal vi sætte det rigtige fagniveau.
-                    VisSkole(ændretSkole, FagNiveau.F, true);
+                    OpdaterDataGrid(new DbTools().VisSkole(ændretSkole, FagNiveau.F, true));
                 }
                 //Ingen merit
                 else
                 {
-                    VisSkole(ændretSkole, FagNiveau.E, false);
+                    OpdaterDataGrid(new DbTools().VisSkole(ændretSkole, FagNiveau.E, false));
                 }
             }
             else
             {
-                VisSkole(skole);
+                OpdaterDataGrid(new DbTools().VisSkole(skole));
             }
 
         }
-
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -228,55 +255,11 @@ namespace GFElevInterview.Views
             //Hvis nej, disable knap.
 
         }
+        #endregion
 
-        private void Open_Merit_Click(object sender, RoutedEventArgs e)
+        private void TilføjKnp_Click(object sender, RoutedEventArgs e)
         {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
-            OpenExploreOnFile(elev.MeritFilNavn);
-        }
-
-        private void Open_RKV_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
-            OpenExploreOnFile(elev.RKVFilNavn);
-        }
-
-        private void OpenExploreOnFile(string blanketNavn)
-        {
-            string filNavn = System.IO.Path.Combine(blanketMappe, blanketNavn);
-
-            if (File.Exists(filNavn))
-            {
-                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{filNavn}");
-            }
-            else
-            {
-                AlertBoxes.OnOpenFileFailure();
-            }
-        }
-
-        private void ExportMerit_Click(object sender, RoutedEventArgs e)
-        {
-            if (AlertBoxes.OnExport())
-            {
-                AdminTools.KombinerMeritFiler();
-            }
-        }
-
-        private void ExportRKV_Click(object sender, RoutedEventArgs e)
-        {
-            if (AlertBoxes.OnExport())
-            {
-                AdminTools.ZipRKVFiler();
-            }
+            ÅbenFil();
         }
     }
 }
