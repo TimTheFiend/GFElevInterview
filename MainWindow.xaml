@@ -13,12 +13,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Style="{StaticResource MainBorder}" Width="250" HorizontalAlignment="Center" BorderThickness="4" >
+        <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="4" >
 
             <StackPanel >
-                <Button Style="{StaticResource PanelBtn}" Name="btnHome" Click="btnHome_Click" >Home</Button>
-                <Button Style="{StaticResource PanelBtn}" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
-                <Button Style="{StaticResource PanelBtn}" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
+                <Button Style="{StaticResource btnPanel}" Name="btnHome" Click="btnHome_Click" >Home</Button>
+                <Button Style="{StaticResource btnPanel}" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
+                <Button Style="{StaticResource btnPanel}" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
                 <Border BorderBrush="Gray" BorderThickness="4" Margin="10,0,10,0">
                     <StackPanel>
                         <DockPanel>
@@ -41,7 +41,7 @@
 
         </Border>
 
-        <Border Grid.Column="1" Style="{StaticResource MainBorder}" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
+        <Border Grid.Column="1" Style="{StaticResource bdrMain}" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Stretch" Background="WhiteSmoke" RenderTransformOrigin="0.38,0.595"  >
                 <Label FontSize="54" FontWeight="Heavy" HorizontalAlignment="Center" FontFamily="Times New Roman" Margin="0,50,0,0" >Velkommen til TEC App</Label>
                 <fa:ImageAwesome Icon="Spinner"  SpinDuration="50" Spin="true" Width="191"  Height="196" Margin="150"/>
@@ -60,7 +60,7 @@
 
         </Border>
 
-        <Border Grid.Column="1" Style="{StaticResource MainBorder}" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
+        <Border Grid.Column="1" Style="{StaticResource bdrMain}" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
