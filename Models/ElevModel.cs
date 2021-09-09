@@ -28,22 +28,41 @@ namespace GFElevInterview.Models
         #endregion
 
         #region Dansk
-        public bool? danskEksammen { get; set; }
-        public bool? danskUndervisning { get; set; }
+        [NotMapped]
+        public bool? danskEksammen { get { return uddMerit.HasFlag(Merit.DanskEksamen); } }
+        [NotMapped]
+        public bool? danskUndervisning { get { return uddMerit.HasFlag(Merit.DanskUndervisning); } }
         public FagNiveau danskNiveau { get; set; }
         #endregion
 
         #region Engelsk
-        public bool? engelskEksammen { get; set; }
-        public bool? engelskUndervisning { get; set; }
+        [NotMapped]
+        public bool? engelskEksammen { get { return uddMerit.HasFlag(Merit.EngelskEksamen); } }
+        [NotMapped]
+        public bool? engelskUndervisning { get { return uddMerit.HasFlag(Merit.EngelskUndervisning); } }
         public FagNiveau engelskNiveau { get; set; }
         #endregion
 
         #region Matematik
-        public bool? matematikEksammen { get; set; }
-        public bool? matematikUndervisning { get; set; }
+        [NotMapped]
+        public bool? matematikEksammen { get { return uddMerit.HasFlag(Merit.MatematikEksamen); } }
+        [NotMapped]
+        public bool? matematikUndervisning { get { return uddMerit.HasFlag(Merit.MatematikUndervisning); } }
         public FagNiveau matematikNiveau { get; set; }
         #endregion
+
+        public Merit uddMerit { get; set; }
+
+        public void SætMeritStatus(Merit fag, bool value) {
+            switch (value) {
+                case true:
+                    uddMerit |= fag;
+                    break;
+                case false:
+                    uddMerit &= ~fag;
+                    break;
+            }
+        }
 
         #region Constructors
         public ElevModel() { }
@@ -304,5 +323,17 @@ namespace GFElevInterview.Models
         C,
         B,
         A
+    }
+
+    [Flags]
+    public enum Merit
+    {
+        None = 0,
+        DanskEksamen = 1,
+        DanskUndervisning = 2,
+        EngelskEksamen = 4,
+        EngelskUndervisning = 8,
+        MatematikEksamen = 16,
+        MatematikUndervisning = 32
     }
 }
