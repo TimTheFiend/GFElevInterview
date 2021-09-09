@@ -64,12 +64,12 @@ namespace GFElevInterview.Views
                 config.AppSettings.Get("ballerupMerit"),
                 config.AppSettings.Get("ballerupFuldt")
             };
-            SkoleDropDown.ItemsSource = uddannelsesAdresser;
+            cmbSchool.ItemsSource = uddannelsesAdresser;
         }
 
         public void OpdaterDataGrid(List<ElevModel> elevData)
         {
-            elevTabel.ItemsSource = elevData;
+            gridElevTabel.ItemsSource = elevData;
         }
 
         private void ÅbenFilPlacering(string blanketNavn)
@@ -120,7 +120,12 @@ namespace GFElevInterview.Views
                         while((linje = reader.ReadLine()) != null)
                         {
                             //Data´en fra linje, bliver splittet op i et string array. 
-                            string[] elev = linje.Split(';');
+                            string[] elev = linje.Split(';');  //Note: hardCoded seperator
+                            if(elev.Length != 3)
+                            {
+                                AlertBoxes.OnExcelReadingError(linje);
+                                return;
+                            }
                             //Data´en fra String Array´et bliver tilføjet til elev listen.
                             elever.Add(new ElevModel(elev[0], elev[1], elev[2]));
                         }
@@ -155,7 +160,7 @@ namespace GFElevInterview.Views
 
         private void visAlle_Click(object sender, RoutedEventArgs e)
         {
-            SkoleDropDown.SelectedIndex = -1;
+            cmbSchool.SelectedIndex = -1;
             OpdaterDataGrid(new DbTools().VisAlle());
         }
         #endregion
@@ -234,21 +239,21 @@ namespace GFElevInterview.Views
 
             if (elev == null)
             {
-                Open_Merit.IsEnabled = false;
-                Open_RKV.IsEnabled = false;
+                btnOpen_Merit.IsEnabled = false;
+                btnOpen_RKV.IsEnabled = false;
                 return;
             }
 
             if (elev.danskNiveau == FagNiveau.Null)
-                Open_Merit.IsEnabled = false;
+                btnOpen_Merit.IsEnabled = false;
             else
-                Open_Merit.IsEnabled = true;
+                btnOpen_Merit.IsEnabled = true;
 
 
             if (elev.elevType == ElevType.Null)
-                Open_RKV.IsEnabled = false;
+                btnOpen_RKV.IsEnabled = false;
             else
-                Open_RKV.IsEnabled = true;
+                btnOpen_RKV.IsEnabled = true;
 
             //Er eleven færdig med interview?
             //Hvis ja, enable knap,

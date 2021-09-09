@@ -29,8 +29,8 @@ namespace GFElevInterview.Views
             InitializeComponent();
             this.parent = parent;
             InitialiserBlanket();
-            educationComboBox.DropDownClosed += Combobox_DropDownClosed;
-            educationAdresseComboBox.DropDownClosed += Combobox_DropDownClosed;
+            cmbEducation.DropDownClosed += Combobox_DropDownClosed;
+            cmbAdresse.DropDownClosed += Combobox_DropDownClosed;
         }
 
 
@@ -43,14 +43,14 @@ namespace GFElevInterview.Views
         }
 
         private void SætKomboBokse() {
-            educationAdresseComboBox.ItemsSource = CurrentElev.elev.ValgAfSkoler();
+            cmbAdresse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
 
             ///Får programmet til at crashe da SelectedItem = null (???)
             //if (educationAdresseComboBox.Items.Count == 1) {
             //    educationAdresseComboBox.SelectedIndex = 0;
             //}
 
-            educationComboBox.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
+            cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
         }
 
         private void SætKnapper() {
@@ -65,24 +65,24 @@ namespace GFElevInterview.Views
         {
             if (!String.IsNullOrEmpty (CurrentElev.elev.uddannelse))
             {
-                educationComboBox.SelectedItem = CurrentElev.elev.uddannelse;
+                cmbEducation.SelectedItem = CurrentElev.elev.uddannelse;
             }
 
             if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelseAdresse)) {
                 //Hvis der er ændret i Dansk karakter, så vil hverken Lyngby eller Frederiksberg blive vist.
-                if (educationAdresseComboBox.Items.Contains(CurrentElev.elev.uddannelseAdresse)) {
+                if (cmbEducation.Items.Contains(CurrentElev.elev.uddannelseAdresse)) {
                     CurrentElev.elev.uddannelseAdresse = null;
-                    educationAdresseComboBox.SelectedItem = CurrentElev.elev.uddannelseAdresse;
+                    cmbAdresse.SelectedItem = CurrentElev.elev.uddannelseAdresse;
                 }
             }
 
 
             switch (CurrentElev.elev.sps) {
                 case true:
-                    spsSupportJa.IsChecked = true;
+                    rbSpsJa.IsChecked = true;
                     break;
                 case false:
-                    spsSupportNej.IsChecked = true;
+                    rbSpsNej.IsChecked = true;
                     break;
                 default:
                     break;
@@ -90,10 +90,10 @@ namespace GFElevInterview.Views
 
             switch (CurrentElev.elev.eud) {
                 case true:
-                    eudSupportJa.IsChecked = true;
+                    rbEudJa.IsChecked = true;
                     break;
                 case false:
-                    eudSupportNej.IsChecked = true;
+                    rbEudNej.IsChecked = true;
                     break;
                 default:
                     break;
@@ -116,10 +116,10 @@ namespace GFElevInterview.Views
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
-            CurrentElev.elev.uddannelseAdresse = educationAdresseComboBox.Text;
-            CurrentElev.elev.uddannelse = educationComboBox.Text;
-            CurrentElev.elev.sps = (bool)spsSupportJa.IsChecked;
-            CurrentElev.elev.eud = (bool)eudSupportJa.IsChecked;
+            CurrentElev.elev.uddannelseAdresse = cmbAdresse.Text;
+            CurrentElev.elev.uddannelse = cmbEducation.Text;
+            CurrentElev.elev.sps = (bool)rbSpsJa.IsChecked;
+            CurrentElev.elev.eud = (bool)rbEudJa.IsChecked;
             
             parent.FærdiggørInterview();
         }
@@ -139,16 +139,16 @@ namespace GFElevInterview.Views
             SolidColorBrush gray = Brushes.Gray;
             SolidColorBrush red = Brushes.Red;
 
-            bool _educationArea = educationComboBox.SelectedIndex >= 0;
-            bool _educationAdresse = educationAdresseComboBox.SelectedIndex >= 0;
-            bool _spsSupport = (bool)spsSupportJa.IsChecked || (bool)spsSupportNej.IsChecked;
-            bool _eudSupport = (bool)eudSupportJa.IsChecked || (bool)eudSupportNej.IsChecked;
+            bool _educationArea = cmbEducation.SelectedIndex >= 0;
+            bool _educationAdresse = cmbAdresse.SelectedIndex >= 0;
+            bool _spsSupport = (bool)rbSpsJa.IsChecked || (bool)rbSpsNej.IsChecked;
+            bool _eudSupport = (bool)rbEudJa.IsChecked || (bool)rbEudNej.IsChecked;
 
             //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
-            educationArea.BorderBrush = _educationArea ? gray : red;
-            educationAdresse.BorderBrush = _educationAdresse ? gray : red;
-            spsSupport.BorderBrush = _spsSupport ? gray : red;
-            eudSupport.BorderBrush = _eudSupport ? gray : red;
+            bdrEducation.BorderBrush = _educationArea ? gray : red;
+            bdrAdresse.BorderBrush = _educationAdresse ? gray : red;
+            bdrSps.BorderBrush = _spsSupport ? gray : red;
+            bdrEud.BorderBrush = _eudSupport ? gray : red;
 
             if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
             {
@@ -163,7 +163,7 @@ namespace GFElevInterview.Views
         #region Combobox
         /// <summary>Fjerner fokus fra combobox når den folder sammen.</summary>
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
-            parent.scrollview.Focus();
+            parent.scroll.Focus();
         }
 
         /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
@@ -180,11 +180,11 @@ namespace GFElevInterview.Views
         #region RadioButton setters
         private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
 
-            CurrentElev.elev.sps = (sender as RadioButton) == spsSupportJa ? true : false;
+            CurrentElev.elev.sps = (sender as RadioButton) == rbSpsJa ? true : false;
         }
 
         private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
-            CurrentElev.elev.eud = (sender as RadioButton) == eudSupportJa ? true : false;
+            CurrentElev.elev.eud = (sender as RadioButton) == rbEudJa ? true : false;
         }
         #endregion Radiobutton setters
         #endregion

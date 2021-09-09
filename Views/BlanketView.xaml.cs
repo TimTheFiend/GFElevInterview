@@ -29,10 +29,8 @@ namespace GFElevInterview.Views
                 currentView = new MeritBlanketView(this);
             }
 
-            mainContent.Content = currentView;
+            cntMain.Content = currentView;
         }
-
-
 
         public void FærdiggørInterview() {
 
@@ -56,12 +54,13 @@ namespace GFElevInterview.Views
                     CurrentElev.NulstilCurrentElev();
                     //TODO Lav metode to rest
                     currentView = null;
-                    mainContent.Content = null;
-                    StudentsFullInfo.Content = "";
+                    cntMain.Content = null;
+                    lblStudentInfo.Content = "";
                     AlertBoxes.OnSuccessfulCompletion();
                 }
             }
         }
+
         private bool OpdaterElevIDatabase()
         {
             try
@@ -78,7 +77,7 @@ namespace GFElevInterview.Views
         //Event Handler
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (SearchStudentBox.SelectedIndex >= 0) {
+            if (lstSearch.SelectedIndex >= 0) {
                 if(CurrentElev.elev.ErUdfyldt)
                 {
                     if (AlertBoxes.OnSelectingNewStudents())
@@ -88,18 +87,18 @@ namespace GFElevInterview.Views
                     }
                 }
                 InitialiserBlanket();
-                CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
-                StudentsFullInfo.Content = CurrentElev.elev.FuldInfo;
+                CurrentElev.elev = lstSearch.SelectedItem as ElevModel;
+                lblStudentInfo.Content = CurrentElev.elev.FuldInfo;
 
                 //Nulstiller textbox og listbox
-                SearchStudentTxt.Text = "";
-                SearchStudentBox.ItemsSource = null;
+                txtSearch.Text = "";
+                lstSearch.ItemsSource = null;
             }
         }
 
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
-            string text = SearchStudentTxt.Text;
-            SearchStudentBox.ItemsSource = null;
+            string text = txtSearch.Text;
+            lstSearch.ItemsSource = null;
             if (String.IsNullOrEmpty(text)) {
                 return;
             }
@@ -109,11 +108,11 @@ namespace GFElevInterview.Views
                 || elev.cprNr.StartsWith(text)
                 || elev.fornavn.ToLower().StartsWith(text.ToLower())
                 ).ToList();
-            SearchStudentBox.ItemsSource = elevModels;
+            lstSearch.ItemsSource = elevModels;
         }
 
         private void OnButtonClick() {
-            scrollview.ScrollToTop();
+            scroll.ScrollToTop();
         }
         
         private void Frem_Click(object sender, RoutedEventArgs e) {
@@ -128,8 +127,7 @@ namespace GFElevInterview.Views
 
         public void ChangeView(IBlanket newView) {
             currentView = newView;
-            mainContent.Content = currentView;
+            cntMain.Content = currentView;
         }
-
     }
 }
