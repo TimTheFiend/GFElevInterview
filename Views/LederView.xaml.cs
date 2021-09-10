@@ -102,8 +102,10 @@ namespace GFElevInterview.Views
                 List<ElevModel> elever = new List<ElevModel>();
 
                 //Python filen bliver hentet ned til filename fil lokationen.
+                //info.FileName = ".venv\\Scripts\\python.exe";
                 info.FileName = config.AppSettings.Get("pythonExe");
                 //Python scripted bliver hentet og kørt ved hjælp af fileName.
+                //info.Arguments = string.Format("{0} \"{1}\"", "GFElevInterviewExcel.py", openFile.FileName);
                 info.Arguments = string.Format("{0} \"{1}\"", config.AppSettings.Get("pythonScript"), openFile.FileName);
                 info.UseShellExecute = false;
                 info.RedirectStandardOutput = true;
