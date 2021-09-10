@@ -8,54 +8,51 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel>
-            <Label Content="Interview guide til Visitations elever"  FontSize="20" FontWeight="Bold" FontStyle="Italic" Margin="10"/>
-            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="educationArea">
+            <Label Content="Interview guide til Visitations elever"  Style="{StaticResource labVisitation}"/>
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEducation">
                 <StackPanel Margin="10">
                     <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="20" />
-                    <ComboBox x:Name="educationComboBox" SelectionChanged="educationComboBox_SelectionChanged"  />
+                    <ComboBox x:Name="cmbEducation" SelectionChanged="educationComboBox_SelectionChanged"  />
                 </StackPanel>
             </Border>
 
-            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="educationAdresse">
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrAdresse">
                 <StackPanel Margin="10">
                     <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="20" />
-                    <ComboBox x:Name="educationAdresseComboBox" SelectionChanged="educationAdresseComboBox_SelectionChanged" />
+                    <ComboBox x:Name="cmbAdresse" SelectionChanged="educationAdresseComboBox_SelectionChanged" />
                 </StackPanel>
             </Border>
 
-            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="spsSupport" >
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrSps">
                 <StackPanel Margin="10">
                     <Label  Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="20" />
 
-                    <DockPanel x:Name="spsSupportGroup"  >
-                        <RadioButton GroupName="spsSupport" ClickMode="Press"  Margin="20" x:Name="spsSupportJa" Content="Ja" Checked="SPSSupport_Checked"  >
+                    <DockPanel x:Name="docsps">
+                        <RadioButton GroupName="spsSupport" ClickMode="Press"  Margin="20" x:Name="rbSpsJa" Content="Ja" Checked="SPSSupport_Checked">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
-                        <RadioButton GroupName="spsSupport" ClickMode="Press" Margin="20" x:Name="spsSupportNej" Content="Nej" Checked="SPSSupport_Checked" >
+                        <RadioButton GroupName="spsSupport" ClickMode="Press" Margin="20" x:Name="rbSpsNej" Content="Nej" Checked="SPSSupport_Checked" >
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
-
-
                     </DockPanel>
                 </StackPanel>
             </Border>
 
-
-            <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="eudSupport">
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEud">
                 <StackPanel Margin="10">
                     <Label  Content="Ønsker du en samtale med eud vejleder?" FontSize="20" />
 
-                    <DockPanel x:Name="eudSupportGroup">
-                        <RadioButton GroupName="eudSupport" ClickMode="Press"  Margin="20" x:Name="eudSupportJa" Content="Ja" Checked="EUDSupport_Checked">
+                    <DockPanel x:Name="docEud">
+                        <RadioButton GroupName="eudSupport" ClickMode="Press"  Margin="20" x:Name="rbEudJa" Content="Ja" Checked="EUDSupport_Checked">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
-                        <RadioButton GroupName="eudSupport" ClickMode="Press" Margin="20" x:Name="eudSupportNej" Content="Nej" Checked="EUDSupport_Checked" >
+                        <RadioButton GroupName="eudSupport" ClickMode="Press" Margin="20" x:Name="rbEudNej" Content="Nej" Checked="EUDSupport_Checked" >
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>

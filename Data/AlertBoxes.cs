@@ -20,6 +20,11 @@ namespace GFElevInterview.Data
             MessageBox.Show("Den valgte blanket findes ikke i mappen", "Fejl!", MessageBoxButton.OK);
         }
 
+        public static void OnExcelReadingError(string errorMessage)
+        {
+            MessageBox.Show(errorMessage, "Fejl!", MessageBoxButton.OK);
+        }
+
         public static bool OnExport()
         {
             MessageBoxResult result = MessageBox.Show("er du sikker?", "Export", MessageBoxButton.YesNo);
