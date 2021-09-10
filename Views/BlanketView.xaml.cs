@@ -52,10 +52,11 @@ namespace GFElevInterview.Views
             if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
                 if (OpdaterElevIDatabase()) {
                     CurrentElev.NulstilCurrentElev();
-                    //TODO Lav metode to rest
+                    //TODO Lav metode to reset
                     currentView = null;
                     cntMain.Content = null;
                     lblStudentInfo.Content = "";
+                    MainWindow.instance.OpdaterCounter();
                     AlertBoxes.OnSuccessfulCompletion();
                 }
             }
@@ -128,6 +129,9 @@ namespace GFElevInterview.Views
         public void ChangeView(IBlanket newView) {
             currentView = newView;
             cntMain.Content = currentView;
+
+            //FIXME kaldes ikke nok
+            MainWindow.instance.OpdaterCounter();
         }
     }
 }
