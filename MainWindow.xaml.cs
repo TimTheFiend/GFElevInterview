@@ -22,8 +22,14 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow instance = null;
+
         public MainWindow()
         {
+            if (instance == null) {
+                instance = this;
+            }
+
             InitializeComponent();
             //this.DataContext =;
             //Data.AdminTools.HentAntalEleverPåSkole();
@@ -33,7 +39,7 @@ namespace GFElevInterview
         }
 
         //TODO Ryk til DbTools
-        private void OpdaterCounter()
+        public void OpdaterCounter()
         {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();
             LyngbyTXT.Text = dict["Lyngby"].ToString();
@@ -47,6 +53,7 @@ namespace GFElevInterview
             HomePanel.Visibility = Visibility.Visible;
             UnderviserPanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
+            OpdaterCounter();
         }
         #endregion
 
@@ -58,6 +65,7 @@ namespace GFElevInterview
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
+            OpdaterCounter();
         }
         #endregion
 
@@ -69,7 +77,7 @@ namespace GFElevInterview
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
-
+            OpdaterCounter();
         }
 
         //todo
