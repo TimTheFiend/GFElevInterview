@@ -1,19 +1,12 @@
 ﻿using GFElevInterview.Data;
-using GFElevInterview.Models;
 using GFElevInterview.Interfaces;
+using GFElevInterview.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GFElevInterview.Views
 {
@@ -24,11 +17,10 @@ namespace GFElevInterview.Views
     {
         BlanketView parent;
 
-        public EUVView(BlanketView parent)
-        {
+        public EUVView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
-            InitialiserBlanket();         
+            InitialiserBlanket();
             //TODO
             rbEuv1Ja.Click += CheckEUVUdvidet;
             rbEuv1Nej.Click += CheckEUVUdvidet;
@@ -38,13 +30,11 @@ namespace GFElevInterview.Views
             cmbUddannelse.DropDownClosed += Combobox_DropDownClosed;
         }
 
-        private void InitialiserBlanket()
-        {
+        private void InitialiserBlanket() {
             SætButtons();
 
             cmbUddannelse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
-            if(cmbUddannelse.Items.Count == 1)
-            {
+            if (cmbUddannelse.Items.Count == 1) {
                 cmbUddannelse.SelectedIndex = 0;
             }
             expEuv1.IsExpanded = false;
@@ -54,33 +44,30 @@ namespace GFElevInterview.Views
             cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
         }
 
-        private void SætButtons()
-        {
+        private void SætButtons() {
             parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
         }
 
-        public void Frem()
-        {
-           if(ErValideret())
-           {
+        public void Frem() {
+            if (ErValideret()) {
                 SætElevType();
                 CurrentElev.elev.uddannelse = cmbEducation.Text.ToString();
                 CurrentElev.elev.uddannelseAdresse = cmbUddannelse.Text.ToString();
                 CurrentElev.elev.sps = rbSpsJa.IsChecked;
                 CurrentElev.elev.eud = rbSpsNej.IsChecked;
                 parent.FærdiggørInterview();
-           }
+            }
         }
 
         private void SætElevType() {
             ElevType elevType;
-            
+
             if ((bool)rbEuv1Ja.IsChecked) {
                 elevType = ElevType.EUV1;
             }
             else {
-                if ((bool)rbEuv1Ja.IsChecked) {
+                if ((bool)rbEuv2Ja.IsChecked) {
                     elevType = ElevType.EUV2;
                 }
                 else {
@@ -91,14 +78,12 @@ namespace GFElevInterview.Views
             CurrentElev.elev.elevType = elevType;
         }
 
-        public void Tilbage()
-        {
+        public void Tilbage() {
             parent.ChangeView(new MeritBlanketView(parent));
         }
 
 
-        private bool ErValideret()
-        {
+        private bool ErValideret() {
             SolidColorBrush gray = Brushes.Gray;
             SolidColorBrush red = Brushes.Red;
 
@@ -113,13 +98,13 @@ namespace GFElevInterview.Views
             bool _euv2 = (bool)rbEuv2Ja.IsChecked || (bool)rbEuv2Nej.IsChecked;
             //Education
             bool _educationArea = cmbEducation.SelectedIndex >= 0;
-            bool _educationAdresse = cmbUddannelse.SelectedIndex >= 0;      
+            bool _educationAdresse = cmbUddannelse.SelectedIndex >= 0;
             //Support
             bool _spsSupport = (bool)rbSpsJa.IsChecked || (bool)rbSpsNej.IsChecked;
             bool _eudSupport = (bool)rbEudJa.IsChecked || (bool)rbEudNej.IsChecked;
 
             //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
-            bdrEuv1.BorderBrush = _euv1 ? gray: red;  
+            bdrEuv1.BorderBrush = _euv1 ? gray : red;
 
             bdrEducation.BorderBrush = _educationArea ? gray : red;
             bdrAdresse.BorderBrush = _educationAdresse ? gray : red;
@@ -127,22 +112,17 @@ namespace GFElevInterview.Views
             bdrSps.BorderBrush = _spsSupport ? gray : red;
             bdrEud.BorderBrush = _eudSupport ? gray : red;
 
-            if(!_educationArea || !_educationAdresse || !_euv1 || !_spsSupport || !_eudSupport)
-            {               
+            if (!_educationArea || !_educationAdresse || !_euv1 || !_spsSupport || !_eudSupport) {
                 overAllValidated = false;
             }
-            if (_euv1 && (bool)rbEuv1Ja.IsChecked)
-            {
-                if (!_euv1Spg)
-                {
+            if (_euv1 && (bool)rbEuv1Ja.IsChecked) {
+                if (!_euv1Spg) {
                     bdrEuv1Sprg.BorderBrush = _euv1Spg ? gray : red;
                     overAllValidated = false;
-                }          
+                }
             }
-            else if (_euv1 )
-            {
-                if (!_euv2)
-                {
+            else if (_euv1) {
+                if (!_euv2) {
                     bdrEuv2.BorderBrush = _euv2 ? gray : red;
                     overAllValidated = false;
                 }
@@ -157,19 +137,16 @@ namespace GFElevInterview.Views
             return overAllValidated;
         }
 
-        private bool ErEUVUdvidet()
-        {
+        private bool ErEUVUdvidet() {
             bool _euv1 = (bool)rbEuv1Ja.IsChecked || !(bool)rbEuv1Nej.IsChecked;
             bool _euv1Spg = (bool)rbEuv1SprgJa.IsChecked || !(bool)rbEuv1SprgNej.IsChecked;
-            if (!_euv1)
-            {
+            if (!_euv1) {
                 expEuv1.IsExpanded = false;
                 expEuv1.IsEnabled = false;
                 expEuv2.IsEnabled = true;
                 return true;
             }
-            if (!_euv1Spg)
-            {
+            if (!_euv1Spg) {
                 expEuv1.IsExpanded = false;
                 expEuv1.IsEnabled = false;
                 expEuv2.IsEnabled = true;
@@ -184,13 +161,11 @@ namespace GFElevInterview.Views
             return false;
         }
         //Events
-        private void Combobox_DropDownClosed(object sender, EventArgs e)
-        {
+        private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scroll.Focus();
         }
 
-        private void CheckEUVUdvidet(object sender, RoutedEventArgs e)
-        {
+        private void CheckEUVUdvidet(object sender, RoutedEventArgs e) {
             expEuv2.IsExpanded = ErEUVUdvidet();
         }
     }

@@ -1,12 +1,12 @@
-﻿using GFElevInterview.Interfaces;
-using GFElevInterview.Data;
+﻿using GFElevInterview.Data;
+using GFElevInterview.Interfaces;
+using GFElevInterview.Models;
 using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using GFElevInterview.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 
 namespace GFElevInterview.Views
@@ -14,9 +14,9 @@ namespace GFElevInterview.Views
     /// <summary>
     /// Interaction logic for BlanketView.xaml
     /// </summary>
-    public partial class BlanketView : UserControl {
+    public partial class BlanketView : UserControl
+    {
         IBlanket currentView;
-        DbTools db = new DbTools();
 
         public BlanketView() {
             InitializeComponent();
@@ -62,16 +62,13 @@ namespace GFElevInterview.Views
             }
         }
 
-        private bool OpdaterElevIDatabase()
-        {
-            try
-            {
-                db.Elever.Update(CurrentElev.elev);
-                db.SaveChanges();
+        private bool OpdaterElevIDatabase() {
+            try {
+                DbTools.Instance.Elever.Update(CurrentElev.elev);
+                DbTools.Instance.SaveChanges();
                 return true;
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 return false;
             }
         }
@@ -79,10 +76,8 @@ namespace GFElevInterview.Views
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (lstSearch.SelectedIndex >= 0) {
-                if(CurrentElev.elev.ErUdfyldt)
-                {
-                    if (AlertBoxes.OnSelectingNewStudents())
-                    {
+                if (CurrentElev.elev.ErUdfyldt) {
+                    if (AlertBoxes.OnSelectingNewStudents()) {
                         CurrentElev.NulstilCurrentElev();
                         currentView = null;
                     }
@@ -104,7 +99,7 @@ namespace GFElevInterview.Views
                 return;
             }
             //TODO Ryk til DbTools
-            List<ElevModel> elevModels = db.Elever.Where(
+            List<ElevModel> elevModels = DbTools.Instance.Elever.Where(
                 elev => (elev.efternavn.ToLower()).StartsWith(text.ToLower())
                 || elev.cprNr.StartsWith(text)
                 || elev.fornavn.ToLower().StartsWith(text.ToLower())
@@ -115,7 +110,7 @@ namespace GFElevInterview.Views
         private void OnButtonClick() {
             scroll.ScrollToTop();
         }
-        
+
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
             OnButtonClick();

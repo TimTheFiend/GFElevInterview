@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using GFElevInterview.Data;
+﻿using GFElevInterview.Data;
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
+using System;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace GFElevInterview.Views
 {
@@ -54,8 +51,7 @@ namespace GFElevInterview.Views
         /// <summary>
         /// Fylder ComboBoxene op med karaktere.
         /// </summary>
-        private void InitialiserComboBox()
-        {
+        private void InitialiserComboBox() {
             var enumKeysArray = Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString());
             cmbDansk.ItemsSource = enumKeysArray;
             cmbEngelsk.ItemsSource = enumKeysArray;
@@ -65,27 +61,21 @@ namespace GFElevInterview.Views
         }
 
         //TODO Ændre navn på metoden
-        private void UdfyldBlanket()
-        {
-            if(cmbDansk == null)
-            {
+        private void UdfyldBlanket() {
+            if (cmbDansk == null) {
                 cmbDansk.SelectedItem = CurrentElev.elev.danskNiveau;
             }
-            if(cmbEngelsk == null)
-            {
+            if (cmbEngelsk == null) {
                 cmbEngelsk.SelectedItem = CurrentElev.elev.engelskNiveau;
             }
-            if(cmbMatematik == null)
-            {
+            if (cmbMatematik == null) {
                 cmbMatematik.SelectedItem = CurrentElev.elev.matematikNiveau;
             }
 
             //Opdater blanket så den passer med currentelev.
             //vi naviger tilbage fra Vis/RKV blanket.
-            if (CurrentElev.elev.danskNiveau != FagNiveau.Null)
-            {
-                switch (CurrentElev.elev.danskEksammen)
-                {
+            if (CurrentElev.elev.danskNiveau != FagNiveau.Null) {
+                switch (CurrentElev.elev.danskEksammen) {
                     case true:
                         rbDanskEksamenJa.IsChecked = true;
                         break;
@@ -93,8 +83,7 @@ namespace GFElevInterview.Views
                         rbDanskEksamenNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.engelskEksammen)
-                {
+                switch (CurrentElev.elev.engelskEksammen) {
                     case true:
                         rbEngelskEksamenJa.IsChecked = true;
                         break;
@@ -102,8 +91,7 @@ namespace GFElevInterview.Views
                         rbEngelskEksamenNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.matematikEksammen)
-                {
+                switch (CurrentElev.elev.matematikEksammen) {
                     case true:
                         rbMatematikEksamenJa.IsChecked = true;
                         break;
@@ -111,8 +99,7 @@ namespace GFElevInterview.Views
                         rbMatematikEksamenNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.danskUndervisning)
-                {
+                switch (CurrentElev.elev.danskUndervisning) {
                     case true:
                         rbDanskUndervisJa.IsChecked = true;
                         break;
@@ -120,8 +107,7 @@ namespace GFElevInterview.Views
                         rbDanskUndervisNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.engelskUndervisning)
-                {
+                switch (CurrentElev.elev.engelskUndervisning) {
                     case true:
                         rbEngelskUndervisJa.IsChecked = true;
                         break;
@@ -129,8 +115,7 @@ namespace GFElevInterview.Views
                         rbEngelskUndervisNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.matematikUndervisning)
-                {
+                switch (CurrentElev.elev.matematikUndervisning) {
                     case true:
                         rbMatematikUndervisJa.IsChecked = true;
                         break;
@@ -160,14 +145,12 @@ namespace GFElevInterview.Views
             if (ErValideret()) {
                 IBlanket newView;
                 OpdaterCurrentElev();
-                if (CurrentElev.elev.erRKV)
-                {
+                if (CurrentElev.elev.erRKV) {
                     newView = new EUVView(parent);
                 }
-                else 
-                {
+                else {
                     newView = new VisitationsView(parent);
-                }              
+                }
                 //TODO hvis ikke RKV
                 //new BlanketUdskrivning().UdskrivningRKV();
                 parent.ChangeView(newView);
@@ -182,8 +165,7 @@ namespace GFElevInterview.Views
         }
 
         //
-        private void OpdaterCurrentElev()
-        {
+        private void OpdaterCurrentElev() {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
             //CurrentElev.elev.danskEksammen = (bool)rbDanskEksamenJa.IsChecked;
@@ -252,32 +234,27 @@ namespace GFElevInterview.Views
         }
 
         //[Combobox, eksamenJa, eksamenNej, UndervisJa, undervisNej]
-        private bool ValiderFag(Border border, Control[] control)
-        {
+        private bool ValiderFag(Border border, Control[] control) {
             System.Windows.Media.SolidColorBrush brushTrue = System.Windows.Media.Brushes.Gray;
             System.Windows.Media.SolidColorBrush brushFalse = System.Windows.Media.Brushes.Red;
             bool erValideret = true;
 
             ComboBox comboBox = control[0] as ComboBox;
-            if (comboBox.SelectedIndex == -1)
-            {
+            if (comboBox.SelectedIndex == -1) {
                 border.BorderBrush = brushFalse;
                 erValideret = false;
             }
-            else
-            {
+            else {
                 border.BorderBrush = brushTrue;
             }
 
-            for (int i = 0; i < 2; i++)
-            {
+            for (int i = 0; i < 2; i++) {
                 //første omgang = 0 * 2 = 0 + 1 = 1.
                 //anden omgang = 1 * 2 = 2 + 1 = 3;
                 RadioButton radioJa = control[i * 2 + 1] as RadioButton;
                 RadioButton radioNej = control[i * 2 + 2] as RadioButton;
 
-                if (!(bool)radioJa.IsChecked && !(bool)radioNej.IsChecked)
-                {
+                if (!(bool)radioJa.IsChecked && !(bool)radioNej.IsChecked) {
                     border.BorderBrush = brushFalse;
                     erValideret = false;
                 }
@@ -287,31 +264,26 @@ namespace GFElevInterview.Views
         }
 
         //Events
-        private void Combobox_DropDownClosed(object sender, EventArgs e)
-        {
+        private void Combobox_DropDownClosed(object sender, EventArgs e) {
             //Change the focus to scrollview in BlanketView.
             parent.scroll.Focus();
         }
         // TODO
         ///Mangel på obejct refernce i CurrentElev.elev.niveau
         ///CurrentElev.elev virker til at have mangel på informationer, hvilket kunne skyldes 
-        private void ComboboxFagNiveau_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void ComboboxFagNiveau_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ComboBox cb = sender as ComboBox;
             int selectedIndex = cb.SelectedIndex + 1;
 
-            if (cb == cmbDansk)
-            {
+            if (cb == cmbDansk) {
                 CurrentElev.elev.danskNiveau = (FagNiveau)selectedIndex;
             }
-            else if (cb == cmbEngelsk)
-            {
+            else if (cb == cmbEngelsk) {
                 CurrentElev.elev.engelskNiveau = (FagNiveau)selectedIndex;
             }
-            else if (cb == cmbMatematik)
-            {
+            else if (cb == cmbMatematik) {
                 CurrentElev.elev.matematikNiveau = (FagNiveau)selectedIndex;
             }
-        }     
+        }
     }
 }

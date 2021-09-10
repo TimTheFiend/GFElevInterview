@@ -1,6 +1,4 @@
-﻿using GFElevInterview.Data;
-using GFElevInterview.Views;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +6,12 @@ using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Models
 {
-    public class DbTools : DbContext
+    public sealed class DbTools : DbContext
     {
-        public DbTools()
-        {
+        private static readonly DbTools instance = new DbTools();
+        public static DbTools Instance => instance;
+
+        public DbTools() {
             //NOTE: `EnsureDeleted` skal kun bruges under development!
             //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
             //this.Database.EnsureDeleted();
@@ -20,8 +20,7 @@ namespace GFElevInterview.Models
         }
 
         //Her nulstilles og genskabes databasen
-        private void NulstilDatabase()
-        {
+        private void NulstilDatabase() {
             //SletFilerPåNulstil(config.AppSettings.Get();
             //SletFiler();
             //SletFiler(config.AppSettings.Get("endRKV"), config.AppSettings.Get("endMerit"));
@@ -30,8 +29,7 @@ namespace GFElevInterview.Models
         }
 
         //ORIGINAL
-        private void SletFiler()
-        {
+        private void SletFiler() {
             //string[] filEndelser = new string[] {
             //    config.AppSettings.Get("endMerit"),
             //    config.AppSettings.Get("endRKV")
@@ -39,10 +37,8 @@ namespace GFElevInterview.Models
 
             foreach (string filEndelse in new string[] {
                 config.AppSettings.Get("endMerit"),
-                config.AppSettings.Get("endRKV") })
-            {
-                foreach (string fil in Data.AdminTools.HentFiler(filEndelse))
-                {
+                config.AppSettings.Get("endRKV") }) {
+                foreach (string fil in Data.AdminTools.HentFiler(filEndelse)) {
                     System.IO.File.Delete(fil);
                 }
                 //                string[] filer = Data.AdminTools.HentFiler(filEndelse);
@@ -56,30 +52,25 @@ namespace GFElevInterview.Models
         }
 
         #region Gets
-        public List<ElevModel> VisAlle()
-        {
+        public List<ElevModel> VisAlle() {
             return (from e in Elever
                     select e).ToList();
         }
 
-        public List<ElevModel> VisSkole(string skole)
-        {
+        public List<ElevModel> VisSkole(string skole) {
             return (from e in Elever
                     where e.uddannelseAdresse == skole
                     select e).ToList();
         }
 
-        public List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere)
-        {
-            if (erNiveauHøjere)
-            {
+        public List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere) {
+            if (erNiveauHøjere) {
                 return (from e in Elever
                         where e.uddannelseAdresse == skole &&
                         e.danskNiveau > ekslusivNiveau
                         select e).ToList();
             }
-            else
-            {
+            else {
                 return (from e in Elever
                         where e.uddannelseAdresse == skole
                         && e.danskNiveau < ekslusivNiveau
@@ -88,28 +79,24 @@ namespace GFElevInterview.Models
             }
         }
 
-        public List<ElevModel> VisSPS()
-        {
+        public List<ElevModel> VisSPS() {
             return (from e in Elever
                     where e.sps == true
                     select e).ToList();
         }
 
-        public List<ElevModel> VisEUD()
-        {
+        public List<ElevModel> VisEUD() {
             return (from e in Elever
                     where e.eud == true
                     select e).ToList();
         }
 
-        public List<ElevModel> VisRKV()
-        {
+        public List<ElevModel> VisRKV() {
             return (from e in Elever
                     where e.elevType != 0
                     select e).ToList();
         }
-        public List<ElevModel> VisMerit()
-        {
+        public List<ElevModel> VisMerit() {
             return (from e in Elever
                     where e.danskNiveau > 0
                     select e).ToList();
@@ -122,20 +109,16 @@ namespace GFElevInterview.Models
         #endregion Database tabel
 
         //Bliver Kaldt Når Elever skal tilføjes til en tom database.
-        private void TilføjEleverTilTomDatabase(List<ElevModel> nyElever)
-        {
+        private void TilføjEleverTilTomDatabase(List<ElevModel> nyElever) {
             //Tilføjer en liste af elever til databasen.
             Elever.AddRange(nyElever);
             //Elever er tilføjet
             SaveChanges();
         }
         //I TilføjEleverTilEksisterendeDatabase checker vi om de "nye elever" allerede eksister eller om de skal tilføjes.
-        private void TilføjEleverTilEksisterendeDatabase(List<ElevModel> nyElever)
-        {
-            foreach (ElevModel elev in nyElever)
-            {
-                if (Elever.Where(x => x.cprNr == elev.cprNr).FirstOrDefault() == null)
-                {
+        private void TilføjEleverTilEksisterendeDatabase(List<ElevModel> nyElever) {
+            foreach (ElevModel elev in nyElever) {
+                if (Elever.Where(x => x.cprNr == elev.cprNr).FirstOrDefault() == null) {
                     Elever.Add(elev);
                 }
             }
@@ -143,35 +126,28 @@ namespace GFElevInterview.Models
         }
 
         //Bruges til debug
-        public void TilføjElever()
-        {
+        public void TilføjElever() {
             //NulstilDatabase();
-            List<ElevModel> nyElever = new List<ElevModel>()
-            {
+            List<ElevModel> nyElever = new List<ElevModel>() {
                 //new ElevModel { cprNr = "5544332211", fornavn = "Havesaks", efternavn = "Baghave"},
                 //new ElevModel { cprNr = "2211334455", fornavn = "Blomsterkasse", efternavn = "Baghave"},
                 //new ElevModel { cprNr = "1122334455", fornavn = "Blomst", efternavn = "Forhave"}
             };
             //hvis der er elever i databasen så køres TilføjEleverTilEksisterendeDatabase, hvis ikke så køres TilføjEleverTilTomDatabase.
-            if (Elever.Count() > 0)
-            {
+            if (Elever.Count() > 0) {
                 TilføjEleverTilEksisterendeDatabase(nyElever);
             }
-            else
-            {
+            else {
                 TilføjEleverTilTomDatabase(nyElever);
             }
         }
 
         //Reele metode
-        public void TilføjElever(List<ElevModel> nyElever)
-        {
-            if (Elever.Count() > 0)
-            {
+        public void TilføjElever(List<ElevModel> nyElever) {
+            if (Elever.Count() > 0) {
                 TilføjEleverTilEksisterendeDatabase(nyElever);
             }
-            else
-            {
+            else {
                 TilføjEleverTilTomDatabase(nyElever);
             }
 
@@ -179,8 +155,7 @@ namespace GFElevInterview.Models
         }
         #region Required
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseSqlite($"Data Source={System.Configuration.ConfigurationManager.AppSettings["db"]}");  //Database navn bliver indsat
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
@@ -191,8 +166,7 @@ namespace GFElevInterview.Models
         /// Bruges til at fylde databasen med dummy-data, så vi har noget at arbejde med.
         /// </summary>
         /// <param name="modelBuilder">ikke noget vi behøver at tænke på.</param>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
             List<string> skoler = new List<string>()
             {
                 config.AppSettings.Get("ballerup"),

@@ -1,12 +1,12 @@
-﻿using System;
-using System.IO;
-using Spire.Doc;
+﻿using GFElevInterview.Models;
 using iTextSharp.text.pdf;
+using Spire.Doc;
+using System;
+using System.IO;
 using config = System.Configuration.ConfigurationManager;
-using GFElevInterview.Models;
 
 namespace GFElevInterview.Data
-{   
+{
     //TODO Gør statics
     public class BlanketUdskrivning
     {
@@ -23,8 +23,7 @@ namespace GFElevInterview.Data
         /// Informationen over eleven hentes.
         /// informationen indsættes i felterne, og gemmes som pdf fil.
         /// </summary>
-        public void UdskrivningRKV()
-        {
+        public void UdskrivningRKV() {
             //TODO `Metrit #` skal ændres til at matche med minimums karakter
             try {
                 string inputFil = GetRKVBlanketTemplate();
@@ -119,9 +118,9 @@ namespace GFElevInterview.Data
                 //doc.Replace("#MU#", (bool)CurrentElev.elev.matematikUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#MN#", CurrentElev.elev.matematikNiveau.ToString(), true, true);
                 doc.Replace("#uger#", CurrentElev.elev.uddannelsesLængdeIUger.ToString(), true, true);
-                
+
                 #endregion
-               
+
                 doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.MeritFilNavn), FileFormat.PDF);
                 return true;
             }
@@ -136,8 +135,7 @@ namespace GFElevInterview.Data
             return elev.uddMerit.HasFlag(flag) ? "Ja" : "Nej";
         }
 
-        private string GetRKVBlanketTemplate()
-        {
+        private string GetRKVBlanketTemplate() {
             string pdfElev = $"{CurrentElev.elev.elevType.ToString()} - {CurrentElev.elev.uddannelse}.pdf";
             return Path.Combine(config.AppSettings["templates"], pdfElev);
         }

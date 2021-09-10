@@ -1,18 +1,9 @@
-﻿using GFElevInterview.Interfaces;
+﻿using GFElevInterview.Data;
+using GFElevInterview.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using GFElevInterview.Data;
-using System.Linq;
 
 namespace GFElevInterview.Views
 {
@@ -61,10 +52,8 @@ namespace GFElevInterview.Views
         /// <summary>
         /// udfyldning af visitationsView
         /// </summary>
-        private void UdfyldBlanket()
-        {
-            if (!String.IsNullOrEmpty (CurrentElev.elev.uddannelse))
-            {
+        private void UdfyldBlanket() {
+            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse)) {
                 cmbEducation.SelectedItem = CurrentElev.elev.uddannelse;
             }
 
@@ -102,8 +91,7 @@ namespace GFElevInterview.Views
         #endregion
 
         public void Frem() {
-            if (ErValideret())
-            {
+            if (ErValideret()) {
                 //TODO Hvis ikke RKV
                 //TODO Udprint
                 //TODO Få fra Søgning
@@ -112,15 +100,14 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void OpdaterCurrentElev()
-        {
+        private void OpdaterCurrentElev() {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
             CurrentElev.elev.uddannelseAdresse = cmbAdresse.Text;
             CurrentElev.elev.uddannelse = cmbEducation.Text;
             CurrentElev.elev.sps = (bool)rbSpsJa.IsChecked;
             CurrentElev.elev.eud = (bool)rbEudJa.IsChecked;
-            
+
             parent.FærdiggørInterview();
         }
 
@@ -150,8 +137,7 @@ namespace GFElevInterview.Views
             bdrSps.BorderBrush = _spsSupport ? gray : red;
             bdrEud.BorderBrush = _eudSupport ? gray : red;
 
-            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport)
-            {
+            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport) {
 
                 return true;
             }
