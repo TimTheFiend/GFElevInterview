@@ -186,16 +186,23 @@ namespace GFElevInterview.Views
         {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
-            CurrentElev.elev.danskEksammen = (bool)rbDanskEksamenJa.IsChecked;
-            CurrentElev.elev.engelskEksammen = (bool)rbEngelskEksamenJa.IsChecked;
-            CurrentElev.elev.matematikEksammen = (bool)rbMatematikEksamenJa.IsChecked;
-            CurrentElev.elev.danskUndervisning = (bool)rbDanskUndervisJa.IsChecked;
-            CurrentElev.elev.engelskUndervisning = (bool)rbEngelskUndervisJa.IsChecked;
-            CurrentElev.elev.matematikUndervisning = (bool)rbMatematikUndervisJa.IsChecked;
+            //CurrentElev.elev.danskEksammen = (bool)rbDanskEksamenJa.IsChecked;
+            //CurrentElev.elev.engelskEksammen = (bool)rbEngelskEksamenJa.IsChecked;
+            //CurrentElev.elev.matematikEksammen = (bool)rbMatematikEksamenJa.IsChecked;
+            //CurrentElev.elev.danskUndervisning = (bool)rbDanskUndervisJa.IsChecked;
+            //CurrentElev.elev.engelskUndervisning = (bool)rbEngelskUndervisJa.IsChecked;
+            //CurrentElev.elev.matematikUndervisning = (bool)rbMatematikUndervisJa.IsChecked;
             CurrentElev.elev.danskNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
             CurrentElev.elev.engelskNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
             CurrentElev.elev.matematikNiveau = (FagNiveau)cmbMatematik.SelectedIndex + 1;
 
+            //NOTE Flag
+            CurrentElev.elev.SætMeritStatus(Merit.DanskEksamen, (bool)rbDanskEksamenJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.DanskUndervisning, (bool)rbDanskUndervisJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.EngelskEksamen, (bool)rbEngelskEksamenJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.EngelskUndervisning, (bool)rbEngelskUndervisJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.MatematikEksamen, (bool)rbMatematikEksamenJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.MatematikUndervisning, (bool)rbMatematikUndervisJa.IsChecked);
             //parent.CompleteCurrentInterview();
         }
 
