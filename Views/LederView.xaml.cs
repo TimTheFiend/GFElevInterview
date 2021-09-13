@@ -8,7 +8,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using config = System.Configuration.ConfigurationManager;
-
+using System.Linq;
 namespace GFElevInterview.Views
 {
     /// <summary>
@@ -23,8 +23,13 @@ namespace GFElevInterview.Views
             InitializeComponent();
             InitialiserView();
             InitialiserSkoleComboBox();
-
+            //InitialiserDataGrid();
             blanketMappe = config.AppSettings.Get("outputMappe");
+            //gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
+            //    e.cprNr, 
+            //    e.fornavn, 
+            //    e.efternavn,
+            //}).ToList();
         }
 
         //On Constructor call
@@ -69,7 +74,6 @@ namespace GFElevInterview.Views
 
             openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
 
-
             Nullable<bool> result = openFile.ShowDialog();
             if ((bool)result) {
                 //ProcessstartInfo bruges til at køre python scriptet.
@@ -95,7 +99,7 @@ namespace GFElevInterview.Views
                         while ((linje = reader.ReadLine()) != null) {
                             //Data´en fra linje, bliver splittet op i et string array. 
                             string[] elev = linje.Split(';');  //Note: hardCoded seperator
-                            if (elev.Length != 3) {
+                            if (elev.Length <= 2) {
                                 AlertBoxes.OnExcelReadingError(linje);
                                 return;
                             }
@@ -112,24 +116,90 @@ namespace GFElevInterview.Views
         #region Events
         #region Knap metoder
         private void SPS_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisSPS());
+            //OpdaterDataGrid(DbTools.Instance.VisSPS());
+            gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
+                e.cprNr,
+                e.fornavn,
+                e.efternavn,
+                e.uddannelseAdresse,
+                e.sps
+            }).ToList();
         }
 
         private void EUD_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisEUD());
+            //OpdaterDataGrid(DbTools.Instance.VisEUD());
+            gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
+                e.cprNr,
+                e.fornavn,
+                e.efternavn,
+                e.uddannelseAdresse,
+                e.eud
+            }).ToList();
         }
 
         private void RKV_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisRKV());
+            //OpdaterDataGrid(DbTools.Instance.VisRKV());
+            gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
+                e.cprNr,
+                e.fornavn,
+                e.efternavn,
+                e.uddannelseAdresse,
+                e.danskEksammen,
+                e.danskUndervisning,
+                e.danskNiveau,
+                e.engelskEksammen,
+                e.engelskUndervisning,
+                e.engelskNiveau,
+                e.matematikEksammen,
+                e.matematikUndervisning,
+                e.matematikNiveau,
+                e.uddannelsesLængdeIUger,
+                e.erRKV,
+                e.elevType
+            }).ToList();
         }
 
         private void Merit_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisMerit());
+            //OpdaterDataGrid(DbTools.Instance.VisMerit());
+            gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
+                e.cprNr,
+                e.fornavn,
+                e.efternavn,
+                e.uddannelseAdresse,
+                e.danskEksammen,
+                e.danskUndervisning,
+                e.danskNiveau,
+                e.engelskEksammen,
+                e.engelskUndervisning,
+                e.engelskNiveau,
+                e.matematikEksammen,
+                e.matematikUndervisning,
+                e.matematikNiveau,
+                e.uddannelsesLængdeIUger
+            }).ToList();
         }
 
         private void visAlle_Click(object sender, RoutedEventArgs e) {
             cmbSchool.SelectedIndex = -1;
-            OpdaterDataGrid(DbTools.Instance.VisAlle());
+            gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
+                e.cprNr,
+                e.fornavn,
+                e.efternavn,
+                e.sps,
+                e.eud,
+                e.uddannelseAdresse,
+                e.elevType,
+                e.danskEksammen,
+                e.danskUndervisning,
+                e.danskNiveau,
+                e.engelskEksammen,
+                e.engelskUndervisning,
+                e.engelskNiveau,
+                e.matematikEksammen,
+                e.matematikUndervisning,
+                e.matematikNiveau
+            }).ToList();
+            //OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
         #endregion
 
@@ -169,25 +239,48 @@ namespace GFElevInterview.Views
             }
             string skole = (sender as ComboBox).SelectedItem.ToString();
 
-            if (skole.Contains(' ')) {
-                string ændretSkole = skole.Substring(0, skole.IndexOf(' '));
-                Console.WriteLine();
-                //Merit forløb
-                if (skole.Contains('+')) {
-                    //Tekst fra skole variablen, fra start til mellemrummet.
-                    //Også skal vi sætte det rigtige fagniveau.
-                    OpdaterDataGrid(DbTools.Instance.VisSkole(ændretSkole, FagNiveau.F, true));
-                }
-                //Ingen merit
-                else {
-                    OpdaterDataGrid(DbTools.Instance.VisSkole(ændretSkole, FagNiveau.E, false));
-                }
-            }
-            else {
-                OpdaterDataGrid(DbTools.Instance.VisSkole(skole));
-            }
+            int mellemrumsIndex = skole.IndexOf(' ');
+            //Tjekker om det er den almendelig skole eller om det er en skole med merit(+)
+            string ændretSkole = mellemrumsIndex < 0 ? skole : skole.Substring(0, mellemrumsIndex);
+            //elevQuery er en linq som viser de udvalgte colloner fra databasen.
+            var elevQuery = DbTools.Instance.Elever.Where(e => e.uddannelseAdresse == ændretSkole).Select(e => new {
+                e.cprNr,
+                e.fornavn,
+                e.efternavn,
+                e.sps,
+                e.eud,
+                e.uddannelse,
+                e.uddannelseAdresse,
+                e.elevType,
+                e.danskEksammen,
+                e.danskUndervisning,
+                e.danskNiveau,
+                e.engelskEksammen,
+                e.engelskUndervisning,
+                e.engelskNiveau,
+                e.matematikEksammen,
+                e.matematikUndervisning,
+                e.matematikNiveau
+            }).ToList();
 
+            if (mellemrumsIndex != -1)
+            {
+                string itSup = config.AppSettings.Get("itsupporter");
+                if (skole.Contains('+'))
+                {
+                    elevQuery = elevQuery.Where(e => e.danskNiveau > FagNiveau.F).Select(e => e).ToList();
+                }
+                else
+                {
+                    elevQuery = elevQuery.Where(e => e.danskNiveau < FagNiveau.E).Select(e => e).ToList();
+                }
+            }
+            //datagrid´ens får data´er fra elevQuery via ItemSource. 
+            gridElevTabel.ItemsSource = elevQuery;
+            //Columns[index].Header bruges til at navngive den header under den kollone. 
+            gridElevTabel.Columns[0].Header = "Teste";
         }
+
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
@@ -212,7 +305,6 @@ namespace GFElevInterview.Views
             //Er eleven færdig med interview?
             //Hvis ja, enable knap,
             //Hvis nej, disable knap.
-
         }
         #endregion
 

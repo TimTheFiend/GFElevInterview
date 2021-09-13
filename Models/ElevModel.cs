@@ -296,7 +296,6 @@ namespace GFElevInterview.Models
             };
         }
 
-
         public List<string> ValgAfUddannelser() {
             List<string> uddannelser = new List<string>() {
                 config.AppSettings["infrastruktur"],

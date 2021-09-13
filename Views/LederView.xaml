@@ -35,8 +35,8 @@
             <Button Content="Reset" Margin="8" Style="{StaticResource btnAdmin}"/>
         </StackPanel>
 
-        <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True">
-            <DataGrid.Columns>
+        <DataGrid x:Name="gridElevTabel" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True" AutoGenerateColumns="True">
+            <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="CPR" Binding="{Binding cprNr}"/>
                 <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}"/>
                 <DataGridTextColumn Header="Efternavn" Binding="{Binding efternavn}"/>
@@ -55,7 +55,7 @@
                 <DataGridTextColumn Header="MatematikUndervisning" Binding="{Binding matematikUndervisning}"/>
                 <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding matematikNiveau}"/>
                 <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}"/>
-            </DataGrid.Columns>
+            </DataGrid.Columns>-->
         </DataGrid>
         <Button Width="80" Height="20" x:Name="btnOpen_RKV" Content="Åben RKV" Click="Open_RKV_Click" Margin="14,283,10,27" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
         <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" Click="Open_Merit_Click" Margin="14,315,10,-5" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>

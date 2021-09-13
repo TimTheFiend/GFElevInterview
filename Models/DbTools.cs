@@ -52,7 +52,8 @@ namespace GFElevInterview.Models
         }
 
         #region Gets
-        public List<ElevModel> VisAlle() {
+        public List<ElevModel> VisAlle()
+        {
             return (from e in Elever
                     select e).ToList();
         }
@@ -175,13 +176,13 @@ namespace GFElevInterview.Models
             };
             Random rng = new Random();
 
-            modelBuilder.Entity<ElevModel>().HasData(
-            new ElevModel("1203851123", "Johammer", "Søm"),
-            new ElevModel("1103891245", "Eriksen", "Svend"),
-            new ElevModel("123456-4321", "Samuel", "Jackson"),
-            new ElevModel("2012009856", "Spacejam", "Michael Jordan"),
-            new ElevModel("111193-1234", "Joakim", "Krugstrup")
-            );
+            //modelBuilder.Entity<ElevModel>().HasData(
+            //new ElevModel("1203851123", "Johammer", "Søm"),
+            //new ElevModel("1103891245", "Eriksen", "Svend"),
+            //new ElevModel("123456-4321", "Samuel", "Jackson"),
+            //new ElevModel("2012009856", "Spacejam", "Michael Jordan"),
+            //new ElevModel("111193-1234", "Joakim", "Krugstrup")
+            //);
         }
 
         #endregion
