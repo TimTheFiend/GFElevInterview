@@ -69,35 +69,31 @@ namespace GFElevInterview.Views
 
             openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
 
-
             Nullable<bool> result = openFile.ShowDialog();
             if ((bool)result) {
-                //ProcessstartInfo bruges til at køre python scriptet.
-                ProcessStartInfo info = new ProcessStartInfo();
-                List<ElevModel> elever = new List<ElevModel>();
+                ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                List<ElevModel> elever = new List<ElevModel>();  //Bruges til at holde på dataen fra `excelExe`
 
-                //Python filen bliver hentet ned til filename fil lokationen.
-                //info.FileName = ".venv\\Scripts\\python.exe";
-                //info.FileName = config.AppSettings.Get("pythonExe");
-                //info.FileName = @"C:\Program Files\Python38\python.exe";
-                info.FileName = @"ExcelRes\GFElevInterviewExcel.exe";
+                processStartInfo.FileName = config.AppSettings.Get("excelExe");  //.exe-filen til læsning af excel bliver hentet.
+                processStartInfo.Arguments = string.Format("\"{0}\" \"{0}\"", openFile.FileName);  //Argumenter bliver sat
 
+                #region ProcessStartInfo settings
 
-                ////Python scripted bliver hentet og kørt ved hjælp af fileName.
-                //info.Arguments = string.Format("{ 0} \"{1}\"", "GFElevInterviewExcel.py", openFile.FileName);
-                info.Arguments = string.Format("\"{0}\" \"{1}\"", openFile.FileName, openFile.FileName);
-                info.UseShellExecute = false;
-                info.RedirectStandardOutput = true;
-                info.CreateNoWindow = true;
-                info.UseShellExecute = false;
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.CreateNoWindow = true;
+                processStartInfo.UseShellExecute = false;
+
+                #endregion ProcessStartInfo settings
 
                 //processeren bliver kørt, med informationerne fra ProcessStartInfo.
-                using (Process process = Process.Start(info)) {
+                using (Process process = Process.Start(processStartInfo)) {
                     using (StreamReader reader = process.StandardOutput) {
                         //data´en fra reader(python) bliver overført til linje(string) en linje adgangen så længe den ikke finde et null.
                         string linje;
                         while ((linje = reader.ReadLine()) != null) {
-                            //Data´en fra linje, bliver splittet op i et string array. 
+                            //Data´en fra linje, bliver splittet op i et string array.
+                            //FIXME stopper hvis der er en linje som ikke passer med setup
                             string[] elev = linje.Split(';');  //Note: hardCoded seperator
                             if (elev.Length < 2) {
                                 AlertBoxes.OnExcelReadingError(linje);
@@ -108,13 +104,14 @@ namespace GFElevInterview.Views
                         }
                     }
                 }
-                //DbTools TilføjElever bliver kaldt, hvorefter at eleverne bliver tilføjet til databasen.
                 DbTools.Instance.TilføjElever(elever);
             }
         }
 
         #region Events
+
         #region Knap metoder
+
         private void SPS_Click(object sender, RoutedEventArgs e) {
             OpdaterDataGrid(DbTools.Instance.VisSPS());
         }
@@ -135,23 +132,14 @@ namespace GFElevInterview.Views
             cmbSchool.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
-        #endregion
+
+        #endregion Knap metoder
 
         private void Open_Merit_Click(object sender, RoutedEventArgs e) {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
             ÅbenFilPlacering(elev.MeritFilNavn);
         }
 
         private void Open_RKV_Click(object sender, RoutedEventArgs e) {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
             ÅbenFilPlacering(elev.RKVFilNavn);
         }
 
@@ -190,8 +178,8 @@ namespace GFElevInterview.Views
             else {
                 OpdaterDataGrid(DbTools.Instance.VisSkole(skole));
             }
-
         }
+
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
@@ -207,7 +195,6 @@ namespace GFElevInterview.Views
             else
                 btnOpen_Merit.IsEnabled = true;
 
-
             if (elev.elevType == ElevType.Null)
                 btnOpen_RKV.IsEnabled = false;
             else
@@ -216,9 +203,9 @@ namespace GFElevInterview.Views
             //Er eleven færdig med interview?
             //Hvis ja, enable knap,
             //Hvis nej, disable knap.
-
         }
-        #endregion
+
+        #endregion Events
 
         private void TilføjKnp_Click(object sender, RoutedEventArgs e) {
             ÅbenFil();
