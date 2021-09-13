@@ -78,10 +78,14 @@ namespace GFElevInterview.Views
 
                 //Python filen bliver hentet ned til filename fil lokationen.
                 //info.FileName = ".venv\\Scripts\\python.exe";
-                info.FileName = config.AppSettings.Get("pythonExe");
-                //Python scripted bliver hentet og kørt ved hjælp af fileName.
-                //info.Arguments = string.Format("{0} \"{1}\"", "GFElevInterviewExcel.py", openFile.FileName);
-                info.Arguments = string.Format("{0} \"{1}\"", config.AppSettings.Get("pythonScript"), openFile.FileName);
+                //info.FileName = config.AppSettings.Get("pythonExe");
+                //info.FileName = @"C:\Program Files\Python38\python.exe";
+                info.FileName = @"ExcelRes\GFElevInterviewExcel.exe";
+
+
+                ////Python scripted bliver hentet og kørt ved hjælp af fileName.
+                //info.Arguments = string.Format("{ 0} \"{1}\"", "GFElevInterviewExcel.py", openFile.FileName);
+                info.Arguments = string.Format("\"{0}\" \"{1}\"", openFile.FileName, openFile.FileName);
                 info.UseShellExecute = false;
                 info.RedirectStandardOutput = true;
                 info.CreateNoWindow = true;
@@ -95,7 +99,7 @@ namespace GFElevInterview.Views
                         while ((linje = reader.ReadLine()) != null) {
                             //Data´en fra linje, bliver splittet op i et string array. 
                             string[] elev = linje.Split(';');  //Note: hardCoded seperator
-                            if (elev.Length != 3) {
+                            if (elev.Length < 2) {
                                 AlertBoxes.OnExcelReadingError(linje);
                                 return;
                             }
