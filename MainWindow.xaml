@@ -16,7 +16,7 @@
         <Border Grid.Column="0" Margin="2" Background="WhiteSmoke" Width="250" HorizontalAlignment="Center" BorderThickness="4" BorderBrush="Gray">
 
             <StackPanel >
-                <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnHome" Click="btnHome_Click" >Home</Button>
+                
                 <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
                 <Button Margin="20,30" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
                 <Border BorderBrush="Gray" BorderThickness="4" Margin="10,0,10,0">
