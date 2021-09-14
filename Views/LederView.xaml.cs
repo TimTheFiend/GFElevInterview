@@ -25,11 +25,28 @@ namespace GFElevInterview.Views
             InitialiserSkoleComboBox();
             //InitialiserDataGrid();
             blanketMappe = config.AppSettings.Get("outputMappe");
-            //gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
-            //    e.cprNr, 
-            //    e.fornavn, 
-            //    e.efternavn,
-            //}).ToList();
+            gridElevTabel.ItemsSource = DbTools.Instance.Elever.Select(e => new {
+                e.cprNr,
+                e.fornavn,
+                e.efternavn,
+                e.uddannelse,
+                e.uddannelseAdresse,
+                e.sps,
+                e.eud,
+                e.elevType,
+                e.erRKV,
+                e.danskEksammen,
+                e.danskUndervisning,
+                e.danskNiveau,
+                e.engelskEksammen,
+                e.engelskUndervisning,
+                e.engelskNiveau,
+                e.matematikEksammen,
+                e.matematikUndervisning,
+                e.matematikNiveau,
+                e.uddMerit,
+                e.uddannelsesLængdeIUger
+            }).ToList();
         }
 
         //On Constructor call
@@ -38,7 +55,8 @@ namespace GFElevInterview.Views
         }
 
         private void InitialiserDataGrid() {
-            OpdaterDataGrid(DbTools.Instance.VisAlle());
+            //OpdaterDataGrid(DbTools.Instance.VisAlle());
+
         }
 
         //Putter info ind fra App.Config i ComboBox
@@ -165,6 +183,7 @@ namespace GFElevInterview.Views
                 e.cprNr,
                 e.fornavn,
                 e.efternavn,
+                e.uddannelse,
                 e.uddannelseAdresse,
                 e.danskEksammen,
                 e.danskUndervisning,
@@ -175,6 +194,7 @@ namespace GFElevInterview.Views
                 e.matematikEksammen,
                 e.matematikUndervisning,
                 e.matematikNiveau,
+                e.uddMerit,
                 e.uddannelsesLængdeIUger
             }).ToList();
         }
@@ -185,10 +205,12 @@ namespace GFElevInterview.Views
                 e.cprNr,
                 e.fornavn,
                 e.efternavn,
+                e.uddannelse,
+                e.uddannelseAdresse,
                 e.sps,
                 e.eud,
-                e.uddannelseAdresse,
                 e.elevType,
+                e.erRKV,
                 e.danskEksammen,
                 e.danskUndervisning,
                 e.danskNiveau,
@@ -197,7 +219,9 @@ namespace GFElevInterview.Views
                 e.engelskNiveau,
                 e.matematikEksammen,
                 e.matematikUndervisning,
-                e.matematikNiveau
+                e.matematikNiveau,
+                e.uddMerit,
+                e.uddannelsesLængdeIUger
             }).ToList();
             //OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
@@ -284,7 +308,7 @@ namespace GFElevInterview.Views
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
-
+            //TODO Fix elev nulling
             if (elev == null) {
                 btnOpen_Merit.IsEnabled = false;
                 btnOpen_RKV.IsEnabled = false;

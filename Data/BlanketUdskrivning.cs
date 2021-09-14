@@ -40,6 +40,14 @@ namespace GFElevInterview.Data
                 pdfFormFields.SetField("Cprnr", CurrentElev.elev.cprNr);
                 pdfFormFields.SetField("RKV gennemført", DateTime.Now.Day + "/" + DateTime.Now.Month);
 
+                string underskrift = @"C:\Users\viga\Desktop\Unavngivet.png";
+                AcroFields.FieldPosition fieldPosition = pdfStamper.AcroFields.GetFieldPositions("Underskrift")[0];
+                PushbuttonField imageField = new PushbuttonField(pdfStamper.Writer, fieldPosition.position, "Underskrift");
+                imageField.Image = iTextSharp.text.Image.GetInstance(underskrift);
+
+                pdfStamper.AcroFields.ReplacePushbuttonField("Underskrift", imageField.Field);
+                //pdfFormFields.SetField("Underskrift", underskrift);
+
                 //Side 3 Dansk
                 pdfFormFields.SetField("Bemærk 1", CurrentElev.elev.danskNiveau.ToString());
                 pdfFormFields.SetField("kompetence 1", "Dansk");

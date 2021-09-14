@@ -38,7 +38,7 @@ namespace GFElevInterview.Views
             bool isMeritSuccess = false;
 
             //CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
-
+            //TODO gør statics
             BlanketUdskrivning print = new BlanketUdskrivning();
 
             ///Task
