@@ -1,11 +1,12 @@
-﻿using System;
-using System.IO;
-using Spire.Doc;
+﻿using GFElevInterview.Models;
 using iTextSharp.text.pdf;
+using Spire.Doc;
+using System;
+using System.IO;
 using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Data
-{   
+{
     //TODO Gør statics
     public class BlanketUdskrivning
     {
@@ -22,8 +23,7 @@ namespace GFElevInterview.Data
         /// Informationen over eleven hentes.
         /// informationen indsættes i felterne, og gemmes som pdf fil.
         /// </summary>
-        public void UdskrivningRKV()
-        {
+        public void UdskrivningRKV() {
             //TODO `Metrit #` skal ændres til at matche med minimums karakter
             try {
                 string inputFil = GetRKVBlanketTemplate();
@@ -98,21 +98,29 @@ namespace GFElevInterview.Data
 
                 doc.Replace("#navn#", CurrentElev.elev.efternavnFornavn, true, true);
                 doc.Replace("#cpr#", CurrentElev.elev.cprNr, true, true);
-                //doc.Replace("#navn#", CurrentElev.elev.FornavnEfternavn, true,true);
-                //doc.Replace("#cpr#", CurrentElev.elev.CprNr.ToString(), true, true);
-                doc.Replace("#DE#", (bool)CurrentElev.elev.danskEksammen ? "Ja" : "Nej", true, true);
-                doc.Replace("#DU#", (bool)CurrentElev.elev.danskUndervisning ? "Ja" : "Nej", true, true);
+
+                //NOTE Flags
+                ElevModel elev = CurrentElev.elev;
+                doc.Replace("#DE#", GetBoolAsDanishString(elev, Merit.DanskEksamen), true, true);
+                doc.Replace("#DU#", GetBoolAsDanishString(elev, Merit.DanskUndervisning), true, true);
+                doc.Replace("#EE#", GetBoolAsDanishString(elev, Merit.EngelskEksamen), true, true);
+                doc.Replace("#EU#", GetBoolAsDanishString(elev, Merit.EngelskUndervisning), true, true);
+                doc.Replace("#ME#", GetBoolAsDanishString(elev, Merit.MatematikEksamen), true, true);
+                doc.Replace("#MU#", GetBoolAsDanishString(elev, Merit.MatematikUndervisning), true, true);
+
+                //doc.Replace("#DE#", (bool)CurrentElev.elev.danskEksammen ? "Ja" : "Nej", true, true);
+                //doc.Replace("#DU#", (bool)CurrentElev.elev.danskUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#DN#", CurrentElev.elev.danskNiveau.ToString(), true, true);
-                doc.Replace("#EE#", (bool)CurrentElev.elev.engelskEksammen ? "Ja" : "Nej", true, true);
-                doc.Replace("#EU#", (bool)CurrentElev.elev.engelskUndervisning ? "Ja" : "Nej", true, true);
+                //doc.Replace("#EE#", (bool)CurrentElev.elev.engelskEksammen ? "Ja" : "Nej", true, true);
+                //doc.Replace("#EU#", (bool)CurrentElev.elev.engelskUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#EN#", CurrentElev.elev.engelskNiveau.ToString(), true, true);
-                doc.Replace("#ME#", (bool)CurrentElev.elev.matematikEksammen ? "Ja" : "Nej", true, true);
-                doc.Replace("#MU#", (bool)CurrentElev.elev.matematikUndervisning ? "Ja" : "Nej", true, true);
+                //doc.Replace("#ME#", (bool)CurrentElev.elev.matematikEksammen ? "Ja" : "Nej", true, true);
+                //doc.Replace("#MU#", (bool)CurrentElev.elev.matematikUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#MN#", CurrentElev.elev.matematikNiveau.ToString(), true, true);
                 doc.Replace("#uger#", CurrentElev.elev.uddannelsesLængdeIUger.ToString(), true, true);
-                
+
                 #endregion
-               
+
                 doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.MeritFilNavn), FileFormat.PDF);
                 return true;
             }
@@ -122,8 +130,12 @@ namespace GFElevInterview.Data
             }
         }
 
-        private string GetRKVBlanketTemplate()
-        {
+        //TODO better name
+        private string GetBoolAsDanishString(ElevModel elev, Merit flag) {
+            return elev.uddMerit.HasFlag(flag) ? "Ja" : "Nej";
+        }
+
+        private string GetRKVBlanketTemplate() {
             string pdfElev = $"{CurrentElev.elev.elevType.ToString()} - {CurrentElev.elev.uddannelse}.pdf";
             return Path.Combine(config.AppSettings["templates"], pdfElev);
         }

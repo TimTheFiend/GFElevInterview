@@ -13,13 +13,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Margin="2" Background="WhiteSmoke" Width="220" HorizontalAlignment="Center" BorderThickness="4" BorderBrush="Gray">
 
-            <StackPanel>
+       
+            
+              
+        <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="4" >
 
-                <Button Margin="20,10" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
-                <Button Margin="20,10" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
-                <Button Margin="20,10" Background="Gray" Height="50" Foreground="White" FontSize="22" Name="btnVejleder" Click="btnVejleder_Click" >Vejleder(TEMP)</Button>
+            <StackPanel >
+                <Button Style="{StaticResource btnPanel}" Name="btnVejleder" Click="btnVejleder_Click" >Vejleder</Button>
+                <Button Style="{StaticResource btnPanel}" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
+                <Button Style="{StaticResource btnPanel}" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
+
                 <Border BorderBrush="Gray" BorderThickness="4" Margin="10,0,10,0">
                     <StackPanel>
                         <DockPanel>
@@ -49,8 +53,7 @@
 
         </Border>
 
-
-        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="4" BorderBrush="Gray" Visibility="Collapsed">
+        <Border Grid.Column="1" Style="{StaticResource bdrMain}" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Stretch" Background="WhiteSmoke" RenderTransformOrigin="0.38,0.595"  >
                 <Label FontSize="54" FontWeight="Heavy" HorizontalAlignment="Center" FontFamily="Times New Roman" Margin="0,50,0,0" >Velkommen til TEC App</Label>
                 <fa:ImageAwesome Icon="Spinner"  SpinDuration="50" Spin="true" Width="191"  Height="196" Margin="150"/>
@@ -58,7 +61,6 @@
             </StackPanel>
 
         </Border>
-
 
         <Border Grid.Column="1" Background="WhiteSmoke" Name="UnderviserPanel" BorderThickness="2" BorderBrush="Gray" Visibility="Visible">
 
@@ -70,9 +72,7 @@
 
         </Border>
 
-
-
-        <Border Grid.Column="1" Margin="2" Background="WhiteSmoke" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="4" BorderBrush="Gray" Visibility="Collapsed">
+        <Border Grid.Column="1" Style="{StaticResource bdrMain}" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -92,14 +92,6 @@
 
                 <!--<Button x:Name="signinButton"  Background="Gray" Content="Sign In" Margin="10" FontSize="30" Foreground="White" Click="signinButton_Click"   Grid.Column="1"  Grid.Row="2"   Height="64" Width="300"    />-->
             </Grid>
-
-
-
-
-
         </Border>
-
-
-
     </Grid>
 </Window>

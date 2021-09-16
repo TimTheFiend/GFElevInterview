@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using GFElevInterview.Data;
+﻿using GFElevInterview.Data;
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
+using System;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace GFElevInterview.Views
 {
@@ -22,13 +19,13 @@ namespace GFElevInterview.Views
             this.parent = parent;
             InitialiserBlanket();
             //Combobox gets it dropdownclosed from the method called "Combobox_DropDownClosed".
-            ComboboxMatematik.DropDownClosed += Combobox_DropDownClosed;
-            ComboboxDansk.DropDownClosed += Combobox_DropDownClosed;
-            ComboboxEngelsk.DropDownClosed += Combobox_DropDownClosed;
+            cmbMatematik.DropDownClosed += Combobox_DropDownClosed;
+            cmbDansk.DropDownClosed += Combobox_DropDownClosed;
+            cmbEngelsk.DropDownClosed += Combobox_DropDownClosed;
             //ComboBox SelectionChanged eventhandler set
-            ComboboxDansk.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
-            ComboboxEngelsk.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
-            ComboboxMatematik.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
+            cmbDansk.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
+            cmbEngelsk.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
+            cmbMatematik.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
         }
 
         #region Klargøring
@@ -38,105 +35,92 @@ namespace GFElevInterview.Views
             // Udfyld Blanketten hvis den allerede står som udfyldt i `CurrentElev`.
             if (CurrentElev.elev.ErUdfyldt) {
                 //Combobox
-                ComboboxDansk.SelectedIndex = (int)CurrentElev.elev.danskNiveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
-                ComboboxEngelsk.SelectedIndex = (int)CurrentElev.elev.engelskNiveau - 1;
-                ComboboxMatematik.SelectedIndex = (int)CurrentElev.elev.matematikNiveau - 1;
+                cmbDansk.SelectedIndex = (int)CurrentElev.elev.danskNiveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
+                cmbEngelsk.SelectedIndex = (int)CurrentElev.elev.engelskNiveau - 1;
+                cmbMatematik.SelectedIndex = (int)CurrentElev.elev.matematikNiveau - 1;
                 //Checkbox
-                DanskEksamenJa.IsChecked = CurrentElev.elev.danskEksammen;
-                DanskUndervisJa.IsChecked = CurrentElev.elev.danskUndervisning;
-                MatematikEksamenJa.IsChecked = CurrentElev.elev.matematikEksammen;
-                MatematikUndervisJa.IsChecked = CurrentElev.elev.matematikUndervisning;
-                EngelskEksamenJa.IsChecked = CurrentElev.elev.engelskEksammen;
-                EngelskUndervisJa.IsChecked = CurrentElev.elev.engelskUndervisning;
-
+                rbDanskEksamenJa.IsChecked = CurrentElev.elev.danskEksammen;
+                rbDanskUndervisJa.IsChecked = CurrentElev.elev.danskUndervisning;
+                rbMatematikEksamenJa.IsChecked = CurrentElev.elev.matematikEksammen;
+                rbMatematikUndervisJa.IsChecked = CurrentElev.elev.matematikUndervisning;
+                rbEngelskEksamenJa.IsChecked = CurrentElev.elev.engelskEksammen;
+                rbEngelskUndervisJa.IsChecked = CurrentElev.elev.engelskUndervisning;
             }
         }
 
         /// <summary>
         /// Fylder ComboBoxene op med karaktere.
         /// </summary>
-        private void InitialiserComboBox()
-        {
+        private void InitialiserComboBox() {
             var enumKeysArray = Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString());
-            ComboboxDansk.ItemsSource = enumKeysArray;
-            ComboboxEngelsk.ItemsSource = enumKeysArray;
-            ComboboxMatematik.ItemsSource = enumKeysArray;
+            cmbDansk.ItemsSource = enumKeysArray;
+            cmbEngelsk.ItemsSource = enumKeysArray;
+            cmbMatematik.ItemsSource = enumKeysArray;
 
             UdfyldBlanket();
         }
 
         //TODO Ændre navn på metoden
-        private void UdfyldBlanket()
-        {
-            if(ComboboxDansk == null)
-            {
-                ComboboxDansk.SelectedItem = CurrentElev.elev.danskNiveau;
+        private void UdfyldBlanket() {
+            if (cmbDansk == null) {
+                cmbDansk.SelectedItem = CurrentElev.elev.danskNiveau;
             }
-            if(ComboboxEngelsk == null)
-            {
-                ComboboxEngelsk.SelectedItem = CurrentElev.elev.engelskNiveau;
+            if (cmbEngelsk == null) {
+                cmbEngelsk.SelectedItem = CurrentElev.elev.engelskNiveau;
             }
-            if(ComboboxMatematik == null)
-            {
-                ComboboxMatematik.SelectedItem = CurrentElev.elev.matematikNiveau;
+            if (cmbMatematik == null) {
+                cmbMatematik.SelectedItem = CurrentElev.elev.matematikNiveau;
             }
 
             //Opdater blanket så den passer med currentelev.
             //vi naviger tilbage fra Vis/RKV blanket.
-            if (CurrentElev.elev.danskNiveau != FagNiveau.Null)
-            {
-                switch (CurrentElev.elev.danskEksammen)
-                {
+            if (CurrentElev.elev.danskNiveau != FagNiveau.Null) {
+                switch (CurrentElev.elev.danskEksammen) {
                     case true:
-                        DanskEksamenJa.IsChecked = true;
+                        rbDanskEksamenJa.IsChecked = true;
                         break;
                     case false:
-                        DanskEksamenNej.IsChecked = true;
+                        rbDanskEksamenNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.engelskEksammen)
-                {
+                switch (CurrentElev.elev.engelskEksammen) {
                     case true:
-                        EngelskEksamenJa.IsChecked = true;
+                        rbEngelskEksamenJa.IsChecked = true;
                         break;
                     case false:
-                        EngelskEksamenNej.IsChecked = true;
+                        rbEngelskEksamenNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.matematikEksammen)
-                {
+                switch (CurrentElev.elev.matematikEksammen) {
                     case true:
-                        MatematikEksamenJa.IsChecked = true;
+                        rbMatematikEksamenJa.IsChecked = true;
                         break;
                     case false:
-                        MatematikEksamenNej.IsChecked = true;
+                        rbMatematikEksamenNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.danskUndervisning)
-                {
+                switch (CurrentElev.elev.danskUndervisning) {
                     case true:
-                        DanskUndervisJa.IsChecked = true;
+                        rbDanskUndervisJa.IsChecked = true;
                         break;
                     case false:
-                        DanskUndervisNej.IsChecked = true;
+                        rbDanskUndervisNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.engelskUndervisning)
-                {
+                switch (CurrentElev.elev.engelskUndervisning) {
                     case true:
-                        EngelskUndervisJa.IsChecked = true;
+                        rbEngelskUndervisJa.IsChecked = true;
                         break;
                     case false:
-                        EngelskUndervisNej.IsChecked = true;
+                        rbEngelskUndervisNej.IsChecked = true;
                         break;
                 }
-                switch (CurrentElev.elev.matematikUndervisning)
-                {
+                switch (CurrentElev.elev.matematikUndervisning) {
                     case true:
-                        MatematikUndervisJa.IsChecked = true;
+                        rbMatematikUndervisJa.IsChecked = true;
                         break;
                     case false:
-                        MatematikUndervisNej.IsChecked = true;
+                        rbMatematikUndervisNej.IsChecked = true;
                         break;
                 }
             }
@@ -161,14 +145,12 @@ namespace GFElevInterview.Views
             if (ErValideret()) {
                 IBlanket newView;
                 OpdaterCurrentElev();
-                if (CurrentElev.elev.erRKV)
-                {
+                if (CurrentElev.elev.erRKV) {
                     newView = new EUVView(parent);
                 }
-                else 
-                {
+                else {
                     newView = new VisitationsView(parent);
-                }              
+                }
                 //TODO hvis ikke RKV
                 //new BlanketUdskrivning().UdskrivningRKV();
                 parent.ChangeView(newView);
@@ -183,20 +165,26 @@ namespace GFElevInterview.Views
         }
 
         //
-        private void OpdaterCurrentElev()
-        {
+        private void OpdaterCurrentElev() {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
-            CurrentElev.elev.danskEksammen = (bool)DanskEksamenJa.IsChecked;
-            CurrentElev.elev.engelskEksammen = (bool)EngelskEksamenJa.IsChecked;
-            CurrentElev.elev.matematikEksammen = (bool)MatematikEksamenJa.IsChecked;
-            CurrentElev.elev.danskUndervisning = (bool)DanskUndervisJa.IsChecked;
-            CurrentElev.elev.engelskUndervisning = (bool)EngelskUndervisJa.IsChecked;
-            CurrentElev.elev.matematikUndervisning = (bool)MatematikUndervisJa.IsChecked;
-            CurrentElev.elev.danskNiveau = (FagNiveau)ComboboxDansk.SelectedIndex + 1;
-            CurrentElev.elev.engelskNiveau = (FagNiveau)ComboboxEngelsk.SelectedIndex + 1;
-            CurrentElev.elev.matematikNiveau = (FagNiveau)ComboboxMatematik.SelectedIndex + 1;
+            //CurrentElev.elev.danskEksammen = (bool)rbDanskEksamenJa.IsChecked;
+            //CurrentElev.elev.engelskEksammen = (bool)rbEngelskEksamenJa.IsChecked;
+            //CurrentElev.elev.matematikEksammen = (bool)rbMatematikEksamenJa.IsChecked;
+            //CurrentElev.elev.danskUndervisning = (bool)rbDanskUndervisJa.IsChecked;
+            //CurrentElev.elev.engelskUndervisning = (bool)rbEngelskUndervisJa.IsChecked;
+            //CurrentElev.elev.matematikUndervisning = (bool)rbMatematikUndervisJa.IsChecked;
+            CurrentElev.elev.danskNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
+            CurrentElev.elev.engelskNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
+            CurrentElev.elev.matematikNiveau = (FagNiveau)cmbMatematik.SelectedIndex + 1;
 
+            //NOTE Flag
+            CurrentElev.elev.SætMeritStatus(Merit.DanskEksamen, (bool)rbDanskEksamenJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.DanskUndervisning, (bool)rbDanskUndervisJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.EngelskEksamen, (bool)rbEngelskEksamenJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.EngelskUndervisning, (bool)rbEngelskUndervisJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.MatematikEksamen, (bool)rbMatematikEksamenJa.IsChecked);
+            CurrentElev.elev.SætMeritStatus(Merit.MatematikUndervisning, (bool)rbMatematikUndervisJa.IsChecked);
             //parent.CompleteCurrentInterview();
         }
 
@@ -209,35 +197,35 @@ namespace GFElevInterview.Views
             bool erValideret = true;
             Control[] danskControls = new Control[]
             {
-                ComboboxDansk,
-                DanskEksamenJa,
-                DanskEksamenNej,
-                DanskUndervisJa,
-                DanskUndervisNej
+                cmbDansk,
+                rbDanskEksamenJa,
+                rbDanskEksamenNej,
+                rbDanskUndervisJa,
+                rbDanskUndervisNej
             };
             Control[] engelskControls = new Control[]
             {
-                ComboboxEngelsk,
-                EngelskEksamenJa,
-                EngelskEksamenNej,
-                EngelskUndervisJa,
-                EngelskUndervisNej
+                cmbEngelsk,
+                rbEngelskEksamenJa,
+                rbEngelskEksamenNej,
+                rbEngelskUndervisJa,
+                rbEngelskUndervisNej
             };
             Control[] matematikControls = new Control[]
             {
-                ComboboxMatematik,
-                MatematikEksamenJa,
-                MatematikEksamenNej,
-                MatematikUndervisJa,
-                MatematikUndervisNej
+                cmbMatematik,
+                rbMatematikEksamenJa,
+                rbMatematikEksamenNej,
+                rbMatematikUndervisJa,
+                rbMatematikUndervisNej
             };
 
             #region Dropdown menu
-            if (!ValiderFag(DanskValidation, danskControls))
+            if (!ValiderFag(bdrDanskValidation, danskControls))
                 erValideret = false;
-            if (!ValiderFag(EngelskValidation, engelskControls))
+            if (!ValiderFag(bdrEngelskValidation, engelskControls))
                 erValideret = false;
-            if (!ValiderFag(MatematikValidation, matematikControls))
+            if (!ValiderFag(bdrMatematikValidation, matematikControls))
                 erValideret = false;
 
 
@@ -246,32 +234,27 @@ namespace GFElevInterview.Views
         }
 
         //[Combobox, eksamenJa, eksamenNej, UndervisJa, undervisNej]
-        private bool ValiderFag(Border border, Control[] control)
-        {
+        private bool ValiderFag(Border border, Control[] control) {
             System.Windows.Media.SolidColorBrush brushTrue = System.Windows.Media.Brushes.Gray;
             System.Windows.Media.SolidColorBrush brushFalse = System.Windows.Media.Brushes.Red;
             bool erValideret = true;
 
             ComboBox comboBox = control[0] as ComboBox;
-            if (comboBox.SelectedIndex == -1)
-            {
+            if (comboBox.SelectedIndex == -1) {
                 border.BorderBrush = brushFalse;
                 erValideret = false;
             }
-            else
-            {
+            else {
                 border.BorderBrush = brushTrue;
             }
 
-            for (int i = 0; i < 2; i++)
-            {
+            for (int i = 0; i < 2; i++) {
                 //første omgang = 0 * 2 = 0 + 1 = 1.
                 //anden omgang = 1 * 2 = 2 + 1 = 3;
                 RadioButton radioJa = control[i * 2 + 1] as RadioButton;
                 RadioButton radioNej = control[i * 2 + 2] as RadioButton;
 
-                if (!(bool)radioJa.IsChecked && !(bool)radioNej.IsChecked)
-                {
+                if (!(bool)radioJa.IsChecked && !(bool)radioNej.IsChecked) {
                     border.BorderBrush = brushFalse;
                     erValideret = false;
                 }
@@ -281,31 +264,26 @@ namespace GFElevInterview.Views
         }
 
         //Events
-        private void Combobox_DropDownClosed(object sender, EventArgs e)
-        {
+        private void Combobox_DropDownClosed(object sender, EventArgs e) {
             //Change the focus to scrollview in BlanketView.
-            parent.scrollview.Focus();
+            parent.scroll.Focus();
         }
         // TODO
         ///Mangel på obejct refernce i CurrentElev.elev.niveau
         ///CurrentElev.elev virker til at have mangel på informationer, hvilket kunne skyldes 
-        private void ComboboxFagNiveau_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void ComboboxFagNiveau_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ComboBox cb = sender as ComboBox;
             int selectedIndex = cb.SelectedIndex + 1;
 
-            if (cb == ComboboxDansk)
-            {
+            if (cb == cmbDansk) {
                 CurrentElev.elev.danskNiveau = (FagNiveau)selectedIndex;
             }
-            else if (cb == ComboboxEngelsk)
-            {
+            else if (cb == cmbEngelsk) {
                 CurrentElev.elev.engelskNiveau = (FagNiveau)selectedIndex;
             }
-            else if (cb == ComboboxMatematik)
-            {
+            else if (cb == cmbMatematik) {
                 CurrentElev.elev.matematikNiveau = (FagNiveau)selectedIndex;
             }
-        }     
+        }
     }
 }

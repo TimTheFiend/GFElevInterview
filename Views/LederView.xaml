@@ -16,27 +16,26 @@
             <RowDefinition Height="330"/>
         </Grid.RowDefinitions>
 
-        <Button x:Name="RKV" Content="RKV" Click="RKV_Click" Margin="288,10,328,40" Style="{StaticResource VisButtons}"/>
-        <Button x:Name="Merit" Content="Merit" Click="Merit_Click" Margin="399,10,217,40" Style="{StaticResource VisButtons}"/>
-        <ComboBox Width="200" Height="25" x:Name="SkoleDropDown" Margin="10,39,486,6" Grid.Column="0" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged">
-        </ComboBox>
-        <Button x:Name="SPS" Content="SPS" Click="SPS_Click" Margin="288,44,328,6" Style="{StaticResource VisButtons}"/>
-        <Button x:Name="EUD" Content="EUD" Click="EUD_Click" Margin="399,44,217,6" Style="{StaticResource VisButtons}"/>
+        <Button x:Name="btnRKV" Content="RKV" Click="RKV_Click" Margin="288,10,328,40" Style="{StaticResource btnShow}"/>
+        <Button x:Name="btnMerit" Content="Merit" Click="Merit_Click" Margin="399,10,217,40" Style="{StaticResource btnShow}"/>
+        <ComboBox Width="200" Height="25" x:Name="cmbSchool" Margin="10,39,486,6" Grid.Column="0" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged"/>
+        <Button x:Name="btnSPS" Content="SPS" Click="SPS_Click" Margin="288,44,328,6" Style="{StaticResource btnShow}"/>
+        <Button x:Name="btnEUD" Content="EUD" Click="EUD_Click" Margin="399,44,217,6" Style="{StaticResource btnShow}"/>
         <TextBox Width="160" Height="20" x:Name="Sogefelt" Grid.Column="0" Grid.Row="0" Margin="506,44,30,6"/>
-        <Button x:Name="visAlle" Content="Vis Alle" Click="visAlle_Click" Margin="506,10,110,40" Style="{StaticResource VisButtons}"/>
+        <Button x:Name="btnVisAlle" Content="Vis Alle" Click="visAlle_Click" Margin="506,10,110,40" Style="{StaticResource btnShow}"/>
 
         <Border Grid.Column="1" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
             <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <StackPanel Background="#495057" Grid.Column="1" Grid.Row="1" Margin="0,0,0,-50">
-            <Button Content="Merit Export" Margin="0,10,0,0" Click="ExportMerit_Click" Style="{StaticResource AdminButtons}"/>
-            <Button Content="RKV Export" Margin="0,10,0,10" Click="ExportRKV_Click"  Style="{StaticResource AdminButtons}"/>
+            <Button Content="Merit Export" Margin="0,10,0,0" Click="ExportMerit_Click" Style="{StaticResource btnAdmin}"/>
+            <Button Content="RKV Export" Margin="0,10,0,10" Click="ExportRKV_Click"  Style="{StaticResource btnAdmin}"/>
             <TextBlock Text="EXCEL" HorizontalAlignment="Center" FontSize="25" Margin="5"/>
-            <Button Content="Tilføj" Margin="2" x:Name="TilføjKnp" Click="TilføjKnp_Click" Style="{StaticResource AdminButtons}"/>
-            <Button Content="Reset" Margin="8" Style="{StaticResource AdminButtons}"/>
+            <Button Content="Tilføj" Margin="2" x:Name="TilføjKnp" Click="TilføjKnp_Click" Style="{StaticResource btnAdmin}"/>
+            <Button Content="Reset" Margin="8" Style="{StaticResource btnAdmin}"/>
         </StackPanel>
 
-        <DataGrid x:Name="elevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True">
+        <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="0" Grid.Row="1" Margin="48,15,30,-27" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="CPR" Binding="{Binding cprNr}"/>
                 <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}"/>
@@ -58,7 +57,7 @@
                 <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Width="80" Height="20" x:Name="Open_RKV" Content="Åben RKV" Click="Open_RKV_Click" Margin="14,283,10,27" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
-        <Button  Width="80" Height="20" x:Name="Open_Merit" Content="Åben Merit" Click="Open_Merit_Click" Margin="14,315,10,-5" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
+        <Button Width="80" Height="20" x:Name="btnOpen_RKV" Content="Åben RKV" Click="Open_RKV_Click" Margin="14,283,10,27" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
+        <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" Click="Open_Merit_Click" Margin="14,315,10,-5" Grid.Column="1" Grid.Row="1" IsEnabled="False"/>
     </Grid>
 </UserControl>

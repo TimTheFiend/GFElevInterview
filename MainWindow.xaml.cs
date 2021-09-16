@@ -1,19 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
-using GFElevInterview.Models;
 
 namespace GFElevInterview
 {
@@ -22,8 +8,13 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
+        public static MainWindow instance = null;
+
+        public MainWindow() {
+            if (instance == null) {
+                instance = this;
+            }
+
             InitializeComponent();
             //this.DataContext =;
             //Data.AdminTools.HentAntalEleverPåSkole();
@@ -34,8 +25,7 @@ namespace GFElevInterview
         }
 
         //TODO Ryk til DbTools
-        private void OpdaterCounter()
-        {
+        public void OpdaterCounter() {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();
             LyngbyTXT.Text = dict["Lyngby"].ToString();
             BallerupTXT.Text = dict["Ballerup"].ToString();
@@ -43,6 +33,7 @@ namespace GFElevInterview
         }
         //#region Home
         //TODO overvej at fjerne?
+
         //private void btnHome_Click(object sender, RoutedEventArgs e)
         //{
         //    HomePanel.Visibility = Visibility.Visible;
@@ -51,31 +42,30 @@ namespace GFElevInterview
         //}
         //#endregion
 
+
         #region Underviser View
-        private void btnUnderviser_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
+            OpdaterCounter();
         }
         #endregion
 
         #region LederView
         //todo
-        private void btnLeder_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnLeder_Click(object sender, RoutedEventArgs e) {
             mainContent.Content = new Views.LederView();
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
-
+            OpdaterCounter();
         }
 
         //todo
-        private void signinButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void signinButton_Click(object sender, RoutedEventArgs e) {
             //GFElevInterview.Views.LederView LederView = new Views.LederView();
             //if (passwordText.Password == "1234")
             //{
@@ -95,8 +85,7 @@ namespace GFElevInterview
             //}
         }
 
-        private void passwordText_KeyDown(object sender, KeyEventArgs e)
-        {
+        private void passwordText_KeyDown(object sender, KeyEventArgs e) {
         }
 
         #endregion

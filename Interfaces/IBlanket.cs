@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GFElevInterview.Interfaces
+﻿namespace GFElevInterview.Interfaces
 {
     /// <summary>
     /// Interface der indeholder funktioner der skal være i hver blanket af interview-delen.

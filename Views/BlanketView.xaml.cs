@@ -1,12 +1,12 @@
-﻿using GFElevInterview.Interfaces;
-using GFElevInterview.Data;
+﻿using GFElevInterview.Data;
+using GFElevInterview.Interfaces;
+using GFElevInterview.Models;
 using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using GFElevInterview.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 
 namespace GFElevInterview.Views
@@ -14,9 +14,9 @@ namespace GFElevInterview.Views
     /// <summary>
     /// Interaction logic for BlanketView.xaml
     /// </summary>
-    public partial class BlanketView : UserControl {
+    public partial class BlanketView : UserControl
+    {
         IBlanket currentView;
-        DbTools db = new DbTools();
 
         public BlanketView() {
             InitializeComponent();
@@ -29,10 +29,8 @@ namespace GFElevInterview.Views
                 currentView = new MeritBlanketView(this);
             }
 
-            mainContent.Content = currentView;
+            cntMain.Content = currentView;
         }
-
-
 
         public void FærdiggørInterview() {
 
@@ -54,68 +52,65 @@ namespace GFElevInterview.Views
             if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
                 if (OpdaterElevIDatabase()) {
                     CurrentElev.NulstilCurrentElev();
-                    //TODO Lav metode to rest
+                    //TODO Lav metode to reset
                     currentView = null;
-                    mainContent.Content = null;
-                    StudentsFullInfo.Content = "";
+                    cntMain.Content = null;
+                    lblStudentInfo.Content = "";
+                    MainWindow.instance.OpdaterCounter();
                     AlertBoxes.OnSuccessfulCompletion();
                 }
             }
         }
-        private bool OpdaterElevIDatabase()
-        {
-            try
-            {
-                db.Elever.Update(CurrentElev.elev);
-                db.SaveChanges();
+
+        private bool OpdaterElevIDatabase() {
+            try {
+                DbTools.Instance.Elever.Update(CurrentElev.elev);
+                DbTools.Instance.SaveChanges();
                 return true;
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 return false;
             }
         }
         //Event Handler
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if (SearchStudentBox.SelectedIndex >= 0) {
-                if(CurrentElev.elev.ErUdfyldt)
-                {
-                    if (AlertBoxes.OnSelectingNewStudents())
-                    {
+            if (lstSearch.SelectedIndex >= 0) {
+                if (CurrentElev.elev.ErUdfyldt) {
+                    if (AlertBoxes.OnSelectingNewStudents()) {
                         CurrentElev.NulstilCurrentElev();
                         currentView = null;
                     }
                 }
                 InitialiserBlanket();
-                CurrentElev.elev = SearchStudentBox.SelectedItem as ElevModel;
-                StudentsFullInfo.Content = CurrentElev.elev.FuldInfo;
+                CurrentElev.elev = lstSearch.SelectedItem as ElevModel;
+                lblStudentInfo.Content = CurrentElev.elev.FuldInfo;
 
                 //Nulstiller textbox og listbox
-                SearchStudentTxt.Text = "";
-                SearchStudentBox.ItemsSource = null;
+                txtSearch.Text = "";
+                lstSearch.ItemsSource = null;
             }
         }
 
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
-            string text = SearchStudentTxt.Text;
-            SearchStudentBox.ItemsSource = null;
+            string text = txtSearch.Text;
+            lstSearch.ItemsSource = null;
             if (String.IsNullOrEmpty(text)) {
                 return;
             }
             //TODO Ryk til DbTools
-            List<ElevModel> elevModels = db.Elever.Where(
+            List<ElevModel> elevModels = DbTools.Instance.Elever.Where(
                 elev => (elev.efternavn.ToLower()).StartsWith(text.ToLower())
                 || elev.cprNr.StartsWith(text)
                 || elev.fornavn.ToLower().StartsWith(text.ToLower())
                 ).ToList();
-            SearchStudentBox.ItemsSource = elevModels;
+            lstSearch.ItemsSource = elevModels;
         }
 
         private void OnButtonClick() {
-            scrollview.ScrollToTop();
+            scroll.ScrollToTop();
         }
-        
+
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
             OnButtonClick();
@@ -128,8 +123,10 @@ namespace GFElevInterview.Views
 
         public void ChangeView(IBlanket newView) {
             currentView = newView;
-            mainContent.Content = currentView;
-        }
+            cntMain.Content = currentView;
 
+            //FIXME kaldes ikke nok
+            MainWindow.instance.OpdaterCounter();
+        }
     }
 }

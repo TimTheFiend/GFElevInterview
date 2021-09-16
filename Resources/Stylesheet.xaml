@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:GFElevInterview.Resources">
-    <Style x:Key="baseButton" TargetType="Button">
+    <!-- #region BlanketView -->
+    <Style x:Key="btnBase" TargetType="Button">
         <Setter Property="Background" Value="Gray"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Height" Value="50"/>
@@ -10,16 +11,68 @@
         <Setter Property="FontSize" Value="22"/>
         <Setter Property="Margin" Value="20"/>
     </Style>
-    <Style x:Key="VisButtons" TargetType="Button">
+    <!--#endregion-->
+    <!--#region LederView-->
+    <Style x:Key="btnShow" TargetType="Button">
         <Setter Property="Height" Value="20"/>
         <Setter Property="Width" Value="80"/>
         <Setter Property="Grid.Column" Value="0"/>
         <Setter Property="Grid.Row" Value="0"/>
     </Style>
-    <Style x:Key="AdminButtons" TargetType="Button">
+    <Style x:Key="btnAdmin" TargetType="Button">
         <Setter Property="Background" Value="Gray"/>
         <Setter Property="Width" Value="80"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="FontSize" Value="13"/>
     </Style>
+    <Style x:Key="btnAdminOpen" TargetType="Button">
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+    <!--#endregion-->
+    <!--#region EUVView-->
+    <Style x:Key="txtEUV" TargetType="TextBlock">
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        <Setter Property="FontSize" Value="14.5"/>
+    </Style>
+    <Style x:Key="bdrEUV" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="0,20,0,0"/>
+    </Style>
+    <Style x:Key="bdrEUV2" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+    <!--#endregion-->
+    <!--#region VisitationsView-->
+    <Style x:Key="bdrVisitation" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+    <Style x:Key="labVisitation" TargetType="Label">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+    <!--#endregion-->
+    <!--#region MainWindow-->
+    <Style x:Key="btnPanel" TargetType="Button">
+        <Setter Property="Margin" Value="20,30"/>
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="22"/>
+    </Style>
+    <Style x:Key="bdrMain" TargetType="Border">
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="BorderBrush" Value="Gray"/>
+    </Style>
+    <!--#endregion-->
 </ResourceDictionary>

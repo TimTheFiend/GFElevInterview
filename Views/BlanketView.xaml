@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Border Background="WhiteSmoke" x:Name="blanketView" BorderBrush="Gray" BorderThickness="2">
+        <Border Background="WhiteSmoke" x:Name="bdrBlanketView" BorderBrush="Gray" BorderThickness="2">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
@@ -21,13 +21,13 @@
 
                     <WrapPanel>
                         <Label FontSize="20" FontWeight="Bold" FontStyle="Italic" >Søge elev :</Label>
-                        <TextBox x:Name="SearchStudentTxt"  Margin="10" Width="650"  Height="30"  Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged" />
+                        <TextBox x:Name="txtSearch" Margin="10" Width="650" Height="30" Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged" />
                     </WrapPanel>
                 </Border>
 
                 <Border Grid.Row="1" BorderBrush="Gray">
 
-                    <ListBox x:Name="SearchStudentBox"  Background="WhiteSmoke"  SelectionChanged="SearchStudentBox_SelectionChanged">
+                    <ListBox x:Name="lstSearch" Background="WhiteSmoke" SelectionChanged="SearchStudentBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding FuldInfo}" />
@@ -38,30 +38,30 @@
 
                 <Border Grid.Row="2" BorderBrush="Gray">
                     <WrapPanel>
-                        <Label FontSize="20"  Content="" Name="StudentsFullInfo" VerticalContentAlignment="Top" />
+                        <Label FontSize="20" Content="" x:Name="lblStudentInfo" VerticalContentAlignment="Top" />
                     </WrapPanel>
                 </Border>
 
-                <Border  BorderBrush="Gray"  Grid.Row="3" Panel.ZIndex="0">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="scrollview">
-                        <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <ContentControl x:Name="MeritContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <ContentControl x:Name="WordContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Border  BorderBrush="Gray" Grid.Row="3" Panel.ZIndex="0">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="scroll">
+                        <ContentControl x:Name="cntMain" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ContentControl x:Name="cntMerit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <ContentControl x:Name="cntWord" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 </ContentControl>
                             </ContentControl>
                         </ContentControl>
                     </ScrollViewer>
                 </Border>
 
-                <Border BorderBrush="Gray"  Grid.Row="4">
+                <Border BorderBrush="Gray" Grid.Row="4">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="btnFrem" Content="Frem" Grid.Column="1" HorizontalAlignment="Right" Click="Frem_Click" Style="{StaticResource baseButton}"/>
-                        <Button x:Name="btnTilbage" Content="Tilbage" Grid.Column="0" HorizontalAlignment="Left" Click="Tilbage_Click" Style="{StaticResource baseButton}"/>
+                        <Button x:Name="btnFrem" Content="Frem" Grid.Column="1" HorizontalAlignment="Right" Click="Frem_Click" Style="{StaticResource btnBase}"/>
+                        <Button x:Name="btnTilbage" Content="Tilbage" Grid.Column="0" HorizontalAlignment="Left" Click="Tilbage_Click" Style="{StaticResource btnBase}"/>
                     </Grid>
                 </Border>
             </Grid>
