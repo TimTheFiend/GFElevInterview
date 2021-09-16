@@ -100,5 +100,10 @@ namespace GFElevInterview
         }
 
         #endregion
+
+        private void btnVejleder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
