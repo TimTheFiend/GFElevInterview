@@ -13,17 +13,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-
-       
-            
-              
         <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="4" >
 
             <StackPanel >
-                <Button Style="{StaticResource btnPanel}" Name="btnVejleder" Click="btnVejleder_Click" >Vejleder</Button>
+                <Button Style="{StaticResource btnPanel}" Name="btnHome" Click="btnHome_Click" >Home</Button>
                 <Button Style="{StaticResource btnPanel}" Name="btnUnderviser" Click="btnUnderviser_Click" >Underviser</Button>
                 <Button Style="{StaticResource btnPanel}" Name="btnLeder" Click="btnLeder_Click" >Leder</Button>
-
                 <Border BorderBrush="Gray" BorderThickness="4" Margin="10,0,10,0">
                     <StackPanel>
                         <DockPanel>
@@ -38,16 +33,9 @@
                             <TextBlock Text="Ballerup: " FontSize="20"/>
                             <TextBlock x:Name="BallerupTXT" FontSize="20"/>
                         </DockPanel>
-                        <DockPanel Margin="0,6,0,6">
-                            <TextBlock Text="Fuldt forløb: " FontSize="15"/>
-                            <TextBlock x:Name="BallerupFuldTXT" FontSize="15"/>
-                        </DockPanel>
-                        <TextBlock Text="Ordinær Plus: " FontSize="15"/>
-                        <TextBlock x:Name="BallerupPlusTXT" FontSize="15"/>
                     </StackPanel>
                 </Border>
-                <Image Height="139" Width="200" HorizontalAlignment="Center" Source="Resources/TECLOGO.png" />
-                <Image Height="139" Width="200" HorizontalAlignment="Center" Source="Resources/TECLOGO.png" />
+                <Image Margin="10,200" Height="150" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
 
             </StackPanel>
 

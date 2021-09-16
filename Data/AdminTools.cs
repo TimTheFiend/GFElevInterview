@@ -37,9 +37,7 @@ namespace GFElevInterview.Data
             }
         }
 
-
         public static void ZipRKVFiler() {
-
             string[] filNavne = HentFiler(config.AppSettings.Get("endRKV"));
 
             string filSti = config.AppSettings.Get("samletRKV");
