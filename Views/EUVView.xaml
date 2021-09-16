@@ -13,10 +13,7 @@
             <Border BorderBrush="Gray" BorderThickness="1" Margin="10" x:Name="bdrEducation">
                 <StackPanel Margin="10">
                     <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="20" />
-
-                    <ComboBox x:Name="educationComboBox" Width="350" HorizontalAlignment="Left"/>
-
-
+                    <ComboBox x:Name="cmbEducation"/>
                 </StackPanel>
             </Border>
             <Border BorderBrush="Gray" BorderThickness="1" Margin="10">
@@ -29,10 +26,7 @@
                                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                                 </RadioButton.RenderTransform>
                             </RadioButton>
-
-                            <RadioButton x:Name="euv1Nej" Content="Nej" GroupName="euv1" Width="50" HorizontalAlignment="Left">
-
-
+                            <RadioButton x:Name="rbEuv1Nej" Content="Nej" GroupName="grpeuv1">
                                 <RadioButton.RenderTransform>
                                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                                 </RadioButton.RenderTransform>
@@ -98,9 +92,8 @@
                                                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                                                 </RadioButton.RenderTransform>
                                             </RadioButton>
-
-                                            <RadioButton x:Name="euv1SporgsmalNej" Margin="5" GroupName="euv1sporgsmal" Width="50" HorizontalAlignment="Left">
-
+                                            <TextBlock Text="NEJ" FontSize="26"/>
+                                            <RadioButton x:Name="rbEuv1SprgNej" GroupName="grpEuv1Sprg" Margin="0,5,20,0">
                                                 <RadioButton.RenderTransform>
                                                     <ScaleTransform ScaleX="2" ScaleY="2"/>
                                                 </RadioButton.RenderTransform>
@@ -121,9 +114,7 @@
                                             <ScaleTransform ScaleX="2" ScaleY="2"/>
                                         </RadioButton.RenderTransform>
                                     </RadioButton>
-
-                                    <RadioButton x:Name="euv2Nej" Margin="0,5,0,0" Content="Nej" Width="50" HorizontalAlignment="Left">
-
+                                    <RadioButton x:Name="rbEuv2Nej" Margin="0,5,0,0" Content="Nej" >
                                         <RadioButton.RenderTransform>
                                             <ScaleTransform ScaleX="2" ScaleY="2"/>
                                         </RadioButton.RenderTransform>
@@ -137,9 +128,7 @@
             <Border Style="{StaticResource bdrEUV2}" x:Name="bdrAdresse">
                 <StackPanel>
                     <TextBlock TextWrapping="WrapWithOverflow" Text="Hvilken adresse ønske du at starte på?" FontSize="18" Margin="0,10,0,0"/>
-
-                    <ComboBox x:Name="uddannelsesBox" Width="350" HorizontalAlignment="Left"/>
-
+                    <ComboBox x:Name="cmbUddannelse"/>
                 </StackPanel>
             </Border>
             <Border Style="{StaticResource bdrEUV2}" x:Name="bdrSps" Height="103">
@@ -151,9 +140,7 @@
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
-
-                        <RadioButton x:Name="spsSupportNej" Margin="0,5,0,0" Content="Nej" Width="50" HorizontalAlignment="Left">
-
+                        <RadioButton x:Name="rbSpsNej" Margin="0,5,0,0" Content="Nej">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
@@ -170,9 +157,7 @@
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
                         </RadioButton>
-
-                        <RadioButton x:Name="eudSupportNej" Margin="0,5,0,0" Content="Nej" Width="50" HorizontalAlignment="Left">
-
+                        <RadioButton x:Name="rbEudNej" Margin="0,5,0,0" Content="Nej">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2"/>
                             </RadioButton.RenderTransform>
