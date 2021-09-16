@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="528.324" d:DesignWidth="800">
     <Grid>
         <StackPanel>
             <Label Content="Interview guide til Visitations elever"  Style="{StaticResource labVisitation}"/>

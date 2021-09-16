@@ -21,6 +21,7 @@ namespace GFElevInterview
 
             //new DbTools().TilføjElever();
             OpdaterCounter();
+            mainContent.Content = new Views.BlanketView();
         }
 
         //TODO Ryk til DbTools
@@ -30,15 +31,17 @@ namespace GFElevInterview
             BallerupTXT.Text = dict["Ballerup"].ToString();
             FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
         }
-        #region Home
+        //#region Home
         //TODO overvej at fjerne?
-        private void btnHome_Click(object sender, RoutedEventArgs e) {
-            HomePanel.Visibility = Visibility.Visible;
-            UnderviserPanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
-            OpdaterCounter();
-        }
-        #endregion
+
+        //private void btnHome_Click(object sender, RoutedEventArgs e)
+        //{
+        //    HomePanel.Visibility = Visibility.Visible;
+        //    UnderviserPanel.Visibility = Visibility.Collapsed;
+        //    LederPanel.Visibility = Visibility.Collapsed;
+        //}
+        //#endregion
+
 
         #region Underviser View
         private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
@@ -86,5 +89,10 @@ namespace GFElevInterview
         }
 
         #endregion
+
+        private void btnVejleder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
