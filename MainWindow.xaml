@@ -36,10 +36,19 @@
                             <TextBlock Text="Ballerup: " FontSize="20"/>
                             <TextBlock x:Name="BallerupTXT" FontSize="20"/>
                         </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="Plus Forløb: 0" FontSize="15"/>
+                            <TextBlock x:Name="PlusForløbTXT" FontSize="15"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock Text="Fuldt Forløb: 0" FontSize="15"/>
+                            <TextBlock x:Name="FuldtForløbTXT" FontSize="15"/>
+                        </DockPanel>
                     </StackPanel>
                 </Border>
-                <Separator Height="140" Background="Transparent" Padding="0" Margin="0"/>
-                <Image Height="150" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
+                
+                <Image Height="120" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
+                <Image Height="120" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
             </StackPanel>
         </Border>
 
