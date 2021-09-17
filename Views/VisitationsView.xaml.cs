@@ -50,9 +50,7 @@ namespace GFElevInterview.Views
         /// udfyldning af visitationsView
         /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
-
-            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse))
-            {
+            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse)) {
                 UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.sps);
                 UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.eud);
 
@@ -60,7 +58,7 @@ namespace GFElevInterview.Views
                 UdfyldBlanket.UdfyldComboBox(cmbAdresse, CurrentElev.elev.uddannelseAdresse);
             }
 
-                return;
+            return;
             if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse)) {
                 cmbEducation.SelectedItem = CurrentElev.elev.uddannelse;
             }
@@ -108,9 +106,9 @@ namespace GFElevInterview.Views
                 parent.FærdiggørInterview();
             }
         }
+
         /// <summary>Ændr <see cref="BlanketView"/>s <see cref="ContentControl"/> til <see cref="MeritBlanketView"/></summary>
-        public void Tilbage()
-        {
+        public void Tilbage() {
             parent.SkiftBlanket(new MeritBlanketView(parent));
         }
 
@@ -123,7 +121,6 @@ namespace GFElevInterview.Views
             CurrentElev.elev.sps = (bool)rbSpsJa.IsChecked;
             CurrentElev.elev.eud = (bool)rbEudJa.IsChecked;
         }
-
 
         /// <summary>
         /// Bestemmer om siden er valideret og klar til afslutning, og highlighter felter der mangler.
@@ -166,9 +163,6 @@ namespace GFElevInterview.Views
 
         #region RadioButton setters
 
-           // CurrentElev.elev.sps = (sender as RadioButton) == rbSpsJa ? true : false;
-        }
-
         private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
             //CurrentElev.elev.eud = (sender as RadioButton) == rbEudJa ? true : false;
         }
@@ -176,5 +170,8 @@ namespace GFElevInterview.Views
         #endregion RadioButton setters
 
         #endregion Combobox/Radiobutton Eventhandlers
+
+        private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
+        }
     }
 }

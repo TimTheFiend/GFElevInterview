@@ -88,10 +88,9 @@ namespace GFElevInterview.Views
             bool erValideret = true;
 
             bool erElevEUV1;
-            erValideret = InputValidering.ValiderToRadioButtons(rbEuv1Ja, rbEuv1Nej, out erElevEUV1, bdrEuv1) && erValideret;
+            erValideret = InputValidering.ValiderToRadioButtons(rbEuv1Ja, rbEuv1Nej, out erElevEUV1, bdrEuv1Sprg) && erValideret;
             if (erElevEUV1) {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv1SprgJa, rbEuv1SprgNej, bdrEuv1Sprg) && erValideret;
-
             }
             else {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv2Ja, rbEuv2Nej, bdrEuv2) && erValideret;
@@ -131,21 +130,19 @@ namespace GFElevInterview.Views
             return false;
         }
 
-
-        private void UdfyldBlanketHvisAlleredeEksisterende()
-        {
-            if(CurrentElev.elev.elevType > ElevType.Null)
-            {
-                switch (CurrentElev.elev.elevType)
-                {
+        private void UdfyldBlanketHvisAlleredeEksisterende() {
+            if (CurrentElev.elev.elevType > ElevType.Null) {
+                switch (CurrentElev.elev.elevType) {
                     case ElevType.EUV1:
                         //EUV1 == rbEuv1Ja, rbEuv1SprgJa
-                        
+
                         UdfyldEUVRadioButton(rbEuv1Ja, rbEuv1SprgJa);
                         break;
+
                     case ElevType.EUV2:
                         UdfyldEUVRadioButton(rbEuv1Nej, rbEuv1SprgJa);
                         break;
+
                     case ElevType.EUV3:
                         UdfyldEUVRadioButton(rbEuv1Nej, rbEuv2Nej);
                         break;
@@ -159,8 +156,7 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void UdfyldEUVRadioButton(RadioButton rbTop, RadioButton rbBund)
-        {
+        private void UdfyldEUVRadioButton(RadioButton rbTop, RadioButton rbBund) {
             rbTop.IsChecked = true;
             rbBund.IsChecked = true;
         }
