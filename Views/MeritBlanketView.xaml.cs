@@ -201,9 +201,9 @@ namespace GFElevInterview.Views
         private bool ErValideret() {
             bool erValideret = true;
 
-            erValideret = InputValidering.ValiderMerit(rbDanskEksamenJa, rbDanskEksamenNej, rbDanskUndervisJa, rbDanskUndervisNej, cmbDansk, bdrDanskValidation) && erValideret != false;
-            erValideret = InputValidering.ValiderMerit(rbMatematikEksamenJa, rbMatematikEksamenNej, rbMatematikUndervisJa, rbMatematikUndervisNej, cmbMatematik, bdrMatematikValidation) && erValideret != false;
-            erValideret = InputValidering.ValiderMerit(rbEngelskEksamenJa, rbEngelskEksamenNej, rbEngelskUndervisJa, rbEngelskUndervisNej, cmbEngelsk, bdrEngelskValidation) && erValideret != false;
+            erValideret = InputValidering.ValiderMerit(rbDanskEksamenJa, rbDanskEksamenNej, rbDanskUndervisJa, rbDanskUndervisNej, cmbDansk, bdrDanskValidation) && erValideret;
+            erValideret = InputValidering.ValiderMerit(rbMatematikEksamenJa, rbMatematikEksamenNej, rbMatematikUndervisJa, rbMatematikUndervisNej, cmbMatematik, bdrMatematikValidation) && erValideret;
+            erValideret = InputValidering.ValiderMerit(rbEngelskEksamenJa, rbEngelskEksamenNej, rbEngelskUndervisJa, rbEngelskUndervisNej, cmbEngelsk, bdrEngelskValidation) && erValideret;
 
             return erValideret;
         }
