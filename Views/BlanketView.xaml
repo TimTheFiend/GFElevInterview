@@ -5,23 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Background="WhiteSmoke">
     <Grid>
-        <Border Background="WhiteSmoke" x:Name="bdrBlanketView" BorderBrush="Gray" BorderThickness="2">
+        <Border x:Name="bdrBlanketView" BorderBrush="Gray">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="100" />
+                    <RowDefinition Height="75" />
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0" BorderBrush="Gray">
 
                     <WrapPanel>
-                        <Label FontSize="20" FontWeight="Bold" FontStyle="Italic" >Søge elev :</Label>
-                        <TextBox x:Name="txtSearch" Margin="10" Width="650" Height="30" Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged" />
+                        <Label FontSize="20" FontWeight="Bold" FontStyle="Italic" >Søg elev:</Label>
+                        <TextBox x:Name="txtSearch" Width="650" Height="30" Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged" />
                     </WrapPanel>
                 </Border>
 
@@ -38,7 +38,7 @@
 
                 <Border Grid.Row="2" BorderBrush="Gray">
                     <WrapPanel>
-                        <Label FontSize="20" Content="" x:Name="lblStudentInfo" VerticalContentAlignment="Top" />
+                        <Label FontSize="16" Content="" x:Name="lblStudentInfo" VerticalContentAlignment="Top" />
                     </WrapPanel>
                 </Border>
 
@@ -59,9 +59,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
-                        <Button x:Name="btnFrem" Content="Frem" Grid.Column="1" HorizontalAlignment="Right" Click="Frem_Click" Style="{StaticResource btnBase}"/>
-                        <Button x:Name="btnTilbage" Content="Tilbage" Grid.Column="0" HorizontalAlignment="Left" Click="Tilbage_Click" Style="{StaticResource btnBase}"/>
+                        <Button x:Name="btnTilbage" Content="Tilbage" Grid.Column="0" Click="Tilbage_Click" Style="{StaticResource btnNavigate}"/>
+                        <Button x:Name="btnFrem" Content="Frem" Grid.Column="1" Click="Frem_Click" Style="{StaticResource btnNavigate}" />
                     </Grid>
                 </Border>
             </Grid>
