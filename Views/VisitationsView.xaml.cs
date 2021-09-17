@@ -1,5 +1,6 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Interfaces;
+using GFElevInterview.Models;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,17 +32,12 @@ namespace GFElevInterview.Views
             SætKnapper();
             SætKomboBokse();
 
-            UdfyldBlanket();
+            UdfyldBlanketHvisAlleredeEksisterende();
         }
 
+        //TODO Ændre måden vi henter lister
         private void SætKomboBokse() {
             cmbAdresse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
-
-            ///Får programmet til at crashe da SelectedItem = null (???)
-            //if (educationAdresseComboBox.Items.Count == 1) {
-            //    educationAdresseComboBox.SelectedIndex = 0;
-            //}
-
             cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
         }
 
@@ -53,7 +49,18 @@ namespace GFElevInterview.Views
         /// <summary>
         /// udfyldning af visitationsView
         /// </summary>
-        private void UdfyldBlanket() {
+        private void UdfyldBlanketHvisAlleredeEksisterende() {
+
+            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse))
+            {
+                UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.sps);
+                UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.eud);
+
+                UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.uddannelse);
+                UdfyldBlanket.UdfyldComboBox(cmbAdresse, CurrentElev.elev.uddannelseAdresse);
+            }
+
+                return;
             if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse)) {
                 cmbEducation.SelectedItem = CurrentElev.elev.uddannelse;
             }
@@ -97,28 +104,26 @@ namespace GFElevInterview.Views
 
         public void Frem() {
             if (ErValideret()) {
-                //TODO Hvis ikke RKV
-                //TODO Udprint
-                //TODO Få fra Søgning
-                OpdaterCurrentElev();
+                SætCurrentElevVærdier();
+                parent.FærdiggørInterview();
             }
         }
+        /// <summary>Ændr <see cref="BlanketView"/>s <see cref="ContentControl"/> til <see cref="MeritBlanketView"/></summary>
+        public void Tilbage()
+        {
+            parent.SkiftBlanket(new MeritBlanketView(parent));
+        }
 
-        private void OpdaterCurrentElev() {
+        //TODO
+        private void SætCurrentElevVærdier() {
             //NOTE: Bliver sat før vi overhovedet kommer hertil
 
             CurrentElev.elev.uddannelseAdresse = cmbAdresse.Text;
             CurrentElev.elev.uddannelse = cmbEducation.Text;
             CurrentElev.elev.sps = (bool)rbSpsJa.IsChecked;
             CurrentElev.elev.eud = (bool)rbEudJa.IsChecked;
-
-            parent.FærdiggørInterview();
         }
 
-        /// <summary>Ændr <see cref="BlanketView"/>s <see cref="ContentControl"/> til <see cref="MeritBlanketView"/></summary>
-        public void Tilbage() {
-            parent.ChangeView(new MeritBlanketView(parent));
-        }
 
         /// <summary>
         /// Bestemmer om siden er valideret og klar til afslutning, og highlighter felter der mangler.
@@ -149,24 +154,23 @@ namespace GFElevInterview.Views
 
         /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
         private void educationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            CurrentElev.elev.uddannelse = (sender as ComboBox).SelectedItem.ToString();
+            //CurrentElev.elev.uddannelse = (sender as ComboBox).SelectedItem.ToString();
         }
 
         /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
         private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            CurrentElev.elev.uddannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
+            //CurrentElev.elev.uddannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
         }
 
         #endregion Combobox
 
         #region RadioButton setters
 
-        private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
-            CurrentElev.elev.sps = (sender as RadioButton) == rbSpsJa ? true : false;
+           // CurrentElev.elev.sps = (sender as RadioButton) == rbSpsJa ? true : false;
         }
 
         private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
-            CurrentElev.elev.eud = (sender as RadioButton) == rbEudJa ? true : false;
+            //CurrentElev.elev.eud = (sender as RadioButton) == rbEudJa ? true : false;
         }
 
         #endregion RadioButton setters

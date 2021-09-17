@@ -25,6 +25,8 @@ namespace GFElevInterview.Views
         }
 
         private void InitialiserBlanket() {
+            btnTilbage.IsEnabled = false;
+
             if (currentView == null) {
                 currentView = new MeritBlanketView(this);
             }
@@ -74,6 +76,19 @@ namespace GFElevInterview.Views
         }
         //Event Handler
 
+        private void ScrollTilTop()
+        {
+            scroll.ScrollToTop();
+        }
+        public void SkiftBlanket(IBlanket newView)
+        {
+            currentView = newView;
+            cntMain.Content = currentView;
+
+            //FIXME kaldes ikke nok
+            MainWindow.instance.OpdaterCounter();
+        }
+
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (lstSearch.SelectedIndex >= 0) {
                 if (CurrentElev.elev.ErUdfyldt) {
@@ -82,9 +97,9 @@ namespace GFElevInterview.Views
                         currentView = null;
                     }
                 }
-                InitialiserBlanket();
                 CurrentElev.elev = lstSearch.SelectedItem as ElevModel;
                 lblStudentInfo.Content = CurrentElev.elev.FuldInfo;
+                InitialiserBlanket();
 
                 //Nulstiller textbox og listbox
                 txtSearch.Text = "";
@@ -107,26 +122,17 @@ namespace GFElevInterview.Views
             lstSearch.ItemsSource = elevModels;
         }
 
-        private void OnButtonClick() {
-            scroll.ScrollToTop();
-        }
 
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
-            OnButtonClick();
+            ScrollTilTop();
         }
 
         private void Tilbage_Click(object sender, RoutedEventArgs e) {
             currentView.Tilbage();
-            OnButtonClick();
+            ScrollTilTop();
         }
 
-        public void ChangeView(IBlanket newView) {
-            currentView = newView;
-            cntMain.Content = currentView;
 
-            //FIXME kaldes ikke nok
-            MainWindow.instance.OpdaterCounter();
-        }
     }
 }

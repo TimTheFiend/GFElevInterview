@@ -42,6 +42,8 @@ namespace GFElevInterview.Views
             expEuv2.IsExpanded = false;
             expEuv2.IsEnabled = false;
             cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
+
+            UdfyldBlanketHvisAlleredeEksisterende();
         }
 
         private void SætButtons() {
@@ -79,7 +81,7 @@ namespace GFElevInterview.Views
         }
 
         public void Tilbage() {
-            parent.ChangeView(new MeritBlanketView(parent));
+            parent.SkiftBlanket(new MeritBlanketView(parent));
         }
 
         private bool ErValideret() {
@@ -89,6 +91,7 @@ namespace GFElevInterview.Views
             erValideret = InputValidering.ValiderToRadioButtons(rbEuv1Ja, rbEuv1Nej, out erElevEUV1, bdrEuv1) && erValideret;
             if (erElevEUV1) {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv1SprgJa, rbEuv1SprgNej, bdrEuv1Sprg) && erValideret;
+
             }
             else {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv2Ja, rbEuv2Nej, bdrEuv2) && erValideret;
@@ -103,6 +106,7 @@ namespace GFElevInterview.Views
             return erValideret;
         }
 
+        //TODO Udvidelse
         private bool ErEUVUdvidet() {
             bool _euv1 = (bool)rbEuv1Ja.IsChecked || !(bool)rbEuv1Nej.IsChecked;
             bool _euv1Spg = (bool)rbEuv1SprgJa.IsChecked || !(bool)rbEuv1SprgNej.IsChecked;
@@ -125,6 +129,40 @@ namespace GFElevInterview.Views
             expEuv1.IsExpanded = true;
             expEuv2.IsEnabled = false;
             return false;
+        }
+
+
+        private void UdfyldBlanketHvisAlleredeEksisterende()
+        {
+            if(CurrentElev.elev.elevType > ElevType.Null)
+            {
+                switch (CurrentElev.elev.elevType)
+                {
+                    case ElevType.EUV1:
+                        //EUV1 == rbEuv1Ja, rbEuv1SprgJa
+                        
+                        UdfyldEUVRadioButton(rbEuv1Ja, rbEuv1SprgJa);
+                        break;
+                    case ElevType.EUV2:
+                        UdfyldEUVRadioButton(rbEuv1Nej, rbEuv1SprgJa);
+                        break;
+                    case ElevType.EUV3:
+                        UdfyldEUVRadioButton(rbEuv1Nej, rbEuv2Nej);
+                        break;
+                }
+
+                UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.sps);
+                UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.eud);
+
+                UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.uddannelse);
+                UdfyldBlanket.UdfyldComboBox(cmbUddannelse, CurrentElev.elev.uddannelseAdresse);
+            }
+        }
+
+        private void UdfyldEUVRadioButton(RadioButton rbTop, RadioButton rbBund)
+        {
+            rbTop.IsChecked = true;
+            rbBund.IsChecked = true;
         }
 
         //Events

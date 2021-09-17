@@ -66,7 +66,6 @@ namespace GFElevInterview
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-
         //todo
         private void signinButton_Click(object sender, RoutedEventArgs e) {
             //GFElevInterview.Views.LederView LederView = new Views.LederView();
@@ -91,6 +90,12 @@ namespace GFElevInterview
         private void passwordText_KeyDown(object sender, KeyEventArgs e) {
         }
 
-        #endregion LederView
+        #endregion
+        private void btnVejled_Click(object sender, RoutedEventArgs e)
+        {
+            //mainContent.Content = new Views.VejledningsView();
+            UnderviserPanel.Visibility = Visibility.Visible;
+            OpdaterCounter();
+        }
     }
 }
