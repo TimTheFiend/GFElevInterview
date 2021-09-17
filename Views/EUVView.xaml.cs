@@ -104,7 +104,7 @@ namespace GFElevInterview.Views
             bool _eudSupport = (bool)rbEudJa.IsChecked || (bool)rbEudNej.IsChecked;
 
             //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
-            bdrEuv1.BorderBrush = _euv1 ? gray : red;
+            bdrEuv1Sprg.BorderBrush = _euv1 ? gray : red;
 
             bdrEducation.BorderBrush = _educationArea ? gray : red;
             bdrAdresse.BorderBrush = _educationAdresse ? gray : red;
