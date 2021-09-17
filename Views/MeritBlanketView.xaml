@@ -32,9 +32,9 @@
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
                                         <Label Content="N"/>
-                                        <RadioButton x:Name="rbDanskUndervisNej" GroupName="DUndervis" Style="{StaticResource rbnValg}">
+                                        <RadioButton x:Name="rbDanskEksamenNej" GroupName="rbDEksamen" Style="{StaticResource rbnValg}">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
                                         <Label Content="Eksamen" Style="{StaticResource lblFag}"/>
@@ -47,9 +47,9 @@
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
                                         <Label Content="N"/>
-                                        <RadioButton x:Name="rbDanskEksamenNej" GroupName="rbDEksamen" Style="{StaticResource rbnValg}">
+                                        <RadioButton x:Name="rbDanskUndervisNej" GroupName="DUndervis" Style="{StaticResource rbnValg}">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
                                         <Label Content="Undervis" Style="{StaticResource lblFag}"/>
@@ -121,7 +121,7 @@
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
                                         <Label Content="N" FontSize="13"/>
-                                        <RadioButton x:Name="rbMatematikEksamenNej" Style="{StaticResource rbnValg}" GroupName="rbMEksamen">
+                                        <RadioButton x:Name="rbMatematikEksamenNej" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMEksamen">
                                             <RadioButton.LayoutTransform>
                                                 <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
                                             </RadioButton.LayoutTransform>
@@ -130,18 +130,18 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <Label Content="J" FontSize="13"/>
-                                        <RadioButton x:Name="rbMatematikUndervisJa" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMEksamen">
+                                        <RadioButton x:Name="rbMatematikUndervisJa" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMUndervis">
                                             <RadioButton.LayoutTransform>
                                                 <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
                                         <Label Content="N" FontSize="13"/>
-                                        <RadioButton x:Name="rbMatematikUndervisNej" Style="{StaticResource rbnValg}" GroupName="rbMEksamen">
+                                        <RadioButton x:Name="rbMatematikUndervisNej" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMUndervis">
                                             <RadioButton.LayoutTransform>
                                                 <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="Eksamen" Style="{StaticResource lblFag}"/>
+                                        <Label Content="Undervis" Style="{StaticResource lblFag}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </DockPanel>

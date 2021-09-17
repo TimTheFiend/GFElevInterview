@@ -86,7 +86,7 @@
         <Setter Property="Text" Value="A-G"/>
         <Setter Property="Height" Value="20"/>
         <Setter Property="Width" Value="120"/>
-        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontSize" Value="12"/>
     </Style>
     <Style x:Key="rbnValg" TargetType="RadioButton">
         <Setter Property="HorizontalAlignment" Value="Center"/>
