@@ -32,10 +32,10 @@
                             </RadioButton.RenderTransform>
                         </RadioButton>
                     </DockPanel>
-                    <Border BorderBrush="Gray" x:Name="bdrEuv1Sprg" BorderThickness="1">
+                    <Border BorderBrush="Gray" x:Name="bdrEuv1" BorderThickness="1">
                         <Expander IsExpanded="True" x:Name="expEuv1">
                             <StackPanel>
-                                <Border Style="{StaticResource bdrEUV}" x:Name="bdrEuv1Sprg1">
+                                <Border Style="{StaticResource bdrEUV}">
                                     <StackPanel>
                                         <DockPanel x:Name="docEuv1sprg1">
                                             <StackPanel Width="640">
@@ -48,7 +48,7 @@
                                     </StackPanel>
                                 </Border>
                                 <Separator Style="{StaticResource SepSpaceH}"/>
-                                <Border Style="{StaticResource bdrEUV}" x:Name="bdrEuv1Sprg2">
+                                <Border Style="{StaticResource bdrEUV}">
                                     <StackPanel >
                                         <DockPanel x:Name="docEuv1Spg2">
                                             <StackPanel Width="640">
@@ -61,7 +61,7 @@
                                     </StackPanel>
                                 </Border>
                                 <Separator Style="{StaticResource SepSpaceH}"/>
-                                <Border Style="{StaticResource bdrEUV}" x:Name="bdrEuv1Sprg3">
+                                <Border Style="{StaticResource bdrEUV}">
                                     <StackPanel>
                                         <DockPanel x:Name="docEuv1Spg3">
                                             <StackPanel Width="640">
@@ -73,7 +73,7 @@
                                     </StackPanel>
                                 </Border>
                                 <Separator Style="{StaticResource SepSpaceH}"/>
-                                <Border Style="{StaticResource bdrEUV}" x:Name="bdrEuv1Sprg4">
+                                <Border Style="{StaticResource bdrEUV}">
                                     <StackPanel>
                                         <DockPanel x:Name="docEuv1Spg4">
                                             <StackPanel Width="640">
