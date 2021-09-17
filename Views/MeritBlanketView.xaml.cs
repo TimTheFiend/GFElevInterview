@@ -29,6 +29,7 @@ namespace GFElevInterview.Views
         }
 
         #region Klargøring
+
         private void InitialiserBlanket() {
             InitialiserComboBox();
             SætButtons();
@@ -79,6 +80,7 @@ namespace GFElevInterview.Views
                     case true:
                         rbDanskEksamenJa.IsChecked = true;
                         break;
+
                     case false:
                         rbDanskEksamenNej.IsChecked = true;
                         break;
@@ -87,6 +89,7 @@ namespace GFElevInterview.Views
                     case true:
                         rbEngelskEksamenJa.IsChecked = true;
                         break;
+
                     case false:
                         rbEngelskEksamenNej.IsChecked = true;
                         break;
@@ -95,6 +98,7 @@ namespace GFElevInterview.Views
                     case true:
                         rbMatematikEksamenJa.IsChecked = true;
                         break;
+
                     case false:
                         rbMatematikEksamenNej.IsChecked = true;
                         break;
@@ -103,6 +107,7 @@ namespace GFElevInterview.Views
                     case true:
                         rbDanskUndervisJa.IsChecked = true;
                         break;
+
                     case false:
                         rbDanskUndervisNej.IsChecked = true;
                         break;
@@ -111,6 +116,7 @@ namespace GFElevInterview.Views
                     case true:
                         rbEngelskUndervisJa.IsChecked = true;
                         break;
+
                     case false:
                         rbEngelskUndervisNej.IsChecked = true;
                         break;
@@ -119,6 +125,7 @@ namespace GFElevInterview.Views
                     case true:
                         rbMatematikUndervisJa.IsChecked = true;
                         break;
+
                     case false:
                         rbMatematikUndervisNej.IsChecked = true;
                         break;
@@ -134,8 +141,7 @@ namespace GFElevInterview.Views
             parent.btnFrem.IsEnabled = true;
         }
 
-
-        #endregion
+        #endregion Klargøring
 
         /// <summary>
         /// Håndterer <see cref="BlanketView"/> knap funktion.
@@ -189,47 +195,16 @@ namespace GFElevInterview.Views
         }
 
         /// <summary>
-        /// check at der skal have værdi 
+        /// check at der skal have værdi
         /// </summary>
         /// <returns><c>true</c> hvis valideret; ellers <c>false</c></returns>
         private bool ErValideret() {
-
             bool erValideret = true;
-            Control[] danskControls = new Control[]
-            {
-                cmbDansk,
-                rbDanskEksamenJa,
-                rbDanskEksamenNej,
-                rbDanskUndervisJa,
-                rbDanskUndervisNej
-            };
-            Control[] engelskControls = new Control[]
-            {
-                cmbEngelsk,
-                rbEngelskEksamenJa,
-                rbEngelskEksamenNej,
-                rbEngelskUndervisJa,
-                rbEngelskUndervisNej
-            };
-            Control[] matematikControls = new Control[]
-            {
-                cmbMatematik,
-                rbMatematikEksamenJa,
-                rbMatematikEksamenNej,
-                rbMatematikUndervisJa,
-                rbMatematikUndervisNej
-            };
 
-            #region Dropdown menu
-            if (!ValiderFag(bdrDanskValidation, danskControls))
-                erValideret = false;
-            if (!ValiderFag(bdrEngelskValidation, engelskControls))
-                erValideret = false;
-            if (!ValiderFag(bdrMatematikValidation, matematikControls))
-                erValideret = false;
+            erValideret = InputValidering.ValiderMerit(rbDanskEksamenJa, rbDanskEksamenNej, rbDanskUndervisJa, rbDanskUndervisNej, cmbDansk, bdrDanskValidation) && erValideret != false;
+            erValideret = InputValidering.ValiderMerit(rbMatematikEksamenJa, rbMatematikEksamenNej, rbMatematikUndervisJa, rbMatematikUndervisNej, cmbMatematik, bdrMatematikValidation) && erValideret != false;
+            erValideret = InputValidering.ValiderMerit(rbEngelskEksamenJa, rbEngelskEksamenNej, rbEngelskUndervisJa, rbEngelskUndervisNej, cmbEngelsk, bdrEngelskValidation) && erValideret != false;
 
-
-            #endregion
             return erValideret;
         }
 
@@ -268,9 +243,10 @@ namespace GFElevInterview.Views
             //Change the focus to scrollview in BlanketView.
             parent.scroll.Focus();
         }
+
         // TODO
         ///Mangel på obejct refernce i CurrentElev.elev.niveau
-        ///CurrentElev.elev virker til at have mangel på informationer, hvilket kunne skyldes 
+        ///CurrentElev.elev virker til at have mangel på informationer, hvilket kunne skyldes
         private void ComboboxFagNiveau_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ComboBox cb = sender as ComboBox;
             int selectedIndex = cb.SelectedIndex + 1;

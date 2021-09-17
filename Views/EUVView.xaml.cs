@@ -15,7 +15,7 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class EUVView : UserControl, IBlanket
     {
-        BlanketView parent;
+        private BlanketView parent;
 
         public EUVView(BlanketView parent) {
             InitializeComponent();
@@ -82,59 +82,25 @@ namespace GFElevInterview.Views
             parent.ChangeView(new MeritBlanketView(parent));
         }
 
-
         private bool ErValideret() {
-            SolidColorBrush gray = Brushes.Gray;
-            SolidColorBrush red = Brushes.Red;
+            bool erValideret = true;
 
-            IEnumerable<RadioButton> spsRadioButton = stackSps.Children.OfType<RadioButton>();
-            IEnumerable<RadioButton> eudRadioButton = stackEud.Children.OfType<RadioButton>();
-            //Validation
-            bool overAllValidated = true;
-            //EUV 1
-            bool _euv1 = (bool)rbEuv1Ja.IsChecked || (bool)rbEuv1Nej.IsChecked;
-            bool _euv1Spg = (bool)rbEuv1SprgJa.IsChecked || (bool)rbEuv1SprgNej.IsChecked;
-            //EUV 2
-            bool _euv2 = (bool)rbEuv2Ja.IsChecked || (bool)rbEuv2Nej.IsChecked;
-            //Education
-            bool _educationArea = cmbEducation.SelectedIndex >= 0;
-            bool _educationAdresse = cmbUddannelse.SelectedIndex >= 0;
-            //Support
-            bool _spsSupport = (bool)rbSpsJa.IsChecked || (bool)rbSpsNej.IsChecked;
-            bool _eudSupport = (bool)rbEudJa.IsChecked || (bool)rbEudNej.IsChecked;
-
-            //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
-            bdrEuv1.BorderBrush = _euv1 ? gray : red;
-
-            bdrEducation.BorderBrush = _educationArea ? gray : red;
-            bdrAdresse.BorderBrush = _educationAdresse ? gray : red;
-
-            bdrSps.BorderBrush = _spsSupport ? gray : red;
-            bdrEud.BorderBrush = _eudSupport ? gray : red;
-
-            if (!_educationArea || !_educationAdresse || !_euv1 || !_spsSupport || !_eudSupport) {
-                overAllValidated = false;
+            bool erElevEUV1;
+            erValideret = InputValidering.ValiderToRadioButtons(rbEuv1Ja, rbEuv1Nej, out erElevEUV1, bdrEuv1) && erValideret != false;
+            if (erElevEUV1) {
+                erValideret = InputValidering.ValiderToRadioButtons(rbEuv1SprgJa, rbEuv1SprgNej, bdrEuv1Sprg) && erValideret != false;
             }
-            if (_euv1 && (bool)rbEuv1Ja.IsChecked) {
-                if (!_euv1Spg) {
-                    bdrEuv1Sprg.BorderBrush = _euv1Spg ? gray : red;
-                    overAllValidated = false;
-                }
-            }
-            else if (_euv1) {
-                if (!_euv2) {
-                    bdrEuv2.BorderBrush = _euv2 ? gray : red;
-                    overAllValidated = false;
-                }
-                //overAllValidated = true;
+            else {
+                erValideret = InputValidering.ValiderToRadioButtons(rbEuv2Ja, rbEuv2Nej, bdrEuv2) && erValideret != false;
             }
 
-            //if (_euv1Spg1 && _euv1Spg2 && _euv1Spg3 && _euv1Spg4 && _euv2 && _educationArea && _educationAdresse && _spsSupport && _eudSupport)
-            //{
-            //    MessageBox.Show("Check");
-            //    return true;
-            //}
-            return overAllValidated;
+            erValideret = InputValidering.ValiderComboBox(cmbEducation, bdrEducation) && erValideret != false;
+            erValideret = InputValidering.ValiderComboBox(cmbUddannelse, bdrAdresse) && erValideret;
+
+            erValideret = InputValidering.ValiderToRadioButtons(rbSpsJa, rbSpsNej, bdrSps) && erValideret;
+            erValideret = InputValidering.ValiderToRadioButtons(rbEudJa, rbEudNej, bdrEud) && erValideret;
+
+            return erValideret;
         }
 
         private bool ErEUVUdvidet() {
@@ -160,6 +126,7 @@ namespace GFElevInterview.Views
             expEuv2.IsEnabled = false;
             return false;
         }
+
         //Events
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scroll.Focus();

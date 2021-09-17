@@ -13,9 +13,10 @@ namespace GFElevInterview.Views
     public partial class VisitationsView : UserControl, IBlanket
     {
         /* Fields */
-        BlanketView parent;
+        private BlanketView parent;
 
         /* Constructor */
+
         public VisitationsView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
@@ -24,8 +25,8 @@ namespace GFElevInterview.Views
             cmbAdresse.DropDownClosed += Combobox_DropDownClosed;
         }
 
-
         #region Klargøringsmetoder
+
         private void InitialiserBlanket() {
             SætKnapper();
             SætKomboBokse();
@@ -65,14 +66,15 @@ namespace GFElevInterview.Views
                 }
             }
 
-
             switch (CurrentElev.elev.sps) {
                 case true:
                     rbSpsJa.IsChecked = true;
                     break;
+
                 case false:
                     rbSpsNej.IsChecked = true;
                     break;
+
                 default:
                     break;
             }
@@ -81,14 +83,17 @@ namespace GFElevInterview.Views
                 case true:
                     rbEudJa.IsChecked = true;
                     break;
+
                 case false:
                     rbEudNej.IsChecked = true;
                     break;
+
                 default:
                     break;
             }
         }
-        #endregion
+
+        #endregion Klargøringsmetoder
 
         public void Frem() {
             if (ErValideret()) {
@@ -96,7 +101,6 @@ namespace GFElevInterview.Views
                 //TODO Udprint
                 //TODO Få fra Søgning
                 OpdaterCurrentElev();
-
             }
         }
 
@@ -123,30 +127,21 @@ namespace GFElevInterview.Views
         ///   <c>true</c> if this instance is validated; otherwise, <c>false</c>.
         /// </returns>
         private bool ErValideret() {
-            SolidColorBrush gray = Brushes.Gray;
-            SolidColorBrush red = Brushes.Red;
+            bool erSpsValgt = false;
+            bool erEudValgt = false;
 
-            bool _educationArea = cmbEducation.SelectedIndex >= 0;
-            bool _educationAdresse = cmbAdresse.SelectedIndex >= 0;
-            bool _spsSupport = (bool)rbSpsJa.IsChecked || (bool)rbSpsNej.IsChecked;
-            bool _eudSupport = (bool)rbEudJa.IsChecked || (bool)rbEudNej.IsChecked;
-
-            //Farv Boxen Grå hvis den er udfyldt eller rød hvis ikke.
-            bdrEducation.BorderBrush = _educationArea ? gray : red;
-            bdrAdresse.BorderBrush = _educationAdresse ? gray : red;
-            bdrSps.BorderBrush = _spsSupport ? gray : red;
-            bdrEud.BorderBrush = _eudSupport ? gray : red;
-
-            if (_educationArea && _educationAdresse && _spsSupport && _eudSupport) {
-
-                return true;
-            }
-            return false;
+            return InputValidering.ValiderToRadioButtons(rbSpsJa, rbSpsNej, out erSpsValgt, bdrSps)
+                && InputValidering.ValiderToRadioButtons(rbEudJa, rbEudNej, out erEudValgt, bdrEud)
+                && InputValidering.ValiderComboBox(cmbEducation, bdrEducation)
+                && InputValidering.ValiderComboBox(cmbAdresse, bdrAdresse);
         }
 
         //Events
+
         #region Combobox/Radiobutton Eventhandlers
+
         #region Combobox
+
         /// <summary>Fjerner fokus fra combobox når den folder sammen.</summary>
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scroll.Focus();
@@ -161,18 +156,21 @@ namespace GFElevInterview.Views
         private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             CurrentElev.elev.uddannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
         }
+
         #endregion Combobox
 
         #region RadioButton setters
-        private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
 
+        private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
             CurrentElev.elev.sps = (sender as RadioButton) == rbSpsJa ? true : false;
         }
 
         private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
             CurrentElev.elev.eud = (sender as RadioButton) == rbEudJa ? true : false;
         }
-        #endregion Radiobutton setters
-        #endregion
+
+        #endregion RadioButton setters
+
+        #endregion Combobox/Radiobutton Eventhandlers
     }
 }
