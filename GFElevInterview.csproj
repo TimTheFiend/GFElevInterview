@@ -8,18 +8,22 @@
 
   <ItemGroup>
     <Compile Remove=".venv - Copy\**" />
+    <Compile Remove="bin\**" />
     <Compile Remove="Blanketter\Ballerup\**" />
     <Compile Remove="Blanketter\Frederiksberg\**" />
     <Compile Remove="Blanketter\Lyngby\**" />
     <EmbeddedResource Remove=".venv - Copy\**" />
+    <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="Blanketter\Ballerup\**" />
     <EmbeddedResource Remove="Blanketter\Frederiksberg\**" />
     <EmbeddedResource Remove="Blanketter\Lyngby\**" />
     <None Remove=".venv - Copy\**" />
+    <None Remove="bin\**" />
     <None Remove="Blanketter\Ballerup\**" />
     <None Remove="Blanketter\Frederiksberg\**" />
     <None Remove="Blanketter\Lyngby\**" />
     <Page Remove=".venv - Copy\**" />
+    <Page Remove="bin\**" />
     <Page Remove="Blanketter\Ballerup\**" />
     <Page Remove="Blanketter\Frederiksberg\**" />
     <Page Remove="Blanketter\Lyngby\**" />
@@ -41,6 +45,30 @@
 
   <ItemGroup>
     <Resource Include="Resources\TECLOGO.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ResourceValues.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceValues.resx</DependentUpon>
+    </Compile>
+    <Compile Update="default_values.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>default_values.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ResourceValues.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceValues.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="default_values.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>default_values.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

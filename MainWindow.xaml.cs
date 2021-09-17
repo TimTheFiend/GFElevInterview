@@ -30,7 +30,9 @@ namespace GFElevInterview
             BallerupTXT.Text = dict["Ballerup"].ToString();
             FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
         }
+
         #region Home
+
         //TODO overvej at fjerne?
         private void btnHome_Click(object sender, RoutedEventArgs e) {
             HomePanel.Visibility = Visibility.Visible;
@@ -38,9 +40,11 @@ namespace GFElevInterview
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-        #endregion
+
+        #endregion Home
 
         #region Underviser View
+
         private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
@@ -49,9 +53,11 @@ namespace GFElevInterview
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-        #endregion
+
+        #endregion Underviser View
 
         #region LederView
+
         //todo
         private void btnLeder_Click(object sender, RoutedEventArgs e) {
             mainContent.Content = new Views.LederView();
@@ -83,6 +89,7 @@ namespace GFElevInterview
 
         private void passwordText_KeyDown(object sender, KeyEventArgs e) {
         }
+
         #endregion
         private void btnVejled_Click(object sender, RoutedEventArgs e)
         {
