@@ -20,16 +20,16 @@ namespace GFElevInterview.Views
         public EUVView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
-            InitialiserBlanket();
             //TODO
-            rbEuv1Ja.Click += EUV1_Ja_RadiobuttonSelected;
-            rbEuv1Nej.Click += EUV1_Nej_RadiobuttonSelected;
+            rbEuv1Ja.Checked += UdfoldEUV_RadioButtonChecked;
+            rbEuv1Nej.Checked += UdfoldEUV_RadioButtonChecked;
             //rbEuv1SprgNej.Click += EUV1_Nej_RadiobuttonSelected;
             //rbEuv1Nej.Click += CheckEUVUdvidet;
             //rbEuv1Ja.Click += CheckEUVUdvidet;
             //rbEuv1Nej.Click += CheckEUVUdvidet;
             cmbEducation.DropDownClosed += Combobox_DropDownClosed;
             cmbUddannelse.DropDownClosed += Combobox_DropDownClosed;
+            InitialiserBlanket();
         }
 
         private void InitialiserBlanket() {
@@ -41,7 +41,7 @@ namespace GFElevInterview.Views
             }
             cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
 
-            OpdaterExpanders();
+            OpdaterExpanders(false, false);
             UdfyldBlanketHvisAlleredeEksisterende();
         }
 
@@ -68,19 +68,38 @@ namespace GFElevInterview.Views
 
         private void SætElevType() {
             ElevType elevType;
+            bool rb1 = (bool)rbEuv1Ja.IsChecked;
+            bool rb2 = (bool)rbEuv1SprgJa.IsChecked;
+            bool rb3 = (bool)rbEuv2Ja.IsChecked;
 
-            //TODO Max uddyb
-            if ((bool)rbEuv1Ja.IsChecked) {
+            if(rb1 && rb2)
+            {
+                //EUV 1
                 elevType = ElevType.EUV1;
             }
-            else {
-                if ((bool)rbEuv2Ja.IsChecked) {
-                    elevType = ElevType.EUV2;
-                }
-                else {
-                    elevType = ElevType.EUV3;
-                }
+            if((!rb1 && rb3) || (rb1 && !rb2))
+            {
+                //EUV 2
+                elevType = ElevType.EUV2;
             }
+            if(!rb1 && !rb3)
+            {
+                //EUV 3
+                elevType = ElevType.EUV3;
+            }
+            //TODO Max uddyb
+            //if ((bool)rbEuv1Ja.IsChecked && (bool)rbEuv1SprgJa.IsChecked) {
+            //    elevType = ElevType.EUV1;
+            //}
+            //if((bool)rbEuv1Ja.IsChecked)
+            //else {
+            //    if ((bool)rbEuv2Ja.IsChecked) {
+            //        elevType = ElevType.EUV2;
+            //    }
+            //    else {
+            //        elevType = ElevType.EUV3;
+            //    }
+            //}
 
             CurrentElev.elev.elevType = elevType;
         }
@@ -156,7 +175,7 @@ namespace GFElevInterview.Views
                         break;
 
                     case ElevType.EUV2:
-                        UdfyldEUVRadioButton(rbEuv1Nej, rbEuv1SprgJa);
+                        UdfyldEUVRadioButton(rbEuv1Nej, rbEuv2Ja);
                         break;
 
                     case ElevType.EUV3:
@@ -174,7 +193,8 @@ namespace GFElevInterview.Views
 
         private void UdfyldEUVRadioButton(RadioButton rbTop, RadioButton rbBund)
         {
-            OpdaterExpanders(rbTop);
+            //TODO
+            //OpdaterExpanders(rbTop);
 
             rbTop.IsChecked = true;
             rbBund.IsChecked = true;
@@ -190,42 +210,26 @@ namespace GFElevInterview.Views
         }
 
 
-        private void EUV1_Ja_RadiobuttonSelected(object sender, RoutedEventArgs e)
+        private void UdfoldEUV_RadioButtonChecked(object sender, RoutedEventArgs e)
         {
-            OpdaterExpanders(expEuv1, expEuv2);
-        }
-        private void EUV1_Nej_RadiobuttonSelected(object sender, RoutedEventArgs e)
-        {
-            OpdaterExpanders(expEuv2, expEuv1);
-        }
-
-        private void OpdaterExpanders()
-        {
-            expEuv1.IsExpanded = false;
-            expEuv1.IsEnabled = false;
-
-            expEuv2.IsExpanded = false;
-            expEuv2.IsEnabled = false;
+            //if(sender as RadioButton == rbEuv1Ja)
+            //{
+            //    OpdaterExpanders(true, false);
+            //}
+            //else
+            //{
+            //    OpdaterExpanders(false, true);
+            //}
+            OpdaterExpanders((bool)rbEuv1Ja.IsChecked, (bool)rbEuv1Nej.IsChecked);
         }
 
-        private void OpdaterExpanders(RadioButton jaEuv1)
+        private void OpdaterExpanders(bool erEUVJa, bool erEUVNej)
         {
-            if(jaEuv1 == rbEuv1Ja)
-            {
-                OpdaterExpanders(expEuv1, expEuv2);
-                return;
-            }
-            OpdaterExpanders(expEuv2, expEuv1);
-        }
+            expEuv1.IsExpanded = erEUVJa;
+            expEuv1.IsEnabled = erEUVJa;
 
-
-        private void OpdaterExpanders(Expander stor, Expander lille)
-        {
-            stor.IsExpanded = true;
-            stor.IsEnabled = true;
-
-            lille.IsExpanded = false;
-            lille.IsEnabled = false;
+            expEuv2.IsExpanded = erEUVNej;
+            expEuv2.IsEnabled = erEUVNej;
         }
     }
 }
