@@ -21,11 +21,17 @@ namespace GFElevInterview.Views
 
         public BlanketView() {
             InitializeComponent();
-
-            CurrentElev.NulstilCurrentElev();
+            InitialiserBlanket();
         }
 
-        private void InitialiserBlanket() {
+        private void InitialiserBlanket()
+        {
+            //TODO Alert Box Yes/No
+            CurrentElev.NulstilCurrentElev();
+            InitialiserKnapper(false);
+        }
+
+        private void InitialiserBlanketView() {
             btnTilbage.IsEnabled = false;
 
             if (currentView == null) {
@@ -41,10 +47,20 @@ namespace GFElevInterview.Views
             {
                 TaskFærdiggørInterview();
             });
-            //MessageBox.Show("Fra Færdiggør interview");
-            return;
-
+            
         }
+        private void InitialiserKnapper(bool knapper)
+        {
+            InitialiserKnapper(knapper, knapper);
+        }
+
+        private void InitialiserKnapper(bool frem, bool tilbage)
+        {
+            btnFrem.IsEnabled = frem;
+            btnTilbage.IsEnabled = tilbage;
+        }
+
+
 
 
         private void TaskFærdiggørInterview()
@@ -105,7 +121,7 @@ namespace GFElevInterview.Views
             cntMain.Content = currentView;
 
             //FIXME kaldes ikke nok
-            MainWindow.instance.OpdaterCounter();
+            MainWindow.Instance.OpdaterCounter();
         }
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -118,14 +134,14 @@ namespace GFElevInterview.Views
                 }
                 CurrentElev.elev = lstSearch.SelectedItem as ElevModel;
                 lblStudentInfo.Content = CurrentElev.elev.FuldInfo;
-                InitialiserBlanket();
+                InitialiserBlanketView();
 
                 //Nulstiller textbox og listbox
                 txtSearch.Text = "";
                 lstSearch.ItemsSource = null;
             }
         }
-
+        
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
             string text = txtSearch.Text;
             lstSearch.ItemsSource = null;

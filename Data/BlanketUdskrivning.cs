@@ -3,14 +3,13 @@ using iTextSharp.text.pdf;
 using Spire.Doc;
 using System;
 using System.IO;
-using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Data
 {
     //TODO Gør statics
     public class BlanketUdskrivning
     {
-        private readonly string outputDirectory = config.AppSettings["outputMappe"];
+        private readonly string outputDirectory = RessourceFil.outputMappe;
 
         public BlanketUdskrivning() {
             if (!Directory.Exists(outputDirectory)) {
@@ -137,12 +136,12 @@ namespace GFElevInterview.Data
 
         private string GetRKVBlanketTemplate() {
             string pdfElev = $"{CurrentElev.elev.elevType.ToString()} - {CurrentElev.elev.uddannelse}.pdf";
-            return Path.Combine(config.AppSettings["templates"], pdfElev);
+            return Path.Combine(RessourceFil.templates, pdfElev);
         }
 
         private string GetMeritBlanketTemplate {
             get {
-                return Path.Combine(config.AppSettings["templates"], "Merit-blanket.docx");
+                return Path.Combine(RessourceFil.templates, "Merit-blanket.docx");
             }
         }
     }

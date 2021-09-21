@@ -21,7 +21,7 @@
 
                     <WrapPanel>
                         <Label FontSize="20" FontWeight="Bold" FontStyle="Italic" >Søg elev:</Label>
-                        <TextBox x:Name="txtSearch" Width="650" Height="30" Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged" />
+                        <TextBox x:Name="txtSearch" Width="650" Height="30" Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged" VerticalContentAlignment="Center" FontSize="15"/>
                     </WrapPanel>
                 </Border>
 

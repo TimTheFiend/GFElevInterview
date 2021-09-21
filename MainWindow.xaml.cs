@@ -8,21 +8,27 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow instance = null;
+        public static MainWindow Instance = null;
 
         public MainWindow() {
-            if (instance == null) {
-                instance = this;
-            }
-
             InitializeComponent();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            ÅbenUndervisning();
             //this.DataContext =;
             //Data.AdminTools.HentAntalEleverPåSkole();
 
             //new DbTools().TilføjElever();
+
             OpdaterCounter();
         }
-
+        private void ÅbenUndervisning()
+        {
+            mainContent.Content = new Views.BlanketView();
+            UnderviserPanel.Visibility = Visibility.Visible;
+        }
         //TODO Ryk til DbTools
         public void OpdaterCounter() {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();
@@ -53,8 +59,7 @@ namespace GFElevInterview
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-
-        #endregion Underviser View
+        #endregion
 
         #region LederView
 

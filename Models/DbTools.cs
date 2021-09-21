@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Models
 {
     public sealed class DbTools : DbContext
     {
-        private static readonly DbTools instance = new DbTools();
+        private static DbTools instance = new DbTools();
         public static DbTools Instance => instance;
 
         public DbTools() {
@@ -36,8 +35,8 @@ namespace GFElevInterview.Models
             //};
 
             foreach (string filEndelse in new string[] {
-                config.AppSettings.Get("endMerit"),
-                config.AppSettings.Get("endRKV") }) {
+                RessourceFil.endMerit,
+                RessourceFil.endRKV}) {
                 foreach (string fil in Data.AdminTools.HentFiler(filEndelse)) {
                     System.IO.File.Delete(fil);
                 }
@@ -48,11 +47,11 @@ namespace GFElevInterview.Models
                 //}
 
             }
-
         }
 
         #region Gets
         public List<ElevModel> VisAlle() {
+            instance = new DbTools();
             return (from e in Elever
                     select e).ToList();
         }
@@ -150,13 +149,11 @@ namespace GFElevInterview.Models
             else {
                 TilføjEleverTilTomDatabase(nyElever);
             }
-
-
         }
         #region Required
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseSqlite($"Data Source={System.Configuration.ConfigurationManager.AppSettings["db"]}");  //Database navn bliver indsat
+            //optionsBuilder.UseSqlite($"Data Source={System.Configuration.ConfigurationManager.AppSettings["db"]}");  //Database navn bliver indsat
+            optionsBuilder.UseSqlite($"Data Source={RessourceFil.db}");
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
@@ -169,9 +166,9 @@ namespace GFElevInterview.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             List<string> skoler = new List<string>()
             {
-                config.AppSettings.Get("ballerup"),
-                config.AppSettings.Get("lyngby"),
-                config.AppSettings.Get("frederiksberg")
+                RessourceFil.ballerup,
+                RessourceFil.lyngby,
+                RessourceFil.frederiksberg
             };
             Random rng = new Random();
 
@@ -183,7 +180,6 @@ namespace GFElevInterview.Models
             new ElevModel("111193-1234", "Joakim", "Krugstrup")
             );
         }
-
         #endregion
     }
 }
