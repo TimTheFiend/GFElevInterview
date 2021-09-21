@@ -58,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>default_values.resx</DependentUpon>
     </Compile>
+    <Compile Update="RessourceFil.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RessourceFil.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +73,10 @@
     <EmbeddedResource Update="default_values.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>default_values.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RessourceFil.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RessourceFil.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

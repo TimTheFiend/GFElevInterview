@@ -9,22 +9,22 @@
     <Grid>
         <StackPanel>
             <Label Content="Interview guide til Visitations elever"  Style="{StaticResource labVisitation}"/>
-            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEducation" Width="600" Height="60">
-                <StackPanel>
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEducation" Width="600" Height="80">
+                <StackPanel VerticalAlignment="Center">
                     <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="15" HorizontalAlignment="Center"/>
                     <ComboBox x:Name="cmbEducation" SelectionChanged="educationComboBox_SelectionChanged" Width="250"/>
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}"/>
-            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrAdresse" Width="600" Height="60">
-                <StackPanel>
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrAdresse" Width="600" Height="80">
+                <StackPanel VerticalAlignment="Center">
                     <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="15" HorizontalAlignment="Center"/>
                     <ComboBox x:Name="cmbAdresse" SelectionChanged="educationAdresseComboBox_SelectionChanged" Width="250"/>
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}"/>
-            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrSps" Width="600" Height="60">
-                <StackPanel>
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrSps" Width="600" Height="80">
+                <StackPanel VerticalAlignment="Center">
                     <Label Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="15" HorizontalAlignment="Center"/>
                     <DockPanel x:Name="docsps" Width="150" HorizontalAlignment="Center">
                         <RadioButton GroupName="spsSupport" x:Name="rbSpsJa" Content="Ja" Checked="SPSSupport_Checked" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -41,8 +41,8 @@
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}"/>
-            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEud" Width="600" Height="60">
-                <StackPanel>
+            <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEud" Width="600" Height="80">
+                <StackPanel VerticalAlignment="Center">
                     <Label Content="Ønsker du en samtale med eud vejleder?" FontSize="15" HorizontalAlignment="Center"/>
 
                     <DockPanel x:Name="docEud" Width="150">

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GFElevInterview"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200">
+        Title="GF2 - " Height="700" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>

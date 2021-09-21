@@ -58,7 +58,7 @@ namespace GFElevInterview.Views
                     currentView = null;
                     cntMain.Content = null;
                     lblStudentInfo.Content = "";
-                    MainWindow.instance.OpdaterCounter();
+                    MainWindow.Instance.OpdaterCounter();
                     AlertBoxes.OnSuccessfulCompletion();
                 }
             }
@@ -86,7 +86,7 @@ namespace GFElevInterview.Views
             cntMain.Content = currentView;
 
             //FIXME kaldes ikke nok
-            MainWindow.instance.OpdaterCounter();
+            MainWindow.Instance.OpdaterCounter();
         }
 
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {

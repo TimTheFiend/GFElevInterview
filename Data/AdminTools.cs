@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Data
 {
@@ -13,10 +12,10 @@ namespace GFElevInterview.Data
     {
         //TODO DOKU
         public static void KombinerMeritFiler() {
-            string[] filNavne = HentFiler(config.AppSettings.Get("endMerit"));
+            string[] filNavne = HentFiler(RessourceFil.endMerit);
 
             Document nytDokument = new Document();
-            using (FileStream fs = new FileStream(config.AppSettings.Get("samletMerit"), FileMode.Create)) {
+            using (FileStream fs = new FileStream(RessourceFil.samletMerit, FileMode.Create)) {
                 PdfCopy writer = new PdfCopy(nytDokument, fs);
                 if (writer == null)
                     return;
@@ -38,9 +37,9 @@ namespace GFElevInterview.Data
         }
 
         public static void ZipRKVFiler() {
-            string[] filNavne = HentFiler(config.AppSettings.Get("endRKV"));
+            string[] filNavne = HentFiler(RessourceFil.endRKV);
 
-            string filSti = config.AppSettings.Get("samletRKV");
+            string filSti = RessourceFil.samletRKV;
             if (File.Exists(filSti)) {
                 File.Delete(filSti);
             }
@@ -54,7 +53,7 @@ namespace GFElevInterview.Data
 
 
         public static string[] HentFiler(string endelse) {
-            string[] filer = Directory.GetFiles(config.AppSettings.Get("outputMappe"), $"*{endelse}");
+            string[] filer = Directory.GetFiles(RessourceFil.outputMappe, $"*{endelse}");
             return filer;
         }
 
@@ -64,9 +63,9 @@ namespace GFElevInterview.Data
             List<string> skoler = (from e in DbTools.Instance.Elever
                                    select e.uddannelseAdresse).ToList();
 
-            string ballerupAntal = config.AppSettings.Get("ballerup");
-            string frederiksbergAntal = config.AppSettings.Get("frederiksberg");
-            string lyngbyAntal = config.AppSettings.Get("lyngby");
+            string ballerupAntal = RessourceFil.ballerup;
+            string frederiksbergAntal = RessourceFil.frederiksberg;
+            string lyngbyAntal = RessourceFil.lyngby;
             antalElever.Add(ballerupAntal, skoler.Where(x => x == ballerupAntal).ToList().Count);
             antalElever.Add(frederiksbergAntal, skoler.Where(x => x == frederiksbergAntal).ToList().Count);
             antalElever.Add(lyngbyAntal, skoler.Where(x => x == lyngbyAntal).ToList().Count);
