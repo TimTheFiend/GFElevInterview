@@ -8,10 +8,14 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static MainWindow instance = new MainWindow();
-        public static MainWindow Instance => instance;
+        public static MainWindow Instance = null;
+
         public MainWindow() {
             InitializeComponent();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
             ÅbenUndervisning();
             //this.DataContext =;
             //Data.AdminTools.HentAntalEleverPåSkole();
