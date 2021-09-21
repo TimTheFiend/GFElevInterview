@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Models
 {
@@ -127,7 +126,7 @@ namespace GFElevInterview.Models
         //TODO Ryk ud herfra
         private const int minForløbslængdeIUger = 16;
 
-        public int uddannelsesLængdeIUger { get; set; } = Int32.Parse(config.AppSettings["minimumGrundforløbLængde"]);
+        public int uddannelsesLængdeIUger { get; set; } = Int32.Parse(RessourceFil.minimumGrundforløbLængde);
 
         public int meritLængdeIDage {
             get {
@@ -154,7 +153,7 @@ namespace GFElevInterview.Models
             int ekstraUger = 4;
 
             if (danskNiveau > minNiveau) {
-                minNiveau = elev.uddannelse == config.AppSettings["itsupporter"] ? FagNiveau.E : FagNiveau.D;
+                minNiveau = elev.uddannelse == RessourceFil.itsupporter ? FagNiveau.E : FagNiveau.D;
 
                 if (engelskNiveau >= minNiveau) { ekstraUger -= 2; }
                 if (matematikNiveau >= minNiveau) { ekstraUger -= 2; }
@@ -265,7 +264,7 @@ namespace GFElevInterview.Models
                 foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
                     fileName = fileName.Replace(invalidLetter, '_');
                 }
-                return fileName + config.AppSettings.Get("endMerit");
+                return fileName + RessourceFil.endMerit;
             }
         }
 
@@ -275,7 +274,7 @@ namespace GFElevInterview.Models
                 foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
                     fileName = fileName.Replace(invalidLetter, '_');
                 }
-                return fileName + config.AppSettings.Get("endRKV");
+                return fileName + RessourceFil.endRKV;
             }
         }
 
@@ -286,25 +285,25 @@ namespace GFElevInterview.Models
         public List<string> ValgAfSkoler() {
             if (danskNiveau <= FagNiveau.F) {
                 return new List<string>() {
-                    config.AppSettings["ballerup"]
+                    RessourceFil.ballerup
                 };
             }
             return new List<string>() {
-                config.AppSettings["ballerup"],
-                config.AppSettings["frederiksberg"],
-                config.AppSettings["lyngby"]
+                RessourceFil.ballerup,
+                RessourceFil.frederiksberg,
+                RessourceFil.lyngby
             };
         }
 
 
         public List<string> ValgAfUddannelser() {
             List<string> uddannelser = new List<string>() {
-                config.AppSettings["infrastruktur"],
-                config.AppSettings["itsupporter"],
-                config.AppSettings["programmering"]
+                RessourceFil.infrastruktur,
+                RessourceFil.itsupporter,
+                RessourceFil.programmering
             };
             if (!CurrentElev.elev.erRKV) {
-                uddannelser.Add(config.AppSettings["vedIkke"]);
+                uddannelser.Add(RessourceFil.vedIkke);
             }
 
             return uddannelser;

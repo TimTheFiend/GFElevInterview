@@ -24,7 +24,7 @@ namespace GFElevInterview.Views
             //TODO
             rbEuv1Ja.Click += EUV1_Ja_RadiobuttonSelected;
             rbEuv1Nej.Click += EUV1_Nej_RadiobuttonSelected;
-            //rbEuv1Ja.Click += CheckEUVUdvidet;
+            //rbEuv1SprgNej.Click += EUV1_Nej_RadiobuttonSelected;
             //rbEuv1Nej.Click += CheckEUVUdvidet;
             //rbEuv1Ja.Click += CheckEUVUdvidet;
             //rbEuv1Nej.Click += CheckEUVUdvidet;
@@ -61,12 +61,17 @@ namespace GFElevInterview.Views
             }
         }
 
+        public void Tilbage()
+        {
+            parent.SkiftBlanket(new MeritBlanketView(parent));
+        }
+
         private void SætElevType() {
             ElevType elevType;
 
+            //TODO Max uddyb
             if ((bool)rbEuv1Ja.IsChecked) {
                 elevType = ElevType.EUV1;
-                ErEUVUdvidet();
             }
             else {
                 if ((bool)rbEuv2Ja.IsChecked) {
@@ -78,10 +83,6 @@ namespace GFElevInterview.Views
             }
 
             CurrentElev.elev.elevType = elevType;
-        }
-
-        public void Tilbage() {
-            parent.SkiftBlanket(new MeritBlanketView(parent));
         }
 
         private bool ErValideret() {

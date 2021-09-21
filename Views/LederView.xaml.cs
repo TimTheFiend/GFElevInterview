@@ -24,7 +24,7 @@ namespace GFElevInterview.Views
             InitialiserView();
             InitialiserSkoleComboBox();
 
-            blanketMappe = config.AppSettings.Get("outputMappe");
+            blanketMappe = RessourceFil.outputMappe;
         }
 
         //On Constructor call
@@ -39,11 +39,11 @@ namespace GFElevInterview.Views
         //Putter info ind fra App.Config i ComboBox
         private void InitialiserSkoleComboBox() {
             List<string> uddannelsesAdresser = new List<string>() {
-                config.AppSettings.Get("ballerup"),
-                config.AppSettings.Get("lyngby"),
-                config.AppSettings.Get("frederiksberg"),
-                config.AppSettings.Get("ballerupMerit"),
-                config.AppSettings.Get("ballerupFuldt")
+                RessourceFil.ballerup,
+                RessourceFil.ballerupMerit,
+                RessourceFil.ballerupFuldt,
+                RessourceFil.lyngby,
+                RessourceFil.frederiksberg
             };
             cmbSchool.ItemsSource = uddannelsesAdresser;
         }
