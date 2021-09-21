@@ -120,7 +120,7 @@ namespace GFElevInterview.Data
                 doc.Replace("#uger#", CurrentElev.elev.uddannelsesLængdeIUger.ToString(), true, true);
 
                 #endregion
-
+                //throw new Exception();
                 doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.MeritFilNavn), FileFormat.PDF);
                 return true;
             }

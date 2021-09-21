@@ -16,6 +16,7 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class BlanketView : UserControl
     {
+        
         IBlanket currentView;
 
         public BlanketView() {
@@ -34,35 +35,53 @@ namespace GFElevInterview.Views
             cntMain.Content = currentView;
         }
 
-        public void FærdiggørInterview() {
+        public void FærdiggørInterview()
+        {
+            Task.Run(() =>
+            {
+                TaskFærdiggørInterview();
+            });
+            //MessageBox.Show("Fra Færdiggør interview");
+            return;
 
+        }
+
+
+        private void TaskFærdiggørInterview()
+        {
+            
             bool? isRKVSuccess = null;
             bool isMeritSuccess = false;
-
-            //CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
-
+            
             BlanketUdskrivning print = new BlanketUdskrivning();
 
-            ///Task
-            Task meritTask = Task.Run(() => {
-                isMeritSuccess = print.UdskrivningMerit();
-            });
-
-            while (!meritTask.IsCompleted) { }
+            isMeritSuccess = print.UdskrivningMerit();
 
             //Hvis merit er blevet udskrevet, og RKV enten også er, eller slet ikke (fordi eleven ikke er RKV), så opdater databasen.
-            if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
-                if (OpdaterElevIDatabase()) {
+            if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true))
+            {
+                
+                if (OpdaterElevIDatabase())
+                {
                     CurrentElev.NulstilCurrentElev();
                     //TODO Lav metode to reset
-                    currentView = null;
-                    cntMain.Content = null;
-                    lblStudentInfo.Content = "";
-                    MainWindow.instance.OpdaterCounter();
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        currentView = null;
+                        cntMain.Content = null;
+                        lblStudentInfo.Content = "";
+
+                        MainWindow.instance.OpdaterCounter();
+
+                    });
                     AlertBoxes.OnSuccessfulCompletion();
+
                 }
             }
         }
+
+
 
         private bool OpdaterElevIDatabase() {
             try {
