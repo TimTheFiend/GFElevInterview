@@ -42,6 +42,7 @@ namespace GFElevInterview.Views
             Task.Run(() => {
                 TaskFærdiggørInterview();
             });
+            AlertBoxes.OnStartPrintingPDF();
         }
 
         private void InitialiserKnapper(bool knapper) {
@@ -65,18 +66,22 @@ namespace GFElevInterview.Views
             if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
                 if (OpdaterElevIDatabase()) {
                     CurrentElev.NulstilCurrentElev();
-                    //TODO Lav metode to reset
 
                     this.Dispatcher.Invoke(() => {
-                        currentView = null;
-                        cntMain.Content = null;
-                        lblStudentInfo.Content = "";
-
-                        MainWindow.Instance.OpdaterCounter();
+                        NulstilBlanketView();
                     });
-                    AlertBoxes.OnSuccessfulCompletion();
+                    AlertBoxes.OnFinishedInterview();
                 }
             }
+        }
+
+        private void NulstilBlanketView() {
+            currentView = null;
+            cntMain.Content = null;
+            lblStudentInfo.Content = "";
+
+            MainWindow.Instance.OpdaterCounter();
+            InitialiserKnapper(false);
         }
 
         private bool OpdaterElevIDatabase() {
@@ -106,7 +111,7 @@ namespace GFElevInterview.Views
         private void SearchStudentBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (lstSearch.SelectedIndex >= 0) {
                 if (CurrentElev.elev.ErUdfyldt) {
-                    if (AlertBoxes.OnSelectingNewStudents()) {
+                    if (AlertBoxes.OnSelectingNewStudent()) {
                         CurrentElev.NulstilCurrentElev();
                         currentView = null;
                     }
@@ -129,7 +134,7 @@ namespace GFElevInterview.Views
             }
             //TODO Ryk til DbTools
             List<ElevModel> elevModels = DbTools.Instance.Elever.Where(
-                elev => (elev.efternavn.ToLower()).StartsWith(text.ToLower())
+                elev => elev.efternavn.ToLower().StartsWith(text.ToLower())
                 || elev.cprNr.StartsWith(text)
                 || elev.fornavn.ToLower().StartsWith(text.ToLower())
                 ).ToList();
@@ -137,13 +142,17 @@ namespace GFElevInterview.Views
         }
 
         private void Frem_Click(object sender, RoutedEventArgs e) {
-            currentView.Frem();
-            ScrollTilTop();
+            if (currentView != null) {
+                currentView.Frem();
+                ScrollTilTop();
+            }
         }
 
         private void Tilbage_Click(object sender, RoutedEventArgs e) {
-            currentView.Tilbage();
-            ScrollTilTop();
+            if (currentView != null) {
+                currentView.Tilbage();
+                ScrollTilTop();
+            }
         }
     }
 }

@@ -8,26 +8,48 @@ namespace GFElevInterview.Data
     /// </summary>
     public static class AlertBoxes
     {
-        public static void OnSuccessfulCompletion() {
-            MessageBox.Show("Success!", "Færdig", MessageBoxButton.OK, MessageBoxImage.None);
+        /// <summary>
+        /// Viser en besked om at interviewet er færdiggjort, og at informationen er blevet gemt, og udskrevet.
+        /// </summary>
+        public static void OnFinishedInterview() {
+            MessageBox.Show("Udskrivning af blanket(ter) er færdig!", "Succesfuld udskrivning", MessageBoxButton.OK);
+        }
+
+        /// <summary>
+        /// Viser en besked der fortæller brugeren at udprintning af blanket(ter) er startet.
+        /// </summary>
+        public static void OnStartPrintingPDF() {
+            MessageBox.Show("Udskrivning af blanket(ter) er påbegyndt.", "Udskrivning startet!", MessageBoxButton.OK);
         }
 
         public static void OnOpenFileFailure() {
             MessageBox.Show("Den valgte blanket findes ikke i mappen", "Fejl!", MessageBoxButton.OK);
         }
 
+        /// <summary>
+        /// Viser en besked med brugerdefineret fejl fra Python.
+        /// </summary>
+        /// <param name="errorMessage"></param>
         public static void OnExcelReadingError(string errorMessage) {
-            MessageBox.Show(errorMessage, "Fejl!", MessageBoxButton.OK);
+            MessageBox.Show(errorMessage, "Fejl i læsning af PDF!", MessageBoxButton.OK);
         }
 
+        /// <summary>
+        /// Viser en besked som spørger om Leder er sikker på at fortsætte med handling.
+        /// </summary>
+        /// <returns><c>true</c> hvis de vælger "Ja"; ellers <c>false</c>.</returns>
         public static bool OnExport() {
-            MessageBoxResult result = MessageBox.Show("er du sikker?", "Export", MessageBoxButton.YesNo);
-            return result == MessageBoxResult.Yes ? true : false;
+            MessageBoxResult result = MessageBox.Show("Er du sikker?", "Export", MessageBoxButton.YesNo);
+            return result == MessageBoxResult.Yes;
         }
 
-        public static bool OnSelectingNewStudents() {
-            MessageBoxResult result = MessageBox.Show("Er du sikkert at ville skifte elev?", "ADVARSEL", MessageBoxButton.YesNo);
-            return result == MessageBoxResult.Yes ? true : false;
+        /// <summary>
+        /// Viser en besked som spørger om underviser er sikker på at skifte elev hvis interview allerede er påbegyndt.
+        /// </summary>
+        /// <returns><c>true</c> hvis de vælger "Ja"; ellers <c>false</c>.</returns>
+        public static bool OnSelectingNewStudent() {
+            MessageBoxResult result = MessageBox.Show("Er du sikker på at skifte til en ny elev?", "ADVARSEL", MessageBoxButton.YesNo);
+            return result == MessageBoxResult.Yes;
         }
     }
 }
