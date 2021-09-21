@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-
 namespace GFElevInterview.Views
 {
     /// <summary>
@@ -16,16 +15,14 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class BlanketView : UserControl
     {
-        
-        IBlanket currentView;
+        private IBlanket currentView;
 
         public BlanketView() {
             InitializeComponent();
             InitialiserBlanket();
         }
 
-        private void InitialiserBlanket()
-        {
+        private void InitialiserBlanket() {
             //TODO Alert Box Yes/No
             CurrentElev.NulstilCurrentElev();
             InitialiserKnapper(false);
@@ -41,63 +38,46 @@ namespace GFElevInterview.Views
             cntMain.Content = currentView;
         }
 
-        public void FærdiggørInterview()
-        {
-            Task.Run(() =>
-            {
+        public void FærdiggørInterview() {
+            Task.Run(() => {
                 TaskFærdiggørInterview();
             });
-            
         }
-        private void InitialiserKnapper(bool knapper)
-        {
+
+        private void InitialiserKnapper(bool knapper) {
             InitialiserKnapper(knapper, knapper);
         }
 
-        private void InitialiserKnapper(bool frem, bool tilbage)
-        {
+        private void InitialiserKnapper(bool frem, bool tilbage) {
             btnFrem.IsEnabled = frem;
             btnTilbage.IsEnabled = tilbage;
         }
 
-
-
-
-        private void TaskFærdiggørInterview()
-        {
-            
+        private void TaskFærdiggørInterview() {
             bool? isRKVSuccess = null;
             bool isMeritSuccess = false;
-            
+
             BlanketUdskrivning print = new BlanketUdskrivning();
 
             isMeritSuccess = print.UdskrivningMerit();
 
             //Hvis merit er blevet udskrevet, og RKV enten også er, eller slet ikke (fordi eleven ikke er RKV), så opdater databasen.
-            if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true))
-            {
-                
-                if (OpdaterElevIDatabase())
-                {
+            if (isMeritSuccess && (isRKVSuccess == null || isRKVSuccess == true)) {
+                if (OpdaterElevIDatabase()) {
                     CurrentElev.NulstilCurrentElev();
                     //TODO Lav metode to reset
 
-                    this.Dispatcher.Invoke(() =>
-                    {
+                    this.Dispatcher.Invoke(() => {
                         currentView = null;
                         cntMain.Content = null;
                         lblStudentInfo.Content = "";
 
-                        MainWindow.instance.OpdaterCounter();
-
+                        MainWindow.Instance.OpdaterCounter();
                     });
                     AlertBoxes.OnSuccessfulCompletion();
-
                 }
             }
         }
-
-
 
         private bool OpdaterElevIDatabase() {
             try {
@@ -109,14 +89,13 @@ namespace GFElevInterview.Views
                 return false;
             }
         }
-        //Event Handler
 
-        private void ScrollTilTop()
-        {
+        //Event Handler
+        private void ScrollTilTop() {
             scroll.ScrollToTop();
         }
-        public void SkiftBlanket(IBlanket newView)
-        {
+
+        public void SkiftBlanket(IBlanket newView) {
             currentView = newView;
             cntMain.Content = currentView;
 
@@ -141,7 +120,7 @@ namespace GFElevInterview.Views
                 lstSearch.ItemsSource = null;
             }
         }
-        
+
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
             string text = txtSearch.Text;
             lstSearch.ItemsSource = null;
@@ -157,7 +136,6 @@ namespace GFElevInterview.Views
             lstSearch.ItemsSource = elevModels;
         }
 
-
         private void Frem_Click(object sender, RoutedEventArgs e) {
             currentView.Frem();
             ScrollTilTop();
@@ -167,7 +145,5 @@ namespace GFElevInterview.Views
             currentView.Tilbage();
             ScrollTilTop();
         }
-
-
     }
 }
