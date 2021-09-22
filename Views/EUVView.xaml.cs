@@ -20,16 +20,13 @@ namespace GFElevInterview.Views
         public EUVView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
-            InitialiserBlanket();
-            //TODO
-            rbEuv1Ja.Click += EUV1_Ja_RadiobuttonSelected;
-            rbEuv1Nej.Click += EUV1_Nej_RadiobuttonSelected;
-            //rbEuv1SprgNej.Click += EUV1_Nej_RadiobuttonSelected;
-            //rbEuv1Nej.Click += CheckEUVUdvidet;
-            //rbEuv1Ja.Click += CheckEUVUdvidet;
-            //rbEuv1Nej.Click += CheckEUVUdvidet;
+            rbEuv1Ja.Checked += UdfoldEUV_RadioButtonChecked;
+            rbEuv1Nej.Checked += UdfoldEUV_RadioButtonChecked;
+
             cmbEducation.DropDownClosed += Combobox_DropDownClosed;
             cmbUddannelse.DropDownClosed += Combobox_DropDownClosed;
+
+            InitialiserBlanket();
         }
 
         private void InitialiserBlanket() {
@@ -41,13 +38,22 @@ namespace GFElevInterview.Views
             }
             cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
 
-            OpdaterExpanders();
+            OpdaterExpanders(false, false);
             UdfyldBlanketHvisAlleredeEksisterende();
         }
 
         private void SætButtons() {
             parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
+        }
+        
+        private void OpdaterExpanders(bool erEUVJa, bool erEUVNej)
+        {
+            expEuv1.IsExpanded = erEUVJa;
+            expEuv1.IsEnabled = erEUVJa;
+
+            expEuv2.IsExpanded = erEUVNej;
+            expEuv2.IsEnabled = erEUVNej;
         }
 
         public void Frem() {
@@ -66,37 +72,51 @@ namespace GFElevInterview.Views
             parent.SkiftBlanket(new MeritBlanketView(parent));
         }
 
+        /// <summary>
+        /// Sætter <see cref="CurrentElev.elev"/>s <see cref="ElevType"/> baseret på radioknapper.
+        /// </summary>
         private void SætElevType() {
-            ElevType elevType;
-
-            //TODO Max uddyb
-            if ((bool)rbEuv1Ja.IsChecked) {
+            ElevType elevType = ElevType.Null;
+            //Navneændring på rb
+            bool rbValider1 = (bool)rbEuv1Ja.IsChecked;
+            bool rbValider2 = (bool)rbEuv1SprgJa.IsChecked;
+            bool rbValider3 = (bool)rbEuv2Ja.IsChecked;
+            //Vi tjekker her at elevtypen bliver udvalgt, udfra de valgte radio knapper.
+            if(rbValider1 && rbValider2)
+            {
                 elevType = ElevType.EUV1;
             }
-            else {
-                if ((bool)rbEuv2Ja.IsChecked) {
-                    elevType = ElevType.EUV2;
-                }
-                else {
-                    elevType = ElevType.EUV3;
-                }
+            else if((!rbValider1 && rbValider3) || (rbValider1 && !rbValider2))
+            {
+                elevType = ElevType.EUV2;
             }
-
+            else if(!rbValider1 && !rbValider3)
+            {
+                elevType = ElevType.EUV3;
+            }
+            //Elevtypen bliver indsat i den nuværende elev.
             CurrentElev.elev.elevType = elevType;
         }
 
+        /// <summary>
+        /// Validerer om <see cref="ElevType"/> er godkendt ud fra hvilke knapper som er blevet trykket.
+        /// Validerer også ComboBox, ved at tjekke ComboBoxen og borderen den er inde under.
+        /// </summary>
+        /// <returns>erValideret</returns>
         private bool ErValideret() {
             bool erValideret = true;
-
             bool erElevEUV1;
+            //erValideret Tjekker her om radiobuttons er valideret, ved at tjekke knapperne givet til den. hvis den ikke finder
+            //den udfyldt så bliver den lyst op med en rød border.
             erValideret = InputValidering.ValiderToRadioButtons(rbEuv1Ja, rbEuv1Nej, out erElevEUV1, bdrEuv1) && erValideret;
+            //TODO 
             if (erElevEUV1) {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv1SprgJa, rbEuv1SprgNej, bdrEuv1) && erValideret;
             }
             else {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv2Ja, rbEuv2Nej, bdrEuv2) && erValideret;
             }
-
+            //Hvis combobox ikke er udfyldt så vil boxen lyse op rødt.
             erValideret = InputValidering.ValiderComboBox(cmbEducation, bdrEducation) && erValideret;
             erValideret = InputValidering.ValiderComboBox(cmbUddannelse, bdrAdresse) && erValideret;
 
@@ -105,77 +125,40 @@ namespace GFElevInterview.Views
 
             return erValideret;
         }
-
-        //TODO Udvidelse
-        private bool ErEUVUdvidet() {
-
-            //if(elevType == ElevType.EUV1)
-            //{
-            //    expEuv1.IsExpanded = true;
-            //}
-            //if(elevType == ElevType.EUV2 || elevType == ElevType.EUV3)
-            //{
-            //    expEuv2.IsExpanded = false;
-            //}
-
-            //return;
-
-
-            bool _euv1 = (bool)rbEuv1Ja.IsChecked || !(bool)rbEuv1Nej.IsChecked;
-            bool _euv1Spg = (bool)rbEuv1SprgJa.IsChecked || !(bool)rbEuv1SprgNej.IsChecked;
-            if (!_euv1) {
-                expEuv1.IsExpanded = false;
-                expEuv1.IsEnabled = false;
-                expEuv2.IsEnabled = true;
-                expEuv2.IsExpanded = true;
-                return true;
-            }
-            if (!_euv1Spg) {
-                expEuv1.IsExpanded = false;
-                expEuv1.IsEnabled = false;
-                expEuv2.IsEnabled = true;
-                rbEuv1SprgNej.IsChecked = false;
-                rbEuv1Ja.IsChecked = false;
-                rbEuv1Nej.IsChecked = true;
-                expEuv2.IsExpanded = true;
-                return true;
-            }
-            expEuv1.IsEnabled = true;
-            expEuv1.IsExpanded = true;
-            expEuv2.IsEnabled = false;
-            return false;
-        }
-
+        /// <summary>
+        /// <br>Udfylder blanketten hvis informationerne allerede eksistere.</br>
+        /// <br>Den tjekker <see cref="CurrentElev.elev"/> for den valgte elevs informationer.</br>
+        /// <br>Knapper bliver sat ved hjælp af <see cref="UdfyldBlanket.UdfyldRadioButton(RadioButton, RadioButton, bool?)"/></br>
+        /// og comboBox med <see cref="UdfyldBlanket.UdfyldComboBox(ComboBox, string)"/>
+        /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
             if (CurrentElev.elev.elevType > ElevType.Null) {
                 switch (CurrentElev.elev.elevType) {
                     case ElevType.EUV1:
-                        //EUV1 == rbEuv1Ja, rbEuv1SprgJa
-
-                        UdfyldEUVRadioButton(rbEuv1Ja, rbEuv1SprgJa);
+                        //CheckEUVRadioButton tager de to udvalgte knapper og gør dem true.
+                        CheckEUVRadioButton(rbEuv1Ja, rbEuv1SprgJa);
                         break;
 
                     case ElevType.EUV2:
-                        UdfyldEUVRadioButton(rbEuv1Nej, rbEuv1SprgJa);
+                        CheckEUVRadioButton(rbEuv1Nej, rbEuv2Ja);
                         break;
 
                     case ElevType.EUV3:
-                        UdfyldEUVRadioButton(rbEuv1Nej, rbEuv2Nej);
+                        CheckEUVRadioButton(rbEuv1Nej, rbEuv2Nej);
                         break;
                 }
-
+                //Vi ufylder her radiobuttons når en udfyldt elev bliver valgt.
+                //Den tjekker her om det er Ja eller nej knappen ved at tjekke den nuværende elev.
                 UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.sps);
                 UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.eud);
-
+                //UdfyldComboBox udfylder comboboxen på siden ved at hente informationen fra den nuværende elev.
                 UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.uddannelse);
                 UdfyldBlanket.UdfyldComboBox(cmbUddannelse, CurrentElev.elev.uddannelseAdresse);
             }
         }
 
-        private void UdfyldEUVRadioButton(RadioButton rbTop, RadioButton rbBund)
+        private void CheckEUVRadioButton(RadioButton rbTop, RadioButton rbBund)
         {
-            OpdaterExpanders(rbTop);
-
             rbTop.IsChecked = true;
             rbBund.IsChecked = true;
         }
@@ -185,47 +168,9 @@ namespace GFElevInterview.Views
             parent.scroll.Focus();
         }
 
-        private void CheckEUVUdvidet(object sender, RoutedEventArgs e) {
-            expEuv2.IsExpanded = ErEUVUdvidet();
-        }
-
-
-        private void EUV1_Ja_RadiobuttonSelected(object sender, RoutedEventArgs e)
+        private void UdfoldEUV_RadioButtonChecked(object sender, RoutedEventArgs e)
         {
-            OpdaterExpanders(expEuv1, expEuv2);
-        }
-        private void EUV1_Nej_RadiobuttonSelected(object sender, RoutedEventArgs e)
-        {
-            OpdaterExpanders(expEuv2, expEuv1);
-        }
-
-        private void OpdaterExpanders()
-        {
-            expEuv1.IsExpanded = false;
-            expEuv1.IsEnabled = false;
-
-            expEuv2.IsExpanded = false;
-            expEuv2.IsEnabled = false;
-        }
-
-        private void OpdaterExpanders(RadioButton jaEuv1)
-        {
-            if(jaEuv1 == rbEuv1Ja)
-            {
-                OpdaterExpanders(expEuv1, expEuv2);
-                return;
-            }
-            OpdaterExpanders(expEuv2, expEuv1);
-        }
-
-
-        private void OpdaterExpanders(Expander stor, Expander lille)
-        {
-            stor.IsExpanded = true;
-            stor.IsEnabled = true;
-
-            lille.IsExpanded = false;
-            lille.IsEnabled = false;
+            OpdaterExpanders((bool)rbEuv1Ja.IsChecked, (bool)rbEuv1Nej.IsChecked);
         }
     }
 }

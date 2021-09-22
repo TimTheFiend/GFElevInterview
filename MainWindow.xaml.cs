@@ -63,7 +63,7 @@ namespace GFElevInterview
 
         #region LederView
 
-        //todo
+        //TODO
         private void btnLeder_Click(object sender, RoutedEventArgs e) {
             mainContent.Content = new Views.LederView();
             UnderviserPanel.Visibility = Visibility.Visible;
@@ -71,7 +71,7 @@ namespace GFElevInterview
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-        //todo
+        //TODO
         private void signinButton_Click(object sender, RoutedEventArgs e) {
             //GFElevInterview.Views.LederView LederView = new Views.LederView();
             //if (passwordText.Password == "1234")
