@@ -16,14 +16,11 @@ namespace GFElevInterview.Views
     public partial class LederView : UserControl
     {
         private ElevModel elev;
-        private string blanketMappe;
 
         public LederView() {
             InitializeComponent();
             InitialiserView();
             InitialiserSkoleComboBox();
-
-            blanketMappe = RessourceFil.outputMappe;
         }
 
         //On Constructor call

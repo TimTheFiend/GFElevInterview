@@ -24,7 +24,7 @@ namespace GFElevInterview.Views
         //Basic login check
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             if (BC.Verify(txtPassword.Password, DbTools.Instance.Login.SingleOrDefault(x => x.id == 1).password)) {
-                this.parent.LederView();
+                this.parent.LoginTilLederView();
             }
             else {
                 AlertBoxes.OnFailedLoginAttempt();

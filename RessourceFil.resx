@@ -161,6 +161,10 @@
     <value>Lyngby</value>
     <comment>Add. Linje</comment>
   </data>
+  <data name="meritBlanketDoc" xml:space="preserve">
+    <value>Merit-blanket.docx</value>
+    <comment>Merit-blanket dokumentet.</comment>
+  </data>
   <data name="minimumGrundforløbLængde" xml:space="preserve">
     <value>16</value>
     <comment>Udd. Længde</comment>

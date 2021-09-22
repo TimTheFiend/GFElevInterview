@@ -12,14 +12,14 @@
             <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEducation" Width="600" Height="80">
                 <StackPanel VerticalAlignment="Center">
                     <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="15" HorizontalAlignment="Center" />
-                    <ComboBox x:Name="cmbEducation" SelectionChanged="educationComboBox_SelectionChanged" Width="250" />
+                    <ComboBox x:Name="cmbEducation" Width="250" />
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
             <Border Style="{StaticResource bdrVisitation}" x:Name="bdrAdresse" Width="600" Height="80">
                 <StackPanel VerticalAlignment="Center">
                     <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="15" HorizontalAlignment="Center" />
-                    <ComboBox x:Name="cmbAdresse" SelectionChanged="educationAdresseComboBox_SelectionChanged" Width="250" />
+                    <ComboBox x:Name="cmbAdresse" Width="250" />
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
@@ -27,12 +27,12 @@
                 <StackPanel VerticalAlignment="Center">
                     <Label Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="15" HorizontalAlignment="Center" />
                     <DockPanel x:Name="docsps" Width="150" HorizontalAlignment="Center">
-                        <RadioButton GroupName="spsSupport" x:Name="rbSpsJa" Content="Ja" Checked="SPSSupport_Checked" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <RadioButton GroupName="spsSupport" x:Name="rbSpsJa" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>
                         </RadioButton>
-                        <RadioButton GroupName="spsSupport" x:Name="rbSpsNej" Content="Nej" Checked="SPSSupport_Checked" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <RadioButton GroupName="spsSupport" x:Name="rbSpsNej" Content="Nej" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>
@@ -46,12 +46,12 @@
                     <Label Content="Ønsker du en samtale med eud vejleder?" FontSize="15" HorizontalAlignment="Center" />
 
                     <DockPanel x:Name="docEud" Width="150">
-                        <RadioButton GroupName="eudSupport" x:Name="rbEudJa" Content="Ja" Checked="EUDSupport_Checked" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <RadioButton GroupName="eudSupport" x:Name="rbEudJa" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>
                         </RadioButton>
-                        <RadioButton GroupName="eudSupport" x:Name="rbEudNej" Content="Nej" Checked="EUDSupport_Checked" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <RadioButton GroupName="eudSupport" x:Name="rbEudNej" Content="Nej" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
                                 <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>

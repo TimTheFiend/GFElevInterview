@@ -3,8 +3,7 @@
 namespace GFElevInterview.Data
 {
     /// <summary>
-    /// Forsøg på at lave en statisk klasse der indeholder forskellige <see cref="MessageBox"/> variationer til forskellige situationer.
-    /// Blev aldrig implementeret, da jeg (Joakim) lavede den spontant og opdagede at det var unødvendigt.
+    /// En statisk klasse der indeholder forskellige <see cref="MessageBox"/> variationer til forskellige situationer.
     /// </summary>
     public static class AlertBoxes
     {
@@ -22,6 +21,7 @@ namespace GFElevInterview.Data
             MessageBox.Show("Udskrivning af blanket(ter) er påbegyndt.", "Udskrivning startet!", MessageBoxButton.OK);
         }
 
+        //NOTE Ikke i brug
         public static void OnOpenFileFailure() {
             MessageBox.Show("Den valgte blanket findes ikke i mappen", "Fejl!", MessageBoxButton.OK);
         }
@@ -52,6 +52,7 @@ namespace GFElevInterview.Data
             return result == MessageBoxResult.Yes;
         }
 
+        //TODO Doku og udvidelse
         public static void OnFailedLoginAttempt() {
             MessageBox.Show("Password er forkert!!");
         }
