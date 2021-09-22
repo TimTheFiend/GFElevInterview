@@ -72,7 +72,9 @@ namespace GFElevInterview.Views
             parent.SkiftBlanket(new MeritBlanketView(parent));
         }
 
-        //Doku
+        /// <summary>
+        /// Sætter <see cref="CurrentElev.elev"/>s <see cref="ElevType"/> baseret på radioknapper.
+        /// </summary>
         private void SætElevType() {
             ElevType elevType = ElevType.Null;
             //Navneændring på rb
@@ -82,22 +84,25 @@ namespace GFElevInterview.Views
             //Vi tjekker her at elevtypen bliver udvalgt, udfra de valgte radio knapper.
             if(rbValider1 && rbValider2)
             {
-                //EUV 1
                 elevType = ElevType.EUV1;
             }
             else if((!rbValider1 && rbValider3) || (rbValider1 && !rbValider2))
             {
-                //EUV 2
                 elevType = ElevType.EUV2;
             }
             else if(!rbValider1 && !rbValider3)
             {
-                //EUV 3
                 elevType = ElevType.EUV3;
             }
             //Elevtypen bliver indsat i den nuværende elev.
             CurrentElev.elev.elevType = elevType;
         }
+
+        /// <summary>
+        /// Validerer om <see cref="ElevType"/> er godkendt ud fra hvilke knapper som er blevet trykket.
+        /// Validerer også ComboBox, ved at tjekke ComboBoxen og borderen den er inde under.
+        /// </summary>
+        /// <returns>erValideret</returns>
         private bool ErValideret() {
             bool erValideret = true;
             bool erElevEUV1;
@@ -120,7 +125,12 @@ namespace GFElevInterview.Views
 
             return erValideret;
         }
-
+        /// <summary>
+        /// <br>Udfylder blanketten hvis informationerne allerede eksistere.</br>
+        /// <br>Den tjekker <see cref="CurrentElev.elev"/> for den valgte elevs informationer.</br>
+        /// <br>Knapper bliver sat ved hjælp af <see cref="UdfyldBlanket.UdfyldRadioButton(RadioButton, RadioButton, bool?)"/></br>
+        /// og comboBox med <see cref="UdfyldBlanket.UdfyldComboBox(ComboBox, string)"/>
+        /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
             if (CurrentElev.elev.elevType > ElevType.Null) {
                 switch (CurrentElev.elev.elevType) {
