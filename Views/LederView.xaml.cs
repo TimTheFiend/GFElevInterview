@@ -56,13 +56,12 @@ namespace GFElevInterview.Views
         /// Åbner en ny stifinder og viser den valgte fil.
         /// </summary>
         /// <param name="blanketNavn">filnavnet på blanketten.</param>
-        private void ÅbenFilPlacering(string blanketNavn)
-        {
+        private void ÅbenFilPlacering(string blanketNavn) {
             string currentDir = Directory.GetCurrentDirectory();
             int index = currentDir.LastIndexOf('\\');  //finder positionen på sidste "\" i current dir
             //kombinerer strings til at give os filstien på den valgte pdf
             string filSti = Path.Combine(currentDir.Substring(0, index), RessourceFil.outputMappeNavn, blanketNavn);
-            
+
             Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
         }
 
@@ -72,7 +71,6 @@ namespace GFElevInterview.Views
 
             openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
 
-
             Nullable<bool> result = openFile.ShowDialog();
             if ((bool)result) {
                 //ProcessstartInfo bruges til at køre python scriptet.
@@ -81,10 +79,10 @@ namespace GFElevInterview.Views
 
                 //Python filen bliver hentet ned til filename fil lokationen.
                 //info.FileName = ".venv\\Scripts\\python.exe";
-                info.FileName = config.AppSettings.Get("pythonExe");
+                info.FileName = RessourceFil.pythonScript;
                 //Python scripted bliver hentet og kørt ved hjælp af fileName.
-                //info.Arguments = string.Format("{0} \"{1}\"", "GFElevInterviewExcel.py", openFile.FileName);
-                info.Arguments = string.Format("{0} \"{1}\"", config.AppSettings.Get("pythonScript"), openFile.FileName);
+                info.Arguments = string.Format("\"{0}\"", openFile.FileName);
+
                 info.UseShellExecute = false;
                 info.RedirectStandardOutput = true;
                 info.CreateNoWindow = true;
@@ -96,9 +94,9 @@ namespace GFElevInterview.Views
                         //data´en fra reader(python) bliver overført til linje(string) en linje adgangen så længe den ikke finde et null.
                         string linje;
                         while ((linje = reader.ReadLine()) != null) {
-                            //Data´en fra linje, bliver splittet op i et string array. 
+                            //Data´en fra linje, bliver splittet op i et string array.
                             string[] elev = linje.Split(';');  //Note: hardCoded seperator
-                            if (elev.Length != 3) {
+                            if (elev.Length < 2) {
                                 AlertBoxes.OnExcelReadingError(linje);
                                 return;
                             }
@@ -109,11 +107,14 @@ namespace GFElevInterview.Views
                 }
                 //DbTools TilføjElever bliver kaldt, hvorefter at eleverne bliver tilføjet til databasen.
                 DbTools.Instance.TilføjElever(elever);
+                btnVisAlle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
 
         #region Events
+
         #region Knap metoder
+
         private void SPS_Click(object sender, RoutedEventArgs e) {
             OpdaterDataGrid(DbTools.Instance.VisSPS());
         }
@@ -134,7 +135,8 @@ namespace GFElevInterview.Views
             cmbSchool.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
-        #endregion
+
+        #endregion Knap metoder
 
         private void Open_Merit_Click(object sender, RoutedEventArgs e) {
             //TODO Reduce redundancy
@@ -189,8 +191,8 @@ namespace GFElevInterview.Views
             else {
                 OpdaterDataGrid(DbTools.Instance.VisSkole(skole));
             }
-
         }
+
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
@@ -206,7 +208,6 @@ namespace GFElevInterview.Views
             else
                 btnOpen_Merit.IsEnabled = true;
 
-
             if (elev.elevType == ElevType.Null)
                 btnOpen_RKV.IsEnabled = false;
             else
@@ -215,9 +216,9 @@ namespace GFElevInterview.Views
             //Er eleven færdig med interview?
             //Hvis ja, enable knap,
             //Hvis nej, disable knap.
-
         }
-        #endregion
+
+        #endregion Events
 
         private void TilføjKnp_Click(object sender, RoutedEventArgs e) {
             ÅbenFil();
