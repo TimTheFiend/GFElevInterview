@@ -51,7 +51,6 @@ namespace GFElevInterview.Data
             zip.Dispose();
         }
 
-
         public static string[] HentFiler(string endelse) {
             string[] filer = Directory.GetFiles(RessourceFil.outputMappe, $"*{endelse}");
             return filer;
@@ -69,7 +68,6 @@ namespace GFElevInterview.Data
             antalElever.Add(ballerupAntal, skoler.Where(x => x == ballerupAntal).ToList().Count);
             antalElever.Add(frederiksbergAntal, skoler.Where(x => x == frederiksbergAntal).ToList().Count);
             antalElever.Add(lyngbyAntal, skoler.Where(x => x == lyngbyAntal).ToList().Count);
-
 
             return antalElever;
         }

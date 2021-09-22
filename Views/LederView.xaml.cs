@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using config = System.Configuration.ConfigurationManager;
 
 namespace GFElevInterview.Views
 {

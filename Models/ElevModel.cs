@@ -10,13 +10,17 @@ namespace GFElevInterview.Models
     public class ElevModel
     {
         #region Person data
+
         [Key]
         public string cprNr { get; set; }
+
         public string fornavn { get; set; }
         public string efternavn { get; set; }
-        #endregion
+
+        #endregion Person data
 
         #region TEC data
+
         public string uddannelse { get; set; }
         public string uddannelseAdresse { get; set; }
 
@@ -24,9 +28,11 @@ namespace GFElevInterview.Models
         public bool? eud { get; set; }
 
         public ElevType elevType { get; set; }
-        #endregion
+
+        #endregion TEC data
 
         #region Dansk
+
         [NotMapped]
         public bool? danskEksammen {
             get {
@@ -36,6 +42,7 @@ namespace GFElevInterview.Models
                 return uddMerit.HasFlag(Merit.DanskEksamen);
             }
         }
+
         [NotMapped]
         public bool? danskUndervisning {
             get {
@@ -45,10 +52,13 @@ namespace GFElevInterview.Models
                 return uddMerit.HasFlag(Merit.DanskUndervisning);
             }
         }
+
         public FagNiveau danskNiveau { get; set; }
-        #endregion
+
+        #endregion Dansk
 
         #region Engelsk
+
         [NotMapped]
         public bool? engelskEksammen {
             get {
@@ -58,6 +68,7 @@ namespace GFElevInterview.Models
                 return uddMerit.HasFlag(Merit.EngelskEksamen);
             }
         }
+
         [NotMapped]
         public bool? engelskUndervisning {
             get {
@@ -67,10 +78,13 @@ namespace GFElevInterview.Models
                 return uddMerit.HasFlag(Merit.EngelskUndervisning);
             }
         }
+
         public FagNiveau engelskNiveau { get; set; }
-        #endregion
+
+        #endregion Engelsk
 
         #region Matematik
+
         [NotMapped]
         public bool? matematikEksammen {
             get {
@@ -80,6 +94,7 @@ namespace GFElevInterview.Models
                 return uddMerit.HasFlag(Merit.MatematikEksamen);
             }
         }
+
         [NotMapped]
         public bool? matematikUndervisning {
             get {
@@ -89,8 +104,10 @@ namespace GFElevInterview.Models
                 return uddMerit.HasFlag(Merit.MatematikUndervisning);
             }
         }
+
         public FagNiveau matematikNiveau { get; set; }
-        #endregion
+
+        #endregion Matematik
 
         public Merit uddMerit { get; set; }
 
@@ -99,6 +116,7 @@ namespace GFElevInterview.Models
                 case true:
                     uddMerit |= fag;
                     break;
+
                 case false:
                     uddMerit &= ~fag;
                     break;
@@ -106,7 +124,9 @@ namespace GFElevInterview.Models
         }
 
         #region Constructors
-        public ElevModel() { }
+
+        public ElevModel() {
+        }
 
         public ElevModel(string cprNr) {
             if (!cprNr.Contains('-')) {
@@ -121,7 +141,7 @@ namespace GFElevInterview.Models
             this.efternavn = efternavn;
         }
 
-        #endregion
+        #endregion Constructors
 
         //TODO Ryk ud herfra
         private const int minForløbslængdeIUger = 16;
@@ -172,7 +192,6 @@ namespace GFElevInterview.Models
                 return false;
             }
         }
-
 
         [NotMapped]
         public string fornavnEfternavn {
@@ -295,7 +314,6 @@ namespace GFElevInterview.Models
             };
         }
 
-
         public List<string> ValgAfUddannelser() {
             List<string> uddannelser = new List<string>() {
                 RessourceFil.infrastruktur,
@@ -308,7 +326,6 @@ namespace GFElevInterview.Models
 
             return uddannelser;
         }
-
     }
 
     public enum ElevType

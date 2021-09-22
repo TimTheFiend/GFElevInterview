@@ -2,7 +2,6 @@
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -15,8 +14,7 @@ namespace GFElevInterview.Views
     {
         public BlanketView parent;
 
-        public MeritBlanketView(BlanketView parent)
-        {
+        public MeritBlanketView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
             InitialiserBlanket();
@@ -24,8 +22,7 @@ namespace GFElevInterview.Views
             SætEventHandlerComboBox();
         }
 
-        private void SætEventHandlerComboBox()
-        {
+        private void SætEventHandlerComboBox() {
             //TODO ind i InitialiserComboBox
             //Combobox gets it dropdownclosed from the method called "Combobox_DropDownClosed".
             cmbMatematik.DropDownClosed += Combobox_DropDownClosed;
@@ -71,13 +68,12 @@ namespace GFElevInterview.Views
             UdfyldBlanketHvisAlleredeEksisterende();
         }
 
-        //TODO 
+        //TODO
         private void UdfyldBlanketHvisAlleredeEksisterende() {
-            if(CurrentElev.elev.danskNiveau > FagNiveau.Null)
-            {
-                UdfyldBlanket.UdfyldComboBox(cmbDansk,(int)CurrentElev.elev.danskNiveau - 1);
-                UdfyldBlanket.UdfyldComboBox(cmbEngelsk,(int)CurrentElev.elev.engelskNiveau - 1);
-                UdfyldBlanket.UdfyldComboBox(cmbMatematik,(int)CurrentElev.elev.matematikNiveau - 1);
+            if (CurrentElev.elev.danskNiveau > FagNiveau.Null) {
+                UdfyldBlanket.UdfyldComboBox(cmbDansk, (int)CurrentElev.elev.danskNiveau - 1);
+                UdfyldBlanket.UdfyldComboBox(cmbEngelsk, (int)CurrentElev.elev.engelskNiveau - 1);
+                UdfyldBlanket.UdfyldComboBox(cmbMatematik, (int)CurrentElev.elev.matematikNiveau - 1);
 
                 UdfyldBlanket.UdfyldRadioButton(rbDanskEksamenJa, rbDanskEksamenNej, CurrentElev.elev.danskEksammen);
                 UdfyldBlanket.UdfyldRadioButton(rbDanskUndervisJa, rbDanskUndervisNej, CurrentElev.elev.danskUndervisning);
@@ -127,7 +123,6 @@ namespace GFElevInterview.Views
 
         //
         private void SætCurrentElevVærdier() {
-
             CurrentElev.elev.danskNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
             CurrentElev.elev.engelskNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
             CurrentElev.elev.matematikNiveau = (FagNiveau)cmbMatematik.SelectedIndex + 1;
