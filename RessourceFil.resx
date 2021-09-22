@@ -169,6 +169,10 @@
     <value>..\\Blanketter</value>
     <comment>Blanket. Add</comment>
   </data>
+  <data name="outputMappeNavn" xml:space="preserve">
+    <value>Blanketter</value>
+    <comment>Fuldt navn på output mappe.</comment>
+  </data>
   <data name="programmering" xml:space="preserve">
     <value>Programmering</value>
     <comment>Udd. Linje</comment>

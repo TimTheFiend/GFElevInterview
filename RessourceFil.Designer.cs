@@ -178,6 +178,15 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blanketter.
+        /// </summary>
+        internal static string outputMappeNavn {
+            get {
+                return ResourceManager.GetString("outputMappeNavn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Programmering.
         /// </summary>
         internal static string programmering {
