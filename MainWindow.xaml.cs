@@ -21,6 +21,7 @@ namespace GFElevInterview
             //Data.AdminTools.HentAntalEleverPåSkole();
 
             //new DbTools().TilføjElever();
+            new Models.LoginModel().ChangePassword("helloworld");
 
             OpdaterCounter();
         }
@@ -65,34 +66,16 @@ namespace GFElevInterview
 
         //TODO
         private void btnLeder_Click(object sender, RoutedEventArgs e) {
-            mainContent.Content = new Views.LederView();
+            mainContent.Content = new Views.LoginView(this);
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-        //TODO
-        private void signinButton_Click(object sender, RoutedEventArgs e) {
-            //GFElevInterview.Views.LederView LederView = new Views.LederView();
-            //if (passwordText.Password == "1234")
-            //{
-            //    LederView.Show();
-            //    this.Close();
-            //}
-            //else if (passwordText.Password == "")
-            //{
-            //    MessageBox.Show("Indtast adgangskode!!");
-            //    passwordText.Focus();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Ugyldig adgangskode!!");
-            //    passwordText.Clear();
-            //    passwordText.Focus();
-            //}
-        }
 
-        private void passwordText_KeyDown(object sender, KeyEventArgs e) {
+        public void LederView()
+        {
+            mainContent.Content = new Views.LederView();
         }
 
         #endregion

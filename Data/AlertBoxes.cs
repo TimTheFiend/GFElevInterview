@@ -51,5 +51,10 @@ namespace GFElevInterview.Data
             MessageBoxResult result = MessageBox.Show("Er du sikker på at skifte til en ny elev?", "ADVARSEL", MessageBoxButton.YesNo);
             return result == MessageBoxResult.Yes;
         }
+
+        public static void OnFailedLoginAttempt()
+        {
+            MessageBox.Show("Password er forkert!!");
+        }
     }
 }

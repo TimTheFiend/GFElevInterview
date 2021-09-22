@@ -205,6 +205,15 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to root.
+        /// </summary>
+        internal static string standardPassword {
+            get {
+                return ResourceManager.GetString("standardPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blanketter\\Templates\\.
         /// </summary>
         internal static string templates {
