@@ -177,6 +177,10 @@
     <value>Programmering</value>
     <comment>Udd. Linje</comment>
   </data>
+  <data name="pythonScript" xml:space="preserve">
+    <value>PyExcel\\GFElevInterviewExcel.exe</value>
+    <comment>Relativ filsti til python script.</comment>
+  </data>
   <data name="samletMerit" xml:space="preserve">
     <value>..\\Blanketter\\_Samlet Merit.pdf</value>
     <comment>Adm. Add</comment>

@@ -196,6 +196,15 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PyExcel\\GFElevInterviewExcel.exe.
+        /// </summary>
+        internal static string pythonScript {
+            get {
+                return ResourceManager.GetString("pythonScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ..\\Blanketter\\_Samlet Merit.pdf.
         /// </summary>
         internal static string samletMerit {
