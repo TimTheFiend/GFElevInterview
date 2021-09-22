@@ -1,59 +1,59 @@
 ﻿<UserControl x:Class="GFElevInterview.Views.VisitationsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:GFElevInterview.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
         <StackPanel>
-            <Label Content="Interview guide til Visitations elever"  Style="{StaticResource labVisitation}"/>
+            <Label Content="Interview guide til Visitations elever"  Style="{StaticResource labVisitation}" />
             <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEducation" Width="600" Height="80">
                 <StackPanel VerticalAlignment="Center">
-                    <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="15" HorizontalAlignment="Center"/>
-                    <ComboBox x:Name="cmbEducation" SelectionChanged="educationComboBox_SelectionChanged" Width="250"/>
+                    <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="15" HorizontalAlignment="Center" />
+                    <ComboBox x:Name="cmbEducation" SelectionChanged="educationComboBox_SelectionChanged" Width="250" />
                 </StackPanel>
             </Border>
-            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Separator Style="{StaticResource SepSpaceH}" />
             <Border Style="{StaticResource bdrVisitation}" x:Name="bdrAdresse" Width="600" Height="80">
                 <StackPanel VerticalAlignment="Center">
-                    <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="15" HorizontalAlignment="Center"/>
-                    <ComboBox x:Name="cmbAdresse" SelectionChanged="educationAdresseComboBox_SelectionChanged" Width="250"/>
+                    <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="15" HorizontalAlignment="Center" />
+                    <ComboBox x:Name="cmbAdresse" SelectionChanged="educationAdresseComboBox_SelectionChanged" Width="250" />
                 </StackPanel>
             </Border>
-            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Separator Style="{StaticResource SepSpaceH}" />
             <Border Style="{StaticResource bdrVisitation}" x:Name="bdrSps" Width="600" Height="80">
                 <StackPanel VerticalAlignment="Center">
-                    <Label Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="15" HorizontalAlignment="Center"/>
+                    <Label Content="Har du modtaget særlige støtte eller ønsker at søge om særlige pædagogiske støtte?" FontSize="15" HorizontalAlignment="Center" />
                     <DockPanel x:Name="docsps" Width="150" HorizontalAlignment="Center">
                         <RadioButton GroupName="spsSupport" x:Name="rbSpsJa" Content="Ja" Checked="SPSSupport_Checked" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>
                         </RadioButton>
                         <RadioButton GroupName="spsSupport" x:Name="rbSpsNej" Content="Nej" Checked="SPSSupport_Checked" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>
                         </RadioButton>
                     </DockPanel>
                 </StackPanel>
             </Border>
-            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Separator Style="{StaticResource SepSpaceH}" />
             <Border Style="{StaticResource bdrVisitation}" x:Name="bdrEud" Width="600" Height="80">
                 <StackPanel VerticalAlignment="Center">
-                    <Label Content="Ønsker du en samtale med eud vejleder?" FontSize="15" HorizontalAlignment="Center"/>
+                    <Label Content="Ønsker du en samtale med eud vejleder?" FontSize="15" HorizontalAlignment="Center" />
 
                     <DockPanel x:Name="docEud" Width="150">
                         <RadioButton GroupName="eudSupport" x:Name="rbEudJa" Content="Ja" Checked="EUDSupport_Checked" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>
                         </RadioButton>
                         <RadioButton GroupName="eudSupport" x:Name="rbEudNej" Content="Nej" Checked="EUDSupport_Checked" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                             </RadioButton.RenderTransform>
                         </RadioButton>
                     </DockPanel>

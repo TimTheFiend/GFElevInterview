@@ -1,16 +1,16 @@
 ﻿<UserControl x:Class="GFElevInterview.Views.MeritBlanketView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d" Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="0.1*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.1*" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="0" Visibility="Visible">
             <StackPanel Grid.Column="0" Grid.Row="4"  x:Name="stackMerit">
@@ -18,130 +18,130 @@
 
                 <Border BorderBrush="Gray" BorderThickness="1" x:Name="bdrDanskValidation">
                     <DockPanel>
-                        <Label Content="Dansk:" Style="{StaticResource lblOverskrift}"/>
+                        <Label Content="Dansk:" Style="{StaticResource lblOverskrift}" />
                         <StackPanel HorizontalAlignment="Left">
                             <DockPanel>
-                                <Label Content="Niveau" FontSize="15" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="cmbDansk" SelectionChanged="ComboboxFagNiveau_SelectionChanged" Style="{StaticResource cmbFag}"/>
+                                <Label Content="Niveau" FontSize="15" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cmbDansk" SelectionChanged="ComboboxFagNiveau_SelectionChanged" Style="{StaticResource cmbFag}" />
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="J"/>
+                                        <Label Content="J" />
                                         <RadioButton x:Name="rbDanskEksamenJa" GroupName="rbDEksamen" Style="{StaticResource rbnValg}">
                                             <RadioButton.LayoutTransform>
                                                 <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="N"/>
+                                        <Label Content="N" />
                                         <RadioButton x:Name="rbDanskEksamenNej" GroupName="rbDEksamen" Style="{StaticResource rbnValg}">
                                             <RadioButton.LayoutTransform>
                                                 <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="Eksamen" Style="{StaticResource lblFag}"/>
+                                        <Label Content="Eksamen" Style="{StaticResource lblFag}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="J"/>
+                                        <Label Content="J" />
                                         <RadioButton x:Name="rbDanskUndervisJa" GroupName="DUndervis" Style="{StaticResource rbnValg}">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="N"/>
+                                        <Label Content="N" />
                                         <RadioButton x:Name="rbDanskUndervisNej" GroupName="DUndervis" Style="{StaticResource rbnValg}">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="Undervis" Style="{StaticResource lblFag}"/>
+                                        <Label Content="Undervis" Style="{StaticResource lblFag}" />
                                     </StackPanel>
                                 </StackPanel>
                             </DockPanel>
                         </StackPanel>
                     </DockPanel>
                 </Border>
-                <Separator Height="10" Background="Transparent" Padding="0" Margin="0"/>
+                <Separator Height="10" Background="Transparent" Padding="0" Margin="0" />
                 <Border BorderBrush="Gray" BorderThickness="1" x:Name="bdrEngelskValidation">
                     <DockPanel>
-                        <Label Content="Engelsk:" Style="{StaticResource lblOverskrift}"/>
+                        <Label Content="Engelsk:" Style="{StaticResource lblOverskrift}" />
                         <StackPanel HorizontalAlignment="Left">
                             <DockPanel>
-                                <Label Content="Niveau" FontSize="15" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="cmbEngelsk" Style="{StaticResource cmbFag}"/>
+                                <Label Content="Niveau" FontSize="15" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cmbEngelsk" Style="{StaticResource cmbFag}" />
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="J"/>
+                                        <Label Content="J" />
                                         <RadioButton x:Name="rbEngelskEksamenJa" Style="{StaticResource rbnValg}" GroupName="rbEEksamen">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="N"/>
+                                        <Label Content="N" />
                                         <RadioButton x:Name="rbEngelskEksamenNej" Style="{StaticResource rbnValg}" GroupName="rbEEksamen">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="Eksamen" Style="{StaticResource lblFag}"/>
+                                        <Label Content="Eksamen" Style="{StaticResource lblFag}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="J"/>
+                                        <Label Content="J" />
                                         <RadioButton x:Name="rbEngelskUndervisJa" Style="{StaticResource rbnValg}" GroupName="rbEUndervis">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="N"/>
+                                        <Label Content="N" />
                                         <RadioButton x:Name="rbEngelskUndervisNej" Style="{StaticResource rbnValg}" GroupName="rbEUndervis">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="Undervis" Style="{StaticResource lblFag}"/>
+                                        <Label Content="Undervis" Style="{StaticResource lblFag}" />
                                     </StackPanel>
                                 </StackPanel>
                             </DockPanel>
                         </StackPanel>
                     </DockPanel>
                 </Border>
-                <!--<Border Style="{StaticResource bdrSpace}"/>-->
-                <Separator Height="10" Background="Transparent" Padding="0" Margin="0"/>
+                <!--<Border Style="{StaticResource bdrSpace}" />-->
+                <Separator Height="10" Background="Transparent" Padding="0" Margin="0" />
                 <Border BorderBrush="Gray" BorderThickness="1" x:Name="bdrMatematikValidation">
                     <DockPanel>
-                        <Label Content="Matematik:" Style="{StaticResource lblOverskrift}"/>
+                        <Label Content="Matematik:" Style="{StaticResource lblOverskrift}" />
                         <StackPanel HorizontalAlignment="Left">
                             <DockPanel>
-                                <Label Content="Niveau" FontSize="15" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="cmbMatematik" Style="{StaticResource cmbFag}"/>
+                                <Label Content="Niveau" FontSize="15" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cmbMatematik" Style="{StaticResource cmbFag}" />
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="J" FontSize="13"/>
+                                        <Label Content="J" FontSize="13" />
                                         <RadioButton x:Name="rbMatematikEksamenJa" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMEksamen">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="N" FontSize="13"/>
+                                        <Label Content="N" FontSize="13" />
                                         <RadioButton x:Name="rbMatematikEksamenNej" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMEksamen">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="Eksamen" Style="{StaticResource lblFag}"/>
+                                        <Label Content="Eksamen" Style="{StaticResource lblFag}" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="J" FontSize="13"/>
+                                        <Label Content="J" FontSize="13" />
                                         <RadioButton x:Name="rbMatematikUndervisJa" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMUndervis">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="N" FontSize="13"/>
+                                        <Label Content="N" FontSize="13" />
                                         <RadioButton x:Name="rbMatematikUndervisNej" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMUndervis">
                                             <RadioButton.LayoutTransform>
-                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8"/>
+                                                <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                             </RadioButton.LayoutTransform>
                                         </RadioButton>
-                                        <Label Content="Undervis" Style="{StaticResource lblFag}"/>
+                                        <Label Content="Undervis" Style="{StaticResource lblFag}" />
                                     </StackPanel>
                                 </StackPanel>
                             </DockPanel>

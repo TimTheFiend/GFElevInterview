@@ -32,7 +32,9 @@ namespace GFElevInterview.Data
                 //filen skabes i outputFilePath slut lokationen.
                 PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(outputFilePath, FileMode.Create));
                 var pdfFormFields = pdfStamper.AcroFields;
+
                 #region Indsætning af data
+
                 //Side 1 Elev Info
                 //Information sættes på feltes lokation ud fra deres navn
                 pdfFormFields.SetField("Navn", CurrentElev.elev.fornavnEfternavn);
@@ -67,7 +69,8 @@ namespace GFElevInterview.Data
                 //pdfFormFields.SetField("Specialpæd ja", CurrentElev.elev.SPS.ToString());
                 //pdfFormFields.SetField("GF Samlet antal dages merit", "10");
                 //pdfFormFields.SetField("GF Samlet antal på GF", "25");
-                #endregion
+
+                #endregion Indsætning af data
 
                 //Gemmer og lukker for fil-objektet.
                 pdfStamper.Close();
@@ -75,7 +78,6 @@ namespace GFElevInterview.Data
             catch (Exception) {
                 throw;
             }
-
         }
 
         /// <summary>
@@ -118,7 +120,8 @@ namespace GFElevInterview.Data
                 doc.Replace("#MN#", CurrentElev.elev.matematikNiveau.ToString(), true, true);
                 doc.Replace("#uger#", CurrentElev.elev.uddannelsesLængdeIUger.ToString(), true, true);
 
-                #endregion
+                #endregion Udskiftning af værdier
+
                 //throw new Exception();
                 doc.SaveToFile(Path.Combine(outputDirectory, CurrentElev.elev.MeritFilNavn), FileFormat.PDF);
                 return true;

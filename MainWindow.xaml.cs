@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Input;
 
 namespace GFElevInterview
 {
@@ -12,8 +11,7 @@ namespace GFElevInterview
 
         public MainWindow() {
             InitializeComponent();
-            if (Instance == null)
-            {
+            if (Instance == null) {
                 Instance = this;
             }
             ÅbenUndervisning();
@@ -25,11 +23,12 @@ namespace GFElevInterview
 
             OpdaterCounter();
         }
-        private void ÅbenUndervisning()
-        {
+
+        private void ÅbenUndervisning() {
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
         }
+
         //TODO Ryk til DbTools
         public void OpdaterCounter() {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();
@@ -60,7 +59,8 @@ namespace GFElevInterview
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-        #endregion
+
+        #endregion Underviser View
 
         #region LederView
 
@@ -73,14 +73,13 @@ namespace GFElevInterview
             OpdaterCounter();
         }
 
-        public void LederView()
-        {
+        public void LederView() {
             mainContent.Content = new Views.LederView();
         }
 
-        #endregion
-        private void btnVejled_Click(object sender, RoutedEventArgs e)
-        {
+        #endregion LederView
+
+        private void btnVejled_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new Views.VejledningsView();
             UnderviserPanel.Visibility = Visibility.Visible;
             OpdaterCounter();

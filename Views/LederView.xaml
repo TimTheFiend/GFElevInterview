@@ -8,74 +8,74 @@
         d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.02*"/>
-            <ColumnDefinition Width="1.15*"/>
-            <ColumnDefinition Width="0.01*"/>
-            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="0.02*" />
+            <ColumnDefinition Width="1.15*" />
+            <ColumnDefinition Width="0.01*" />
+            <ColumnDefinition Width="0.15*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="330"/>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="330" />
         </Grid.RowDefinitions>
         <Grid Width="450" HorizontalAlignment="Right" Grid.Column="1">
             <DockPanel Height="30" VerticalAlignment="Top">
-                <Button x:Name="btnRKV" Content="RKV" Click="RKV_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}"/>
-                <Separator Style="{StaticResource SepSpaceW}"/>
-                <Button x:Name="btnMerit" Content="Merit" Click="Merit_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}"/>
-                <Separator Style="{StaticResource SepSpaceW}"/>
-                <Button x:Name="btnVisAlle" Content="Vis Alle" Click="visAlle_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}"/>
+                <Button x:Name="btnRKV" Content="RKV" Click="RKV_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}" />
+                <Separator Style="{StaticResource SepSpaceW}" />
+                <Button x:Name="btnMerit" Content="Merit" Click="Merit_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}" />
+                <Separator Style="{StaticResource SepSpaceW}" />
+                <Button x:Name="btnVisAlle" Content="Vis Alle" Click="visAlle_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}" />
             </DockPanel>
             <DockPanel Height="30" VerticalAlignment="Bottom">
-                <Button x:Name="btnSPS" Content="SPS" Click="SPS_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}"/>
-                <Separator Style="{StaticResource SepSpaceW}"/>
-                <Button x:Name="btnEUD" Content="EUD" Click="EUD_Click"  HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}"/>
-                <Separator Style="{StaticResource SepSpaceW}"/>
-                <TextBox Width="160" Height="20" x:Name="Sogefelt" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"/>
+                <Button x:Name="btnSPS" Content="SPS" Click="SPS_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}" />
+                <Separator Style="{StaticResource SepSpaceW}" />
+                <Button x:Name="btnEUD" Content="EUD" Click="EUD_Click"  HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource btnShow}" />
+                <Separator Style="{StaticResource SepSpaceW}" />
+                <TextBox Width="160" Height="20" x:Name="Sogefelt" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" />
             </DockPanel>
         </Grid>
 
-        <ComboBox Width="200" Height="25" x:Name="cmbSchool" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged"/>
-             
+        <ComboBox Width="200" Height="25" x:Name="cmbSchool" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged" />
+
         <Border Grid.Column="3" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
-            <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
         <StackPanel Background="#495057" Grid.Column="3" Grid.Row="1" VerticalAlignment="Stretch">
-            <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button Content="Merit Export" Click="ExportMerit_Click" Style="{StaticResource btnAdmin}"/>
-            <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button Content="RKV Export" Click="ExportRKV_Click"  Style="{StaticResource btnAdmin}"/>
-            <Separator Style="{StaticResource SepSpaceH}"/>
-            <TextBlock Text="EXCEL" HorizontalAlignment="Center" FontSize="25"/>
-            <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button Content="Tilføj" x:Name="TilføjKnp" Click="TilføjKnp_Click" Style="{StaticResource btnAdmin}"/>
-            <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button Content="Reset" Style="{StaticResource btnAdmin}"/>
-            <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button Width="80" Height="20" x:Name="btnOpen_RKV" Content="Åben RKV" Click="Open_RKV_Click" IsEnabled="False"/>
-            <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" Click="Open_Merit_Click" IsEnabled="False"/>
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button Content="Merit Export" Click="ExportMerit_Click" Style="{StaticResource btnAdmin}" />
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button Content="RKV Export" Click="ExportRKV_Click"  Style="{StaticResource btnAdmin}" />
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <TextBlock Text="EXCEL" HorizontalAlignment="Center" FontSize="25" />
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button Content="Tilføj" x:Name="TilføjKnp" Click="TilføjKnp_Click" Style="{StaticResource btnAdmin}" />
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button Content="Reset" Style="{StaticResource btnAdmin}" />
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button Width="80" Height="20" x:Name="btnOpen_RKV" Content="Åben RKV" Click="Open_RKV_Click" IsEnabled="False" />
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" Click="Open_Merit_Click" IsEnabled="False" />
         </StackPanel>
 
         <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="CPR" Binding="{Binding cprNr}"/>
-                <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}"/>
-                <DataGridTextColumn Header="Efternavn" Binding="{Binding efternavn}"/>
-                <DataGridTextColumn Header="Uddannelse" Binding="{Binding uddannelse}"/>
-                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding uddannelseAdresse}"/>
-                <DataGridTextColumn Header="SPS" Binding="{Binding sps}"/>
-                <DataGridTextColumn Header="EUD" Binding="{Binding eud}"/>
-                <DataGridTextColumn Header="ElevType" Binding="{Binding elevType}"/>
-                <DataGridTextColumn Header="DanskEksammen" Binding="{Binding danskEksammen}"/>
-                <DataGridTextColumn Header="DanskUndervisning" Binding="{Binding danskUndervisning}"/>
-                <DataGridTextColumn Header="danskNiveau" Binding="{Binding danskNiveau}"/>
-                <DataGridTextColumn Header="EngelskEksammen" Binding="{Binding engelskEksammen}"/>
-                <DataGridTextColumn Header="EngelskUndervisning" Binding="{Binding engelskUndervisning}"/>
-                <DataGridTextColumn Header="EngelskNiveau" Binding="{Binding engelskNiveau}"/>
-                <DataGridTextColumn Header="MatematikEksammen" Binding="{Binding matematikEksammen}"/>
-                <DataGridTextColumn Header="MatematikUndervisning" Binding="{Binding matematikUndervisning}"/>
-                <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding matematikNiveau}"/>
-                <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}"/>
+                <DataGridTextColumn Header="CPR" Binding="{Binding cprNr}" />
+                <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}" />
+                <DataGridTextColumn Header="Efternavn" Binding="{Binding efternavn}" />
+                <DataGridTextColumn Header="Uddannelse" Binding="{Binding uddannelse}" />
+                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding uddannelseAdresse}" />
+                <DataGridTextColumn Header="SPS" Binding="{Binding sps}" />
+                <DataGridTextColumn Header="EUD" Binding="{Binding eud}" />
+                <DataGridTextColumn Header="ElevType" Binding="{Binding elevType}" />
+                <DataGridTextColumn Header="DanskEksammen" Binding="{Binding danskEksammen}" />
+                <DataGridTextColumn Header="DanskUndervisning" Binding="{Binding danskUndervisning}" />
+                <DataGridTextColumn Header="danskNiveau" Binding="{Binding danskNiveau}" />
+                <DataGridTextColumn Header="EngelskEksammen" Binding="{Binding engelskEksammen}" />
+                <DataGridTextColumn Header="EngelskUndervisning" Binding="{Binding engelskUndervisning}" />
+                <DataGridTextColumn Header="EngelskNiveau" Binding="{Binding engelskNiveau}" />
+                <DataGridTextColumn Header="MatematikEksammen" Binding="{Binding matematikEksammen}" />
+                <DataGridTextColumn Header="MatematikUndervisning" Binding="{Binding matematikUndervisning}" />
+                <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding matematikNiveau}" />
+                <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

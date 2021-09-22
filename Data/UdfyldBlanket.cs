@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace GFElevInterview.Data
 {
     public static class UdfyldBlanket
     {
-        public static void UdfyldComboBox(ComboBox combobox, int index)
-        {
+        public static void UdfyldComboBox(ComboBox combobox, int index) {
             combobox.SelectedIndex = index;
         }
 
-        public static void UdfyldRadioButton(RadioButton rbJa, RadioButton rbNej, bool ? erJaValgt)
-        {
+        public static void UdfyldRadioButton(RadioButton rbJa, RadioButton rbNej, bool? erJaValgt) {
             RadioButton rb = (bool)erJaValgt ? rbJa : rbNej;
             rb.IsChecked = true;
         }
 
-        public static void UdfyldComboBox(ComboBox combobox, string navn)
-        {
+        public static void UdfyldComboBox(ComboBox combobox, string navn) {
             combobox.SelectedItem = navn;
         }
     }

@@ -9,53 +9,53 @@
         Title="GF2 - " Height="700" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="3" >
-            <StackPanel >
-                <Separator Height="20" Background="Transparent" Margin="0"/>
+        <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="3">
+            <StackPanel>
+                <Separator Height="20" Background="Transparent" Margin="0" />
                 <Button Style="{StaticResource btnPanel}" Name="btnUnderviser" Click="btnUnderviser_Click" Width="230">Underviser</Button>
-                <Separator Height="40" Background="Transparent" Padding="0" Margin="0"/>
+                <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
                 <Button Style="{StaticResource btnPanel}" Name="btnLeder" Click="btnLeder_Click" Width="230" >Leder</Button>
-                <Separator Height="40" Background="Transparent" Padding="0" Margin="0"/>
+                <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
                 <Button Style="{StaticResource btnPanel}" Name="btnVejled" Click="btnVejled_Click" Width="230">Vejledning</Button>
-                <Separator Height="40" Background="Transparent" Padding="0" Margin="0"/>
+                <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
                 <Border BorderBrush="Gray" BorderThickness="1" Width="230">
                     <StackPanel>
                         <DockPanel>
-                            <TextBlock Text="Lyngby: " FontSize="20"/>
-                            <TextBlock x:Name="LyngbyTXT" FontSize="20"/>
+                            <TextBlock Text="Lyngby: " FontSize="20" />
+                            <TextBlock x:Name="LyngbyTXT" FontSize="20" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Fredriksberg: " FontSize="20"/>
-                            <TextBlock x:Name="FredriksbergTXT" FontSize="20"/>
+                            <TextBlock Text="Fredriksberg: " FontSize="20" />
+                            <TextBlock x:Name="FredriksbergTXT" FontSize="20" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Ballerup: " FontSize="20"/>
-                            <TextBlock x:Name="BallerupTXT" FontSize="20"/>
+                            <TextBlock Text="Ballerup: " FontSize="20" />
+                            <TextBlock x:Name="BallerupTXT" FontSize="20" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Plus Forløb: 0" FontSize="15"/>
-                            <TextBlock x:Name="PlusForløbTXT" FontSize="15"/>
+                            <TextBlock Text="Plus Forløb: 0" FontSize="15" />
+                            <TextBlock x:Name="PlusForløbTXT" FontSize="15" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Fuldt Forløb: 0" FontSize="15"/>
-                            <TextBlock x:Name="FuldtForløbTXT" FontSize="15"/>
+                            <TextBlock Text="Fuldt Forløb: 0" FontSize="15" />
+                            <TextBlock x:Name="FuldtForløbTXT" FontSize="15" />
                         </DockPanel>
                     </StackPanel>
                 </Border>
-                
+
                 <Image Height="120" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
                 <Image Height="120" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
             </StackPanel>
         </Border>
 
         <Border Grid.Column="1" Style="{StaticResource bdrMain}" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
-            <StackPanel HorizontalAlignment="Stretch" Background="WhiteSmoke" RenderTransformOrigin="0.38,0.595"  >
+            <StackPanel HorizontalAlignment="Stretch" Background="WhiteSmoke" RenderTransformOrigin="0.38,0.595">
                 <Label FontSize="54" FontWeight="Heavy" HorizontalAlignment="Center" FontFamily="Times New Roman" >Velkommen til TEC App</Label>
-                <fa:ImageAwesome Icon="Spinner"  SpinDuration="50" Spin="true" Width="191"  Height="196"/>
+                <fa:ImageAwesome Icon="Spinner"  SpinDuration="50" Spin="true" Width="191"  Height="196" />
             </StackPanel>
         </Border>
 
@@ -67,15 +67,15 @@
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <!--<TextBlock Grid.Column="0" Grid.Row="0" Text="Password :" FontSize="30" Height="64"  Grid.ColumnSpan="2"   />-->
                 <!--<PasswordBox  PasswordChar="*" x:Name="passwordText" KeyDown="passwordText_KeyDown"  FontSize="40"  Grid.Column="1" Grid.Row="1" Height="64" Width="300" Background="#eee" Margin="10" />-->

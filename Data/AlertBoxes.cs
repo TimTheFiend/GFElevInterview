@@ -52,8 +52,7 @@ namespace GFElevInterview.Data
             return result == MessageBoxResult.Yes;
         }
 
-        public static void OnFailedLoginAttempt()
-        {
+        public static void OnFailedLoginAttempt() {
             MessageBox.Show("Password er forkert!!");
         }
     }
