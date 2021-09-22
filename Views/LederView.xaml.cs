@@ -52,15 +52,18 @@ namespace GFElevInterview.Views
             gridElevTabel.ItemsSource = elevData;
         }
 
-        private void ÅbenFilPlacering(string blanketNavn) {
-            string filNavn = System.IO.Path.Combine(blanketMappe, blanketNavn);
-
-            if (File.Exists(filNavn)) {
-                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{filNavn}");
-            }
-            else {
-                AlertBoxes.OnOpenFileFailure();
-            }
+        /// <summary>
+        /// Åbner en ny stifinder og viser den valgte fil.
+        /// </summary>
+        /// <param name="blanketNavn">filnavnet på blanketten.</param>
+        private void ÅbenFilPlacering(string blanketNavn)
+        {
+            string currentDir = Directory.GetCurrentDirectory();
+            int index = currentDir.LastIndexOf('\\');  //finder positionen på sidste "\" i current dir
+            //kombinerer strings til at give os filstien på den valgte pdf
+            string filSti = Path.Combine(currentDir.Substring(0, index), RessourceFil.outputMappeNavn, blanketNavn);
+            
+            Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
         }
 
         private void ÅbenFil() {
