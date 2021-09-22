@@ -9,6 +9,14 @@ namespace GFElevInterview.Models
     {
         private static DbTools instance = new DbTools();
         public static DbTools Instance => instance;
+        
+        #region Database tabel
+
+        // public DbSet<ElevModel> Elever { get; set; }
+        public DbSet<ElevModel> Elever { get; set; }
+        public DbSet<LoginModel> Login { get; set; }
+
+        #endregion Database tabel
 
         public DbTools() {
             //NOTE: `EnsureDeleted` skal kun bruges under development!
@@ -101,11 +109,7 @@ namespace GFElevInterview.Models
                     select e).ToList();
         }
         #endregion
-        #region Database tabel
 
-        // public DbSet<ElevModel> Elever { get; set; }
-        public DbSet<ElevModel> Elever { get; set; }
-        #endregion Database tabel
 
         //Bliver Kaldt Når Elever skal tilføjes til en tom database.
         private void TilføjEleverTilTomDatabase(List<ElevModel> nyElever) {
@@ -179,6 +183,11 @@ namespace GFElevInterview.Models
             new ElevModel("2012009856", "Spacejam", "Michael Jordan"),
             new ElevModel("111193-1234", "Joakim", "Krugstrup")
             );
+
+            modelBuilder.Entity<LoginModel>().HasData(
+                new LoginModel().CreateInitialLogin()
+                );
+
         }
         #endregion
     }

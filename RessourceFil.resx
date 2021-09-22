@@ -189,6 +189,10 @@
     <value>..\\Blanketter\\_Samlet RKV.zip</value>
     <comment>Adm. Add</comment>
   </data>
+  <data name="standardPassword" xml:space="preserve">
+    <value>root</value>
+    <comment>Standard password til lederView</comment>
+  </data>
   <data name="templates" xml:space="preserve">
     <value>Blanketter\\Templates\\</value>
     <comment>Blanket. Add</comment>
