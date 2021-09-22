@@ -40,20 +40,6 @@ namespace GFElevInterview.Views
         private void InitialiserBlanket() {
             InitialiserComboBox();
             SætKnapper();
-            // Udfyld Blanketten hvis den allerede står som udfyldt i `CurrentElev`.
-            //if (CurrentElev.elev.ErUdfyldt) {
-            //    //Combobox
-            //    cmbDansk.SelectedIndex = (int)CurrentElev.elev.danskNiveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
-            //    cmbEngelsk.SelectedIndex = (int)CurrentElev.elev.engelskNiveau - 1;
-            //    cmbMatematik.SelectedIndex = (int)CurrentElev.elev.matematikNiveau - 1;
-            //    //Checkbox
-            //    rbDanskEksamenJa.IsChecked = CurrentElev.elev.danskEksammen;
-            //    rbDanskUndervisJa.IsChecked = CurrentElev.elev.danskUndervisning;
-            //    rbMatematikEksamenJa.IsChecked = CurrentElev.elev.matematikEksammen;
-            //    rbMatematikUndervisJa.IsChecked = CurrentElev.elev.matematikUndervisning;
-            //    rbEngelskEksamenJa.IsChecked = CurrentElev.elev.engelskEksammen;
-            //    rbEngelskUndervisJa.IsChecked = CurrentElev.elev.engelskUndervisning;
-            //}
         }
 
         /// <summary>
@@ -146,36 +132,6 @@ namespace GFElevInterview.Views
             erValideret = InputValidering.ValiderMerit(rbDanskEksamenJa, rbDanskEksamenNej, rbDanskUndervisJa, rbDanskUndervisNej, cmbDansk, bdrDanskValidation) && erValideret;
             erValideret = InputValidering.ValiderMerit(rbMatematikEksamenJa, rbMatematikEksamenNej, rbMatematikUndervisJa, rbMatematikUndervisNej, cmbMatematik, bdrMatematikValidation) && erValideret;
             erValideret = InputValidering.ValiderMerit(rbEngelskEksamenJa, rbEngelskEksamenNej, rbEngelskUndervisJa, rbEngelskUndervisNej, cmbEngelsk, bdrEngelskValidation) && erValideret;
-
-            return erValideret;
-        }
-
-        //[Combobox, eksamenJa, eksamenNej, UndervisJa, undervisNej]
-        private bool ValiderFag(Border border, Control[] control) {
-            System.Windows.Media.SolidColorBrush brushTrue = System.Windows.Media.Brushes.Gray;
-            System.Windows.Media.SolidColorBrush brushFalse = System.Windows.Media.Brushes.Red;
-            bool erValideret = true;
-
-            ComboBox comboBox = control[0] as ComboBox;
-            if (comboBox.SelectedIndex == -1) {
-                border.BorderBrush = brushFalse;
-                erValideret = false;
-            }
-            else {
-                border.BorderBrush = brushTrue;
-            }
-
-            for (int i = 0; i < 2; i++) {
-                //første omgang = 0 * 2 = 0 + 1 = 1.
-                //anden omgang = 1 * 2 = 2 + 1 = 3;
-                RadioButton radioJa = control[i * 2 + 1] as RadioButton;
-                RadioButton radioNej = control[i * 2 + 2] as RadioButton;
-
-                if (!(bool)radioJa.IsChecked && !(bool)radioNej.IsChecked) {
-                    border.BorderBrush = brushFalse;
-                    erValideret = false;
-                }
-            }
 
             return erValideret;
         }
