@@ -16,10 +16,9 @@ namespace GFElevInterview.Data
         /// <param name="border">`Border`en omkring elementet</param>
         /// <returns><c>true</c> hvis alt er udfyldt; ellers <c>false</c>.</returns>
         public static bool ValiderMerit(RadioButton eJa, RadioButton eNej, RadioButton uJa, RadioButton uNej, ComboBox niveau, Border border = null) {
-            bool erValideret = (ValiderToRadioButtons(eJa, eNej) && ValiderToRadioButtons(uJa, uNej) && ValiderComboBox(niveau));
+            bool erValideret = ValiderToRadioButtons(eJa, eNej) && ValiderToRadioButtons(uJa, uNej) && ValiderComboBox(niveau);
 
             if (border != null) {
-                //Skal kaldes seperat da de alle skal være `true` for rigtig farve.
                 HighlightBorderInputStatus(border, erValideret);
             }
             return erValideret;

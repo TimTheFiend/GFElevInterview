@@ -6,12 +6,12 @@ using System.IO;
 
 namespace GFElevInterview.Data
 {
-    //TODO Gør statics
-    public class BlanketUdskrivning
+    public static class BlanketUdskrivning
     {
-        private readonly string outputDirectory = RessourceFil.outputMappe;
+        private static readonly string outputDirectory = RessourceFil.outputMappe;
 
-        public BlanketUdskrivning() {
+        //Static constructor
+        static BlanketUdskrivning() {
             if (!Directory.Exists(outputDirectory)) {
                 Directory.CreateDirectory(outputDirectory);
             }
@@ -22,10 +22,10 @@ namespace GFElevInterview.Data
         /// Informationen over eleven hentes.
         /// informationen indsættes i felterne, og gemmes som pdf fil.
         /// </summary>
-        public void UdskrivningRKV() {
+        public static void UdskrivningRKV() {
             //TODO `Metrit #` skal ændres til at matche med minimums karakter
             try {
-                string inputFil = GetRKVBlanketTemplate();
+                string inputFil = GetRKVBlanketTemplate;
                 //Udskrivnings filen.
                 string outputFilePath = Path.Combine(outputDirectory, CurrentElev.elev.RKVFilNavn);
                 PdfReader pdfReader = new PdfReader(inputFil);
@@ -85,7 +85,7 @@ namespace GFElevInterview.Data
         /// baseret på <see cref="CurrentElev"/> elevtype og uddannelse, og gemmer filen.
         /// </summary>
         /// <returns><c>true</c> hvis udprintningen er succesfuld; ellers <c>false</c>.</returns>
-        public bool UdskrivningMerit() {
+        public static bool UdskrivningMerit() {
             try {
                 if (CurrentElev.elev.erRKV) {
                     UdskrivningRKV();
@@ -100,23 +100,17 @@ namespace GFElevInterview.Data
                 doc.Replace("#navn#", CurrentElev.elev.efternavnFornavn, true, true);
                 doc.Replace("#cpr#", CurrentElev.elev.cprNr, true, true);
 
-                //NOTE Flags
+                //"Oversætter" Flag-værdier til `string` værdier
                 ElevModel elev = CurrentElev.elev;
-                doc.Replace("#DE#", GetBoolAsDanishString(elev, Merit.DanskEksamen), true, true);
-                doc.Replace("#DU#", GetBoolAsDanishString(elev, Merit.DanskUndervisning), true, true);
-                doc.Replace("#EE#", GetBoolAsDanishString(elev, Merit.EngelskEksamen), true, true);
-                doc.Replace("#EU#", GetBoolAsDanishString(elev, Merit.EngelskUndervisning), true, true);
-                doc.Replace("#ME#", GetBoolAsDanishString(elev, Merit.MatematikEksamen), true, true);
-                doc.Replace("#MU#", GetBoolAsDanishString(elev, Merit.MatematikUndervisning), true, true);
+                doc.Replace("#DE#", GetStringFromFlag(elev, Merit.DanskEksamen), true, true);
+                doc.Replace("#DU#", GetStringFromFlag(elev, Merit.DanskUndervisning), true, true);
+                doc.Replace("#EE#", GetStringFromFlag(elev, Merit.EngelskEksamen), true, true);
+                doc.Replace("#EU#", GetStringFromFlag(elev, Merit.EngelskUndervisning), true, true);
+                doc.Replace("#ME#", GetStringFromFlag(elev, Merit.MatematikEksamen), true, true);
+                doc.Replace("#MU#", GetStringFromFlag(elev, Merit.MatematikUndervisning), true, true);
 
-                //doc.Replace("#DE#", (bool)CurrentElev.elev.danskEksammen ? "Ja" : "Nej", true, true);
-                //doc.Replace("#DU#", (bool)CurrentElev.elev.danskUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#DN#", CurrentElev.elev.danskNiveau.ToString(), true, true);
-                //doc.Replace("#EE#", (bool)CurrentElev.elev.engelskEksammen ? "Ja" : "Nej", true, true);
-                //doc.Replace("#EU#", (bool)CurrentElev.elev.engelskUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#EN#", CurrentElev.elev.engelskNiveau.ToString(), true, true);
-                //doc.Replace("#ME#", (bool)CurrentElev.elev.matematikEksammen ? "Ja" : "Nej", true, true);
-                //doc.Replace("#MU#", (bool)CurrentElev.elev.matematikUndervisning ? "Ja" : "Nej", true, true);
                 doc.Replace("#MN#", CurrentElev.elev.matematikNiveau.ToString(), true, true);
                 doc.Replace("#uger#", CurrentElev.elev.uddannelsesLængdeIUger.ToString(), true, true);
 
@@ -132,19 +126,34 @@ namespace GFElevInterview.Data
             }
         }
 
-        //TODO better name
-        private string GetBoolAsDanishString(ElevModel elev, Merit flag) {
+        /// <summary>
+        /// Returnerer "Ja"/"Nej" fra en <see cref="bool"/> værdi.
+        /// </summary>
+        /// <param name="elev">Den nuværende elev</param>
+        /// <param name="flag">Det pågældende fag</param>
+        /// <returns></returns>
+        private static string GetStringFromFlag(ElevModel elev, Merit flag) {
             return elev.uddMerit.HasFlag(flag) ? "Ja" : "Nej";
         }
 
-        private string GetRKVBlanketTemplate() {
-            string pdfElev = $"{CurrentElev.elev.elevType.ToString()} - {CurrentElev.elev.uddannelse}.pdf";
-            return Path.Combine(RessourceFil.templates, pdfElev);
+        /// <summary>
+        /// Laver et filnavn til brug for RKV-blanket.
+        /// </summary>
+        /// <returns>RKV filnavn.</returns>
+        private static string GetRKVBlanketTemplate {
+            get {
+                string pdfElev = $"{CurrentElev.elev.elevType.ToString()} - {CurrentElev.elev.uddannelse}.pdf";
+                return Path.Combine(RessourceFil.templates, pdfElev);
+            }
         }
 
-        private string GetMeritBlanketTemplate {
+        /// <summary>
+        /// Laver et filnavn til brug for Merit-blanket.
+        /// </summary>
+        /// <returns>Merit filnavn.</returns>
+        private static string GetMeritBlanketTemplate {
             get {
-                return Path.Combine(RessourceFil.templates, "Merit-blanket.docx");
+                return Path.Combine(RessourceFil.templates, RessourceFil.meritBlanketDoc);
             }
         }
     }

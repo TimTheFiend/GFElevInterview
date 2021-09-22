@@ -10,15 +10,19 @@ namespace GFElevInterview.Data
 {
     public static class AdminTools
     {
-        //TODO DOKU
+        /// <summary>
+        /// Kombinerer alle merit-blanketter ind i én .PDF-fil.
+        /// </summary>
         public static void KombinerMeritFiler() {
             string[] filNavne = HentFiler(RessourceFil.endMerit);
 
             Document nytDokument = new Document();
             using (FileStream fs = new FileStream(RessourceFil.samletMerit, FileMode.Create)) {
                 PdfCopy writer = new PdfCopy(nytDokument, fs);
-                if (writer == null)
+                if (writer == null) {
+                    //TODO fejlmeddelse
                     return;
+                }
 
                 nytDokument.Open();
 
@@ -36,6 +40,9 @@ namespace GFElevInterview.Data
             }
         }
 
+        /// <summary>
+        /// Zipper alle RKV-blanketter ind i én zip-fil.
+        /// </summary>
         public static void ZipRKVFiler() {
             string[] filNavne = HentFiler(RessourceFil.endRKV);
 
@@ -46,16 +53,22 @@ namespace GFElevInterview.Data
 
             var zip = ZipFile.Open(filSti, ZipArchiveMode.Create);
             foreach (string filNavn in filNavne) {
-                zip.CreateEntryFromFile(filNavn, System.IO.Path.GetFileName(filNavn), CompressionLevel.Optimal);
+                zip.CreateEntryFromFile(filNavn, Path.GetFileName(filNavn), CompressionLevel.Optimal);
             }
             zip.Dispose();
         }
 
+        /// <summary>
+        /// Henter en liste af relevante filer i <see cref="RessourceFil.outputMappeNavn"/> mappen.
+        /// </summary>
+        /// <param name="endelse">Endelsen på filerne der skal hentes.</param>
+        /// <returns><see cref="List"/> af filers filsti.</returns>
         public static string[] HentFiler(string endelse) {
             string[] filer = Directory.GetFiles(RessourceFil.outputMappe, $"*{endelse}");
             return filer;
         }
 
+        //TODO udvid funktionalitet
         public static Dictionary<string, int> HentAntalEleverPåSkole() {
             Dictionary<string, int> antalElever = new Dictionary<string, int>();
 

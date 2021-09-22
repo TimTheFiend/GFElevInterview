@@ -7,29 +7,21 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow Instance = null;
+        public static MainWindow Instance = null;  //Singleton
 
         public MainWindow() {
             InitializeComponent();
+
+            //Singleton setup
             if (Instance == null) {
                 Instance = this;
             }
-            ÅbenUndervisning();
-            //this.DataContext =;
-            //Data.AdminTools.HentAntalEleverPåSkole();
 
-            //new DbTools().TilføjElever();
-            new Models.LoginModel().ChangePassword("helloworld");
-
-            OpdaterCounter();
+            //Viser `BlanketView` ved opstart.
+            UnderviserButton_Click(btnUnderviser, new RoutedEventArgs());
         }
 
-        private void ÅbenUndervisning() {
-            mainContent.Content = new Views.BlanketView();
-            UnderviserPanel.Visibility = Visibility.Visible;
-        }
-
-        //TODO Ryk til DbTools
+        //TODO ordinær+ og fuldtforløb
         public void OpdaterCounter() {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();
             LyngbyTXT.Text = dict["Lyngby"].ToString();
@@ -37,21 +29,12 @@ namespace GFElevInterview
             FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
         }
 
-        #region Home
-
-        //TODO overvej at fjerne?
-        private void btnHome_Click(object sender, RoutedEventArgs e) {
-            HomePanel.Visibility = Visibility.Visible;
-            UnderviserPanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
-            OpdaterCounter();
-        }
-
-        #endregion Home
-
         #region Underviser View
 
-        private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Viser <see cref="Views.BlanketView"/> viewet.
+        /// </summary>
+        private void UnderviserButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
@@ -64,8 +47,10 @@ namespace GFElevInterview
 
         #region LederView
 
-        //TODO
-        private void btnLeder_Click(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Viser <see cref="Views.LoginView"/> viewet, før <see cref="Views.LederView"/> bliver vist.
+        /// </summary>
+        private void LederButton_Click(object sender, RoutedEventArgs e) {
             mainContent.Content = new Views.LoginView(this);
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
@@ -73,13 +58,17 @@ namespace GFElevInterview
             OpdaterCounter();
         }
 
-        public void LederView() {
+        //TODO tænk på bedre løsning.
+        public void LoginTilLederView() {
             mainContent.Content = new Views.LederView();
         }
 
         #endregion LederView
 
-        private void btnVejled_Click(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Viser <see cref="PLACEHOLDER"/> viewet.
+        /// </summary>
+        private void VejledningButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new Views.VejledningsView();
             UnderviserPanel.Visibility = Visibility.Visible;
             OpdaterCounter();
