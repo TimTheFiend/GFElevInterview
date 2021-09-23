@@ -21,6 +21,8 @@ namespace GFElevInterview.Views
             InitializeComponent();
             InitialiserView();
             InitialiserSkoleComboBox();
+
+            btnReset.Click += ResetButton_Click;
         }
 
         //On Constructor call
@@ -211,6 +213,12 @@ namespace GFElevInterview.Views
 
         private void TilføjKnp_Click(object sender, RoutedEventArgs e) {
             ÅbenFil();
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e) {
+            if (AlertBoxes.OnExportMerit()) {
+                DbTools.Instance.NulstilEleverOgSletBlanketter();
+            }
         }
     }
 }

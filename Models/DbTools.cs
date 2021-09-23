@@ -20,44 +20,33 @@ namespace GFElevInterview.Models
         #endregion Database tabel
 
         public DbTools() {
-            //NOTE: `EnsureDeleted` skal kun bruges under development!
-            //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
-            //this.Database.EnsureDeleted();
-            //NulstilDatabase();
-            this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
+            //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
+            if (Database.EnsureCreated()) {
+                Data.AlertBoxes.OnEnsureCreatedDatabase();
+            }
         }
 
         //Her nulstilles og genskabes databasen
-        private void NulstilDatabase() {
-            //SletFilerPåNulstil(config.AppSettings.Get();
-            //SletFiler();
-            //SletFiler(config.AppSettings.Get("endRKV"), config.AppSettings.Get("endMerit"));
-            //this.Database.EnsureDeleted();
-            this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
+        public void NulstilEleverOgSletBlanketter() {
+            SletFiler();
+            //TODO fix sletning af elever
+            Elever.RemoveRange(Elever.Select(e => e).ToList());
         }
 
         //ORIGINAL
         private void SletFiler() {
-            //string[] filEndelser = new string[] {
-            //    config.AppSettings.Get("endMerit"),
-            //    config.AppSettings.Get("endRKV")
-            //};
-
             foreach (string filEndelse in new string[] {
                 RessourceFil.endMerit,
                 RessourceFil.endRKV}) {
                 foreach (string fil in Data.AdminTools.HentFiler(filEndelse)) {
                     System.IO.File.Delete(fil);
                 }
-                //                string[] filer = Data.AdminTools.HentFiler(filEndelse);
-                //foreach (string fil in filer)
-                //{
-                //    System.IO.File.Delete(fil);
-                //}
             }
         }
 
         #region Gets
+
+        //NOTE Dum løsning på problemet.
 
         public Dictionary<string, int> GetAntalEleverPerSkole() {
             Dictionary<string, int> skoleAntal = new Dictionary<string, int>();

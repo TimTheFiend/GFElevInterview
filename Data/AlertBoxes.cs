@@ -84,6 +84,17 @@ namespace GFElevInterview.Data
             ShowAlertBox();
         }
 
+        /// <summary>
+        /// Kaldes kun hvis databasen er blevet slettet, og skabt via <see cref="DbContext.EnsureCreated"/>.
+        /// </summary>
+        public static void OnEnsureCreatedDatabase() {
+            breadText = "Databasen har været slettet, og der er blevet lavet en ny.\n" +
+                "Indholdet af databasen er mistet, og admin password er blevet nulstillet.";
+            captionText = "Database fejl!";
+
+            ShowAlertBox();
+        }
+
         #endregion AlertBoxes med én knap
 
         #region AlertBoxes med to knapper

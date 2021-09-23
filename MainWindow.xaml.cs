@@ -69,6 +69,7 @@ namespace GFElevInterview
                 countFredriksberg.Text = skoleAntal[RessourceFil.frederiksberg].ToString();
                 countLyngby.Text = skoleAntal[RessourceFil.lyngby].ToString();
 
+                //NOTE Dum løsning på problemet.
                 countBallerupPlus.Text = skoleAntal[RessourceFil.skoleMerit.Substring(0, 3)].ToString();
                 countBallerupFuldt.Text = skoleAntal[RessourceFil.skoleIngenMerit.Substring(0, 3)].ToString();
             }
