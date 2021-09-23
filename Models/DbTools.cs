@@ -77,8 +77,9 @@ namespace GFElevInterview.Models
             skoleAntal.Add(RessourceFil.frederiksberg, countFre);
             skoleAntal.Add(RessourceFil.lyngby, countLyn);
 
-            skoleAntal.Add("balOrd", countBalPlus);
-            skoleAntal.Add("balFul", countBalFul);
+            //KLUNTET
+            skoleAntal.Add(RessourceFil.skoleMerit.Substring(0, 3), countBalPlus);
+            skoleAntal.Add(RessourceFil.skoleIngenMerit.Substring(0, 3), countBalFul);
 
             return skoleAntal;
         }

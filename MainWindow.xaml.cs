@@ -28,16 +28,14 @@ namespace GFElevInterview
             InitialiserWindow();
         }
 
-        private void InitialiserWindow()
-        {
+        private void InitialiserWindow() {
             //Singleton setup
-            if (Instance == null)
-            {
+            if (Instance == null) {
                 Instance = this;
             }
 
             #region Hent ref for xaml elementer
-            
+
             xelOverlayLoading = overlayLoading;  //Dette gøres for at have en ref i SetBrugerInput.
 
             countBallerup = txtAntalBal;
@@ -46,7 +44,7 @@ namespace GFElevInterview
             countBallerupPlus = txtAntalBalPlus;
             countBallerupFuldt = txtAntalBalFuld;
 
-            #endregion
+            #endregion Hent ref for xaml elementer
 
             SetBrugerInput(true);
 
@@ -58,25 +56,23 @@ namespace GFElevInterview
         /// Sætter visibility status for loading skærm.
         /// </summary>
         /// <param name="harBrugerInput"><c>true</c> hvis brugeren har kontrol; ellers <c>false</c>.</param>
-        public static void SetBrugerInput(bool harBrugerInput)
-        {
+        public static void SetBrugerInput(bool harBrugerInput) {
             xelOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
         //TODO ordinær+ og fuldtforløb
-        public static void OpdaterSkoleOptæller()
-        {
+        public static void OpdaterSkoleOptæller() {
             //var dict = Data.AdminTools.HentAntalEleverPåSkole();
-            Dictionary<string, int> skoleAntal = Data.AdminTools.HentAntalEleverPåSkole();  //Placeholder
-            try
-            {
+            Dictionary<string, int> skoleAntal = Models.DbTools.Instance.GetAntalEleverPerSkole();  //Placeholder
+            try {
                 countBallerup.Text = skoleAntal[RessourceFil.ballerup].ToString();
                 countFredriksberg.Text = skoleAntal[RessourceFil.frederiksberg].ToString();
                 countLyngby.Text = skoleAntal[RessourceFil.lyngby].ToString();
-                //TODO Ordinær og fuldforløb linje.
+
+                countBallerupPlus.Text = skoleAntal[RessourceFil.skoleMerit.Substring(0, 3)].ToString();
+                countBallerupFuldt.Text = skoleAntal[RessourceFil.skoleIngenMerit.Substring(0, 3)].ToString();
             }
-            catch (KeyNotFoundException e)
-            {
+            catch (KeyNotFoundException e) {
                 MessageBox.Show(e.Message);
                 throw;
             }
