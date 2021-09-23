@@ -12,9 +12,8 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
         <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="3">
-            <StackPanel>
+                <StackPanel>
                 <Separator Height="20" Background="Transparent" Margin="0" />
                 <Button Style="{StaticResource btnPanel}" Name="btnUnderviser" Click="UnderviserButton_Click" Width="230">Underviser</Button>
                 <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
@@ -25,24 +24,24 @@
                 <Border BorderBrush="Gray" BorderThickness="1" Width="230">
                     <StackPanel>
                         <DockPanel>
-                            <TextBlock Text="Lyngby: " FontSize="20" />
-                            <TextBlock x:Name="LyngbyTXT" FontSize="20" />
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup:"/>
+                            <TextBlock x:Name="txtAntalBal" Style="{StaticResource txtCounterAntal}" Text="0"/>
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Fredriksberg: " FontSize="20" />
-                            <TextBlock x:Name="FredriksbergTXT" FontSize="20" />
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Fredriksberg:"/>
+                            <TextBlock x:Name="txtAntalFred" Style="{StaticResource txtCounterAntal}" Text="0"/>
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Ballerup: " FontSize="20" />
-                            <TextBlock x:Name="BallerupTXT" FontSize="20" />
+                            <TextBlock Style="{StaticResource txtCounterSkole}"  Text="Lyngby:" />
+                            <TextBlock x:Name="txtAntalLyn" Style="{StaticResource txtCounterAntal}" Text="0" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Plus Forløb: 0" FontSize="15" />
-                            <TextBlock x:Name="PlusForløbTXT" FontSize="15" />
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup+:"/>
+                            <TextBlock x:Name="txtAntalBalPlus" Style="{StaticResource txtCounterAntal}" Text="0"/>
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Text="Fuldt Forløb: 0" FontSize="15" />
-                            <TextBlock x:Name="FuldtForløbTXT" FontSize="15" />
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup FF:"/>
+                            <TextBlock x:Name="txtAntalBalFuld" Style="{StaticResource txtCounterAntal}" Text="0"/>
                         </DockPanel>
                     </StackPanel>
                 </Border>
@@ -82,5 +81,12 @@
                 <!--<Button x:Name="signinButton"  Background="Gray" Content="Sign In" Margin="10" FontSize="30" Foreground="White" Click="signinButton_Click"   Grid.Column="1"  Grid.Row="2"   Height="64" Width="300"    />-->
             </Grid>
         </Border>
+
+
+        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
+            <Border Background="White" Opacity="0.5"/>
+            <Image Source="/Resources/TECLOGO.png" Opacity="1" Height="200"/>
+        </Grid>
+        
     </Grid>
 </Window>
