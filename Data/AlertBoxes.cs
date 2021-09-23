@@ -71,6 +71,13 @@ namespace GFElevInterview.Data
             ShowAlertBox();
         }
 
+        public static void OnFailedMatchAttempt()
+        {
+            breadText = "Password´ene passede ikke, prøv igen.";
+            captionText = msgError;
+
+            ShowAlertBox();
+        }
         /// <summary>
         /// Som navnet hentyder til, så burde denne fejlboks aldrig blive vist.
         /// Den eksisterer med det eneste formål at fortælle brugeren at de skal kontakte devs.

@@ -25,12 +25,6 @@ namespace GFElevInterview.Models
             };
         }
 
-        //ChangePassword
-        //1. UnHash kodeord.
-        //2. Ændre kodeord.
-        //3. Check om password er blevet ændret.
-        //4.
-        //Return true/false
         public bool ChangePassword(string newPassword) {
             LoginModel loginDB = DbTools.Instance.Login.SingleOrDefault(x => x.id == 1);
 

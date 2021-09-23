@@ -19,11 +19,18 @@ namespace GFElevInterview.Views
             InitializeComponent();
 
             this.parent = parent;
+
+            //if(CurrentUser.User != null)
+            //{
+            //    this.parent.LoginTilLederView();
+            //}
         }
 
         //Basic login check
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
-            if (BC.Verify(txtPassword.Password, DbTools.Instance.Login.SingleOrDefault(x => x.id == 1).password)) {
+            LoginModel admin = DbTools.Instance.Login.SingleOrDefault(x => x.id == 1);
+            if (BC.Verify(txtPassword.Password, admin.password)) {
+                CurrentUser.User = admin;
                 this.parent.LoginTilLederView();
             }
             else {

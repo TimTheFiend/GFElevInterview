@@ -100,7 +100,14 @@ namespace GFElevInterview
         /// Viser <see cref="Views.LoginView"/> viewet, før <see cref="Views.LederView"/> bliver vist.
         /// </summary>
         private void LederButton_Click(object sender, RoutedEventArgs e) {
-            mainContent.Content = new Views.LoginView(this);
+            if (Data.CurrentUser.ErLoggetInd)
+            {
+                mainContent.Content = new Views.LederView();
+            }
+            else
+            {
+                mainContent.Content = new Views.LoginView(this);
+            }
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
@@ -109,6 +116,7 @@ namespace GFElevInterview
 
         //TODO tænk på bedre løsning.
         public void LoginTilLederView() {
+
             mainContent.Content = new Views.LederView();
         }
 

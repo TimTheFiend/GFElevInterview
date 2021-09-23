@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
-            <RowDefinition Height="330" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Width="450" HorizontalAlignment="Right" Grid.Column="1">
             <DockPanel Height="30" VerticalAlignment="Top">
@@ -33,13 +33,13 @@
                 <TextBox Width="160" Height="20" x:Name="Sogefelt" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" />
             </DockPanel>
         </Grid>
-
-        <ComboBox Width="200" Height="25" x:Name="cmbSchool" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged" />
+        <ComboBox Width="200" Height="25" x:Name="cmbUddanelse" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" SelectionChanged="cmbUddanelse_SelectionChanged" />
+        <ComboBox Width="200" Height="25" x:Name="cmbSchool" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="0" SelectionChanged="SkoleDropDown_SelectionChanged" />
 
         <Border Grid.Column="3" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
             <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
-        <StackPanel Background="#495057" Grid.Column="3" Grid.Row="1" VerticalAlignment="Stretch">
+        <StackPanel Background="#495057" Grid.Column="3" Grid.Row="1" >
             <Separator Style="{StaticResource SepSpaceH}" />
             <Button Content="Merit Export" Click="ExportMerit_Click" Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
@@ -54,6 +54,8 @@
             <Button Width="80" Height="20" x:Name="btnOpen_RKV" Content="Åben RKV" Click="Open_RKV_Click" IsEnabled="False" />
             <Separator Style="{StaticResource SepSpaceH}" />
             <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" Click="Open_Merit_Click" IsEnabled="False" />
+            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button  Width="80" Height="25" x:Name="btnSkiftPassword" Content="Skift Password" Click="btnSkiftPassword_Click"/>
         </StackPanel>
 
         <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -78,5 +80,18 @@
                 <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}" />
             </DataGrid.Columns>
         </DataGrid>
+        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
+            <Border Background="Black" Opacity="0.35"/>
+            <Button Width="90" Height="70" Content="Tilbage" VerticalAlignment="Top" HorizontalAlignment="Right" Background="LightGray" Click="Button_Click"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Width="200" Height="20" Text="Kodeord"/>
+                <TextBox Width="200" Height="20" x:Name="txtKodeord"/>
+                <Separator Height="12" Background="Transparent"/>
+                <TextBlock Width="200" Height="20" Text="Bekræft Kodeord"/>
+                <TextBox Width="200" Height="20" x:Name="txtValiderKodeord"/>
+                <Separator Height="12" Background="Transparent"/>
+                <Button Width="100" Height="30" Content="Skift Kodeord" x:Name="btnValiderKodeord" Click="btnValiderKodeord_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

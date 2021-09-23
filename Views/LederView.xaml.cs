@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using BC = BCrypt.Net.BCrypt;
 
 namespace GFElevInterview.Views
 {
@@ -16,7 +18,8 @@ namespace GFElevInterview.Views
     public partial class LederView : UserControl
     {
         private ElevModel elev;
-
+        private MainWindow parent;
+        private static Grid lederOverlayLoading;
         public LederView() {
             InitializeComponent();
             InitialiserView();
@@ -26,6 +29,8 @@ namespace GFElevInterview.Views
         //On Constructor call
         private void InitialiserView() {
             InitialiserDataGrid();
+
+            lederOverlayLoading = overlayLoading;
         }
 
         private void InitialiserDataGrid() {
@@ -182,6 +187,11 @@ namespace GFElevInterview.Views
             }
         }
 
+        private void cmbUddanelse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
@@ -212,5 +222,38 @@ namespace GFElevInterview.Views
         private void TilføjKnp_Click(object sender, RoutedEventArgs e) {
             ÅbenFil();
         }
+
+        private void btnValiderKodeord_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtKodeord.Text == txtValiderKodeord.Text)
+            {
+                    
+            }
+            //if (BC.Verify(txtKodeord.Text, DbTools.Instance.Login.SingleOrDefault(x => x.id == 1).password))
+            //{
+            //    this.parent.LoginTilLederView();
+            //}
+            else
+            {
+                AlertBoxes.OnFailedLoginAttempt();
+                txtKodeord.Clear();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SetBrugerInput(true);
+        }
+
+        private void btnSkiftPassword_Click(object sender, RoutedEventArgs e)
+        {
+            SetBrugerInput(false);
+        }
+
+        public static void SetBrugerInput(bool harBrugerInput)
+        {
+            lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
+        }
+
     }
 }
