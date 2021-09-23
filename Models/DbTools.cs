@@ -59,6 +59,30 @@ namespace GFElevInterview.Models
 
         #region Gets
 
+        public Dictionary<string, int> GetAntalEleverPerSkole() {
+            Dictionary<string, int> skoleAntal = new Dictionary<string, int>();
+
+            //Sæt det op så det er lettere at læse
+            List<ElevModel> ballerup = Elever.Where(e => e.uddannelseAdresse == RessourceFil.ballerup).Select(e => e).ToList();
+
+            int countBal = ballerup.Count;
+            int countFre = Elever.Count(e => e.uddannelseAdresse == RessourceFil.frederiksberg);
+            int countLyn = Elever.Count(e => e.uddannelseAdresse == RessourceFil.lyngby);
+
+            int countBalPlus = ballerup.Count(e => e.danskNiveau > FagNiveau.F);
+            int countBalFul = countBal - countBalPlus;
+
+            //Tilføj til dictionary
+            skoleAntal.Add(RessourceFil.ballerup, countBal);
+            skoleAntal.Add(RessourceFil.frederiksberg, countFre);
+            skoleAntal.Add(RessourceFil.lyngby, countLyn);
+
+            skoleAntal.Add("balOrd", countBalPlus);
+            skoleAntal.Add("balFul", countBalFul);
+
+            return skoleAntal;
+        }
+
         public List<ElevModel> VisAlle() {
             instance = new DbTools();
             return (from e in Elever

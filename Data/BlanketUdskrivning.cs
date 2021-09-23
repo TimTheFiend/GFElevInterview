@@ -58,7 +58,7 @@ namespace GFElevInterview.Data
 
                 //TODO Side 4 Grundforløb
                 //NOTE laver udregningen her, ellers er der ingen værdi.
-                CurrentElev.elev.BeregnMeritIUger(CurrentElev.elev);
+                CurrentElev.elev.BeregnMeritIUger();
 
                 pdfFormFields.SetField("GF antal dage 1", "100");
                 pdfFormFields.SetField("GF Samlet antal dages merit", $"{ CurrentElev.elev.meritLængdeIDage}");
@@ -133,7 +133,7 @@ namespace GFElevInterview.Data
         /// <param name="flag">Det pågældende fag</param>
         /// <returns></returns>
         private static string GetStringFromFlag(ElevModel elev, Merit flag) {
-            return elev.uddMerit.HasFlag(flag) ? "Ja" : "Nej";
+            return elev.uddannelsesMerit.HasFlag(flag) ? "Ja" : "Nej";
         }
 
         /// <summary>

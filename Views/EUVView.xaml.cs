@@ -29,11 +29,12 @@ namespace GFElevInterview.Views
         private void InitialiserBlanket() {
             SætButtons();
 
-            cmbUddannelse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
+            cmbUddannelse.ItemsSource = StandardVaerdier.HentSkoler(CurrentElev.elev.danskNiveau > FagNiveau.F);
+            //cmbUddannelse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
             if (cmbUddannelse.Items.Count == 1) {
                 cmbUddannelse.SelectedIndex = 0;
             }
-            cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
+            cmbEducation.ItemsSource = StandardVaerdier.HentUddannelser(CurrentElev.elev.erRKV);
 
             OpdaterExpanders(false, false);
             UdfyldBlanketHvisAlleredeEksisterende();

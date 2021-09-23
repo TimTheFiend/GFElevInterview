@@ -121,14 +121,6 @@
     <value>Ballerup</value>
     <comment>Add. Linje</comment>
   </data>
-  <data name="ballerupFuldt" xml:space="preserve">
-    <value>Ballerup (Fuld forløb)</value>
-    <comment>Add. Linje</comment>
-  </data>
-  <data name="ballerupMerit" xml:space="preserve">
-    <value>Ballerup (Ordinær+)</value>
-    <comment>Add. Linje</comment>
-  </data>
   <data name="db" xml:space="preserve">
     <value>elevDB.db</value>
     <comment>Database. Elev</comment>
@@ -192,6 +184,14 @@
   <data name="samletRKV" xml:space="preserve">
     <value>..\\Blanketter\\_Samlet RKV.zip</value>
     <comment>Adm. Add</comment>
+  </data>
+  <data name="skoleIngenMerit" xml:space="preserve">
+    <value>Fuldt forløb</value>
+    <comment>Add. Linje</comment>
+  </data>
+  <data name="skoleMerit" xml:space="preserve">
+    <value>Ordinær+</value>
+    <comment>Add. Linje</comment>
   </data>
   <data name="standardPassword" xml:space="preserve">
     <value>root</value>

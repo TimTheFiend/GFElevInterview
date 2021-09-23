@@ -34,14 +34,7 @@ namespace GFElevInterview.Views
 
         //Putter info ind fra App.Config i ComboBox
         private void InitialiserSkoleComboBox() {
-            List<string> uddannelsesAdresser = new List<string>() {
-                RessourceFil.ballerup,
-                RessourceFil.ballerupMerit,
-                RessourceFil.ballerupFuldt,
-                RessourceFil.lyngby,
-                RessourceFil.frederiksberg
-            };
-            cmbSchool.ItemsSource = uddannelsesAdresser;
+            cmbSchool.ItemsSource = StandardVaerdier.HentAlleSkoler();
         }
 
         public void OpdaterDataGrid(List<ElevModel> elevData) {
@@ -153,13 +146,13 @@ namespace GFElevInterview.Views
         }
 
         private void ExportMerit_Click(object sender, RoutedEventArgs e) {
-            if (AlertBoxes.OnExport()) {
+            if (AlertBoxes.OnExportMerit()) {
                 AdminTools.KombinerMeritFiler();
             }
         }
 
         private void ExportRKV_Click(object sender, RoutedEventArgs e) {
-            if (AlertBoxes.OnExport()) {
+            if (AlertBoxes.OnExportRKV()) {
                 AdminTools.ZipRKVFiler();
             }
         }
