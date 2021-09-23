@@ -10,6 +10,15 @@ namespace GFElevInterview.Models
         private static DbTools instance = new DbTools();
         public static DbTools Instance => instance;
 
+        #region Database tabel
+
+        // public DbSet<ElevModel> Elever { get; set; }
+        public DbSet<ElevModel> Elever { get; set; }
+
+        public DbSet<LoginModel> Login { get; set; }
+
+        #endregion Database tabel
+
         public DbTools() {
             //NOTE: `EnsureDeleted` skal kun bruges under development!
             //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
@@ -45,11 +54,11 @@ namespace GFElevInterview.Models
                 //{
                 //    System.IO.File.Delete(fil);
                 //}
-
             }
         }
 
         #region Gets
+
         public List<ElevModel> VisAlle() {
             instance = new DbTools();
             return (from e in Elever
@@ -95,17 +104,14 @@ namespace GFElevInterview.Models
                     where e.elevType != 0
                     select e).ToList();
         }
+
         public List<ElevModel> VisMerit() {
             return (from e in Elever
                     where e.danskNiveau > 0
                     select e).ToList();
         }
-        #endregion
-        #region Database tabel
 
-        // public DbSet<ElevModel> Elever { get; set; }
-        public DbSet<ElevModel> Elever { get; set; }
-        #endregion Database tabel
+        #endregion Gets
 
         //Bliver Kaldt Når Elever skal tilføjes til en tom database.
         private void TilføjEleverTilTomDatabase(List<ElevModel> nyElever) {
@@ -114,6 +120,7 @@ namespace GFElevInterview.Models
             //Elever er tilføjet
             SaveChanges();
         }
+
         //I TilføjEleverTilEksisterendeDatabase checker vi om de "nye elever" allerede eksister eller om de skal tilføjes.
         private void TilføjEleverTilEksisterendeDatabase(List<ElevModel> nyElever) {
             foreach (ElevModel elev in nyElever) {
@@ -150,7 +157,9 @@ namespace GFElevInterview.Models
                 TilføjEleverTilTomDatabase(nyElever);
             }
         }
+
         #region Required
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             //optionsBuilder.UseSqlite($"Data Source={System.Configuration.ConfigurationManager.AppSettings["db"]}");  //Database navn bliver indsat
             optionsBuilder.UseSqlite($"Data Source={RessourceFil.db}");
@@ -179,7 +188,12 @@ namespace GFElevInterview.Models
             new ElevModel("2012009856", "Spacejam", "Michael Jordan"),
             new ElevModel("111193-1234", "Joakim", "Krugstrup")
             );
+
+            modelBuilder.Entity<LoginModel>().HasData(
+                new LoginModel().CreateInitialLogin()
+                );
         }
-        #endregion
+
+        #endregion Required
     }
 }

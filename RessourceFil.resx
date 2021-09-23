@@ -161,6 +161,10 @@
     <value>Lyngby</value>
     <comment>Add. Linje</comment>
   </data>
+  <data name="meritBlanketDoc" xml:space="preserve">
+    <value>Merit-blanket.docx</value>
+    <comment>Merit-blanket dokumentet.</comment>
+  </data>
   <data name="minimumGrundforløbLængde" xml:space="preserve">
     <value>16</value>
     <comment>Udd. Længde</comment>
@@ -188,6 +192,10 @@
   <data name="samletRKV" xml:space="preserve">
     <value>..\\Blanketter\\_Samlet RKV.zip</value>
     <comment>Adm. Add</comment>
+  </data>
+  <data name="standardPassword" xml:space="preserve">
+    <value>root</value>
+    <comment>Standard password til lederView</comment>
   </data>
   <data name="templates" xml:space="preserve">
     <value>Blanketter\\Templates\\</value>

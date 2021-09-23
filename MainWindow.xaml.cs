@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Input;
 
 namespace GFElevInterview
 {
@@ -8,28 +7,21 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow Instance = null;
+        public static MainWindow Instance = null;  //Singleton
 
         public MainWindow() {
             InitializeComponent();
-            if (Instance == null)
-            {
+
+            //Singleton setup
+            if (Instance == null) {
                 Instance = this;
             }
-            ÅbenUndervisning();
-            //this.DataContext =;
-            //Data.AdminTools.HentAntalEleverPåSkole();
 
-            //new DbTools().TilføjElever();
+            //Viser `BlanketView` ved opstart.
+            UnderviserButton_Click(btnUnderviser, new RoutedEventArgs());
+        }
 
-            OpdaterCounter();
-        }
-        private void ÅbenUndervisning()
-        {
-            mainContent.Content = new Views.BlanketView();
-            UnderviserPanel.Visibility = Visibility.Visible;
-        }
-        //TODO Ryk til DbTools
+        //TODO ordinær+ og fuldtforløb
         public void OpdaterCounter() {
             var dict = Data.AdminTools.HentAntalEleverPåSkole();
             LyngbyTXT.Text = dict["Lyngby"].ToString();
@@ -37,21 +29,12 @@ namespace GFElevInterview
             FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
         }
 
-        #region Home
-
-        //TODO overvej at fjerne?
-        private void btnHome_Click(object sender, RoutedEventArgs e) {
-            HomePanel.Visibility = Visibility.Visible;
-            UnderviserPanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
-            OpdaterCounter();
-        }
-
-        #endregion Home
-
         #region Underviser View
 
-        private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Viser <see cref="Views.BlanketView"/> viewet.
+        /// </summary>
+        private void UnderviserButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
@@ -59,45 +42,33 @@ namespace GFElevInterview
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-        #endregion
+
+        #endregion Underviser View
 
         #region LederView
 
-        //TODO
-        private void btnLeder_Click(object sender, RoutedEventArgs e) {
-            mainContent.Content = new Views.LederView();
+        /// <summary>
+        /// Viser <see cref="Views.LoginView"/> viewet, før <see cref="Views.LederView"/> bliver vist.
+        /// </summary>
+        private void LederButton_Click(object sender, RoutedEventArgs e) {
+            mainContent.Content = new Views.LoginView(this);
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
-        //TODO
-        private void signinButton_Click(object sender, RoutedEventArgs e) {
-            //GFElevInterview.Views.LederView LederView = new Views.LederView();
-            //if (passwordText.Password == "1234")
-            //{
-            //    LederView.Show();
-            //    this.Close();
-            //}
-            //else if (passwordText.Password == "")
-            //{
-            //    MessageBox.Show("Indtast adgangskode!!");
-            //    passwordText.Focus();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Ugyldig adgangskode!!");
-            //    passwordText.Clear();
-            //    passwordText.Focus();
-            //}
+
+        //TODO tænk på bedre løsning.
+        public void LoginTilLederView() {
+            mainContent.Content = new Views.LederView();
         }
 
-        private void passwordText_KeyDown(object sender, KeyEventArgs e) {
-        }
+        #endregion LederView
 
-        #endregion
-        private void btnVejled_Click(object sender, RoutedEventArgs e)
-        {
+        /// <summary>
+        /// Viser <see cref="PLACEHOLDER"/> viewet.
+        /// </summary>
+        private void VejledningButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new Views.VejledningsView();
             UnderviserPanel.Visibility = Visibility.Visible;
             OpdaterCounter();

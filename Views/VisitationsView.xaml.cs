@@ -1,10 +1,9 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Interfaces;
-using GFElevInterview.Models;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace GFElevInterview.Views
 {
@@ -13,41 +12,57 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class VisitationsView : UserControl, IBlanket
     {
-        /* Fields */
         private BlanketView parent;
-
-        /* Constructor */
 
         public VisitationsView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
             InitialiserBlanket();
-            cmbEducation.DropDownClosed += Combobox_DropDownClosed;
-            cmbAdresse.DropDownClosed += Combobox_DropDownClosed;
         }
 
         #region Klargøringsmetoder
 
+        /// <summary>
+        /// Klargører view til brug.
+        /// </summary>
         private void InitialiserBlanket() {
             SætKnapper();
             SætKomboBokse();
 
+            //Sæt EventHandlers
+            cmbEducation.DropDownClosed += Combobox_DropDownClosed;
+            cmbAdresse.DropDownClosed += Combobox_DropDownClosed;
+
             UdfyldBlanketHvisAlleredeEksisterende();
         }
 
-        //TODO Ændre måden vi henter lister
+        /// <summary>
+        /// Fylder <see cref="ComboBox"/> op med indhold.
+        /// </summary>
         private void SætKomboBokse() {
-            cmbAdresse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
-            cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
+            cmbAdresse.ItemsSource = new List<string>() {
+                RessourceFil.ballerup,
+                RessourceFil.frederiksberg,
+                RessourceFil.lyngby
+            };
+            cmbEducation.ItemsSource = new List<string>() {
+                RessourceFil.infrastruktur,
+                RessourceFil.itsupporter,
+                RessourceFil.programmering,
+                RessourceFil.vedIkke
+            };
         }
 
+        /// <summary>
+        /// Ændrer <see cref="BlanketView"/>s knapper.
+        /// </summary>
         private void SætKnapper() {
             parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
         }
 
         /// <summary>
-        /// udfyldning af visitationsView
+        /// Udfylder <see cref="VisitationsView"/> hvis <see cref="CurrentElev"/> allerede eksisterer i databasen.
         /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
             if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse)) {
@@ -56,45 +71,6 @@ namespace GFElevInterview.Views
 
                 UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.uddannelse);
                 UdfyldBlanket.UdfyldComboBox(cmbAdresse, CurrentElev.elev.uddannelseAdresse);
-            }
-
-            return;
-            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse)) {
-                cmbEducation.SelectedItem = CurrentElev.elev.uddannelse;
-            }
-
-            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelseAdresse)) {
-                //Hvis der er ændret i Dansk karakter, så vil hverken Lyngby eller Frederiksberg blive vist.
-                if (cmbEducation.Items.Contains(CurrentElev.elev.uddannelseAdresse)) {
-                    CurrentElev.elev.uddannelseAdresse = null;
-                    cmbAdresse.SelectedItem = CurrentElev.elev.uddannelseAdresse;
-                }
-            }
-
-            switch (CurrentElev.elev.sps) {
-                case true:
-                    rbSpsJa.IsChecked = true;
-                    break;
-
-                case false:
-                    rbSpsNej.IsChecked = true;
-                    break;
-
-                default:
-                    break;
-            }
-
-            switch (CurrentElev.elev.eud) {
-                case true:
-                    rbEudJa.IsChecked = true;
-                    break;
-
-                case false:
-                    rbEudNej.IsChecked = true;
-                    break;
-
-                default:
-                    break;
             }
         }
 
@@ -107,15 +83,14 @@ namespace GFElevInterview.Views
             }
         }
 
-        /// <summary>Ændr <see cref="BlanketView"/>s <see cref="ContentControl"/> til <see cref="MeritBlanketView"/></summary>
         public void Tilbage() {
             parent.SkiftBlanket(new MeritBlanketView(parent));
         }
 
-        //TODO
+        /// <summary>
+        /// Sætter de passende værdier ind i <see cref="CurrentElev"/>.
+        /// </summary>
         private void SætCurrentElevVærdier() {
-            //NOTE: Bliver sat før vi overhovedet kommer hertil
-
             CurrentElev.elev.uddannelseAdresse = cmbAdresse.Text;
             CurrentElev.elev.uddannelse = cmbEducation.Text;
             CurrentElev.elev.sps = (bool)rbSpsJa.IsChecked;
@@ -129,49 +104,17 @@ namespace GFElevInterview.Views
         ///   <c>true</c> if this instance is validated; otherwise, <c>false</c>.
         /// </returns>
         private bool ErValideret() {
-            bool erSpsValgt = false;
-            bool erEudValgt = false;
-
-            return InputValidering.ValiderToRadioButtons(rbSpsJa, rbSpsNej, out erSpsValgt, bdrSps)
-                && InputValidering.ValiderToRadioButtons(rbEudJa, rbEudNej, out erEudValgt, bdrEud)
+            return InputValidering.ValiderToRadioButtons(rbSpsJa, rbSpsNej, bdrSps)
+                && InputValidering.ValiderToRadioButtons(rbEudJa, rbEudNej, bdrEud)
                 && InputValidering.ValiderComboBox(cmbEducation, bdrEducation)
                 && InputValidering.ValiderComboBox(cmbAdresse, bdrAdresse);
         }
 
-        //Events
-
-        #region Combobox/Radiobutton Eventhandlers
-
-        #region Combobox
-
-        /// <summary>Fjerner fokus fra combobox når den folder sammen.</summary>
+        /// <summary>
+        /// Fjerner fokus fra combobox når den folder sammen.
+        /// </summary>
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scroll.Focus();
-        }
-
-        /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
-        private void educationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            //CurrentElev.elev.uddannelse = (sender as ComboBox).SelectedItem.ToString();
-        }
-
-        /// <summary>Sætter <see cref="CurrentElev.elev"/> værdi på valg fra <see cref="ComboBox"/></summary>
-        private void educationAdresseComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            //CurrentElev.elev.uddannelseAdresse = (sender as ComboBox).SelectedItem.ToString();
-        }
-
-        #endregion Combobox
-
-        #region RadioButton setters
-
-        private void EUDSupport_Checked(object sender, RoutedEventArgs e) {
-            //CurrentElev.elev.eud = (sender as RadioButton) == rbEudJa ? true : false;
-        }
-
-        #endregion RadioButton setters
-
-        #endregion Combobox/Radiobutton Eventhandlers
-
-        private void SPSSupport_Checked(object sender, RoutedEventArgs e) {
         }
     }
 }

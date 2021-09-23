@@ -160,6 +160,15 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Merit-blanket.docx.
+        /// </summary>
+        internal static string meritBlanketDoc {
+            get {
+                return ResourceManager.GetString("meritBlanketDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 16.
         /// </summary>
         internal static string minimumGrundforløbLængde {
@@ -219,6 +228,15 @@ namespace GFElevInterview {
         internal static string samletRKV {
             get {
                 return ResourceManager.GetString("samletRKV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to root.
+        /// </summary>
+        internal static string standardPassword {
+            get {
+                return ResourceManager.GetString("standardPassword", resourceCulture);
             }
         }
         
