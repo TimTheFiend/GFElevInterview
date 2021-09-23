@@ -9,7 +9,7 @@ namespace GFElevInterview.Models
 {
     public class ElevModel
     {
-        #region Person data
+        #region Database Tabel
 
         [Key]
         public string cprNr { get; set; }
@@ -17,111 +17,26 @@ namespace GFElevInterview.Models
         public string fornavn { get; set; }
         public string efternavn { get; set; }
 
-        #endregion Person data
-
-        #region TEC data
-
         public string uddannelse { get; set; }
         public string uddannelseAdresse { get; set; }
+
+        public FagNiveau danskNiveau { get; set; }
+        public FagNiveau engelskNiveau { get; set; }
+        public FagNiveau matematikNiveau { get; set; }
+
+        /// <summary>
+        /// Flag som indeholder status på eksamen og undervisning i samtlige fag.
+        /// </summary>
+        public Merit uddannelsesMerit { get; set; }
 
         public bool? sps { get; set; }
         public bool? eud { get; set; }
 
         public ElevType elevType { get; set; }
 
-        #endregion TEC data
+        public int uddannelsesLængdeIUger { get; set; } = Int32.Parse(RessourceFil.minimumGrundforløbLængde);
 
-        #region Dansk
-
-        [NotMapped]
-        public bool? danskEksammen {
-            get {
-                if (danskNiveau == FagNiveau.Null) {
-                    return null;
-                }
-                return uddMerit.HasFlag(Merit.DanskEksamen);
-            }
-        }
-
-        [NotMapped]
-        public bool? danskUndervisning {
-            get {
-                if (danskNiveau == FagNiveau.Null) {
-                    return null;
-                }
-                return uddMerit.HasFlag(Merit.DanskUndervisning);
-            }
-        }
-
-        public FagNiveau danskNiveau { get; set; }
-
-        #endregion Dansk
-
-        #region Engelsk
-
-        [NotMapped]
-        public bool? engelskEksammen {
-            get {
-                if (danskNiveau == FagNiveau.Null) {
-                    return null;
-                }
-                return uddMerit.HasFlag(Merit.EngelskEksamen);
-            }
-        }
-
-        [NotMapped]
-        public bool? engelskUndervisning {
-            get {
-                if (danskNiveau == FagNiveau.Null) {
-                    return null;
-                }
-                return uddMerit.HasFlag(Merit.EngelskUndervisning);
-            }
-        }
-
-        public FagNiveau engelskNiveau { get; set; }
-
-        #endregion Engelsk
-
-        #region Matematik
-
-        [NotMapped]
-        public bool? matematikEksammen {
-            get {
-                if (danskNiveau == FagNiveau.Null) {
-                    return null;
-                }
-                return uddMerit.HasFlag(Merit.MatematikEksamen);
-            }
-        }
-
-        [NotMapped]
-        public bool? matematikUndervisning {
-            get {
-                if (danskNiveau == FagNiveau.Null) {
-                    return null;
-                }
-                return uddMerit.HasFlag(Merit.MatematikUndervisning);
-            }
-        }
-
-        public FagNiveau matematikNiveau { get; set; }
-
-        #endregion Matematik
-
-        public Merit uddMerit { get; set; }
-
-        public void SætMeritStatus(Merit fag, bool value) {
-            switch (value) {
-                case true:
-                    uddMerit |= fag;
-                    break;
-
-                case false:
-                    uddMerit &= ~fag;
-                    break;
-            }
-        }
+        #endregion Database Tabel
 
         #region Constructors
 
@@ -143,11 +58,138 @@ namespace GFElevInterview.Models
 
         #endregion Constructors
 
-        //TODO Ryk ud herfra
-        private const int minForløbslængdeIUger = 16;
+        #region NotMapped properties (Eksamen & Undervisning
 
-        public int uddannelsesLængdeIUger { get; set; } = Int32.Parse(RessourceFil.minimumGrundforløbLængde);
+        [NotMapped]
+        public bool? danskEksamen {
+            get {
+                if (danskNiveau == FagNiveau.Null) {
+                    return null;
+                }
+                return uddannelsesMerit.HasFlag(Merit.DanskEksamen);
+            }
+        }
 
+        [NotMapped]
+        public bool? danskUndervisning {
+            get {
+                if (danskNiveau == FagNiveau.Null) {
+                    return null;
+                }
+                return uddannelsesMerit.HasFlag(Merit.DanskUndervisning);
+            }
+        }
+
+        [NotMapped]
+        public bool? engelskEksamen {
+            get {
+                if (danskNiveau == FagNiveau.Null) {
+                    return null;
+                }
+                return uddannelsesMerit.HasFlag(Merit.EngelskEksamen);
+            }
+        }
+
+        [NotMapped]
+        public bool? engelskUndervisning {
+            get {
+                if (danskNiveau == FagNiveau.Null) {
+                    return null;
+                }
+                return uddannelsesMerit.HasFlag(Merit.EngelskUndervisning);
+            }
+        }
+
+        [NotMapped]
+        public bool? matematikEksamen {
+            get {
+                if (danskNiveau == FagNiveau.Null) {
+                    return null;
+                }
+                return uddannelsesMerit.HasFlag(Merit.MatematikEksamen);
+            }
+        }
+
+        [NotMapped]
+        public bool? matematikUndervisning {
+            get {
+                if (danskNiveau == FagNiveau.Null) {
+                    return null;
+                }
+                return uddannelsesMerit.HasFlag(Merit.MatematikUndervisning);
+            }
+        }
+
+        #endregion NotMapped properties (Eksamen & Undervisning
+
+        #region Get properties
+
+        [NotMapped]
+        public string fornavnEfternavn {
+            get { return $"{fornavn} {efternavn}"; }
+        }
+
+        [NotMapped]
+        public string efternavnFornavn {
+            get { return $"{efternavn}, {fornavn}"; }
+        }
+
+        /// <summary>
+        /// Returnerer en lovlig string der kan bruges som filnavn.
+        /// </summary>
+        [NotMapped]
+        public string MeritFilNavn {
+            get {
+                string fileName = $"{cprNr} - {efternavnFornavn}";
+                foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
+                    fileName = fileName.Replace(invalidLetter, '_');
+                }
+                return fileName + RessourceFil.endMerit;
+            }
+        }
+
+        /// <summary>
+        /// Returnerer en lovlig string der kan bruges som filnavn.
+        /// </summary>
+        [NotMapped]
+        public string RKVFilNavn {
+            get {
+                string fileName = $"{cprNr} - {efternavnFornavn}";
+                foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
+                    fileName = fileName.Replace(invalidLetter, '_');
+                }
+                return fileName + RessourceFil.endRKV;
+            }
+        }
+
+        #endregion Get properties
+
+        /// <summary>
+        /// Sætter eller fjerner flag status for et givent fag.
+        /// </summary>
+        /// <param name="fag">Faget der er tale om.</param>
+        /// <param name="value"><c>true</c> hvis gennemført; ellers <c>false</c>.</param>
+        public void SætMeritStatus(Merit fag, bool value) {
+            switch (value) {
+                case true:
+                    uddannelsesMerit |= fag;
+                    break;
+
+                case false:
+                    uddannelsesMerit &= ~fag;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Override af ToString()
+        /// </summary>
+        /// <returns>xxxxx-xxxx - Efternavn, Fornavn</returns>
+        public override string ToString() {
+            return $"({cprNr}) - {efternavnFornavn}";
+        }
+
+        //TODO doku
         public int meritLængdeIDage {
             get {
                 if (CurrentElev.elev.elevType == ElevType.EUV1) {
@@ -158,13 +200,13 @@ namespace GFElevInterview.Models
                 //ved at fjerne -4 fra resultatet gør vi at hvis man intet merit har går man i 0,
                 //merit i et fag betyder 2, og 4 hvis i alt. gang det med 5 mens man udligner minus tallet
                 //og man har uger i dage.
-                return (uddannelsesLængdeIUger - minForløbslængdeIUger - 4) * -5;
+                return (uddannelsesLængdeIUger - Int32.Parse(RessourceFil.minimumGrundforløbLængde) - 4) * -5;
             }
         }
 
-        //TODO Rewrite parameter er dumt
-        public void BeregnMeritIUger(ElevModel elev) {
-            if (elev.elevType == ElevType.EUV1) {
+        //TODO doku
+        public void BeregnMeritIUger() {
+            if (elevType == ElevType.EUV1) {
                 uddannelsesLængdeIUger = 0;
                 return;
             }
@@ -173,17 +215,16 @@ namespace GFElevInterview.Models
             int ekstraUger = 4;
 
             if (danskNiveau > minNiveau) {
-                minNiveau = elev.uddannelse == RessourceFil.itsupporter ? FagNiveau.E : FagNiveau.D;
+                minNiveau = uddannelse == RessourceFil.itsupporter ? FagNiveau.E : FagNiveau.D;
 
                 if (engelskNiveau >= minNiveau) { ekstraUger -= 2; }
                 if (matematikNiveau >= minNiveau) { ekstraUger -= 2; }
             }
 
-            uddannelsesLængdeIUger = minForløbslængdeIUger + ekstraUger;
+            uddannelsesLængdeIUger = Int32.Parse(RessourceFil.minimumGrundforløbLængde) + ekstraUger;
         }
 
-        //TODO OUTDATED
-        //bliver brugt til at skifte elev før man er færdig med deb nuværende elev.
+        //TODO
         public bool ErUdfyldt {
             get {
                 if (danskNiveau != FagNiveau.Null || engelskNiveau != FagNiveau.Null || matematikNiveau != FagNiveau.Null) {
@@ -193,45 +234,7 @@ namespace GFElevInterview.Models
             }
         }
 
-        [NotMapped]
-        public string fornavnEfternavn {
-            get { return $"{fornavn} {efternavn}"; }
-        }
-
-        /// <summary>
-        /// Returnerer elevens formateret "Efternavn, Fornavn".
-        /// </summary>
-        [NotMapped]
-        public string efternavnFornavn {
-            get { return $"{efternavn}, {fornavn}"; }
-        }
-
-        //FixMe
-        /// <summary>
-        /// Returnerer det formateret CPR-nr.
-        /// </summary>
-        public string cPRNr {
-            get {
-                return this.cprNr;
-                // CprNr "XXXXXXXXX"
-                StringBuilder sb = new StringBuilder(cprNr, cprNr.Length + 1);
-                sb.Insert(6, '-');
-
-                return sb.ToString();
-            }
-        }
-
-        private string CprEfternavnFornavn {
-            get {
-                return $"{cprNr} - {efternavnFornavn}";
-            }
-        }
-
-        ///NOTE: Unødvendig? Alt den gør er at returnerer <see cref="ToString"/>.
-        public string FuldInfo {
-            get { return this.ToString(); }
-        }
-
+        //TODO doku
         public bool erRKV {
             get {
                 /// Forklaring på property
@@ -273,61 +276,13 @@ namespace GFElevInterview.Models
                 return false;
             }
         }
-
-        /// <summary>
-        /// Returnerer en lovlig string der kan bruges som filnavn.
-        /// </summary>
-        public string MeritFilNavn {
-            get {
-                string fileName = $"{cprNr} - {efternavnFornavn}";
-                foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
-                    fileName = fileName.Replace(invalidLetter, '_');
-                }
-                return fileName + RessourceFil.endMerit;
-            }
-        }
-
-        public string RKVFilNavn {
-            get {
-                string fileName = $"{cprNr} - {efternavnFornavn}";
-                foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
-                    fileName = fileName.Replace(invalidLetter, '_');
-                }
-                return fileName + RessourceFil.endRKV;
-            }
-        }
-
-        public override string ToString() {
-            return $"({cPRNr}) - {efternavnFornavn}";
-        }
-
-        public List<string> ValgAfSkoler() {
-            if (danskNiveau <= FagNiveau.F) {
-                return new List<string>() {
-                    RessourceFil.ballerup
-                };
-            }
-            return new List<string>() {
-                RessourceFil.ballerup,
-                RessourceFil.frederiksberg,
-                RessourceFil.lyngby
-            };
-        }
-
-        public List<string> ValgAfUddannelser() {
-            List<string> uddannelser = new List<string>() {
-                RessourceFil.infrastruktur,
-                RessourceFil.itsupporter,
-                RessourceFil.programmering
-            };
-            if (!CurrentElev.elev.erRKV) {
-                uddannelser.Add(RessourceFil.vedIkke);
-            }
-
-            return uddannelser;
-        }
     }
 
+    #region Enums
+
+    /// <summary>
+    /// Indeholder de forskellige EUV-typer.
+    /// </summary>
     public enum ElevType
     {
         Null,
@@ -336,6 +291,9 @@ namespace GFElevInterview.Models
         EUV3
     }
 
+    /// <summary>
+    /// Indeholder fag niveauer der kan bruges til sammenligning.
+    /// </summary>
     public enum FagNiveau
     {
         Null,
@@ -348,6 +306,9 @@ namespace GFElevInterview.Models
         A
     }
 
+    /// <summary>
+    /// Indeholder Dansk, Engelsk, og Matematiks værdier for Eksamen, og Undervisning.
+    /// </summary>
     [Flags]
     public enum Merit
     {
@@ -359,4 +320,6 @@ namespace GFElevInterview.Models
         MatematikEksamen = 16,
         MatematikUndervisning = 32
     }
+
+    #endregion Enums
 }

@@ -23,7 +23,7 @@ namespace GFElevInterview
 
         //TODO ordinær+ og fuldtforløb
         public void OpdaterCounter() {
-            var dict = Data.AdminTools.HentAntalEleverPåSkole();
+            var dict = Models.DbTools.Instance.GetAntalEleverPerSkole();
             LyngbyTXT.Text = dict["Lyngby"].ToString();
             BallerupTXT.Text = dict["Ballerup"].ToString();
             FredriksbergTXT.Text = dict["Frederiksberg"].ToString();

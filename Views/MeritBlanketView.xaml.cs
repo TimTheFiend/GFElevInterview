@@ -61,11 +61,11 @@ namespace GFElevInterview.Views
                 UdfyldBlanket.UdfyldComboBox(cmbEngelsk, (int)CurrentElev.elev.engelskNiveau - 1);
                 UdfyldBlanket.UdfyldComboBox(cmbMatematik, (int)CurrentElev.elev.matematikNiveau - 1);
 
-                UdfyldBlanket.UdfyldRadioButton(rbDanskEksamenJa, rbDanskEksamenNej, CurrentElev.elev.danskEksammen);
+                UdfyldBlanket.UdfyldRadioButton(rbDanskEksamenJa, rbDanskEksamenNej, CurrentElev.elev.danskEksamen);
                 UdfyldBlanket.UdfyldRadioButton(rbDanskUndervisJa, rbDanskUndervisNej, CurrentElev.elev.danskUndervisning);
-                UdfyldBlanket.UdfyldRadioButton(rbEngelskEksamenJa, rbEngelskEksamenNej, CurrentElev.elev.engelskEksammen);
+                UdfyldBlanket.UdfyldRadioButton(rbEngelskEksamenJa, rbEngelskEksamenNej, CurrentElev.elev.engelskEksamen);
                 UdfyldBlanket.UdfyldRadioButton(rbEngelskUndervisJa, rbEngelskUndervisNej, CurrentElev.elev.engelskUndervisning);
-                UdfyldBlanket.UdfyldRadioButton(rbMatematikEksamenJa, rbMatematikEksamenNej, CurrentElev.elev.matematikEksammen);
+                UdfyldBlanket.UdfyldRadioButton(rbMatematikEksamenJa, rbMatematikEksamenNej, CurrentElev.elev.matematikEksamen);
                 UdfyldBlanket.UdfyldRadioButton(rbMatematikUndervisJa, rbMatematikUndervisNej, CurrentElev.elev.matematikUndervisning);
             }
         }
@@ -95,7 +95,9 @@ namespace GFElevInterview.Views
                     newView = new VisitationsView(parent);
                 }
                 //TODO hvis ikke RKV
-                //new BlanketUdskrivning().UdskrivningRKV();
+                if (newView == null) {
+                    AlertBoxes.OnUnlikelyError();
+                }
                 parent.SkiftBlanket(newView);
             }
         }

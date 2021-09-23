@@ -146,7 +146,7 @@ namespace GFElevInterview.Views
                     }
                 }
                 CurrentElev.elev = lstSearch.SelectedItem as ElevModel;
-                lblStudentInfo.Content = CurrentElev.elev.FuldInfo;
+                lblStudentInfo.Content = CurrentElev.elev.ToString();
                 InitialiserBlanketView();
 
                 //Nulstiller textbox og listbox

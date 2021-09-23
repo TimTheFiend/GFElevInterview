@@ -30,7 +30,7 @@
                     <ListBox x:Name="lstSearch" Background="WhiteSmoke" SelectionChanged="SearchStudentBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding FuldInfo}" />
+                                <TextBlock Text="{Binding}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
