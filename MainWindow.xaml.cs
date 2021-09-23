@@ -1,5 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace GFElevInterview
 {
@@ -8,64 +9,114 @@ namespace GFElevInterview
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow Instance = null;
+        public static MainWindow Instance = null;  //Singleton
+
+        #region Statisk reference til .xaml elementer
+
+        private static Grid xelOverlayLoading;
+
+        private static TextBlock countBallerup;
+        private static TextBlock countFredriksberg;
+        private static TextBlock countLyngby;
+        private static TextBlock countBallerupPlus;
+        private static TextBlock countBallerupFuldt;
+
+        #endregion Statisk reference til .xaml elementer
 
         public MainWindow() {
             InitializeComponent();
-            if (Instance == null)
-            {
+            InitialiserWindow();
+        }
+
+        private void InitialiserWindow() {
+            //Singleton setup
+            if (Instance == null) {
                 Instance = this;
             }
-            ÅbenUndervisning();
-            //this.DataContext =;
-            //Data.AdminTools.HentAntalEleverPåSkole();
 
-            //new DbTools().TilføjElever();
-            OpdaterCounter();
+            #region Hent ref for xaml elementer
+
+            xelOverlayLoading = overlayLoading;  //Dette gøres for at have en ref i SetBrugerInput.
+
+            countBallerup = txtAntalBal;
+            countFredriksberg = txtAntalFred;
+            countLyngby = txtAntalLyn;
+            countBallerupPlus = txtAntalBalPlus;
+            countBallerupFuldt = txtAntalBalFuld;
+
+            #endregion Hent ref for xaml elementer
+
+            SetBrugerInput(true);
+
+            //Viser `BlanketView` ved opstart.
+            UnderviserButton_Click(btnUnderviser, new RoutedEventArgs());
         }
-        private void ÅbenUndervisning()
-        {
-            mainContent.Content = new Views.BlanketView();
-            UnderviserPanel.Visibility = Visibility.Visible;
+
+        /// <summary>
+        /// Sætter visibility status for loading skærm.
+        /// </summary>
+        /// <param name="harBrugerInput"><c>true</c> hvis brugeren har kontrol; ellers <c>false</c>.</param>
+        public static void SetBrugerInput(bool harBrugerInput) {
+            xelOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
-        //TODO Ryk til DbTools
-        public void OpdaterCounter() {
-            var dict = Data.AdminTools.HentAntalEleverPåSkole();
-            LyngbyTXT.Text = dict["Lyngby"].ToString();
-            BallerupTXT.Text = dict["Ballerup"].ToString();
-            FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
+
+        //TODO ordinær+ og fuldtforløb
+        public static void OpdaterSkoleOptæller() {
+            //var dict = Data.AdminTools.HentAntalEleverPåSkole();
+            Dictionary<string, int> skoleAntal = Models.DbTools.Instance.GetAntalEleverPerSkole();  //Placeholder
+            try {
+                countBallerup.Text = skoleAntal[RessourceFil.ballerup].ToString();
+                countFredriksberg.Text = skoleAntal[RessourceFil.frederiksberg].ToString();
+                countLyngby.Text = skoleAntal[RessourceFil.lyngby].ToString();
+
+                countBallerupPlus.Text = skoleAntal[RessourceFil.skoleMerit.Substring(0, 3)].ToString();
+                countBallerupFuldt.Text = skoleAntal[RessourceFil.skoleIngenMerit.Substring(0, 3)].ToString();
+            }
+            catch (KeyNotFoundException e) {
+                MessageBox.Show(e.Message);
+                throw;
+            }
         }
 
         #region Underviser View
 
-        private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Viser <see cref="Views.BlanketView"/> viewet.
+        /// </summary>
+        private void UnderviserButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
-            OpdaterCounter();
+            OpdaterSkoleOptæller();
         }
-        #endregion
+
+        #endregion Underviser View
 
         #region LederView
 
-        //TODO
-        private void btnLeder_Click(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Viser <see cref="Views.LoginView"/> viewet, før <see cref="Views.LederView"/> bliver vist.
+        /// </summary>
+        private void LederButton_Click(object sender, RoutedEventArgs e) {
             mainContent.Content = new Views.LoginView(this);
             UnderviserPanel.Visibility = Visibility.Visible;
-            OpdaterCounter();
+            OpdaterSkoleOptæller();
         }
 
-        public void LederView()
-        {
+        //TODO tænk på bedre løsning.
+        public void LoginTilLederView() {
             mainContent.Content = new Views.LederView();
         }
 
-        #endregion
-        private void btnVejled_Click(object sender, RoutedEventArgs e)
-        {
+        #endregion LederView
+
+        /// <summary>
+        /// Viser <see cref="PLACEHOLDER"/> viewet.
+        /// </summary>
+        private void VejledningButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new Views.VejledningsView();
             UnderviserPanel.Visibility = Visibility.Visible;
-            OpdaterCounter();
+            OpdaterSkoleOptæller();
         }
     }
 }

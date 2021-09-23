@@ -2,7 +2,6 @@
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
@@ -15,8 +14,7 @@ namespace GFElevInterview.Views
     {
         public BlanketView parent;
 
-        public MeritBlanketView(BlanketView parent)
-        {
+        public MeritBlanketView(BlanketView parent) {
             InitializeComponent();
             this.parent = parent;
             InitialiserBlanket();
@@ -24,8 +22,7 @@ namespace GFElevInterview.Views
             SætEventHandlerComboBox();
         }
 
-        private void SætEventHandlerComboBox()
-        {
+        private void SætEventHandlerComboBox() {
             //TODO ind i InitialiserComboBox
             //Combobox gets it dropdownclosed from the method called "Combobox_DropDownClosed".
             cmbMatematik.DropDownClosed += Combobox_DropDownClosed;
@@ -43,20 +40,6 @@ namespace GFElevInterview.Views
         private void InitialiserBlanket() {
             InitialiserComboBox();
             SætKnapper();
-            // Udfyld Blanketten hvis den allerede står som udfyldt i `CurrentElev`.
-            //if (CurrentElev.elev.ErUdfyldt) {
-            //    //Combobox
-            //    cmbDansk.SelectedIndex = (int)CurrentElev.elev.danskNiveau - 1;  // -1 pga `Null` ikke er en del af comboboksen
-            //    cmbEngelsk.SelectedIndex = (int)CurrentElev.elev.engelskNiveau - 1;
-            //    cmbMatematik.SelectedIndex = (int)CurrentElev.elev.matematikNiveau - 1;
-            //    //Checkbox
-            //    rbDanskEksamenJa.IsChecked = CurrentElev.elev.danskEksammen;
-            //    rbDanskUndervisJa.IsChecked = CurrentElev.elev.danskUndervisning;
-            //    rbMatematikEksamenJa.IsChecked = CurrentElev.elev.matematikEksammen;
-            //    rbMatematikUndervisJa.IsChecked = CurrentElev.elev.matematikUndervisning;
-            //    rbEngelskEksamenJa.IsChecked = CurrentElev.elev.engelskEksammen;
-            //    rbEngelskUndervisJa.IsChecked = CurrentElev.elev.engelskUndervisning;
-            //}
         }
 
         /// <summary>
@@ -71,19 +54,18 @@ namespace GFElevInterview.Views
             UdfyldBlanketHvisAlleredeEksisterende();
         }
 
-        //TODO 
+        //TODO
         private void UdfyldBlanketHvisAlleredeEksisterende() {
-            if(CurrentElev.elev.danskNiveau > FagNiveau.Null)
-            {
-                UdfyldBlanket.UdfyldComboBox(cmbDansk,(int)CurrentElev.elev.danskNiveau - 1);
-                UdfyldBlanket.UdfyldComboBox(cmbEngelsk,(int)CurrentElev.elev.engelskNiveau - 1);
-                UdfyldBlanket.UdfyldComboBox(cmbMatematik,(int)CurrentElev.elev.matematikNiveau - 1);
+            if (CurrentElev.elev.danskNiveau > FagNiveau.Null) {
+                UdfyldBlanket.UdfyldComboBox(cmbDansk, (int)CurrentElev.elev.danskNiveau - 1);
+                UdfyldBlanket.UdfyldComboBox(cmbEngelsk, (int)CurrentElev.elev.engelskNiveau - 1);
+                UdfyldBlanket.UdfyldComboBox(cmbMatematik, (int)CurrentElev.elev.matematikNiveau - 1);
 
-                UdfyldBlanket.UdfyldRadioButton(rbDanskEksamenJa, rbDanskEksamenNej, CurrentElev.elev.danskEksammen);
+                UdfyldBlanket.UdfyldRadioButton(rbDanskEksamenJa, rbDanskEksamenNej, CurrentElev.elev.danskEksamen);
                 UdfyldBlanket.UdfyldRadioButton(rbDanskUndervisJa, rbDanskUndervisNej, CurrentElev.elev.danskUndervisning);
-                UdfyldBlanket.UdfyldRadioButton(rbEngelskEksamenJa, rbEngelskEksamenNej, CurrentElev.elev.engelskEksammen);
+                UdfyldBlanket.UdfyldRadioButton(rbEngelskEksamenJa, rbEngelskEksamenNej, CurrentElev.elev.engelskEksamen);
                 UdfyldBlanket.UdfyldRadioButton(rbEngelskUndervisJa, rbEngelskUndervisNej, CurrentElev.elev.engelskUndervisning);
-                UdfyldBlanket.UdfyldRadioButton(rbMatematikEksamenJa, rbMatematikEksamenNej, CurrentElev.elev.matematikEksammen);
+                UdfyldBlanket.UdfyldRadioButton(rbMatematikEksamenJa, rbMatematikEksamenNej, CurrentElev.elev.matematikEksamen);
                 UdfyldBlanket.UdfyldRadioButton(rbMatematikUndervisJa, rbMatematikUndervisNej, CurrentElev.elev.matematikUndervisning);
             }
         }
@@ -113,7 +95,9 @@ namespace GFElevInterview.Views
                     newView = new VisitationsView(parent);
                 }
                 //TODO hvis ikke RKV
-                //new BlanketUdskrivning().UdskrivningRKV();
+                if (newView == null) {
+                    AlertBoxes.OnUnlikelyError();
+                }
                 parent.SkiftBlanket(newView);
             }
         }
@@ -127,7 +111,6 @@ namespace GFElevInterview.Views
 
         //
         private void SætCurrentElevVærdier() {
-
             CurrentElev.elev.danskNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
             CurrentElev.elev.engelskNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
             CurrentElev.elev.matematikNiveau = (FagNiveau)cmbMatematik.SelectedIndex + 1;
@@ -151,36 +134,6 @@ namespace GFElevInterview.Views
             erValideret = InputValidering.ValiderMerit(rbDanskEksamenJa, rbDanskEksamenNej, rbDanskUndervisJa, rbDanskUndervisNej, cmbDansk, bdrDanskValidation) && erValideret;
             erValideret = InputValidering.ValiderMerit(rbMatematikEksamenJa, rbMatematikEksamenNej, rbMatematikUndervisJa, rbMatematikUndervisNej, cmbMatematik, bdrMatematikValidation) && erValideret;
             erValideret = InputValidering.ValiderMerit(rbEngelskEksamenJa, rbEngelskEksamenNej, rbEngelskUndervisJa, rbEngelskUndervisNej, cmbEngelsk, bdrEngelskValidation) && erValideret;
-
-            return erValideret;
-        }
-
-        //[Combobox, eksamenJa, eksamenNej, UndervisJa, undervisNej]
-        private bool ValiderFag(Border border, Control[] control) {
-            System.Windows.Media.SolidColorBrush brushTrue = System.Windows.Media.Brushes.Gray;
-            System.Windows.Media.SolidColorBrush brushFalse = System.Windows.Media.Brushes.Red;
-            bool erValideret = true;
-
-            ComboBox comboBox = control[0] as ComboBox;
-            if (comboBox.SelectedIndex == -1) {
-                border.BorderBrush = brushFalse;
-                erValideret = false;
-            }
-            else {
-                border.BorderBrush = brushTrue;
-            }
-
-            for (int i = 0; i < 2; i++) {
-                //første omgang = 0 * 2 = 0 + 1 = 1.
-                //anden omgang = 1 * 2 = 2 + 1 = 3;
-                RadioButton radioJa = control[i * 2 + 1] as RadioButton;
-                RadioButton radioNej = control[i * 2 + 2] as RadioButton;
-
-                if (!(bool)radioJa.IsChecked && !(bool)radioNej.IsChecked) {
-                    border.BorderBrush = brushFalse;
-                    erValideret = false;
-                }
-            }
 
             return erValideret;
         }

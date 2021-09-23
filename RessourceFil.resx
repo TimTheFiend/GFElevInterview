@@ -121,14 +121,6 @@
     <value>Ballerup</value>
     <comment>Add. Linje</comment>
   </data>
-  <data name="ballerupFuldt" xml:space="preserve">
-    <value>Ballerup (Fuld forløb)</value>
-    <comment>Add. Linje</comment>
-  </data>
-  <data name="ballerupMerit" xml:space="preserve">
-    <value>Ballerup (Ordinær+)</value>
-    <comment>Add. Linje</comment>
-  </data>
   <data name="db" xml:space="preserve">
     <value>elevDB.db</value>
     <comment>Database. Elev</comment>
@@ -161,6 +153,10 @@
     <value>Lyngby</value>
     <comment>Add. Linje</comment>
   </data>
+  <data name="meritBlanketDoc" xml:space="preserve">
+    <value>Merit-blanket.docx</value>
+    <comment>Merit-blanket dokumentet.</comment>
+  </data>
   <data name="minimumGrundforløbLængde" xml:space="preserve">
     <value>16</value>
     <comment>Udd. Længde</comment>
@@ -169,9 +165,17 @@
     <value>..\\Blanketter</value>
     <comment>Blanket. Add</comment>
   </data>
+  <data name="outputMappeNavn" xml:space="preserve">
+    <value>Blanketter</value>
+    <comment>Fuldt navn på output mappe.</comment>
+  </data>
   <data name="programmering" xml:space="preserve">
     <value>Programmering</value>
     <comment>Udd. Linje</comment>
+  </data>
+  <data name="pythonScript" xml:space="preserve">
+    <value>PyExcel\\GFElevInterviewExcel.exe</value>
+    <comment>Relativ filsti til python script.</comment>
   </data>
   <data name="samletMerit" xml:space="preserve">
     <value>..\\Blanketter\\_Samlet Merit.pdf</value>
@@ -180,6 +184,14 @@
   <data name="samletRKV" xml:space="preserve">
     <value>..\\Blanketter\\_Samlet RKV.zip</value>
     <comment>Adm. Add</comment>
+  </data>
+  <data name="skoleIngenMerit" xml:space="preserve">
+    <value>Fuldt forløb</value>
+    <comment>Add. Linje</comment>
+  </data>
+  <data name="skoleMerit" xml:space="preserve">
+    <value>Ordinær+</value>
+    <comment>Add. Linje</comment>
   </data>
   <data name="standardPassword" xml:space="preserve">
     <value>root</value>

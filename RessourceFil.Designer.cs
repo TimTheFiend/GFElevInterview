@@ -70,24 +70,6 @@ namespace GFElevInterview {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ballerup (Fuld forløb).
-        /// </summary>
-        internal static string ballerupFuldt {
-            get {
-                return ResourceManager.GetString("ballerupFuldt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ballerup (Ordinær+).
-        /// </summary>
-        internal static string ballerupMerit {
-            get {
-                return ResourceManager.GetString("ballerupMerit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to elevDB.db.
         /// </summary>
         internal static string db {
@@ -160,6 +142,15 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Merit-blanket.docx.
+        /// </summary>
+        internal static string meritBlanketDoc {
+            get {
+                return ResourceManager.GetString("meritBlanketDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 16.
         /// </summary>
         internal static string minimumGrundforløbLængde {
@@ -178,11 +169,29 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blanketter.
+        /// </summary>
+        internal static string outputMappeNavn {
+            get {
+                return ResourceManager.GetString("outputMappeNavn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Programmering.
         /// </summary>
         internal static string programmering {
             get {
                 return ResourceManager.GetString("programmering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PyExcel\\GFElevInterviewExcel.exe.
+        /// </summary>
+        internal static string pythonScript {
+            get {
+                return ResourceManager.GetString("pythonScript", resourceCulture);
             }
         }
         
@@ -201,6 +210,24 @@ namespace GFElevInterview {
         internal static string samletRKV {
             get {
                 return ResourceManager.GetString("samletRKV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fuldt forløb.
+        /// </summary>
+        internal static string skoleIngenMerit {
+            get {
+                return ResourceManager.GetString("skoleIngenMerit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ordinær+.
+        /// </summary>
+        internal static string skoleMerit {
+            get {
+                return ResourceManager.GetString("skoleMerit", resourceCulture);
             }
         }
         

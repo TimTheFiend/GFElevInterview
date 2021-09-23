@@ -2,11 +2,8 @@
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace GFElevInterview.Views
 {
@@ -32,11 +29,12 @@ namespace GFElevInterview.Views
         private void InitialiserBlanket() {
             SætButtons();
 
-            cmbUddannelse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
+            cmbUddannelse.ItemsSource = StandardVaerdier.HentSkoler(CurrentElev.elev.danskNiveau > FagNiveau.F);
+            //cmbUddannelse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
             if (cmbUddannelse.Items.Count == 1) {
                 cmbUddannelse.SelectedIndex = 0;
             }
-            cmbEducation.ItemsSource = CurrentElev.elev.ValgAfUddannelser();
+            cmbEducation.ItemsSource = StandardVaerdier.HentUddannelser(CurrentElev.elev.erRKV);
 
             OpdaterExpanders(false, false);
             UdfyldBlanketHvisAlleredeEksisterende();
@@ -46,9 +44,8 @@ namespace GFElevInterview.Views
             parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
         }
-        
-        private void OpdaterExpanders(bool erEUVJa, bool erEUVNej)
-        {
+
+        private void OpdaterExpanders(bool erEUVJa, bool erEUVNej) {
             expEuv1.IsExpanded = erEUVJa;
             expEuv1.IsEnabled = erEUVJa;
 
@@ -67,8 +64,7 @@ namespace GFElevInterview.Views
             }
         }
 
-        public void Tilbage()
-        {
+        public void Tilbage() {
             parent.SkiftBlanket(new MeritBlanketView(parent));
         }
 
@@ -82,16 +78,13 @@ namespace GFElevInterview.Views
             bool rbValider2 = (bool)rbEuv1SprgJa.IsChecked;
             bool rbValider3 = (bool)rbEuv2Ja.IsChecked;
             //Vi tjekker her at elevtypen bliver udvalgt, udfra de valgte radio knapper.
-            if(rbValider1 && rbValider2)
-            {
+            if (rbValider1 && rbValider2) {
                 elevType = ElevType.EUV1;
             }
-            else if((!rbValider1 && rbValider3) || (rbValider1 && !rbValider2))
-            {
+            else if ((!rbValider1 && rbValider3) || (rbValider1 && !rbValider2)) {
                 elevType = ElevType.EUV2;
             }
-            else if(!rbValider1 && !rbValider3)
-            {
+            else if (!rbValider1 && !rbValider3) {
                 elevType = ElevType.EUV3;
             }
             //Elevtypen bliver indsat i den nuværende elev.
@@ -109,7 +102,7 @@ namespace GFElevInterview.Views
             //erValideret Tjekker her om radiobuttons er valideret, ved at tjekke knapperne givet til den. hvis den ikke finder
             //den udfyldt så bliver den lyst op med en rød border.
             erValideret = InputValidering.ValiderToRadioButtons(rbEuv1Ja, rbEuv1Nej, out erElevEUV1, bdrEuv1) && erValideret;
-            //TODO 
+            //TODO
             if (erElevEUV1) {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv1SprgJa, rbEuv1SprgNej, bdrEuv1) && erValideret;
             }
@@ -125,6 +118,7 @@ namespace GFElevInterview.Views
 
             return erValideret;
         }
+
         /// <summary>
         /// <br>Udfylder blanketten hvis informationerne allerede eksistere.</br>
         /// <br>Den tjekker <see cref="CurrentElev.elev"/> for den valgte elevs informationer.</br>
@@ -157,8 +151,7 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void CheckEUVRadioButton(RadioButton rbTop, RadioButton rbBund)
-        {
+        private void CheckEUVRadioButton(RadioButton rbTop, RadioButton rbBund) {
             rbTop.IsChecked = true;
             rbBund.IsChecked = true;
         }
@@ -168,8 +161,7 @@ namespace GFElevInterview.Views
             parent.scroll.Focus();
         }
 
-        private void UdfoldEUV_RadioButtonChecked(object sender, RoutedEventArgs e)
-        {
+        private void UdfoldEUV_RadioButtonChecked(object sender, RoutedEventArgs e) {
             OpdaterExpanders((bool)rbEuv1Ja.IsChecked, (bool)rbEuv1Nej.IsChecked);
         }
     }

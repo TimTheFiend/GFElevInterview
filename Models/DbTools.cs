@@ -9,11 +9,12 @@ namespace GFElevInterview.Models
     {
         private static DbTools instance = new DbTools();
         public static DbTools Instance => instance;
-        
+
         #region Database tabel
 
         // public DbSet<ElevModel> Elever { get; set; }
         public DbSet<ElevModel> Elever { get; set; }
+
         public DbSet<LoginModel> Login { get; set; }
 
         #endregion Database tabel
@@ -53,11 +54,36 @@ namespace GFElevInterview.Models
                 //{
                 //    System.IO.File.Delete(fil);
                 //}
-
             }
         }
 
         #region Gets
+
+        public Dictionary<string, int> GetAntalEleverPerSkole() {
+            Dictionary<string, int> skoleAntal = new Dictionary<string, int>();
+
+            //Sæt det op så det er lettere at læse
+            List<ElevModel> ballerup = Elever.Where(e => e.uddannelseAdresse == RessourceFil.ballerup).Select(e => e).ToList();
+
+            int countBal = ballerup.Count;
+            int countFre = Elever.Count(e => e.uddannelseAdresse == RessourceFil.frederiksberg);
+            int countLyn = Elever.Count(e => e.uddannelseAdresse == RessourceFil.lyngby);
+
+            int countBalPlus = ballerup.Count(e => e.danskNiveau > FagNiveau.F);
+            int countBalFul = countBal - countBalPlus;
+
+            //Tilføj til dictionary
+            skoleAntal.Add(RessourceFil.ballerup, countBal);
+            skoleAntal.Add(RessourceFil.frederiksberg, countFre);
+            skoleAntal.Add(RessourceFil.lyngby, countLyn);
+
+            //KLUNTET
+            skoleAntal.Add(RessourceFil.skoleMerit.Substring(0, 3), countBalPlus);
+            skoleAntal.Add(RessourceFil.skoleIngenMerit.Substring(0, 3), countBalFul);
+
+            return skoleAntal;
+        }
+
         public List<ElevModel> VisAlle() {
             instance = new DbTools();
             return (from e in Elever
@@ -103,13 +129,14 @@ namespace GFElevInterview.Models
                     where e.elevType != 0
                     select e).ToList();
         }
+
         public List<ElevModel> VisMerit() {
             return (from e in Elever
                     where e.danskNiveau > 0
                     select e).ToList();
         }
-        #endregion
 
+        #endregion Gets
 
         //Bliver Kaldt Når Elever skal tilføjes til en tom database.
         private void TilføjEleverTilTomDatabase(List<ElevModel> nyElever) {
@@ -118,6 +145,7 @@ namespace GFElevInterview.Models
             //Elever er tilføjet
             SaveChanges();
         }
+
         //I TilføjEleverTilEksisterendeDatabase checker vi om de "nye elever" allerede eksister eller om de skal tilføjes.
         private void TilføjEleverTilEksisterendeDatabase(List<ElevModel> nyElever) {
             foreach (ElevModel elev in nyElever) {
@@ -154,7 +182,9 @@ namespace GFElevInterview.Models
                 TilføjEleverTilTomDatabase(nyElever);
             }
         }
+
         #region Required
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             //optionsBuilder.UseSqlite($"Data Source={System.Configuration.ConfigurationManager.AppSettings["db"]}");  //Database navn bliver indsat
             optionsBuilder.UseSqlite($"Data Source={RessourceFil.db}");
@@ -187,8 +217,8 @@ namespace GFElevInterview.Models
             modelBuilder.Entity<LoginModel>().HasData(
                 new LoginModel().CreateInitialLogin()
                 );
-
         }
-        #endregion
+
+        #endregion Required
     }
 }
