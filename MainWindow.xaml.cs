@@ -87,8 +87,6 @@ namespace GFElevInterview
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
-            HomePanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
             OpdaterSkoleOptæller();
         }
 
@@ -102,8 +100,6 @@ namespace GFElevInterview
         private void LederButton_Click(object sender, RoutedEventArgs e) {
             mainContent.Content = new Views.LoginView(this);
             UnderviserPanel.Visibility = Visibility.Visible;
-            HomePanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
             OpdaterSkoleOptæller();
         }
 
