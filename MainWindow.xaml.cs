@@ -21,8 +21,6 @@ namespace GFElevInterview
             //Data.AdminTools.HentAntalEleverPåSkole();
 
             //new DbTools().TilføjElever();
-            new Models.LoginModel().ChangePassword("helloworld");
-
             OpdaterCounter();
         }
         private void ÅbenUndervisning()
@@ -38,26 +36,12 @@ namespace GFElevInterview
             FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
         }
 
-        #region Home
-
-        //TODO overvej at fjerne?
-        private void btnHome_Click(object sender, RoutedEventArgs e) {
-            HomePanel.Visibility = Visibility.Visible;
-            UnderviserPanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
-            OpdaterCounter();
-        }
-
-        #endregion Home
-
         #region Underviser View
 
         private void btnUnderviser_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
-            HomePanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
         #endregion
@@ -68,8 +52,6 @@ namespace GFElevInterview
         private void btnLeder_Click(object sender, RoutedEventArgs e) {
             mainContent.Content = new Views.LoginView(this);
             UnderviserPanel.Visibility = Visibility.Visible;
-            HomePanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
             OpdaterCounter();
         }
 
