@@ -126,4 +126,13 @@
         <Setter Property="Margin" Value="0" />
     </Style>
     <!--#endregion-->
+    <!--#region Counter-->
+    <Style x:Key="txtCounterSkole" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <Style x:Key="txtCounterAntal" TargetType="TextBlock" BasedOn="{StaticResource txtCounterSkole}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+    <!--#endregion-->
 </ResourceDictionary>

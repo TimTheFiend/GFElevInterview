@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace GFElevInterview
 {
@@ -9,24 +11,75 @@ namespace GFElevInterview
     {
         public static MainWindow Instance = null;  //Singleton
 
+        #region Statisk reference til .xaml elementer
+
+        private static Grid xelOverlayLoading;
+
+        private static TextBlock countBallerup;
+        private static TextBlock countFredriksberg;
+        private static TextBlock countLyngby;
+        private static TextBlock countBallerupPlus;
+        private static TextBlock countBallerupFuldt;
+
+        #endregion Statisk reference til .xaml elementer
+
         public MainWindow() {
             InitializeComponent();
+            InitialiserWindow();
+        }
 
+        private void InitialiserWindow()
+        {
             //Singleton setup
-            if (Instance == null) {
+            if (Instance == null)
+            {
                 Instance = this;
             }
+
+            #region Hent ref for xaml elementer
+            
+            xelOverlayLoading = overlayLoading;  //Dette gøres for at have en ref i SetBrugerInput.
+
+            countBallerup = txtAntalBal;
+            countFredriksberg = txtAntalFred;
+            countLyngby = txtAntalLyn;
+            countBallerupPlus = txtAntalBalPlus;
+            countBallerupFuldt = txtAntalBalFuld;
+
+            #endregion
+
+            SetBrugerInput(true);
 
             //Viser `BlanketView` ved opstart.
             UnderviserButton_Click(btnUnderviser, new RoutedEventArgs());
         }
 
+        /// <summary>
+        /// Sætter visibility status for loading skærm.
+        /// </summary>
+        /// <param name="harBrugerInput"><c>true</c> hvis brugeren har kontrol; ellers <c>false</c>.</param>
+        public static void SetBrugerInput(bool harBrugerInput)
+        {
+            xelOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
+        }
+
         //TODO ordinær+ og fuldtforløb
-        public void OpdaterCounter() {
-            var dict = Models.DbTools.Instance.GetAntalEleverPerSkole();
-            LyngbyTXT.Text = dict["Lyngby"].ToString();
-            BallerupTXT.Text = dict["Ballerup"].ToString();
-            FredriksbergTXT.Text = dict["Frederiksberg"].ToString();
+        public static void OpdaterSkoleOptæller()
+        {
+            //var dict = Data.AdminTools.HentAntalEleverPåSkole();
+            Dictionary<string, int> skoleAntal = Data.AdminTools.HentAntalEleverPåSkole();  //Placeholder
+            try
+            {
+                countBallerup.Text = skoleAntal[RessourceFil.ballerup].ToString();
+                countFredriksberg.Text = skoleAntal[RessourceFil.frederiksberg].ToString();
+                countLyngby.Text = skoleAntal[RessourceFil.lyngby].ToString();
+                //TODO Ordinær og fuldforløb linje.
+            }
+            catch (KeyNotFoundException e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            }
         }
 
         #region Underviser View
@@ -40,7 +93,7 @@ namespace GFElevInterview
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
-            OpdaterCounter();
+            OpdaterSkoleOptæller();
         }
 
         #endregion Underviser View
@@ -55,7 +108,7 @@ namespace GFElevInterview
             UnderviserPanel.Visibility = Visibility.Visible;
             HomePanel.Visibility = Visibility.Collapsed;
             LederPanel.Visibility = Visibility.Collapsed;
-            OpdaterCounter();
+            OpdaterSkoleOptæller();
         }
 
         //TODO tænk på bedre løsning.
@@ -71,7 +124,7 @@ namespace GFElevInterview
         private void VejledningButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new Views.VejledningsView();
             UnderviserPanel.Visibility = Visibility.Visible;
-            OpdaterCounter();
+            OpdaterSkoleOptæller();
         }
     }
 }

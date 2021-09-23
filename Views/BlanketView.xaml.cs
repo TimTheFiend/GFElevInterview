@@ -47,6 +47,7 @@ namespace GFElevInterview.Views
             Task.Run(() => {
                 TaskFærdiggørInterview();
             });
+            MainWindow.SetBrugerInput(false);
             AlertBoxes.OnStartPrintingPDF();
         }
 
@@ -85,7 +86,9 @@ namespace GFElevInterview.Views
 
                     this.Dispatcher.Invoke(() => {
                         NulstilBlanketView();
+                        MainWindow.SetBrugerInput(true);
                     });
+                    
                     AlertBoxes.OnFinishedInterview();
                 }
             }
@@ -99,7 +102,7 @@ namespace GFElevInterview.Views
             cntMain.Content = null;
             lblStudentInfo.Content = "";
 
-            MainWindow.Instance.OpdaterCounter();
+            MainWindow.OpdaterSkoleOptæller();
             InitialiserKnapper(false);
         }
 
@@ -131,7 +134,7 @@ namespace GFElevInterview.Views
             cntMain.Content = currentView;
 
             //FIXME kaldes ikke nok
-            MainWindow.Instance.OpdaterCounter();
+            MainWindow.OpdaterSkoleOptæller();
         }
 
         /// <summary>
