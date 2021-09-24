@@ -6,6 +6,11 @@ namespace GFElevInterview.Tools
 {
     public static class StandardVaerdier
     {
+        /// <summary>
+        /// Returnerer <c>16</c>, da det er minimums længden på grundforløb.
+        /// </summary>
+        public static int MinimumUgerGF { get; } = Int32.Parse(RessourceFil.minimumGrundforløbLængde);
+
         public static List<string> HentUnikkeSkoler() {
             return new List<string>() {
                 RessourceFil.ballerup,

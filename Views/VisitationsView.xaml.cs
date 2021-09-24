@@ -65,12 +65,12 @@ namespace GFElevInterview.Views
         /// Udfylder <see cref="VisitationsView"/> hvis <see cref="CurrentElev"/> allerede eksisterer i databasen.
         /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
-            if (!String.IsNullOrEmpty(CurrentElev.elev.uddannelse)) {
-                UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.sps);
-                UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.eud);
+            if (!String.IsNullOrEmpty(CurrentElev.elev.UddLinje)) {
+                UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.SPS);
+                UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.EUD);
 
-                UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.uddannelse);
-                UdfyldBlanket.UdfyldComboBox(cmbAdresse, CurrentElev.elev.uddannelseAdresse);
+                UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.UddLinje);
+                UdfyldBlanket.UdfyldComboBox(cmbAdresse, CurrentElev.elev.UddAdr);
             }
         }
 
@@ -91,10 +91,10 @@ namespace GFElevInterview.Views
         /// Sætter de passende værdier ind i <see cref="CurrentElev"/>.
         /// </summary>
         private void SætCurrentElevVærdier() {
-            CurrentElev.elev.uddannelseAdresse = cmbAdresse.Text;
-            CurrentElev.elev.uddannelse = cmbEducation.Text;
-            CurrentElev.elev.sps = (bool)rbSpsJa.IsChecked;
-            CurrentElev.elev.eud = (bool)rbEudJa.IsChecked;
+            CurrentElev.elev.UddAdr = cmbAdresse.Text;
+            CurrentElev.elev.UddLinje = cmbEducation.Text;
+            CurrentElev.elev.SPS = (bool)rbSpsJa.IsChecked;
+            CurrentElev.elev.EUD = (bool)rbEudJa.IsChecked;
         }
 
         /// <summary>

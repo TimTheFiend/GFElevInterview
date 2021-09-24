@@ -58,24 +58,24 @@
 
         <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="CPR" Binding="{Binding cprNr}" />
-                <DataGridTextColumn Header="Fornavn" Binding="{Binding fornavn}" />
-                <DataGridTextColumn Header="Efternavn" Binding="{Binding efternavn}" />
-                <DataGridTextColumn Header="Uddannelse" Binding="{Binding uddannelse}" />
-                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding uddannelseAdresse}" />
-                <DataGridTextColumn Header="SPS" Binding="{Binding sps}" />
-                <DataGridTextColumn Header="EUD" Binding="{Binding eud}" />
-                <DataGridTextColumn Header="ElevType" Binding="{Binding elevType}" />
-                <DataGridTextColumn Header="DanskEksammen" Binding="{Binding danskEksammen}" />
+                <DataGridTextColumn Header="CPR" Binding="{Binding CPRNr}" />
+                <DataGridTextColumn Header="Fornavn" Binding="{Binding Fornavn}" />
+                <DataGridTextColumn Header="Efternavn" Binding="{Binding Efternavn}" />
+                <DataGridTextColumn Header="Uddannelse" Binding="{Binding UddLinje}" />
+                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding UddAdr}" />
+                <DataGridTextColumn Header="SPS" Binding="{Binding SPS}" />
+                <DataGridTextColumn Header="EUD" Binding="{Binding EUD}" />
+                <DataGridTextColumn Header="ElevType" Binding="{Binding ElevType}" />
+                <!--<DataGridTextColumn Header="DanskEksammen" Binding="{Binding danskEksamen}" />
                 <DataGridTextColumn Header="DanskUndervisning" Binding="{Binding danskUndervisning}" />
                 <DataGridTextColumn Header="danskNiveau" Binding="{Binding danskNiveau}" />
-                <DataGridTextColumn Header="EngelskEksammen" Binding="{Binding engelskEksammen}" />
+                <DataGridTextColumn Header="EngelskEksammen" Binding="{Binding engelskEksamen}" />
                 <DataGridTextColumn Header="EngelskUndervisning" Binding="{Binding engelskUndervisning}" />
                 <DataGridTextColumn Header="EngelskNiveau" Binding="{Binding engelskNiveau}" />
-                <DataGridTextColumn Header="MatematikEksammen" Binding="{Binding matematikEksammen}" />
+                <DataGridTextColumn Header="MatematikEksammen" Binding="{Binding matematikEksamen}" />
                 <DataGridTextColumn Header="MatematikUndervisning" Binding="{Binding matematikUndervisning}" />
                 <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding matematikNiveau}" />
-                <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}" />
+                <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}" />-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

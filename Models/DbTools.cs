@@ -40,17 +40,26 @@ namespace GFElevInterview.Models
             return false;
         }
 
+        /// <summary>
+        /// Opdaterer elev og gemmer ændringen.
+        /// </summary>
+        /// <param name="elev">Eleven der skal opdateres.</param>
         public void OpdaterElevData(ElevModel elev) {
             Elever.Update(elev);
             SaveChanges();
         }
 
+        /// <summary>
+        /// Finder alle <see cref="ElevModel"/> objekter som passer med søge query.
+        /// </summary>
+        /// <param name="brugerInput">Søge query.</param>
+        /// <returns>Elever med matchende CPRnr/Fornavn/Efternavn.</returns>
         public List<ElevModel> SearchElever(string brugerInput) {
             brugerInput = brugerInput.ToLower();
 
-            return Elever.Where(e => e.cprNr.StartsWith(brugerInput)
-                || e.fornavn.ToLower().StartsWith(brugerInput)
-                || e.efternavn.ToLower().StartsWith(brugerInput)
+            return Elever.Where(e => e.CPRNr.StartsWith(brugerInput)
+                || e.Fornavn.ToLower().StartsWith(brugerInput)
+                || e.Efternavn.ToLower().StartsWith(brugerInput)
             ).ToList();
         }
 
@@ -69,14 +78,14 @@ namespace GFElevInterview.Models
             ///Ballerup har 3 kategorier: Total, Ordinær+, og Fuld,
             ///hvilket er grunden til at vi henter alle elever ind i en liste,
             ///for at kunne manipulere mere med dataen.
-            List<ElevModel> ballerup = Elever.Where(e => e.uddannelseAdresse == RessourceFil.ballerup).Select(e => e).ToList();
+            List<ElevModel> ballerup = Elever.Where(e => e.UddAdr == RessourceFil.ballerup).Select(e => e).ToList();
 
             int countBal = ballerup.Count;
-            int countBalPlus = ballerup.Count(e => e.danskNiveau > FagNiveau.F);  //Man er på Ordinær forløb hvis man har merit i dansk
+            int countBalPlus = ballerup.Count(e => e.DanNiveau > FagNiveau.F);  //Man er på Ordinær forløb hvis man har merit i dansk
             int countBalFul = countBal - countBalPlus;  //Fjerner elever på ordinært forløb fra det totale antal.
 
-            int countFre = Elever.Count(e => e.uddannelseAdresse == RessourceFil.frederiksberg);
-            int countLyn = Elever.Count(e => e.uddannelseAdresse == RessourceFil.lyngby);
+            int countFre = Elever.Count(e => e.UddAdr == RessourceFil.frederiksberg);
+            int countLyn = Elever.Count(e => e.UddAdr == RessourceFil.lyngby);
 
             #endregion Hent antal af elever
 
@@ -110,7 +119,7 @@ namespace GFElevInterview.Models
         public List<ElevModel> VisSkole(string skoleNavn) {
             //return Elever.Where(e => e.uddannelseAdresse == skoleNavn).Select(e => e).ToList();
             return (from e in Elever
-                    where e.uddannelseAdresse == skoleNavn
+                    where e.UddAdr == skoleNavn
                     select e).ToList();
         }
 
@@ -124,36 +133,36 @@ namespace GFElevInterview.Models
         public List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere) {
             if (erNiveauHøjere) {
                 return (from e in Elever
-                        where e.uddannelseAdresse == skole &&
-                        e.danskNiveau > ekslusivNiveau
+                        where e.UddAdr == skole &&
+                        e.DanNiveau > ekslusivNiveau
                         select e).ToList();
             }
             else {
                 return (from e in Elever
-                        where e.uddannelseAdresse == skole
-                        && e.danskNiveau < ekslusivNiveau
-                        && e.danskNiveau > FagNiveau.Null
+                        where e.UddAdr == skole
+                        && e.DanNiveau < ekslusivNiveau
+                        && e.DanNiveau > FagNiveau.Null
                         select e).ToList();
             }
         }
 
         /// <summary>
-        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.sps"/> er <c>true</c>.
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.SPS"/> er <c>true</c>.
         /// </summary>
         /// <returns></returns>
         public List<ElevModel> VisSPS() {
             return (from e in Elever
-                    where e.sps == true
+                    where e.SPS == true
                     select e).ToList();
         }
 
         /// <summary>
-        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.eud"/> er <c>true</c>.
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.EUD"/> er <c>true</c>.
         /// </summary>
         /// <returns></returns>
         public List<ElevModel> VisEUD() {
             return (from e in Elever
-                    where e.eud == true
+                    where e.EUD == true
                     select e).ToList();
         }
 
@@ -163,7 +172,7 @@ namespace GFElevInterview.Models
         /// <returns></returns>
         public List<ElevModel> VisRKV() {
             return (from e in Elever
-                    where e.elevType != 0
+                    where e.ElevType != 0
                     select e).ToList();
         }
 
@@ -173,7 +182,7 @@ namespace GFElevInterview.Models
         /// <returns></returns>
         public List<ElevModel> VisMerit() {
             return (from e in Elever
-                    where e.danskNiveau > 0
+                    where e.DanNiveau > 0
                     select e).ToList();
         }
 
@@ -194,7 +203,7 @@ namespace GFElevInterview.Models
         /// <param name="nyElever"></param>
         private void TilføjEleverTilEksisterendeDatabase(List<ElevModel> nyElever) {
             foreach (ElevModel elev in nyElever) {
-                if (Elever.Where(x => x.cprNr == elev.cprNr).FirstOrDefault() == null) {
+                if (Elever.Where(x => x.CPRNr == elev.CPRNr).FirstOrDefault() == null) {
                     Elever.Add(elev);
                 }
             }

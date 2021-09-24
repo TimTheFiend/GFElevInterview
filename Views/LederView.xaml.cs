@@ -136,7 +136,7 @@ namespace GFElevInterview.Views
             //{
             //    return;
             //}
-            ÅbenFilPlacering(elev.MeritFilNavn);
+            ÅbenFilPlacering(elev.FilnavnMerit);
         }
 
         private void Open_RKV_Click(object sender, RoutedEventArgs e) {
@@ -145,7 +145,7 @@ namespace GFElevInterview.Views
             //{
             //    return;
             //}
-            ÅbenFilPlacering(elev.RKVFilNavn);
+            ÅbenFilPlacering(elev.FilnavnRKV);
         }
 
         private void ExportMerit_Click(object sender, RoutedEventArgs e) {
@@ -195,12 +195,12 @@ namespace GFElevInterview.Views
                 return;
             }
 
-            if (elev.danskNiveau == FagNiveau.Null)
+            if (elev.DanNiveau == FagNiveau.Null)
                 btnOpen_Merit.IsEnabled = false;
             else
                 btnOpen_Merit.IsEnabled = true;
 
-            if (elev.elevType == ElevType.Null)
+            if (elev.ElevType == EUVType.Null)
                 btnOpen_RKV.IsEnabled = false;
             else
                 btnOpen_RKV.IsEnabled = true;
