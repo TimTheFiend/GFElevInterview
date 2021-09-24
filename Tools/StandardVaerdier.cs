@@ -48,6 +48,15 @@ namespace GFElevInterview.Tools
             return uddannelser;
         }
 
+        public static List<string> HentUddannelserCmb()
+        {
+            return new List<string>() {
+                RessourceFil.itsupporter,
+                RessourceFil.infrastruktur,
+                RessourceFil.programmering
+            };
+        }
+
         /// <summary>
         /// Returnerer arrayet "Ballerup, Frederiksberg, Lyngby, BalPlus, BalFuld".
         /// </summary>
