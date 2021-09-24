@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GFElevInterview.Data
+namespace GFElevInterview.Tools
 {
     /// <summary>
     /// En statisk klasse der indeholder forskellige <see cref="MessageBox"/> variationer til forskellige situationer.
@@ -107,6 +107,17 @@ namespace GFElevInterview.Data
             captionText = msgError;
 
             //TODO tilføj reference til "credits" i vejledning.
+            ShowAlertBox();
+        }
+
+        /// <summary>
+        /// Kaldes kun hvis databasen er blevet slettet, og skabt via <see cref="DbContext.EnsureCreated"/>.
+        /// </summary>
+        public static void OnEnsureCreatedDatabase() {
+            breadText = "Databasen har været slettet, og der er blevet lavet en ny.\n" +
+                "Indholdet af databasen er mistet, og admin password er blevet nulstillet.";
+            captionText = "Database fejl!";
+
             ShowAlertBox();
         }
 

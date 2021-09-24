@@ -1,5 +1,6 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Models;
+using GFElevInterview.Tools;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace GFElevInterview.Views
             InitializeComponent();
             InitialiserView();
             InitialiserSkoleComboBox();
+
+            btnReset.Click += ResetButton_Click;
         }
 
         //On Constructor call
@@ -138,7 +141,7 @@ namespace GFElevInterview.Views
             //{
             //    return;
             //}
-            ÅbenFilPlacering(elev.MeritFilNavn);
+            ÅbenFilPlacering(elev.FilnavnMerit);
         }
 
         private void Open_RKV_Click(object sender, RoutedEventArgs e) {
@@ -147,18 +150,18 @@ namespace GFElevInterview.Views
             //{
             //    return;
             //}
-            ÅbenFilPlacering(elev.RKVFilNavn);
+            ÅbenFilPlacering(elev.FilnavnRKV);
         }
 
         private void ExportMerit_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportMerit()) {
-                AdminTools.KombinerMeritFiler();
+                FilHandler.KombinerMeritFiler();
             }
         }
 
         private void ExportRKV_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportRKV()) {
-                AdminTools.ZipRKVFiler();
+                FilHandler.ZipRKVFiler();
             }
         }
 
@@ -202,12 +205,12 @@ namespace GFElevInterview.Views
                 return;
             }
 
-            if (elev.danskNiveau == FagNiveau.Null)
+            if (elev.DanNiveau == FagNiveau.Null)
                 btnOpen_Merit.IsEnabled = false;
             else
                 btnOpen_Merit.IsEnabled = true;
 
-            if (elev.elevType == ElevType.Null)
+            if (elev.ElevType == EUVType.Null)
                 btnOpen_RKV.IsEnabled = false;
             else
                 btnOpen_RKV.IsEnabled = true;
@@ -289,5 +292,13 @@ namespace GFElevInterview.Views
             lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
+        private void ResetButton_Click(object sender, RoutedEventArgs e) {
+            if (AlertBoxes.OnExportMerit()) {
+                if (DbTools.Instance.NulstilEleverAlt()) {
+                    visAlle_Click(btnVisAlle, new RoutedEventArgs());
+                    MessageBox.Show("SUC RESET");
+                }
+            }
+        }
     }
 }

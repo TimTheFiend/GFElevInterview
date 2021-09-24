@@ -1,4 +1,4 @@
-﻿<Window x:Class="GFElevInterview.MainWindow"
+<Window x:Class="GFElevInterview.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -45,16 +45,9 @@
                         </DockPanel>
                     </StackPanel>
                 </Border>
-
+                <!--Placeholder skal skiftes til skp-->
                 <Image Height="120" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
                 <Image Height="120" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Resources/TECLOGO.png" />
-            </StackPanel>
-        </Border>
-
-        <Border Grid.Column="1" Style="{StaticResource bdrMain}" Name="HomePanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
-            <StackPanel HorizontalAlignment="Stretch" Background="WhiteSmoke" RenderTransformOrigin="0.38,0.595">
-                <Label FontSize="54" FontWeight="Heavy" HorizontalAlignment="Center" FontFamily="Times New Roman" >Velkommen til TEC App</Label>
-                <fa:ImageAwesome Icon="Spinner"  SpinDuration="50" Spin="true" Width="191"  Height="196" />
             </StackPanel>
         </Border>
 
@@ -62,31 +55,10 @@
             <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             </ContentControl>
         </Border>
-        <Border Grid.Column="1" Style="{StaticResource bdrMain}" Name="LederPanel" HorizontalAlignment="Stretch" BorderThickness="4" Visibility="Collapsed">
-
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <!--<TextBlock Grid.Column="0" Grid.Row="0" Text="Password :" FontSize="30" Height="64"  Grid.ColumnSpan="2"   />-->
-                <!--<PasswordBox  PasswordChar="*" x:Name="passwordText" KeyDown="passwordText_KeyDown"  FontSize="40"  Grid.Column="1" Grid.Row="1" Height="64" Width="300" Background="#eee" Margin="10" />-->
-                <!--<Button x:Name="signinButton"  Background="Gray" Content="Sign In" Margin="10" FontSize="30" Foreground="White" Click="signinButton_Click"   Grid.Column="1"  Grid.Row="2"   Height="64" Width="300"    />-->
-            </Grid>
-        </Border>
-
-
-        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
-            <Border Background="White" Opacity="0.5"/>
-            <Image Source="/Resources/TECLOGO.png" Opacity="1" Height="200"/>
-        </Grid>
-        
+    
+    <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
+        <Border Background="White" Opacity="0.5"/>
+        <Image Source="/Resources/TECLOGO.png" Opacity="1" Height="200"/>
     </Grid>
+</Grid>
 </Window>

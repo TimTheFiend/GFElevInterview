@@ -48,6 +48,8 @@ namespace GFElevInterview
 
             SetBrugerInput(true);
 
+            Tools.StandardVaerdier.HentCounterDict();
+
             //Viser `BlanketView` ved opstart.
             UnderviserButton_Click(btnUnderviser, new RoutedEventArgs());
         }
@@ -68,13 +70,17 @@ namespace GFElevInterview
                 System.Console.WriteLine();
             }
             Dictionary<string, int> skoleAntal = Models.DbTools.Instance.GetAntalEleverPerSkole();  //Placeholder
-            try {
-                countBallerup.Text = skoleAntal[RessourceFil.ballerup].ToString();
-                countFredriksberg.Text = skoleAntal[RessourceFil.frederiksberg].ToString();
-                countLyngby.Text = skoleAntal[RessourceFil.lyngby].ToString();
 
-                countBallerupPlus.Text = skoleAntal[RessourceFil.skoleMerit.Substring(0, 3)].ToString();
-                countBallerupFuldt.Text = skoleAntal[RessourceFil.skoleIngenMerit.Substring(0, 3)].ToString();
+            string[] skoleDictNavne = Tools.StandardVaerdier.HentSkoleDictKeys;
+
+            try {
+                countBallerup.Text = skoleAntal[skoleDictNavne[0]].ToString();
+                countFredriksberg.Text = skoleAntal[skoleDictNavne[1]].ToString();
+                countLyngby.Text = skoleAntal[skoleDictNavne[2]].ToString();
+
+                //NOTE Dum løsning på problemet.
+                countBallerupPlus.Text = skoleAntal[skoleDictNavne[3]].ToString();
+                countBallerupFuldt.Text = skoleAntal[skoleDictNavne[4]].ToString();
             }
             catch (KeyNotFoundException e) {
                 MessageBox.Show(e.Message);
@@ -91,8 +97,6 @@ namespace GFElevInterview
             //mainContent.Content = new GFElevInterview.Views.maritBlanket();
             mainContent.Content = new Views.BlanketView();
             UnderviserPanel.Visibility = Visibility.Visible;
-            HomePanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
             OpdaterSkoleOptæller();
         }
 
@@ -119,8 +123,6 @@ namespace GFElevInterview
                 mainContent.Content = new Views.LoginView(this);
             }
             UnderviserPanel.Visibility = Visibility.Visible;
-            HomePanel.Visibility = Visibility.Collapsed;
-            LederPanel.Visibility = Visibility.Collapsed;
             OpdaterSkoleOptæller();
         }
 

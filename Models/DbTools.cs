@@ -13,185 +13,209 @@ namespace GFElevInterview.Models
         #region Database tabel
 
         // public DbSet<ElevModel> Elever { get; set; }
-        public DbSet<ElevModel> Elever { get; set; }
+        private DbSet<ElevModel> Elever { get; set; }
 
         public DbSet<LoginModel> Login { get; set; }
 
         #endregion Database tabel
 
         public DbTools() {
-            //NOTE: `EnsureDeleted` skal kun bruges under development!
-            //`EnsureDeleted` bliver brugt fordi vi gerne vil nulstille databasen mellem debugging sessioner.
-            //this.Database.EnsureDeleted();
-            //NulstilDatabase();
-            this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
-        }
-
-        //TODO @Victor Doku 
-        /// <summary>
-        /// Passworded bliver opdateret og ændringerne gemt i databasen.
-        /// </summary>
-        /// <param name="nytPw"></param>
-        /// <returns></returns>
-        public bool OpdaterPassword(string nytPw)
-        {
-            //TODO Crypter password
-            //Data.CurrentUser.User.Password = nytPw;
-            Data.CurrentUser.User.OpdaterPassword(nytPw);
-            Login.Update(Data.CurrentUser.User);
-            this.SaveChanges();
-
-
-            return true;
-        }
-
-        //Her nulstilles og genskabes databasen
-        private void NulstilDatabase() {
-            //SletFilerPåNulstil(config.AppSettings.Get();
-            //SletFiler();
-            //SletFiler(config.AppSettings.Get("endRKV"), config.AppSettings.Get("endMerit"));
-            //this.Database.EnsureDeleted();
-            this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
-        }
-
-        //ORIGINAL
-        private void SletFiler() {
-            //string[] filEndelser = new string[] {
-            //    config.AppSettings.Get("endMerit"),
-            //    config.AppSettings.Get("endRKV")
-            //};
-
-            foreach (string filEndelse in new string[] {
-                RessourceFil.endMerit,
-                RessourceFil.endRKV}) {
-                foreach (string fil in Data.AdminTools.HentFiler(filEndelse)) {
-                    System.IO.File.Delete(fil);
-                }
-                //                string[] filer = Data.AdminTools.HentFiler(filEndelse);
-                //foreach (string fil in filer)
-                //{
-                //    System.IO.File.Delete(fil);
-                //}
+            //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
+            if (Database.EnsureCreated()) {
+                Tools.AlertBoxes.OnEnsureCreatedDatabase();
             }
+        }
+
+        /// <summary>
+        /// Tømmer <see cref="Elever"/> tabellen, og sletter alle individuelle blanketter i <see cref="RessourceFil.outputMappe"/>.
+        /// </summary>
+        public bool NulstilEleverAlt() {
+            if (Tools.FilHandler.SletDokumenterIOutputMappe()) {
+                Elever.RemoveRange(Elever);
+                SaveChanges();
+
+                Tools.AlertBoxes.OnFinishedInterview();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Opdaterer elev og gemmer ændringen.
+        /// </summary>
+        /// <param name="elev">Eleven der skal opdateres.</param>
+        public void OpdaterElevData(ElevModel elev) {
+            Elever.Update(elev);
+            SaveChanges();
+        }
+
+        /// <summary>
+        /// Finder alle <see cref="ElevModel"/> objekter som passer med søge query.
+        /// </summary>
+        /// <param name="brugerInput">Søge query.</param>
+        /// <returns>Elever med matchende CPRnr/Fornavn/Efternavn.</returns>
+        public List<ElevModel> SearchElever(string brugerInput) {
+            brugerInput = brugerInput.ToLower();
+
+            return Elever.Where(e => e.CPRNr.StartsWith(brugerInput)
+                || e.Fornavn.ToLower().StartsWith(brugerInput)
+                || e.Efternavn.ToLower().StartsWith(brugerInput)
+            ).ToList();
         }
 
         #region Gets
 
+        /// <summary>
+        /// Laver en <see cref="Dictionary{TKey, TValue}"/> der indeholder en skole, og dens antal af elever.
+        /// </summary>
+        /// <returns>Skolens forkortede navn, samt antal.</returns>
         public Dictionary<string, int> GetAntalEleverPerSkole() {
             Dictionary<string, int> skoleAntal = new Dictionary<string, int>();
+            string[] skoleKeys = Tools.StandardVaerdier.HentSkoleDictKeys;
 
-            //Sæt det op så det er lettere at læse
-            List<ElevModel> ballerup = Elever.Where(e => e.uddannelseAdresse == RessourceFil.ballerup).Select(e => e).ToList();
+            #region Hent antal af elever
+
+            ///Ballerup har 3 kategorier: Total, Ordinær+, og Fuld,
+            ///hvilket er grunden til at vi henter alle elever ind i en liste,
+            ///for at kunne manipulere mere med dataen.
+            List<ElevModel> ballerup = Elever.Where(e => e.UddAdr == RessourceFil.ballerup).Select(e => e).ToList();
 
             int countBal = ballerup.Count;
-            int countFre = Elever.Count(e => e.uddannelseAdresse == RessourceFil.frederiksberg);
-            int countLyn = Elever.Count(e => e.uddannelseAdresse == RessourceFil.lyngby);
+            int countBalPlus = ballerup.Count(e => e.DanNiveau > FagNiveau.F);  //Man er på Ordinær forløb hvis man har merit i dansk
+            int countBalFul = countBal - countBalPlus;  //Fjerner elever på ordinært forløb fra det totale antal.
 
-            int countBalPlus = ballerup.Count(e => e.danskNiveau > FagNiveau.F);
-            int countBalFul = countBal - countBalPlus;
+            int countFre = Elever.Count(e => e.UddAdr == RessourceFil.frederiksberg);
+            int countLyn = Elever.Count(e => e.UddAdr == RessourceFil.lyngby);
 
-            //Tilføj til dictionary
-            skoleAntal.Add(RessourceFil.ballerup, countBal);
-            skoleAntal.Add(RessourceFil.frederiksberg, countFre);
-            skoleAntal.Add(RessourceFil.lyngby, countLyn);
+            #endregion Hent antal af elever
 
-            //KLUNTET
-            skoleAntal.Add(RessourceFil.skoleMerit.Substring(0, 3), countBalPlus);
-            skoleAntal.Add(RessourceFil.skoleIngenMerit.Substring(0, 3), countBalFul);
+            /* Tilføj til Dictionary */
+            skoleAntal.Add(skoleKeys[0], countBal);
+            skoleAntal.Add(skoleKeys[1], countFre);
+            skoleAntal.Add(skoleKeys[2], countLyn);
+            skoleAntal.Add(skoleKeys[3], countBalPlus);
+            skoleAntal.Add(skoleKeys[4], countBalFul);
 
             return skoleAntal;
         }
 
+        /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/>.
+        /// </summary>
+        /// <returns></returns>
         public List<ElevModel> VisAlle() {
-            instance = new DbTools();
+            instance = new DbTools();  //"Refresher" databasen hvis der er sket andre i en anden instans.
+
+            //return Elever.Select(e => e).ToList();
             return (from e in Elever
                     select e).ToList();
         }
 
-        public List<ElevModel> VisSkole(string skole) {
+        /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én skole.
+        /// </summary>
+        /// <param name="skoleNavn"></param>
+        /// <returns></returns>
+        public List<ElevModel> VisSkole(string skoleNavn) {
+            //return Elever.Where(e => e.uddannelseAdresse == skoleNavn).Select(e => e).ToList();
             return (from e in Elever
-                    where e.uddannelseAdresse == skole
+                    where e.UddAdr == skoleNavn
                     select e).ToList();
         }
 
+        /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én skoles forløb.
+        /// </summary>
+        /// <param name="skole"></param>
+        /// <param name="ekslusivNiveau"></param>
+        /// <param name="erNiveauHøjere"></param>
+        /// <returns></returns>
         public List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere) {
             if (erNiveauHøjere) {
                 return (from e in Elever
-                        where e.uddannelseAdresse == skole &&
-                        e.danskNiveau > ekslusivNiveau
+                        where e.UddAdr == skole &&
+                        e.DanNiveau > ekslusivNiveau
                         select e).ToList();
             }
             else {
                 return (from e in Elever
-                        where e.uddannelseAdresse == skole
-                        && e.danskNiveau < ekslusivNiveau
-                        && e.danskNiveau > FagNiveau.Null
+                        where e.UddAdr == skole
+                        && e.DanNiveau < ekslusivNiveau
+                        && e.DanNiveau > FagNiveau.Null
                         select e).ToList();
             }
         }
 
+        /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.SPS"/> er <c>true</c>.
+        /// </summary>
+        /// <returns></returns>
         public List<ElevModel> VisSPS() {
             return (from e in Elever
-                    where e.sps == true
+                    where e.SPS == true
                     select e).ToList();
         }
 
+        /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.EUD"/> er <c>true</c>.
+        /// </summary>
+        /// <returns></returns>
         public List<ElevModel> VisEUD() {
             return (from e in Elever
-                    where e.eud == true
+                    where e.EUD == true
                     select e).ToList();
         }
 
+        /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> som har en udskrevet RKV-blanket.
+        /// </summary>
+        /// <returns></returns>
         public List<ElevModel> VisRKV() {
             return (from e in Elever
-                    where e.elevType != 0
+                    where e.ElevType != 0
                     select e).ToList();
         }
 
+        /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> som har en udskrevet merit-blanket.
+        /// </summary>
+        /// <returns></returns>
         public List<ElevModel> VisMerit() {
             return (from e in Elever
-                    where e.danskNiveau > 0
+                    where e.DanNiveau > 0
                     select e).ToList();
         }
 
         #endregion Gets
 
-        //Bliver Kaldt Når Elever skal tilføjes til en tom database.
+        /// <summary>
+        /// Tilføjer udiskrimineret alle <see cref="ElevModel"/> objekter til <see cref="Elever"/>.
+        /// </summary>
+        /// <param name="nyElever"></param>
         private void TilføjEleverTilTomDatabase(List<ElevModel> nyElever) {
-            //Tilføjer en liste af elever til databasen.
             Elever.AddRange(nyElever);
-            //Elever er tilføjet
             SaveChanges();
         }
 
-        //I TilføjEleverTilEksisterendeDatabase checker vi om de "nye elever" allerede eksister eller om de skal tilføjes.
+        /// <summary>
+        /// Tilføjer alle unikke <see cref="ElevModel"/> objekter til <see cref="Elever"/>.
+        /// </summary>
+        /// <param name="nyElever"></param>
         private void TilføjEleverTilEksisterendeDatabase(List<ElevModel> nyElever) {
             foreach (ElevModel elev in nyElever) {
-                if (Elever.Where(x => x.cprNr == elev.cprNr).FirstOrDefault() == null) {
+                if (Elever.Where(x => x.CPRNr == elev.CPRNr).FirstOrDefault() == null) {
                     Elever.Add(elev);
                 }
             }
             SaveChanges();
         }
 
-        //Bruges til debug
-        public void TilføjElever() {
-            //NulstilDatabase();
-            List<ElevModel> nyElever = new List<ElevModel>() {
-                //new ElevModel { cprNr = "5544332211", fornavn = "Havesaks", efternavn = "Baghave"},
-                //new ElevModel { cprNr = "2211334455", fornavn = "Blomsterkasse", efternavn = "Baghave"},
-                //new ElevModel { cprNr = "1122334455", fornavn = "Blomst", efternavn = "Forhave"}
-            };
-            //hvis der er elever i databasen så køres TilføjEleverTilEksisterendeDatabase, hvis ikke så køres TilføjEleverTilTomDatabase.
-            if (Elever.Count() > 0) {
-                TilføjEleverTilEksisterendeDatabase(nyElever);
-            }
-            else {
-                TilføjEleverTilTomDatabase(nyElever);
-            }
-        }
-
-        //Reele metode
+        /// <summary>
+        /// Kalder <see cref="TilføjEleverTilTomDatabase(List{ElevModel})"/>,
+        /// eller <see cref="TilføjEleverTilEksisterendeDatabase(List{ElevModel})"/>
+        /// baseret på <see cref="Elever"/> status.
+        /// </summary>
+        /// <param name="nyElever">Elever der skal tilføjes til databasen.</param>
         public void TilføjElever(List<ElevModel> nyElever) {
             if (Elever.Count() > 0) {
                 TilføjEleverTilEksisterendeDatabase(nyElever);
@@ -201,42 +225,22 @@ namespace GFElevInterview.Models
             }
         }
 
-        #region Required
+        #region DbContext.OnConfiguring, DbContext.OnModelCreating
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            //optionsBuilder.UseSqlite($"Data Source={System.Configuration.ConfigurationManager.AppSettings["db"]}");  //Database navn bliver indsat
             optionsBuilder.UseSqlite($"Data Source={RessourceFil.db}");
             optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
 
         /// <summary>
-        /// NOTE! Bruges kun under development!
-        /// Bruges til at fylde databasen med dummy-data, så vi har noget at arbejde med.
+        /// Kaldes hvis databasen bliver *created*, efter ikke at eksisterer, og tilføjer én entry til <see cref="Login"/> tabellen.
         /// </summary>
-        /// <param name="modelBuilder">ikke noget vi behøver at tænke på.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            List<string> skoler = new List<string>()
-            {
-                RessourceFil.ballerup,
-                RessourceFil.lyngby,
-                RessourceFil.frederiksberg
-            };
-            Random rng = new Random();
-
-            modelBuilder.Entity<ElevModel>().HasData(
-            new ElevModel("1203851123", "Johammer", "Søm"),
-            new ElevModel("1103891245", "Eriksen", "Svend"),
-            new ElevModel("123456-4321", "Samuel", "Jackson"),
-            new ElevModel("2012009856", "Spacejam", "Michael Jordan"),
-            new ElevModel("111193-1234", "Joakim", "Krugstrup")
-            );
-
-            modelBuilder.Entity<LoginModel>().HasData(
-                new LoginModel().CreateInitialLogin()
-                );
+            //Sikre os at vi har tilføjet ét login når db bliver created.
+            modelBuilder.Entity<LoginModel>().HasData(new LoginModel().CreateInitialLogin());
         }
 
-        #endregion Required
+        #endregion DbContext.OnConfiguring, DbContext.OnModelCreating
     }
 }

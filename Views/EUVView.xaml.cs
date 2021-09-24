@@ -29,12 +29,12 @@ namespace GFElevInterview.Views
         private void InitialiserBlanket() {
             SætButtons();
 
-            cmbUddannelse.ItemsSource = StandardVaerdier.HentSkoler(CurrentElev.elev.danskNiveau > FagNiveau.F);
+            cmbUddannelse.ItemsSource = Tools.StandardVaerdier.HentSkoler(CurrentElev.elev.DanNiveau > FagNiveau.F);
             //cmbUddannelse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
             if (cmbUddannelse.Items.Count == 1) {
                 cmbUddannelse.SelectedIndex = 0;
             }
-            cmbEducation.ItemsSource = StandardVaerdier.HentUddannelser(CurrentElev.elev.erRKV);
+            cmbEducation.ItemsSource = Tools.StandardVaerdier.HentUddannelser(CurrentElev.elev.ErRKV);
 
             OpdaterExpanders(false, false);
             UdfyldBlanketHvisAlleredeEksisterende();
@@ -56,10 +56,10 @@ namespace GFElevInterview.Views
         public void Frem() {
             if (ErValideret()) {
                 SætElevType();
-                CurrentElev.elev.uddannelse = cmbEducation.Text.ToString();
-                CurrentElev.elev.uddannelseAdresse = cmbUddannelse.Text.ToString();
-                CurrentElev.elev.sps = rbSpsJa.IsChecked;
-                CurrentElev.elev.eud = rbSpsNej.IsChecked;
+                CurrentElev.elev.UddLinje = cmbEducation.Text.ToString();
+                CurrentElev.elev.UddAdr = cmbUddannelse.Text.ToString();
+                CurrentElev.elev.SPS = rbSpsJa.IsChecked;
+                CurrentElev.elev.EUD = rbSpsNej.IsChecked;
                 parent.FærdiggørInterview();
             }
         }
@@ -69,30 +69,30 @@ namespace GFElevInterview.Views
         }
 
         /// <summary>
-        /// Sætter <see cref="CurrentElev.elev"/>s <see cref="ElevType"/> baseret på radioknapper.
+        /// Sætter <see cref="CurrentElev.elev"/>s <see cref="EUVType"/> baseret på radioknapper.
         /// </summary>
         private void SætElevType() {
-            ElevType elevType = ElevType.Null;
+            EUVType elevType = EUVType.Null;
             //Navneændring på rb
             bool rbValider1 = (bool)rbEuv1Ja.IsChecked;
             bool rbValider2 = (bool)rbEuv1SprgJa.IsChecked;
             bool rbValider3 = (bool)rbEuv2Ja.IsChecked;
             //Vi tjekker her at elevtypen bliver udvalgt, udfra de valgte radio knapper.
             if (rbValider1 && rbValider2) {
-                elevType = ElevType.EUV1;
+                elevType = EUVType.EUV1;
             }
             else if ((!rbValider1 && rbValider3) || (rbValider1 && !rbValider2)) {
-                elevType = ElevType.EUV2;
+                elevType = EUVType.EUV2;
             }
             else if (!rbValider1 && !rbValider3) {
-                elevType = ElevType.EUV3;
+                elevType = EUVType.EUV3;
             }
             //Elevtypen bliver indsat i den nuværende elev.
-            CurrentElev.elev.elevType = elevType;
+            CurrentElev.elev.ElevType = elevType;
         }
 
         /// <summary>
-        /// Validerer om <see cref="ElevType"/> er godkendt ud fra hvilke knapper som er blevet trykket.
+        /// Validerer om <see cref="EUVType"/> er godkendt ud fra hvilke knapper som er blevet trykket.
         /// Validerer også ComboBox, ved at tjekke ComboBoxen og borderen den er inde under.
         /// </summary>
         /// <returns>erValideret</returns>
@@ -126,28 +126,28 @@ namespace GFElevInterview.Views
         /// og comboBox med <see cref="UdfyldBlanket.UdfyldComboBox(ComboBox, string)"/>
         /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
-            if (CurrentElev.elev.elevType > ElevType.Null) {
-                switch (CurrentElev.elev.elevType) {
-                    case ElevType.EUV1:
+            if (CurrentElev.elev.ElevType > EUVType.Null) {
+                switch (CurrentElev.elev.ElevType) {
+                    case EUVType.EUV1:
                         //CheckEUVRadioButton tager de to udvalgte knapper og gør dem true.
                         CheckEUVRadioButton(rbEuv1Ja, rbEuv1SprgJa);
                         break;
 
-                    case ElevType.EUV2:
+                    case EUVType.EUV2:
                         CheckEUVRadioButton(rbEuv1Nej, rbEuv2Ja);
                         break;
 
-                    case ElevType.EUV3:
+                    case EUVType.EUV3:
                         CheckEUVRadioButton(rbEuv1Nej, rbEuv2Nej);
                         break;
                 }
                 //Vi ufylder her radiobuttons når en udfyldt elev bliver valgt.
                 //Den tjekker her om det er Ja eller nej knappen ved at tjekke den nuværende elev.
-                UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.sps);
-                UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.eud);
+                UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.SPS);
+                UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.EUD);
                 //UdfyldComboBox udfylder comboboxen på siden ved at hente informationen fra den nuværende elev.
-                UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.uddannelse);
-                UdfyldBlanket.UdfyldComboBox(cmbUddannelse, CurrentElev.elev.uddannelseAdresse);
+                UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.UddLinje);
+                UdfyldBlanket.UdfyldComboBox(cmbUddannelse, CurrentElev.elev.UddAdr);
             }
         }
 

@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GFElevInterview.Data
+namespace GFElevInterview.Tools
 {
     public static class StandardVaerdier
     {
+        /// <summary>
+        /// Returnerer <c>16</c>, da det er minimums længden på grundforløb.
+        /// </summary>
+        public static int MinimumUgerGF { get; } = Int32.Parse(RessourceFil.minimumGrundforløbLængde);
+
         public static List<string> HentUnikkeSkoler() {
             return new List<string>() {
                 RessourceFil.ballerup,
@@ -41,6 +46,26 @@ namespace GFElevInterview.Data
                 uddannelser.Add(RessourceFil.vedIkke);
             }
             return uddannelser;
+        }
+
+        /// <summary>
+        /// Returnerer arrayet "Ballerup, Frederiksberg, Lyngby, BalPlus, BalFuld".
+        /// </summary>
+        public static string[] HentSkoleDictKeys {
+            get {
+                //Ballerup, Frederiksberg, Lyngby, BalPlus, BalFuld
+                return RessourceFil.skolerDictKey.Split(';');
+            }
+        }
+
+        public static Dictionary<string, int> HentCounterDict() {
+            Dictionary<string, int> skoleAntal = new Dictionary<string, int>();
+
+            foreach (string key in RessourceFil.skolerDictKey.Split(';')) {
+                skoleAntal.Add(key, 0);
+            }
+
+            return skoleAntal;
         }
     }
 }

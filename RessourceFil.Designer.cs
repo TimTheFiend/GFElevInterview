@@ -232,6 +232,15 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to bal;fre;lyn;balP;balF.
+        /// </summary>
+        internal static string skolerDictKey {
+            get {
+                return ResourceManager.GetString("skolerDictKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to root.
         /// </summary>
         internal static string standardPassword {

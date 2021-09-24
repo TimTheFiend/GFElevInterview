@@ -193,6 +193,10 @@
     <value>Ordinær+</value>
     <comment>Add. Linje</comment>
   </data>
+  <data name="skolerDictKey" xml:space="preserve">
+    <value>bal;fre;lyn;balP;balF</value>
+    <comment>Til opdatering af counter</comment>
+  </data>
   <data name="standardPassword" xml:space="preserve">
     <value>root</value>
     <comment>Standard password til lederView</comment>

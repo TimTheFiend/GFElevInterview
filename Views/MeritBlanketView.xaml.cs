@@ -1,4 +1,5 @@
 ﻿using GFElevInterview.Data;
+using GFElevInterview.Tools;
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
 using System;
@@ -16,6 +17,7 @@ namespace GFElevInterview.Views
 
         public MeritBlanketView(BlanketView parent) {
             InitializeComponent();
+
             this.parent = parent;
             InitialiserBlanket();
 
@@ -56,17 +58,17 @@ namespace GFElevInterview.Views
 
         //TODO
         private void UdfyldBlanketHvisAlleredeEksisterende() {
-            if (CurrentElev.elev.danskNiveau > FagNiveau.Null) {
-                UdfyldBlanket.UdfyldComboBox(cmbDansk, (int)CurrentElev.elev.danskNiveau - 1);
-                UdfyldBlanket.UdfyldComboBox(cmbEngelsk, (int)CurrentElev.elev.engelskNiveau - 1);
-                UdfyldBlanket.UdfyldComboBox(cmbMatematik, (int)CurrentElev.elev.matematikNiveau - 1);
+            if (CurrentElev.elev.DanNiveau > FagNiveau.Null) {
+                UdfyldBlanket.UdfyldComboBox(cmbDansk, (int)CurrentElev.elev.DanNiveau - 1);
+                UdfyldBlanket.UdfyldComboBox(cmbEngelsk, (int)CurrentElev.elev.EngNiveau - 1);
+                UdfyldBlanket.UdfyldComboBox(cmbMatematik, (int)CurrentElev.elev.MatNiveau - 1);
 
-                UdfyldBlanket.UdfyldRadioButton(rbDanskEksamenJa, rbDanskEksamenNej, CurrentElev.elev.danskEksamen);
-                UdfyldBlanket.UdfyldRadioButton(rbDanskUndervisJa, rbDanskUndervisNej, CurrentElev.elev.danskUndervisning);
-                UdfyldBlanket.UdfyldRadioButton(rbEngelskEksamenJa, rbEngelskEksamenNej, CurrentElev.elev.engelskEksamen);
-                UdfyldBlanket.UdfyldRadioButton(rbEngelskUndervisJa, rbEngelskUndervisNej, CurrentElev.elev.engelskUndervisning);
-                UdfyldBlanket.UdfyldRadioButton(rbMatematikEksamenJa, rbMatematikEksamenNej, CurrentElev.elev.matematikEksamen);
-                UdfyldBlanket.UdfyldRadioButton(rbMatematikUndervisJa, rbMatematikUndervisNej, CurrentElev.elev.matematikUndervisning);
+                UdfyldBlanket.UdfyldRadioButton(rbDanskEksamenJa, rbDanskEksamenNej, CurrentElev.elev.DanEksamen);
+                UdfyldBlanket.UdfyldRadioButton(rbDanskUndervisJa, rbDanskUndervisNej, CurrentElev.elev.DanUndervisning);
+                UdfyldBlanket.UdfyldRadioButton(rbEngelskEksamenJa, rbEngelskEksamenNej, CurrentElev.elev.EngEksamen);
+                UdfyldBlanket.UdfyldRadioButton(rbEngelskUndervisJa, rbEngelskUndervisNej, CurrentElev.elev.EngUndervisning);
+                UdfyldBlanket.UdfyldRadioButton(rbMatematikEksamenJa, rbMatematikEksamenNej, CurrentElev.elev.MatEksamen);
+                UdfyldBlanket.UdfyldRadioButton(rbMatematikUndervisJa, rbMatematikUndervisNej, CurrentElev.elev.MatUndervisning);
             }
         }
 
@@ -88,7 +90,7 @@ namespace GFElevInterview.Views
             if (ErValideret()) {
                 IBlanket newView;
                 SætCurrentElevVærdier();
-                if (CurrentElev.elev.erRKV) {
+                if (CurrentElev.elev.ErRKV) {
                     newView = new EUVView(parent);
                 }
                 else {
@@ -111,9 +113,9 @@ namespace GFElevInterview.Views
 
         //
         private void SætCurrentElevVærdier() {
-            CurrentElev.elev.danskNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
-            CurrentElev.elev.engelskNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
-            CurrentElev.elev.matematikNiveau = (FagNiveau)cmbMatematik.SelectedIndex + 1;
+            CurrentElev.elev.DanNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
+            CurrentElev.elev.EngNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
+            CurrentElev.elev.MatNiveau = (FagNiveau)cmbMatematik.SelectedIndex + 1;
 
             //NOTE Flag
             CurrentElev.elev.SætMeritStatus(Merit.DanskEksamen, (bool)rbDanskEksamenJa.IsChecked);
@@ -152,13 +154,13 @@ namespace GFElevInterview.Views
             int selectedIndex = cb.SelectedIndex + 1;
 
             if (cb == cmbDansk) {
-                CurrentElev.elev.danskNiveau = (FagNiveau)selectedIndex;
+                CurrentElev.elev.DanNiveau = (FagNiveau)selectedIndex;
             }
             else if (cb == cmbEngelsk) {
-                CurrentElev.elev.engelskNiveau = (FagNiveau)selectedIndex;
+                CurrentElev.elev.EngNiveau = (FagNiveau)selectedIndex;
             }
             else if (cb == cmbMatematik) {
-                CurrentElev.elev.matematikNiveau = (FagNiveau)selectedIndex;
+                CurrentElev.elev.MatNiveau = (FagNiveau)selectedIndex;
             }
         }
     }

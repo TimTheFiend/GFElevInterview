@@ -12,29 +12,45 @@ namespace GFElevInterview.Models
         #region Database Tabel
 
         [Key]
-        public string cprNr { get; set; }
+        public string CPRNr { get; set; }
 
-        public string fornavn { get; set; }
-        public string efternavn { get; set; }
+        [Display(Name = "Fornavn")]
+        public string Fornavn { get; set; }
 
-        public string uddannelse { get; set; }
-        public string uddannelseAdresse { get; set; }
+        public string Efternavn { get; set; }
 
-        public FagNiveau danskNiveau { get; set; }
-        public FagNiveau engelskNiveau { get; set; }
-        public FagNiveau matematikNiveau { get; set; }
+        [Display(Name = "Udd. Linje")]
+        public string UddLinje { get; set; }
+
+        [Display(Name = "Udd. Adresse")]
+        public string UddAdr { get; set; }
+
+        [Display(Name = "Dansk Niveau")]
+        public FagNiveau DanNiveau { get; set; }
+
+        [Display(Name = "Engelsk Niveau")]
+        public FagNiveau EngNiveau { get; set; }
+
+        [Display(Name = "Matematik Niveau")]
+        public FagNiveau MatNiveau { get; set; }
 
         /// <summary>
         /// Flag som indeholder status på eksamen og undervisning i samtlige fag.
         /// </summary>
-        public Merit uddannelsesMerit { get; set; }
+        [Display(Name = "Merit status")]
+        public Merit UddMerit { get; set; }
 
-        public bool? sps { get; set; }
-        public bool? eud { get; set; }
+        [Display(Name = "Har SPS")]
+        public bool? SPS { get; set; }
 
-        public ElevType elevType { get; set; }
+        [Display(Name = "Har EUD")]
+        public bool? EUD { get; set; }
 
-        public int uddannelsesLængdeIUger { get; set; } = Int32.Parse(RessourceFil.minimumGrundforløbLængde);
+        [Display(Name = "EUV type")]
+        public EUVType ElevType { get; set; }
+
+        [Display(Name = "GF længde (uger)")]
+        public int UddLængdeIUger { get; set; } = Tools.StandardVaerdier.MinimumUgerGF;
 
         #endregion Database Tabel
 
@@ -48,12 +64,12 @@ namespace GFElevInterview.Models
                 StringBuilder sb = new StringBuilder(cprNr, cprNr.Length + 1);
                 cprNr = sb.Insert(6, '-').ToString();
             }
-            this.cprNr = cprNr;
+            this.CPRNr = cprNr;
         }
 
         public ElevModel(string cprNr, string fornavn, string efternavn) : this(cprNr) {
-            this.fornavn = fornavn;
-            this.efternavn = efternavn;
+            this.Fornavn = fornavn;
+            this.Efternavn = efternavn;
         }
 
         #endregion Constructors
@@ -61,62 +77,62 @@ namespace GFElevInterview.Models
         #region NotMapped properties (Eksamen & Undervisning
 
         [NotMapped]
-        public bool? danskEksamen {
+        public bool? DanEksamen {
             get {
-                if (danskNiveau == FagNiveau.Null) {
+                if (DanNiveau == FagNiveau.Null) {
                     return null;
                 }
-                return uddannelsesMerit.HasFlag(Merit.DanskEksamen);
+                return UddMerit.HasFlag(Merit.DanskEksamen);
             }
         }
 
         [NotMapped]
-        public bool? danskUndervisning {
+        public bool? DanUndervisning {
             get {
-                if (danskNiveau == FagNiveau.Null) {
+                if (DanNiveau == FagNiveau.Null) {
                     return null;
                 }
-                return uddannelsesMerit.HasFlag(Merit.DanskUndervisning);
+                return UddMerit.HasFlag(Merit.DanskUndervisning);
             }
         }
 
         [NotMapped]
-        public bool? engelskEksamen {
+        public bool? EngEksamen {
             get {
-                if (danskNiveau == FagNiveau.Null) {
+                if (DanNiveau == FagNiveau.Null) {
                     return null;
                 }
-                return uddannelsesMerit.HasFlag(Merit.EngelskEksamen);
+                return UddMerit.HasFlag(Merit.EngelskEksamen);
             }
         }
 
         [NotMapped]
-        public bool? engelskUndervisning {
+        public bool? EngUndervisning {
             get {
-                if (danskNiveau == FagNiveau.Null) {
+                if (DanNiveau == FagNiveau.Null) {
                     return null;
                 }
-                return uddannelsesMerit.HasFlag(Merit.EngelskUndervisning);
+                return UddMerit.HasFlag(Merit.EngelskUndervisning);
             }
         }
 
         [NotMapped]
-        public bool? matematikEksamen {
+        public bool? MatEksamen {
             get {
-                if (danskNiveau == FagNiveau.Null) {
+                if (DanNiveau == FagNiveau.Null) {
                     return null;
                 }
-                return uddannelsesMerit.HasFlag(Merit.MatematikEksamen);
+                return UddMerit.HasFlag(Merit.MatematikEksamen);
             }
         }
 
         [NotMapped]
-        public bool? matematikUndervisning {
+        public bool? MatUndervisning {
             get {
-                if (danskNiveau == FagNiveau.Null) {
+                if (DanNiveau == FagNiveau.Null) {
                     return null;
                 }
-                return uddannelsesMerit.HasFlag(Merit.MatematikUndervisning);
+                return UddMerit.HasFlag(Merit.MatematikUndervisning);
             }
         }
 
@@ -125,40 +141,33 @@ namespace GFElevInterview.Models
         #region Get properties
 
         [NotMapped]
-        public string fornavnEfternavn {
-            get { return $"{fornavn} {efternavn}"; }
-        }
+        public string FornavnEfternavn => $"{Fornavn} {Efternavn}";
 
         [NotMapped]
-        public string efternavnFornavn {
-            get { return $"{efternavn}, {fornavn}"; }
-        }
+        public string EfternavnFornavn => $"{Efternavn}, {Fornavn}";
 
         /// <summary>
         /// Returnerer en lovlig string der kan bruges som filnavn.
         /// </summary>
         [NotMapped]
-        public string MeritFilNavn {
-            get {
-                string fileName = $"{cprNr} - {efternavnFornavn}";
-                foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
-                    fileName = fileName.Replace(invalidLetter, '_');
-                }
-                return fileName + RessourceFil.endMerit;
-            }
-        }
+        public string FilnavnMerit => FilnavnBase + RessourceFil.endMerit;
 
         /// <summary>
         /// Returnerer en lovlig string der kan bruges som filnavn.
         /// </summary>
         [NotMapped]
-        public string RKVFilNavn {
+        public string FilnavnRKV => FilnavnBase + RessourceFil.endRKV;
+
+        /// <summary>
+        /// Laver et lovligt filnavn til elevens blanket(ter).
+        /// </summary>
+        private string FilnavnBase {
             get {
-                string fileName = $"{cprNr} - {efternavnFornavn}";
+                string filNavn = $"{CPRNr} - {EfternavnFornavn}";
                 foreach (char invalidLetter in System.IO.Path.GetInvalidFileNameChars()) {
-                    fileName = fileName.Replace(invalidLetter, '_');
+                    filNavn = filNavn.Replace(invalidLetter, '_');
                 }
-                return fileName + RessourceFil.endRKV;
+                return filNavn;
             }
         }
 
@@ -172,11 +181,11 @@ namespace GFElevInterview.Models
         public void SætMeritStatus(Merit fag, bool value) {
             switch (value) {
                 case true:
-                    uddannelsesMerit |= fag;
+                    UddMerit |= fag;
                     break;
 
                 case false:
-                    uddannelsesMerit &= ~fag;
+                    UddMerit &= ~fag;
                     break;
             }
         }
@@ -186,56 +195,56 @@ namespace GFElevInterview.Models
         /// </summary>
         /// <returns>xxxxx-xxxx - Efternavn, Fornavn</returns>
         public override string ToString() {
-            return $"({cprNr}) - {efternavnFornavn}";
+            return $"({CPRNr}) - {EfternavnFornavn}";
         }
 
-        //TODO doku
-        public int meritLængdeIDage {
+        /// <summary>
+        /// Udregner hvor mange dage eleven IKKE skal være på grundforløb.
+        /// </summary>
+        [NotMapped]
+        public int MeritLængdeIDage {
             get {
-                if (CurrentElev.elev.elevType == ElevType.EUV1) {
+                if (CurrentElev.elev.ElevType == EUVType.EUV1) {
                     return 100; // Hele forløbet er merit
                 }
-                //TODO skriv bedre kommentar JOAKIM
-                //Der bliver fjernet 4 uger fra udregningen da resultatet af det første minus-stykke vil være 0
-                //ved at fjerne -4 fra resultatet gør vi at hvis man intet merit har går man i 0,
-                //merit i et fag betyder 2, og 4 hvis i alt. gang det med 5 mens man udligner minus tallet
-                //og man har uger i dage.
-                return (uddannelsesLængdeIUger - Int32.Parse(RessourceFil.minimumGrundforløbLængde) - 4) * -5;
+                // Hvis merit i alle fag == (16 - 16 - 4) = -4 * -5 = 20; Altså 2 uger for hvert fag med merit
+                // Hvis merit i ét fag == (18 - 16 - 4) = -2 * -5 = 10;
+                // Hvis ingen merit == (20 - 16 - 4) = 0 * -5 = 0;
+                return (UddLængdeIUger - Tools.StandardVaerdier.MinimumUgerGF - 4) * -5;
             }
         }
 
-        //TODO doku
+        /// <summary>
+        /// Udregner og opdaterer Merit længde i uger hvor <see cref="UddLinje"/> bliver taget højde for.
+        /// </summary>
         public void BeregnMeritIUger() {
-            if (elevType == ElevType.EUV1) {
-                uddannelsesLængdeIUger = 0;
+            if (ElevType == EUVType.EUV1) {
+                UddLængdeIUger = 0;
                 return;
             }
 
             FagNiveau minNiveau = FagNiveau.F;
             int ekstraUger = 4;
 
-            if (danskNiveau > minNiveau) {
-                minNiveau = uddannelse == RessourceFil.itsupporter ? FagNiveau.E : FagNiveau.D;
+            if (DanNiveau > minNiveau) {
+                minNiveau = UddLinje == RessourceFil.itsupporter ? FagNiveau.E : FagNiveau.D;
 
-                if (engelskNiveau >= minNiveau) { ekstraUger -= 2; }
-                if (matematikNiveau >= minNiveau) { ekstraUger -= 2; }
+                if (EngNiveau >= minNiveau) { ekstraUger -= 2; }
+                if (MatNiveau >= minNiveau) { ekstraUger -= 2; }
             }
 
-            uddannelsesLængdeIUger = Int32.Parse(RessourceFil.minimumGrundforløbLængde) + ekstraUger;
+            UddLængdeIUger = Tools.StandardVaerdier.MinimumUgerGF + ekstraUger;
         }
 
-        //TODO
-        public bool ErUdfyldt {
-            get {
-                if (danskNiveau != FagNiveau.Null || engelskNiveau != FagNiveau.Null || matematikNiveau != FagNiveau.Null) {
-                    return true;
-                }
-                return false;
-            }
-        }
+        /// <summary>
+        /// Returnerer en bool hvis eleven allerede har haft en samtale.
+        /// </summary>
+        public bool ErUdfyldt => DanNiveau != FagNiveau.Null || EngNiveau != FagNiveau.Null || MatNiveau != FagNiveau.Null;
 
-        //TODO doku
-        public bool erRKV {
+        /// <summary>
+        /// <c>true</c> hvis eleven er <25 år gammel; ellers <c>false</c>.
+        /// </summary>
+        public bool ErRKV {
             get {
                 /// Forklaring på property
                 ///Der kan ikke konverteres på samme linje som vi henter tallet via Substring
@@ -243,11 +252,11 @@ namespace GFElevInterview.Models
                 ///Hvilket vil sige at vi skal tage hver sektion som en string, og bagefter konverterer det til en int
                 //NOTE: Det er kun nødvendigt at kigge på `år` til at starte med.
                 //Det er først når der er tvivl i om vi kan sortere dem i RKV eller ej at vi behøver at kigge på dd/mm/yy
-                string _år = cprNr.ToString().Substring(4, 2);
-                int år = Int32.Parse(_år);
 
-                //Er Elev åbenlyst ældre end 25?
-                if (år < DateTime.Now.Year - 1900 - 25 && år > DateTime.Now.Year - 2000) {
+                int year = int.Parse(CPRNr.Substring(4, 2));
+
+                //Er Elev åbenlyst mere end 25 år gammel?
+                if (year < DateTime.Now.Year - 1900 - 25 && year > DateTime.Now.Year - 2000) {
                     ///Fx. 95 < 96[121 - 25] : Altså er personens fødselsår mindre end året for 25 år siden?
                     ///Dette sikre os at vi ikke tager folk der er født i slut-90erne
                     ///95 > 21 [2021 - 2000] : Dette gør at vi ikke tager 00 og frem med i regne stykket.
@@ -255,25 +264,19 @@ namespace GFElevInterview.Models
                     return true;
                 }
 
-                string _dag = cprNr.ToString().Substring(0, 2);
-                string _måned = cprNr.ToString().Substring(2, 2);
-
-                int dag = Int32.Parse(_dag);
-                int måned = Int32.Parse(_måned);
+                int dag = int.Parse(CPRNr.ToString().Substring(0, 2));
+                int måned = int.Parse(CPRNr.ToString().Substring(2, 2));
 
                 // fra 0-99 til 19(00-99)
-                år += 1900;
-                if (!(år >= DateTime.Now.Year - 25)) {
-                    //Eftersom vi allerede har sorteret alle der er fra før CurrentYear - 25 fra, så kigger vi fra resten med >90 årstal
+                year += 1900;
+                if (!(year >= DateTime.Now.Year - 25)) {
+                    //Eftersom vi allerede har sorteret alle der er fra før (CurrentYear - 25) fra, så kigger vi fra resten med >90 årstal
                     //Hvis tallet er mindre end 90, så er de fra efter 2000, og 100 skal tilføjes
-                    år += 100;
+                    year += 100;
                 }
 
                 //Hvis deres fødselsdag er mindre(før) eller lig med (de har fødselsdag i dag) så skal de have RKV.
-                if (new DateTime(år, måned, dag) <= DateTime.Now.AddYears(-25)) {
-                    return true;
-                }
-                return false;
+                return new DateTime(year, måned, dag) <= DateTime.Now.AddYears(-25);
             }
         }
     }
@@ -283,7 +286,7 @@ namespace GFElevInterview.Models
     /// <summary>
     /// Indeholder de forskellige EUV-typer.
     /// </summary>
-    public enum ElevType
+    public enum EUVType
     {
         Null,
         EUV1,
