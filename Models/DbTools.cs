@@ -225,6 +225,24 @@ namespace GFElevInterview.Models
             }
         }
 
+
+        /// <summary>
+        /// Passworded bliver opdateret og ændringerne gemt i databasen.
+        /// </summary>
+        /// <param name="nytPw"></param>
+        /// <returns></returns>
+        public bool OpdaterPassword(string nytPw)
+        {
+            //TODO Crypter password
+            //Data.CurrentUser.User.Password = nytPw;
+            Data.CurrentUser.User.OpdaterPassword(nytPw);
+            Login.Update(Data.CurrentUser.User);
+            this.SaveChanges();
+
+
+            return true;
+        }
+
         #region DbContext.OnConfiguring, DbContext.OnModelCreating
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {

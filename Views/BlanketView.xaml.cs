@@ -21,6 +21,11 @@ namespace GFElevInterview.Views
         public BlanketView() {
             InitializeComponent();
             InitialiserBlanket();
+            this.Loaded += Window_Loaded;
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Focus();
         }
 
         private void InitialiserBlanket() {
@@ -37,7 +42,7 @@ namespace GFElevInterview.Views
             if (currentView == null) {
                 currentView = new MeritBlanketView(this);
             }
-
+            //cntList.Content = lstSearch;
             cntMain.Content = currentView;
         }
 
@@ -189,6 +194,11 @@ namespace GFElevInterview.Views
                 currentView.Tilbage();
                 ScrollTilTop();
             }
+        }
+
+        private void btnVisAlle_Click(object sender, RoutedEventArgs e)
+        {
+            lstSearch.ItemsSource = DbTools.Instance.VisAlle();
         }
     }
 }

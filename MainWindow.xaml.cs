@@ -65,6 +65,10 @@ namespace GFElevInterview
         //TODO ordinær+ og fuldtforløb
         public static void OpdaterSkoleOptæller() {
             //var dict = Data.AdminTools.HentAntalEleverPåSkole();
+            if(Models.DbTools.Instance == null)
+            {
+                System.Console.WriteLine();
+            }
             Dictionary<string, int> skoleAntal = Models.DbTools.Instance.GetAntalEleverPerSkole();  //Placeholder
 
             string[] skoleDictNavne = Tools.StandardVaerdier.HentSkoleDictKeys;
@@ -103,14 +107,28 @@ namespace GFElevInterview
         /// <summary>
         /// Viser <see cref="Views.LoginView"/> viewet, før <see cref="Views.LederView"/> bliver vist.
         /// </summary>
-        private void LederButton_Click(object sender, RoutedEventArgs e) {
-            mainContent.Content = new Views.LoginView(this);
+        private void LederButton_Click(object sender, RoutedEventArgs e)
+        {
+            CheckLederEllerLogin();
+        }
+
+        public void CheckLederEllerLogin()
+        {
+            if (Data.CurrentUser.ErLoggetInd)
+            {
+                mainContent.Content = new Views.LederView();
+            }
+            else
+            {
+                mainContent.Content = new Views.LoginView(this);
+            }
             UnderviserPanel.Visibility = Visibility.Visible;
             OpdaterSkoleOptæller();
         }
 
         //TODO tænk på bedre løsning.
         public void LoginTilLederView() {
+
             mainContent.Content = new Views.LederView();
         }
 

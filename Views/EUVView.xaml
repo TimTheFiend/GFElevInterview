@@ -5,47 +5,63 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="1450" d:DesignWidth="800" Background="White">
     <!--Default Height "450" Width "800"-->
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.02*" />
+            <ColumnDefinition Width="0.1*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="0.02*" />
+            <ColumnDefinition Width="0.1*" />
         </Grid.ColumnDefinitions>
         <StackPanel  Grid.Column="1">
             <Label Content="Interview guide til RKV elever"  FontSize="18" FontWeight="Bold" FontStyle="Italic" />
             <Border BorderBrush="Gray" BorderThickness="1" x:Name="bdrEducation">
                 <StackPanel>
-                    <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="16" HorizontalAlignment="Center" />
-                    <ComboBox x:Name="cmbEducation" Width="240" />
+                    <DockPanel>
+                        <Label Content="Uddanelse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="16" HorizontalAlignment="Center" />
+                            <ComboBox x:Name="cmbEducation" Width="240" />
+                        </StackPanel>
+                    </DockPanel>
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
             <Border Style="{StaticResource bdrEUV2}" x:Name="bdrAdresse">
                 <StackPanel>
-                    <TextBlock TextWrapping="WrapWithOverflow" Text="Hvilken adresse ønske du at starte på?" FontSize="16" HorizontalAlignment="Center" />
-                    <ComboBox x:Name="cmbUddannelse" Width="160" />
+                    <DockPanel>
+                        <Label Content="Adresse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="Hvilken adresse ønske du at starte på?" FontSize="16" HorizontalAlignment="Center" />
+                            <ComboBox x:Name="cmbUddannelse" Width="160" />
+                        </StackPanel>
+                    </DockPanel>
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
             <Border BorderBrush="Gray" BorderThickness="1">
                 <StackPanel>
-                    <Label  Content="Har du 2 års relevant erhvervserfaring, inde for de sidste 5 år?" FontSize="13" HorizontalAlignment="Center" />
-                    <DockPanel Style="{StaticResource docKnapH}">
-                        <RadioButton x:Name="rbEuv1Ja" GroupName="grpeuv1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ja">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
-                        <RadioButton x:Name="rbEuv1Nej" GroupName="grpeuv1" Content="Nej" Style="{StaticResource rbnNej}">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
+                    <DockPanel>
+                        <Label Content="EUV1:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <Label  Content="Har du 2 års relevant erhvervserfaring, inde for de sidste 5 år?" FontSize="13" HorizontalAlignment="Center" />
+                            <DockPanel Style="{StaticResource docKnapH}">
+                                <RadioButton x:Name="rbEuv1Ja" GroupName="grpeuv1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ja">
+                                    <RadioButton.RenderTransform>
+                                        <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                    </RadioButton.RenderTransform>
+                                </RadioButton>
+                                <RadioButton x:Name="rbEuv1Nej" GroupName="grpeuv1" Content="Nej" Style="{StaticResource rbnNej}">
+                                    <RadioButton.RenderTransform>
+                                        <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                    </RadioButton.RenderTransform>
+                                </RadioButton>
+                            </DockPanel>
+                        </StackPanel>
                     </DockPanel>
-                    <Border BorderBrush="Gray" x:Name="bdrEuv1" BorderThickness="1">
-                        <Expander IsExpanded="True" x:Name="expEuv1">
+
+                    <Expander IsExpanded="True" x:Name="expEuv1">
+                        <Border x:Name="bdrEuv1">
                             <StackPanel>
                                 <Border Style="{StaticResource bdrEUV}">
                                     <StackPanel>
@@ -98,81 +114,95 @@
                                 </Border>
                                 <Separator Style="{StaticResource SepSpaceH}" />
                                 <Border Style="{StaticResource bdrEUV}" x:Name="bdrEuv1Svar">
-                                    <StackPanel>
-                                        <TextBlock Text="Passer disse spørgsmål til din erfaring?" FontSize="16" HorizontalAlignment="Center" />
-                                        <DockPanel Name="docEuv1Sprg" Style="{StaticResource docKnapH}">
-                                            <RadioButton x:Name="rbEuv1SprgJa" GroupName="grpEuv1Sprg" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ja">
-                                                <RadioButton.RenderTransform>
-                                                    <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                                                </RadioButton.RenderTransform>
-                                            </RadioButton>
-                                            <RadioButton x:Name="rbEuv1SprgNej" GroupName="grpEuv1Sprg" Content="Nej" Style="{StaticResource rbnNej}">
-                                                <RadioButton.RenderTransform>
-                                                    <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                                                </RadioButton.RenderTransform>
-                                            </RadioButton>
-                                        </DockPanel>
-                                    </StackPanel>
+                                    <DockPanel>
+                                        <Label Content="EUV1:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                                        <StackPanel HorizontalAlignment="Stretch">
+                                            <TextBlock Text="Passer disse spørgsmål til din erfaring?" FontSize="16" HorizontalAlignment="Center" />
+                                            <DockPanel Name="docEuv1Sprg" Style="{StaticResource docKnapH}">
+                                                <RadioButton x:Name="rbEuv1SprgJa" GroupName="grpEuv1Sprg" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ja">
+                                                    <RadioButton.RenderTransform>
+                                                        <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                                    </RadioButton.RenderTransform>
+                                                </RadioButton>
+                                                <RadioButton x:Name="rbEuv1SprgNej" GroupName="grpEuv1Sprg" Content="Nej" Style="{StaticResource rbnNej}">
+                                                    <RadioButton.RenderTransform>
+                                                        <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                                    </RadioButton.RenderTransform>
+                                                </RadioButton>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </DockPanel>
                                 </Border>
                             </StackPanel>
-                        </Expander>
-                    </Border>
-                    <Border Style="{StaticResource bdrEUV}" x:Name="bdrEuv2">
-                        <Expander x:Name="expEuv2">
-                            <StackPanel>
-                                <TextBlock TextWrapping="WrapWithOverflow" Text="Har du en dokumenteret afsluttet uddannelse og/eller har du mindre end 2 års relevant dokumenteret erhvervserfaring." FontSize="16"  HorizontalAlignment="Center" />
-                                <DockPanel Style="{StaticResource docKnapH}">
-                                    <RadioButton x:Name="rbEuv2Ja" Content="Ja" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <RadioButton.RenderTransform>
-                                            <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                                        </RadioButton.RenderTransform>
-                                    </RadioButton>
-                                    <RadioButton x:Name="rbEuv2Nej" Content="Nej" Style="{StaticResource rbnNej}">
-                                        <RadioButton.RenderTransform>
-                                            <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                                        </RadioButton.RenderTransform>
-                                    </RadioButton>
-                                </DockPanel>
-                            </StackPanel>
-                        </Expander>
-                    </Border>
+                        </Border>
+                    </Expander>
+
+                    <Expander x:Name="expEuv2">
+                        <Border  x:Name="bdrEuv2">
+                            <DockPanel>
+                                <Label Content="EUV2:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                                <StackPanel>
+
+                                    <TextBlock TextWrapping="WrapWithOverflow" Text="Har du en dokumenteret afsluttet uddannelse og/eller har du mindre end 2 års relevant dokumenteret erhvervserfaring." FontSize="16"  HorizontalAlignment="Center" />
+                                    <DockPanel Style="{StaticResource docKnapH}">
+                                        <RadioButton x:Name="rbEuv2Ja" Content="Ja" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <RadioButton.RenderTransform>
+                                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                            </RadioButton.RenderTransform>
+                                        </RadioButton>
+                                        <RadioButton x:Name="rbEuv2Nej" Content="Nej" Style="{StaticResource rbnNej}">
+                                            <RadioButton.RenderTransform>
+                                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                            </RadioButton.RenderTransform>
+                                        </RadioButton>
+                                    </DockPanel>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
+                    </Expander>
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
             <Border Style="{StaticResource bdrEUV2}" x:Name="bdrSps" Height="70">
-                <StackPanel x:Name="stackSps">
-                    <TextBlock TextWrapping="WrapWithOverflow" Text="Har du modtaget særlige støtte eller ønsker du at søge om særlige pædagogiske støtte?" FontSize="16" HorizontalAlignment="Center" />
-                    <DockPanel Style="{StaticResource docKnapH}">
-                        <RadioButton x:Name="rbSpsJa" Content="Ja" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
-                        <RadioButton x:Name="rbSpsNej" Content="Nej" Style="{StaticResource rbnNej}">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
-                    </DockPanel>
-                </StackPanel>
+                <DockPanel x:Name="stackSps">
+                    <Label Content="SPS:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                    <StackPanel>
+                        <TextBlock TextWrapping="WrapWithOverflow" Text="Har du modtaget særlige støtte eller ønsker du at søge om særlige pædagogiske støtte?" FontSize="16" HorizontalAlignment="Center" />
+                        <DockPanel Style="{StaticResource docKnapH}">
+                            <RadioButton x:Name="rbSpsJa" Content="Ja" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <RadioButton.RenderTransform>
+                                    <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                </RadioButton.RenderTransform>
+                            </RadioButton>
+                            <RadioButton x:Name="rbSpsNej" Content="Nej" Style="{StaticResource rbnNej}">
+                                <RadioButton.RenderTransform>
+                                    <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                </RadioButton.RenderTransform>
+                            </RadioButton>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
             <Border Style="{StaticResource bdrEUV2}" x:Name="bdrEud" Height="70">
-                <StackPanel x:Name="stackEud">
-                    <TextBlock TextWrapping="WrapWithOverflow" Text="Ønsker du en samtale med en eud vejleder?" FontSize="16" HorizontalAlignment="Center" />
-                    <DockPanel Style="{StaticResource docKnapH}">
-                        <RadioButton x:Name="rbEudJa" Content="Ja" HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
-                        <RadioButton x:Name="rbEudNej" Content="Nej" Style="{StaticResource rbnNej}">
-                            <RadioButton.RenderTransform>
-                                <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
-                            </RadioButton.RenderTransform>
-                        </RadioButton>
-                    </DockPanel>
-                </StackPanel>
+                <DockPanel x:Name="stackEud">
+                    <Label Content="EUD:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                    <StackPanel>
+                        <TextBlock TextWrapping="WrapWithOverflow" Text="Ønsker du en samtale med en eud vejleder?" FontSize="16" HorizontalAlignment="Center" />
+                        <DockPanel Style="{StaticResource docKnapH}">
+                            <RadioButton x:Name="rbEudJa" Content="Ja" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <RadioButton.RenderTransform>
+                                    <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                </RadioButton.RenderTransform>
+                            </RadioButton>
+                            <RadioButton x:Name="rbEudNej" Content="Nej" Style="{StaticResource rbnNej}">
+                                <RadioButton.RenderTransform>
+                                    <ScaleTransform ScaleX="1.6" ScaleY="1.6" />
+                                </RadioButton.RenderTransform>
+                            </RadioButton>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
             </Border>
         </StackPanel>
     </Grid>

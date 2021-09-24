@@ -64,6 +64,9 @@ namespace GFElevInterview.Tools
         }
 
         //TODO @Victor Doku og udvidelse
+        /// <summary>
+        /// Viser en besked om at de har skrevet et forkert password ind og at adgangen derfor er nægtet.
+        /// </summary>
         public static void OnFailedLoginAttempt() {
             breadText = "Forkert password, adgang nægtet.";
             captionText = msgError;
@@ -71,6 +74,29 @@ namespace GFElevInterview.Tools
             ShowAlertBox();
         }
 
+        //TODO @Victor Doku 
+        /// <summary>
+        /// Viser en besked som bekræfter at ens password er blevet ændret.
+        /// </summary>
+        public static void OnSuccessfulPasswordChange()
+        {
+            breadText = "Password Ændret.";
+            captionText = msgError;
+
+            ShowAlertBox();
+        }
+
+        //TODO @Victor Doku 
+        /// <summary>
+        /// Viser en besked som poper op hvis passwordene ikke passer ens over hinanden.
+        /// </summary>
+        public static void OnFailedMatchingPasswords()
+        {
+            breadText = "Password´ene passede ikke, prøv igen.";
+            captionText = msgError;
+
+            ShowAlertBox();
+        }
         /// <summary>
         /// Som navnet hentyder til, så burde denne fejlboks aldrig blive vist.
         /// Den eksisterer med det eneste formål at fortælle brugeren at de skal kontakte devs.

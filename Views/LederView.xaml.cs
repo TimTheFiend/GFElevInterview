@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using BC = BCrypt.Net.BCrypt;
 
 namespace GFElevInterview.Views
 {
@@ -17,7 +19,7 @@ namespace GFElevInterview.Views
     public partial class LederView : UserControl
     {
         private ElevModel elev;
-
+        private static Grid lederOverlayLoading;
         public LederView() {
             InitializeComponent();
             InitialiserView();
@@ -29,13 +31,15 @@ namespace GFElevInterview.Views
         //On Constructor call
         private void InitialiserView() {
             InitialiserDataGrid();
+
+            lederOverlayLoading = overlayLoading;
         }
 
         private void InitialiserDataGrid() {
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
-        //Putter info ind fra App.Config i ComboBox
+        
         private void InitialiserSkoleComboBox() {
             cmbSchool.ItemsSource = StandardVaerdier.HentAlleSkoler();
         }
@@ -57,6 +61,7 @@ namespace GFElevInterview.Views
             Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
         }
 
+        ////TODO @Joakim Doku 
         private void ÅbenFil() {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -185,6 +190,11 @@ namespace GFElevInterview.Views
             }
         }
 
+        private void cmbUddanelse_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
@@ -214,6 +224,72 @@ namespace GFElevInterview.Views
 
         private void TilføjKnp_Click(object sender, RoutedEventArgs e) {
             ÅbenFil();
+        }
+
+        //TODO DOKU Victor
+        /// <summary>
+        /// Tjekker om de indtastede passwords passer over ens med hinanden.
+        /// Hvis de passer over ens bliver passwordet opdateret og gemt i databasen,
+        /// <br/>CurrentUser bliver NulStillet, En pop op besked bliver vist og brugeren bliver sendt til bage til login siden.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e)
+        {
+            if (txtKodeord.Text == txtValiderKodeord.Text)
+            {
+                if (DbTools.Instance.OpdaterPassword(txtKodeord.Text))
+                {
+                    AlertBoxes.OnSuccessfulPasswordChange();
+                    CurrentUser.NulstilCurrentUser();
+                    MainWindow.Instance.CheckLederEllerLogin();
+
+                }
+                else
+                {
+                    //TODO
+                    MessageBox.Show("Nej");
+                }
+            }
+            else
+            {
+                AlertBoxes.OnFailedMatchingPasswords();
+                txtKodeord.Clear();
+                txtValiderKodeord.Clear();
+            }
+        }
+
+        //TODO @Victor Doku + Navneændring
+        /// <summary>
+        /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SetBrugerInput(true);
+        }
+
+        //TODO @Victor Doku 
+        /// <summary>
+        /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SkiftPassword_btnClick(object sender, RoutedEventArgs e)
+        {
+            SetBrugerInput(false);
+        }
+
+        //TODO @Victor Doku 
+        //TODO @Joakim overvej at rykke metode
+        /// <summary>
+        /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig).
+        /// </summary>
+        /// <param name="harBrugerInput"></param>
+        public static void SetBrugerInput(bool harBrugerInput)
+        {
+            lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
