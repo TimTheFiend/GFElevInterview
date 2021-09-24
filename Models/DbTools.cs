@@ -112,6 +112,18 @@ namespace GFElevInterview.Models
         }
 
         /// <summary>
+        /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én uddannelseslinje.
+        /// </summary>
+        /// <param name="skoleNavn"></param>
+        /// <returns></returns>
+        public List<ElevModel> VisUddannelse(string uddannelseNavn) {
+            //return Elever.Where(e => e.uddannelseAdresse == skoleNavn).Select(e => e).ToList();
+            return (from e in Elever
+                    where e.UddLinje == uddannelseNavn
+                    select e).ToList();
+        }
+
+        /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én skole.
         /// </summary>
         /// <param name="skoleNavn"></param>
@@ -225,20 +237,17 @@ namespace GFElevInterview.Models
             }
         }
 
-
         /// <summary>
         /// Passworded bliver opdateret og ændringerne gemt i databasen.
         /// </summary>
         /// <param name="nytPw"></param>
         /// <returns></returns>
-        public bool OpdaterPassword(string nytPw)
-        {
+        public bool OpdaterPassword(string nytPw) {
             //TODO Crypter password
             //Data.CurrentUser.User.Password = nytPw;
             Data.CurrentUser.User.OpdaterPassword(nytPw);
             Login.Update(Data.CurrentUser.User);
             this.SaveChanges();
-
 
             return true;
         }

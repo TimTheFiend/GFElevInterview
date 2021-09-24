@@ -20,6 +20,7 @@ namespace GFElevInterview.Views
     {
         private ElevModel elev;
         private static Grid lederOverlayLoading;
+
         public LederView() {
             InitializeComponent();
             InitialiserView();
@@ -39,9 +40,9 @@ namespace GFElevInterview.Views
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
-        
         private void InitialiserSkoleComboBox() {
             cmbSchool.ItemsSource = StandardVaerdier.HentAlleSkoler();
+            cmbUddanelse.ItemsSource = StandardVaerdier.HentUddannelser(false);
         }
 
         public void OpdaterDataGrid(List<ElevModel> elevData) {
@@ -61,7 +62,7 @@ namespace GFElevInterview.Views
             Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
         }
 
-        ////TODO @Joakim Doku 
+        ////TODO @Joakim Doku
         private void ÅbenFil() {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -190,9 +191,8 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void cmbUddanelse_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+        private void cmbUddanelse_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            OpdaterDataGrid(DbTools.Instance.VisUddannelse((sender as ComboBox).SelectedItem.ToString()));
         }
 
         //TODO kan sætte elev som tom række
@@ -234,25 +234,19 @@ namespace GFElevInterview.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e)
-        {
-            if (txtKodeord.Text == txtValiderKodeord.Text)
-            {
-                if (DbTools.Instance.OpdaterPassword(txtKodeord.Text))
-                {
+        private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e) {
+            if (txtKodeord.Text == txtValiderKodeord.Text) {
+                if (DbTools.Instance.OpdaterPassword(txtKodeord.Text)) {
                     AlertBoxes.OnSuccessfulPasswordChange();
                     CurrentUser.NulstilCurrentUser();
                     MainWindow.Instance.CheckLederEllerLogin();
-
                 }
-                else
-                {
+                else {
                     //TODO
                     MessageBox.Show("Nej");
                 }
             }
-            else
-            {
+            else {
                 AlertBoxes.OnFailedMatchingPasswords();
                 txtKodeord.Clear();
                 txtValiderKodeord.Clear();
@@ -265,30 +259,27 @@ namespace GFElevInterview.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click(object sender, RoutedEventArgs e) {
             SetBrugerInput(true);
         }
 
-        //TODO @Victor Doku 
+        //TODO @Victor Doku
         /// <summary>
         /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SkiftPassword_btnClick(object sender, RoutedEventArgs e)
-        {
+        private void SkiftPassword_btnClick(object sender, RoutedEventArgs e) {
             SetBrugerInput(false);
         }
 
-        //TODO @Victor Doku 
+        //TODO @Victor Doku
         //TODO @Joakim overvej at rykke metode
         /// <summary>
         /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig).
         /// </summary>
         /// <param name="harBrugerInput"></param>
-        public static void SetBrugerInput(bool harBrugerInput)
-        {
+        public static void SetBrugerInput(bool harBrugerInput) {
             lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
