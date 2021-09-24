@@ -25,6 +25,7 @@ namespace GFElevInterview.Views
             InitializeComponent();
             InitialiserView();
             InitialiserSkoleComboBox();
+            InitialiserUddannelsesComboBox();
 
             btnReset.Click += ResetButton_Click;
         }
@@ -44,6 +45,12 @@ namespace GFElevInterview.Views
             cmbSchool.ItemsSource = StandardVaerdier.HentAlleSkoler();
             cmbUddanelse.ItemsSource = StandardVaerdier.HentUddannelser(false);
         }
+
+        private void InitialiserUddannelsesComboBox()
+        {
+            cmbUddanelse.ItemsSource = StandardVaerdier.HentUddannelserCmb();
+        }
+
 
         public void OpdaterDataGrid(List<ElevModel> elevData) {
             gridElevTabel.ItemsSource = elevData;
