@@ -36,7 +36,7 @@ namespace GFElevInterview.Views
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             LoginModel admin = DbTools.Instance.Login.SingleOrDefault(x => x.id == 1);
             if (BC.Verify(txtPassword.Password, admin.password)) {
-                CurrentUser.User = admin;
+                Data.CurrentUser.User = admin;
                 this.parent.LoginTilLederView();
             }
             else {

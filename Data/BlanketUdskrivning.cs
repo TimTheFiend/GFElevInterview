@@ -44,17 +44,17 @@ namespace GFElevInterview.Data
                 //Side 3 Dansk
                 pdfFormFields.SetField("Bemærk 1", CurrentElev.elev.DanNiveau.ToString());
                 pdfFormFields.SetField("kompetence 1", "Dansk");
-                pdfFormFields.SetField("Metrit 1", CurrentElev.elev.danskNiveau > FagNiveau.F ? "Yes" : "No");
+                pdfFormFields.SetField("Metrit 1", CurrentElev.elev.DanNiveau > FagNiveau.F ? "Yes" : "No");
 
                 //Side 3 Matematik
                 pdfFormFields.SetField("Bemærk 2", CurrentElev.elev.MatNiveau.ToString());
                 pdfFormFields.SetField("kompetence 2", "Matematik");
-                pdfFormFields.SetField("Metrit 2", CurrentElev.elev.matematikNiveau > FagNiveau.F ? "Yes" : "No");
+                pdfFormFields.SetField("Metrit 2", CurrentElev.elev.MatNiveau > FagNiveau.F ? "Yes" : "No");
 
                 //Side 3 Engelsk
                 pdfFormFields.SetField("Bemærk 3", CurrentElev.elev.EngNiveau.ToString());
                 pdfFormFields.SetField("kompetence 3", "Engelsk");
-                pdfFormFields.SetField("Metrit 3", CurrentElev.elev.engelskNiveau > FagNiveau.F ? "Yes" : "No");
+                pdfFormFields.SetField("Metrit 3", CurrentElev.elev.EngNiveau > FagNiveau.F ? "Yes" : "No");
 
                 //TODO Side 4 Grundforløb
                 //NOTE laver udregningen her, ellers er der ingen værdi.

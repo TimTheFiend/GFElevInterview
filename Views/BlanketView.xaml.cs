@@ -198,8 +198,7 @@ namespace GFElevInterview.Views
 
         private void btnVisAlle_Click(object sender, RoutedEventArgs e)
         {
-            List<ElevModel> elevModels = DbTools.Instance.Elever.ToList();
-            lstSearch.ItemsSource = elevModels;
+            lstSearch.ItemsSource = DbTools.Instance.VisAlle();
         }
     }
 }
