@@ -48,6 +48,8 @@ namespace GFElevInterview
 
             SetBrugerInput(true);
 
+            Tools.StandardVaerdier.HentCounterDict();
+
             //Viser `BlanketView` ved opstart.
             UnderviserButton_Click(btnUnderviser, new RoutedEventArgs());
         }
@@ -64,14 +66,17 @@ namespace GFElevInterview
         public static void OpdaterSkoleOptæller() {
             //var dict = Data.AdminTools.HentAntalEleverPåSkole();
             Dictionary<string, int> skoleAntal = Models.DbTools.Instance.GetAntalEleverPerSkole();  //Placeholder
+
+            string[] skoleDictNavne = Tools.StandardVaerdier.HentSkoleDictKeys;
+
             try {
-                countBallerup.Text = skoleAntal[RessourceFil.ballerup].ToString();
-                countFredriksberg.Text = skoleAntal[RessourceFil.frederiksberg].ToString();
-                countLyngby.Text = skoleAntal[RessourceFil.lyngby].ToString();
+                countBallerup.Text = skoleAntal[skoleDictNavne[0]].ToString();
+                countFredriksberg.Text = skoleAntal[skoleDictNavne[1]].ToString();
+                countLyngby.Text = skoleAntal[skoleDictNavne[2]].ToString();
 
                 //NOTE Dum løsning på problemet.
-                countBallerupPlus.Text = skoleAntal[RessourceFil.skoleMerit.Substring(0, 3)].ToString();
-                countBallerupFuldt.Text = skoleAntal[RessourceFil.skoleIngenMerit.Substring(0, 3)].ToString();
+                countBallerupPlus.Text = skoleAntal[skoleDictNavne[3]].ToString();
+                countBallerupFuldt.Text = skoleAntal[skoleDictNavne[4]].ToString();
             }
             catch (KeyNotFoundException e) {
                 MessageBox.Show(e.Message);

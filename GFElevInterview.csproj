@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>download.ico.ico</ApplicationIcon>
+    <ApplicationIcon>tec_logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

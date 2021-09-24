@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GFElevInterview.Data
+namespace GFElevInterview.Tools
 {
     /// <summary>
     /// En statisk klasse der indeholder forskellige <see cref="MessageBox"/> variationer til forskellige situationer.

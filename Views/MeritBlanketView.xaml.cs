@@ -1,4 +1,5 @@
 ﻿using GFElevInterview.Data;
+using GFElevInterview.Tools;
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
 using System;
@@ -16,6 +17,7 @@ namespace GFElevInterview.Views
 
         public MeritBlanketView(BlanketView parent) {
             InitializeComponent();
+
             this.parent = parent;
             InitialiserBlanket();
 

@@ -1,6 +1,7 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
+using GFElevInterview.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,7 +89,7 @@ namespace GFElevInterview.Views
                         NulstilBlanketView();
                         MainWindow.SetBrugerInput(true);
                     });
-                    
+
                     AlertBoxes.OnFinishedInterview();
                 }
             }
@@ -109,8 +110,7 @@ namespace GFElevInterview.Views
         //TODO ryk til DbTools
         private bool OpdaterElevIDatabase() {
             try {
-                DbTools.Instance.Elever.Update(CurrentElev.elev);
-                DbTools.Instance.SaveChanges();
+                DbTools.Instance.OpdaterElevData(CurrentElev.elev);
                 return true;
             }
             catch (Exception) {
@@ -162,18 +162,13 @@ namespace GFElevInterview.Views
         /// EventHandler når der indtastes noget i <see cref="txtSearch"/>.
         /// </summary>
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
-            string text = txtSearch.Text;
+            string query = (sender as TextBox).Text;
             lstSearch.ItemsSource = null;
-            if (String.IsNullOrEmpty(text)) {
+            if (string.IsNullOrEmpty(query)) {
                 return;
             }
             //TODO Ryk til DbTools
-            List<ElevModel> elevModels = DbTools.Instance.Elever.Where(
-                elev => elev.efternavn.ToLower().StartsWith(text.ToLower())
-                || elev.cprNr.StartsWith(text)
-                || elev.fornavn.ToLower().StartsWith(text.ToLower())
-                ).ToList();
-            lstSearch.ItemsSource = elevModels;
+            lstSearch.ItemsSource = DbTools.Instance.SearchElever(query);
         }
 
         /// <summary>

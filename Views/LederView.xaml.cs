@@ -1,5 +1,6 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Models;
+using GFElevInterview.Tools;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -149,13 +150,13 @@ namespace GFElevInterview.Views
 
         private void ExportMerit_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportMerit()) {
-                AdminTools.KombinerMeritFiler();
+                FilHandler.KombinerMeritFiler();
             }
         }
 
         private void ExportRKV_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportRKV()) {
-                AdminTools.ZipRKVFiler();
+                FilHandler.ZipRKVFiler();
             }
         }
 
@@ -217,7 +218,10 @@ namespace GFElevInterview.Views
 
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportMerit()) {
-                DbTools.Instance.NulstilEleverOgSletBlanketter();
+                if (DbTools.Instance.NulstilEleverAlt()) {
+                    visAlle_Click(btnVisAlle, new RoutedEventArgs());
+                    MessageBox.Show("SUC RESET");
+                }
             }
         }
     }
