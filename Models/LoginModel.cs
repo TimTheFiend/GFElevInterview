@@ -15,7 +15,14 @@ namespace GFElevInterview.Models
         [Required]
         [MinLength(4)]
         [DataType(DataType.Password)]
-        public string password { get; set; }
+        public string password {
+            get { return password; }
+            set
+            {
+                password = BC.HashPassword(value);
+            }
+        }
+
 
         public LoginModel CreateInitialLogin() {
             return new LoginModel() {
@@ -25,10 +32,17 @@ namespace GFElevInterview.Models
             };
         }
 
-        public bool ChangePassword(string newPassword) {
+        public bool OpdaterPassword(string nytPw, string _nytPw) {
+            if(nytPw != _nytPw)
+            {
+                return false;
+            }
+
+            return true;
+
             LoginModel loginDB = DbTools.Instance.Login.SingleOrDefault(x => x.id == 1);
 
-            loginDB.password = BC.HashPassword(newPassword);
+            loginDB.password = BC.HashPassword(nytPw);
 
             DbTools.Instance.Login.Update(loginDB);
             DbTools.Instance.SaveChanges();

@@ -63,6 +63,10 @@ namespace GFElevInterview
         //TODO ordinær+ og fuldtforløb
         public static void OpdaterSkoleOptæller() {
             //var dict = Data.AdminTools.HentAntalEleverPåSkole();
+            if(Models.DbTools.Instance == null)
+            {
+                System.Console.WriteLine();
+            }
             Dictionary<string, int> skoleAntal = Models.DbTools.Instance.GetAntalEleverPerSkole();  //Placeholder
             try {
                 countBallerup.Text = skoleAntal[RessourceFil.ballerup].ToString();

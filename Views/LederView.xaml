@@ -80,7 +80,7 @@
                 <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
+        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Visible">
             <Border Background="Black" Opacity="0.35"/>
             <Button Width="90" Height="70" Content="Tilbage" VerticalAlignment="Top" HorizontalAlignment="Right" Background="LightGray" Click="Button_Click"/>
             <StackPanel VerticalAlignment="Center">

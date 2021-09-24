@@ -225,19 +225,22 @@ namespace GFElevInterview.Views
 
         private void btnValiderKodeord_Click(object sender, RoutedEventArgs e)
         {
-            if (txtKodeord.Text == txtValiderKodeord.Text)
-            {
-                    
-            }
-            //if (BC.Verify(txtKodeord.Text, DbTools.Instance.Login.SingleOrDefault(x => x.id == 1).password))
+            //if (txtKodeord.Text == txtValiderKodeord.Text)
             //{
-            //    this.parent.LoginTilLederView();
+            //    if(DbTools.Instance.OpdaterPassword(txtKodeord.Text))
+            //    {
+            //        MessageBox.Show("PÆ");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Nej");
+            //    }
             //}
-            else
-            {
-                AlertBoxes.OnFailedLoginAttempt();
-                txtKodeord.Clear();
-            }
+            //else
+            //{
+            //    AlertBoxes.OnFailedLoginAttempt();
+            //    txtKodeord.Clear();
+            //}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
