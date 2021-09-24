@@ -64,6 +64,9 @@ namespace GFElevInterview.Data
         }
 
         //TODO @Victor Doku og udvidelse
+        /// <summary>
+        /// Viser en besked om at de har skrevet et forkert password ind og at adgangen derfor er nægtet.
+        /// </summary>
         public static void OnFailedLoginAttempt() {
             breadText = "Forkert password, adgang nægtet.";
             captionText = msgError;
@@ -72,6 +75,9 @@ namespace GFElevInterview.Data
         }
 
         //TODO @Victor Doku 
+        /// <summary>
+        /// Viser en besked som bekræfter at ens password er blevet ændret.
+        /// </summary>
         public static void OnSuccessfulPasswordChange()
         {
             breadText = "Password Ændret.";
@@ -81,6 +87,9 @@ namespace GFElevInterview.Data
         }
 
         //TODO @Victor Doku 
+        /// <summary>
+        /// Viser en besked som poper op hvis passwordene ikke passer ens over hinanden.
+        /// </summary>
         public static void OnFailedMatchingPasswords()
         {
             breadText = "Password´ene passede ikke, prøv igen.";

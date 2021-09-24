@@ -19,15 +19,16 @@
 
                 <Border Grid.Row="0" BorderBrush="Gray">
 
-                    <WrapPanel>
+                    <DockPanel>
                         <Label FontSize="20" FontWeight="Bold" FontStyle="Italic">Søg elev:</Label>
-                        <TextBox x:Name="txtSearch" Width="650" Height="30" Background="WhiteSmoke" TextChanged="SearchStudentTxt_TextChanged" VerticalContentAlignment="Center" FontSize="15" />
-                    </WrapPanel>
+                        <TextBox x:Name="txtSearch" Style="{StaticResource txtSearchB}" TextChanged="SearchStudentTxt_TextChanged"/>
+                        <Separator Width="5" Background="Transparent"/>
+                        <Button Width="80" Height="30" Content="Vis Alle Elever" x:Name="btnVisAlle" Click="btnVisAlle_Click"/>
+                    </DockPanel>
                 </Border>
 
                 <Border Grid.Row="1" BorderBrush="Gray">
-
-                    <ListBox x:Name="lstSearch" Background="WhiteSmoke" SelectionChanged="SearchStudentBox_SelectionChanged">
+                    <ListBox x:Name="lstSearch" SelectionChanged="SearchStudentBox_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource lstSearchB}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}" />

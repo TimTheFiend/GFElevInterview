@@ -28,6 +28,11 @@ namespace GFElevInterview.Models
         }
 
         //TODO @Victor Doku 
+        /// <summary>
+        /// Passworded bliver opdateret og ændringerne gemt i databasen.
+        /// </summary>
+        /// <param name="nytPw"></param>
+        /// <returns></returns>
         public bool OpdaterPassword(string nytPw)
         {
             //TODO Crypter password

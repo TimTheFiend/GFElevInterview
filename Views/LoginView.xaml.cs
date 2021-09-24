@@ -18,10 +18,21 @@ namespace GFElevInterview.Views
             InitializeComponent();
 
             this.parent = parent;
+            this.Loaded += Window_Loaded;
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtPassword.Focus();
         }
 
         //TODO @Victor Doku 
+        /// <summary>
+        /// Login Tjekker om vores indtastet password passer over ens med det password(som bliver ukrypteret) fra databasen.
+        /// <br/> Brugeren vil herefter forblive logget ind som leder.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             LoginModel admin = DbTools.Instance.Login.SingleOrDefault(x => x.id == 1);
             if (BC.Verify(txtPassword.Password, admin.password)) {

@@ -224,6 +224,13 @@ namespace GFElevInterview.Views
         }
 
         //TODO DOKU Victor
+        /// <summary>
+        /// Tjekker om de indtastede passwords passer over ens med hinanden.
+        /// Hvis de passer over ens bliver passwordet opdateret og gemt i databasen,
+        /// <br/>CurrentUser bliver NulStillet, En pop op besked bliver vist og brugeren bliver sendt til bage til login siden.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e)
         {
             if (txtKodeord.Text == txtValiderKodeord.Text)
@@ -274,7 +281,7 @@ namespace GFElevInterview.Views
         //TODO @Victor Doku 
         //TODO @Joakim overvej at rykke metode
         /// <summary>
-        /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig)/> 
+        /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig).
         /// </summary>
         /// <param name="harBrugerInput"></param>
         public static void SetBrugerInput(bool harBrugerInput)

@@ -15,12 +15,18 @@ namespace GFElevInterview.Data
         }
 
         //TODO @Victor Doku 
+        /// <summary>
+        /// NulStiller CurrentUser hvis kaldet.
+        /// </summary>
         public static void NulstilCurrentUser()
         {
             User = new LoginModel();
         }
 
         //TODO @Victor Doku 
+        /// <summary>
+        /// Checker om CurrentUser er loget ind eller ej.
+        /// </summary>
         public static bool ErLoggetInd
         {
             get
