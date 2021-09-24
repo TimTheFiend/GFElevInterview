@@ -71,7 +71,17 @@ namespace GFElevInterview.Data
             ShowAlertBox();
         }
 
-        public static void OnFailedMatchAttempt()
+        //TODO @Victor Doku 
+        public static void OnSuccessfulPasswordChange()
+        {
+            breadText = "Password Ændret.";
+            captionText = msgError;
+
+            ShowAlertBox();
+        }
+
+        //TODO @Victor Doku 
+        public static void OnFailedMatchingPasswords()
         {
             breadText = "Password´ene passede ikke, prøv igen.";
             captionText = msgError;

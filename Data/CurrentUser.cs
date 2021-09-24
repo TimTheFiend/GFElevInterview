@@ -11,9 +11,16 @@ namespace GFElevInterview.Data
 
         static CurrentUser()
         {
+            NulstilCurrentUser();
+        }
+
+        //TODO @Victor Doku 
+        public static void NulstilCurrentUser()
+        {
             User = new LoginModel();
         }
 
+        //TODO @Victor Doku 
         public static bool ErLoggetInd
         {
             get

@@ -18,7 +18,6 @@ namespace GFElevInterview.Views
     public partial class LederView : UserControl
     {
         private ElevModel elev;
-        private MainWindow parent;
         private static Grid lederOverlayLoading;
         public LederView() {
             InitializeComponent();
@@ -37,7 +36,7 @@ namespace GFElevInterview.Views
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
-        //Putter info ind fra App.Config i ComboBox
+        
         private void InitialiserSkoleComboBox() {
             cmbSchool.ItemsSource = StandardVaerdier.HentAlleSkoler();
         }
@@ -59,6 +58,7 @@ namespace GFElevInterview.Views
             Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
         }
 
+        ////TODO @Joakim Doku 
         private void ÅbenFil() {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -223,36 +223,60 @@ namespace GFElevInterview.Views
             ÅbenFil();
         }
 
-        private void btnValiderKodeord_Click(object sender, RoutedEventArgs e)
+        //TODO DOKU Victor
+        private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e)
         {
-            //if (txtKodeord.Text == txtValiderKodeord.Text)
-            //{
-            //    if(DbTools.Instance.OpdaterPassword(txtKodeord.Text))
-            //    {
-            //        MessageBox.Show("PÆ");
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Nej");
-            //    }
-            //}
-            //else
-            //{
-            //    AlertBoxes.OnFailedLoginAttempt();
-            //    txtKodeord.Clear();
-            //}
+            if (txtKodeord.Text == txtValiderKodeord.Text)
+            {
+                if (DbTools.Instance.OpdaterPassword(txtKodeord.Text))
+                {
+                    AlertBoxes.OnSuccessfulPasswordChange();
+                    CurrentUser.NulstilCurrentUser();
+                    MainWindow.Instance.CheckLederEllerLogin();
+
+                }
+                else
+                {
+                    //TODO
+                    MessageBox.Show("Nej");
+                }
+            }
+            else
+            {
+                AlertBoxes.OnFailedMatchingPasswords();
+                txtKodeord.Clear();
+                txtValiderKodeord.Clear();
+            }
         }
 
+        //TODO @Victor Doku + Navneændring
+        /// <summary>
+        /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SetBrugerInput(true);
         }
 
-        private void btnSkiftPassword_Click(object sender, RoutedEventArgs e)
+        //TODO @Victor Doku 
+        /// <summary>
+        /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SkiftPassword_btnClick(object sender, RoutedEventArgs e)
         {
             SetBrugerInput(false);
         }
 
+        //TODO @Victor Doku 
+        //TODO @Joakim overvej at rykke metode
+        /// <summary>
+        /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig)/> 
+        /// </summary>
+        /// <param name="harBrugerInput"></param>
         public static void SetBrugerInput(bool harBrugerInput)
         {
             lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;

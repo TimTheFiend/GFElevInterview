@@ -55,7 +55,7 @@
             <Separator Style="{StaticResource SepSpaceH}" />
             <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" Click="Open_Merit_Click" IsEnabled="False" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button  Width="80" Height="25" x:Name="btnSkiftPassword" Content="Skift Password" Click="btnSkiftPassword_Click"/>
+            <Button  Width="80" Height="25" x:Name="btnSkiftPassword" Content="Skift Password" Click="SkiftPassword_btnClick"/>
         </StackPanel>
 
         <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -82,15 +82,18 @@
         </DataGrid>
         <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Visible">
             <Border Background="Black" Opacity="0.35"/>
-            <Button Width="90" Height="70" Content="Tilbage" VerticalAlignment="Top" HorizontalAlignment="Right" Background="LightGray" Click="Button_Click"/>
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Width="200" Height="20" Text="Kodeord"/>
+                <TextBlock Width="200" Height="20" Text="Kodeord" FontSize="16" TextAlignment="Justify"/>
                 <TextBox Width="200" Height="20" x:Name="txtKodeord"/>
                 <Separator Height="12" Background="Transparent"/>
-                <TextBlock Width="200" Height="20" Text="Bekræft Kodeord"/>
+                <TextBlock Width="200" Height="20" Text="Bekræft Kodeord" FontSize="16" TextAlignment="Justify"/>
                 <TextBox Width="200" Height="20" x:Name="txtValiderKodeord"/>
                 <Separator Height="12" Background="Transparent"/>
-                <Button Width="100" Height="30" Content="Skift Kodeord" x:Name="btnValiderKodeord" Click="btnValiderKodeord_Click"/>
+                <DockPanel HorizontalAlignment="Center">
+                    <Button Width="95" Height="30" FontSize="15" Content="Tilbage" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightCyan" Click="Button_Click"/>
+                    <Separator Width="10"/>
+                    <Button Width="95" Height="30" FontSize="15" Content="Skift Kodeord" x:Name="btnValiderKodeord" Background="LightCyan" Click="ValiderOpdaterPassword_btnClick"/>
+                </DockPanel>
             </StackPanel>
         </Grid>
     </Grid>

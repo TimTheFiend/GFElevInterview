@@ -12,7 +12,6 @@ namespace GFElevInterview.Views
     /// </summary>
     public partial class LoginView : UserControl
     {
-        private static readonly string _password = "root";
         private MainWindow parent;
 
         public LoginView(MainWindow parent) {
@@ -20,13 +19,9 @@ namespace GFElevInterview.Views
 
             this.parent = parent;
 
-            //if(CurrentUser.User != null)
-            //{
-            //    this.parent.LoginTilLederView();
-            //}
         }
 
-        //Basic login check
+        //TODO @Victor Doku 
         private void btnLogin_Click(object sender, RoutedEventArgs e) {
             LoginModel admin = DbTools.Instance.Login.SingleOrDefault(x => x.id == 1);
             if (BC.Verify(txtPassword.Password, admin.password)) {

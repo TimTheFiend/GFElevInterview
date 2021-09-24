@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using BC = BCrypt.Net.BCrypt;
 
@@ -15,14 +16,15 @@ namespace GFElevInterview.Models
         [Required]
         [MinLength(4)]
         [DataType(DataType.Password)]
-        public string password {
-            get { return password; }
-            set
-            {
-                password = BC.HashPassword(value);
-            }
+        public string password { get; set; }
+
+        public void OpdaterPassword(string nytPassword)
+        {
+            password = BC.HashPassword(nytPassword);
         }
 
+        [NotMapped]
+        public string Password { get { return password; } set { password = BC.HashPassword(value); } }
 
         public LoginModel CreateInitialLogin() {
             return new LoginModel() {
@@ -32,22 +34,6 @@ namespace GFElevInterview.Models
             };
         }
 
-        public bool OpdaterPassword(string nytPw, string _nytPw) {
-            if(nytPw != _nytPw)
-            {
-                return false;
-            }
-
-            return true;
-
-            LoginModel loginDB = DbTools.Instance.Login.SingleOrDefault(x => x.id == 1);
-
-            loginDB.password = BC.HashPassword(nytPw);
-
-            DbTools.Instance.Login.Update(loginDB);
-            DbTools.Instance.SaveChanges();
-
-            return true;
-        }
+        
     }
 }

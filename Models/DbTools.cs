@@ -27,11 +27,12 @@ namespace GFElevInterview.Models
             this.Database.EnsureCreated();  //Gør at vi sikre os at databasen eksisterer, ellers laver den databasen.
         }
 
+        //TODO @Victor Doku 
         public bool OpdaterPassword(string nytPw)
         {
-            return false;
             //TODO Crypter password
-            Data.CurrentUser.User.password = nytPw;
+            //Data.CurrentUser.User.Password = nytPw;
+            Data.CurrentUser.User.OpdaterPassword(nytPw);
             Login.Update(Data.CurrentUser.User);
             this.SaveChanges();
 

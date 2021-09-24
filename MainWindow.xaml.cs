@@ -103,7 +103,13 @@ namespace GFElevInterview
         /// <summary>
         /// Viser <see cref="Views.LoginView"/> viewet, før <see cref="Views.LederView"/> bliver vist.
         /// </summary>
-        private void LederButton_Click(object sender, RoutedEventArgs e) {
+        private void LederButton_Click(object sender, RoutedEventArgs e)
+        {
+            CheckLederEllerLogin();
+        }
+
+        public void CheckLederEllerLogin()
+        {
             if (Data.CurrentUser.ErLoggetInd)
             {
                 mainContent.Content = new Views.LederView();
