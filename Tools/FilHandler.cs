@@ -5,6 +5,8 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO.Compression;
 using System.Linq;
+using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace GFElevInterview.Tools
 {
@@ -89,6 +91,29 @@ namespace GFElevInterview.Tools
                 zip.CreateEntryFromFile(filNavn, Path.GetFileName(filNavn), CompressionLevel.Optimal);
             }
             zip.Dispose();
+        }
+
+        /// <summary>
+        /// Åbner en ny instans af Explorer med den valgte fil selected.
+        /// </summary>
+        public static void VisBlanketIExplorer(string filNavn) {
+            string curDir = Directory.GetCurrentDirectory();
+            int index = curDir.LastIndexOf('\\');
+
+            string filSti = Path.Combine(curDir.Substring(0, index), RessourceFil.outputMappeNavn, filNavn);
+            Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
+        }
+
+        public static void OpenFileDialog() {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
+
+            bool? result = openFile.ShowDialog();
+
+            if ((bool)result) {
+                //TODO
+            }
         }
     }
 }

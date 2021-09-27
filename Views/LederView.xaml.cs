@@ -56,6 +56,7 @@ namespace GFElevInterview.Views
             gridElevTabel.ItemsSource = elevData;
         }
 
+        //TODO FilHandler.VisBlanketIExplorer(blanketNavn);
         /// <summary>
         /// Åbner en ny stifinder og viser den valgte fil.
         /// </summary>
@@ -69,7 +70,7 @@ namespace GFElevInterview.Views
             Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
         }
 
-        ////TODO @Joakim Doku
+        //TODO ryk ind i Tools/Filhandler hvis muligt.
         private void ÅbenFil() {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -143,12 +144,15 @@ namespace GFElevInterview.Views
 
         #endregion Knap metoder
 
+        #region TODO Implementer HentBlanket_btnClick
+
+        //TODO implementer i stedet for at have 2 andre
+        private void HentBlanket_btnClick(object sender, RoutedEventArgs e) {
+            ÅbenFilPlacering((sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
+        }
+
         private void Open_Merit_Click(object sender, RoutedEventArgs e) {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
+
             ÅbenFilPlacering(elev.FilnavnMerit);
         }
 
@@ -159,6 +163,24 @@ namespace GFElevInterview.Views
             //    return;
             //}
             ÅbenFilPlacering(elev.FilnavnRKV);
+        }
+        #endregion TODO Implementer HentBlanket_btnClick
+
+        #region TODO implementer Eksporter_btnClick
+
+        private void Eksporter_btnClick(object sender, RoutedEventArgs e) {
+            switch ((sender as Button) == btnOpen_Merit) {
+                case true:
+                    if (AlertBoxes.OnExportMerit()) {
+                        FilHandler.KombinerMeritFiler();
+                    }
+                    break;
+                case false:
+                    if (AlertBoxes.OnExportRKV()) {
+                        FilHandler.ZipRKVFiler();
+                    }
+                    break;
+            }
         }
 
         private void ExportMerit_Click(object sender, RoutedEventArgs e) {
@@ -172,6 +194,9 @@ namespace GFElevInterview.Views
                 FilHandler.ZipRKVFiler();
             }
         }
+
+        #endregion TODO implementer Eksporter_btnClick
+
 
         private void SkoleDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if ((sender as ComboBox).SelectedIndex == -1) {
@@ -221,10 +246,11 @@ namespace GFElevInterview.Views
                 btnOpen_RKV.IsEnabled = false;
             else
                 btnOpen_RKV.IsEnabled = true;
+            
+            //NOTE understående burde være det samme som overstående.
+            btnOpen_Merit.IsEnabled = elev.DanNiveau > FagNiveau.Null;
+            btnOpen_RKV.IsEnabled = elev.ElevType > EUVType.Null;
 
-            //Er eleven færdig med interview?
-            //Hvis ja, enable knap,
-            //Hvis nej, disable knap.
         }
 
         #endregion Events
@@ -233,14 +259,11 @@ namespace GFElevInterview.Views
             ÅbenFil();
         }
 
-        //TODO DOKU Victor
         /// <summary>
         /// Tjekker om de indtastede passwords passer over ens med hinanden.
         /// Hvis de passer over ens bliver passwordet opdateret og gemt i databasen,
         /// <br/>CurrentUser bliver NulStillet, En pop op besked bliver vist og brugeren bliver sendt til bage til login siden.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e) {
             if (txtKodeord.Text == txtValiderKodeord.Text) {
                 if (DbTools.Instance.OpdaterPassword(txtKodeord.Text)) {
@@ -260,28 +283,20 @@ namespace GFElevInterview.Views
             }
         }
 
-        //TODO @Victor Doku + Navneændring
         /// <summary>
         /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e) {
             SetBrugerInput(true);
         }
 
-        //TODO @Victor Doku
         /// <summary>
         /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SkiftPassword_btnClick(object sender, RoutedEventArgs e) {
             SetBrugerInput(false);
         }
 
-        //TODO @Victor Doku
-        //TODO @Joakim overvej at rykke metode
         /// <summary>
         /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig).
         /// </summary>
@@ -290,6 +305,7 @@ namespace GFElevInterview.Views
             lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
+        //TODO Alertboxes
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportMerit()) {
                 if (DbTools.Instance.NulstilEleverAlt()) {
