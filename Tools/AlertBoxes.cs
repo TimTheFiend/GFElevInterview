@@ -64,6 +64,15 @@ namespace GFElevInterview.Tools
         }
 
         /// <summary>
+        /// Viser en besked om at intet nyt er blevet tilføjet.
+        /// </summary>
+        public static void OnExcelReadingExist()
+        {
+            breadText = "Der er intet nyt som kan tilføjes til databasen";
+            captionText = msgError;
+        }
+
+        /// <summary>
         /// Viser en besked om at de har skrevet et forkert password ind og at adgangen derfor er nægtet.
         /// </summary>
         public static void OnFailedLoginAttempt() {

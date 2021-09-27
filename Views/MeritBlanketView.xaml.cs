@@ -57,6 +57,10 @@ namespace GFElevInterview.Views
         }
 
         //TODO
+        /// <summary>
+        /// Hvis den valgte elev har informationer i databasen, så vil blanketten blive udfyldt med de overenstående informationer.
+        /// Dette gøres ved at sige om det er en combobox eller en radio button, og fortæller herefter hvad der skal indsættes.
+        /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
             if (CurrentElev.elev.DanNiveau > FagNiveau.Null) {
                 UdfyldBlanket.UdfyldComboBox(cmbDansk, (int)CurrentElev.elev.DanNiveau - 1);
@@ -112,6 +116,9 @@ namespace GFElevInterview.Views
         }
 
         //
+        /// <summary>
+        /// Overfør værdier fra programmet til CurrentElev Objektet.
+        /// </summary>
         private void SætCurrentElevVærdier() {
             CurrentElev.elev.DanNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
             CurrentElev.elev.EngNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
@@ -128,6 +135,7 @@ namespace GFElevInterview.Views
 
         /// <summary>
         /// check at der skal have værdi
+        /// Checker om "erValideret" er true eller false, ved at tjekke inputtet fra en udvalgt sektion (sektion er dansk, engelsk eller matematik værdier som tjekkes, under vær sin kategori).
         /// </summary>
         /// <returns><c>true</c> hvis valideret; ellers <c>false</c></returns>
         private bool ErValideret() {
@@ -147,8 +155,10 @@ namespace GFElevInterview.Views
         }
 
         // TODO
-        ///Mangel på obejct refernce i CurrentElev.elev.niveau
-        ///CurrentElev.elev virker til at have mangel på informationer, hvilket kunne skyldes
+        /// <summary>
+        /// Mangel på obejct refernce i CurrentElev.elev.niveau
+        /// CurrentElev.elev virker til at have mangel på informationer, hvilket kunne skyldes
+        /// </summary>
         private void ComboboxFagNiveau_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ComboBox cb = sender as ComboBox;
             int selectedIndex = cb.SelectedIndex + 1;

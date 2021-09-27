@@ -283,6 +283,13 @@ namespace GFElevInterview.Views
             lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
+        /// <summary>
+        /// En besked vil poppe op som vil spørge om man er sikker på om man vil nulstille databasen.
+        /// Databasen nulstiller alle eleverne i databasen, hvorefter at datagridviewet bliver nulstillet.
+        /// Når alt er blevet nulstillet, så vil en besked poppe op som bekræfter at alt gik godt.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportMerit()) {
                 if (DbTools.Instance.NulstilEleverAlt()) {
