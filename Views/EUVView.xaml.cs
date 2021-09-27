@@ -26,32 +26,47 @@ namespace GFElevInterview.Views
             InitialiserBlanket();
         }
 
+        /// <summary>
+        /// Klargører viewet til brug ved opstart.
+        /// </summary>
         private void InitialiserBlanket() {
             SætButtons();
 
+            #region Sæt ComboBox værdier
             cmbUddannelse.ItemsSource = Tools.StandardVaerdier.HentSkoler(CurrentElev.elev.DanNiveau > FagNiveau.F);
-            //cmbUddannelse.ItemsSource = CurrentElev.elev.ValgAfSkoler();
+            
             if (cmbUddannelse.Items.Count == 1) {
                 cmbUddannelse.SelectedIndex = 0;
             }
             cmbEducation.ItemsSource = Tools.StandardVaerdier.HentUddannelser(CurrentElev.elev.ErRKV);
 
+            #endregion Sæt ComboBox værdier
+
             OpdaterExpanders(false, false);
             UdfyldBlanketHvisAlleredeEksisterende();
         }
 
+        /// <summary>
+        /// Bliver kaldt på opstart, og ændrer <see cref="parent"/>s knappers udseende.
+        /// </summary>
         private void SætButtons() {
             parent.btnFrem.Content = "Gem";
             parent.btnTilbage.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Udfolder den passende <see cref="Expander"/> baseret på øverste RadioButton group
+        /// </summary>
         private void OpdaterExpanders(bool erEUVJa, bool erEUVNej) {
+            //Grunden til at vi modtager to bools, er pga. begge skal være gemt på opstart.
             expEuv1.IsExpanded = erEUVJa;
             expEuv1.IsEnabled = erEUVJa;
 
             expEuv2.IsExpanded = erEUVNej;
             expEuv2.IsEnabled = erEUVNej;
         }
+
+        #region Frem/Tilbage
 
         public void Frem() {
             if (ErValideret()) {
@@ -67,6 +82,8 @@ namespace GFElevInterview.Views
         public void Tilbage() {
             parent.SkiftBlanket(new MeritBlanketView(parent));
         }
+
+        #endregion Frem/Tilbage
 
         /// <summary>
         /// Sætter <see cref="CurrentElev.elev"/>s <see cref="EUVType"/> baseret på radioknapper.
@@ -151,16 +168,26 @@ namespace GFElevInterview.Views
             }
         }
 
+        /// <summary>
+        /// Sætter `IsChecked` status på <see cref="RadioButton"/>, hvis blanketten allerede er blevet udfyldt før.
+        /// </summary>
+        /// <param name="rbTop">Øverste valgte radioknap</param>
+        /// <param name="rbBund">Én radioknap fra et af de to andre sæt</param>
         private void CheckEUVRadioButton(RadioButton rbTop, RadioButton rbBund) {
             rbTop.IsChecked = true;
             rbBund.IsChecked = true;
         }
 
-        //Events
+        /// <summary>
+        /// Scroller viewet op efter item er blevet valgt.
+        /// </summary>
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scroll.Focus();
         }
 
+        /// <summary>
+        /// Udfolder den passende expander når øverste RadioButton er valgt.
+        /// </summary>
         private void UdfoldEUV_RadioButtonChecked(object sender, RoutedEventArgs e) {
             OpdaterExpanders((bool)rbEuv1Ja.IsChecked, (bool)rbEuv1Nej.IsChecked);
         }

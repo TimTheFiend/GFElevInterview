@@ -24,12 +24,15 @@ namespace GFElevInterview.Views
             SætEventHandlerComboBox();
         }
 
+        /// <summary>
+        /// Sætter EventHandlers til ComboBoxes
+        /// </summary>
         private void SætEventHandlerComboBox() {
-            //TODO ind i InitialiserComboBox
             //Combobox gets it dropdownclosed from the method called "Combobox_DropDownClosed".
             cmbMatematik.DropDownClosed += Combobox_DropDownClosed;
             cmbDansk.DropDownClosed += Combobox_DropDownClosed;
             cmbEngelsk.DropDownClosed += Combobox_DropDownClosed;
+
             //ComboBox SelectionChanged eventhandler set
             cmbDansk.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
             cmbEngelsk.SelectionChanged += ComboboxFagNiveau_SelectionChanged;
@@ -38,9 +41,12 @@ namespace GFElevInterview.Views
 
         #region Klargøring
 
-        //TODO
+
+        /// <summary>
+        /// Klargører viewet til brug ved opstart.
+        /// </summary>
         private void InitialiserBlanket() {
-            InitialiserComboBox();
+        InitialiserComboBox();
             SætKnapper();
         }
 
@@ -56,7 +62,12 @@ namespace GFElevInterview.Views
             UdfyldBlanketHvisAlleredeEksisterende();
         }
 
-        //TODO
+        /// <summary>
+        /// <br>Udfylder blanketten hvis informationerne allerede eksistere.</br>
+        /// <br>Den tjekker <see cref="CurrentElev.elev"/> for den valgte elevs informationer.</br>
+        /// <br>Knapper bliver sat ved hjælp af <see cref="UdfyldBlanket.UdfyldRadioButton(RadioButton, RadioButton, bool?)"/></br>
+        /// og comboBox med <see cref="UdfyldBlanket.UdfyldComboBox(ComboBox, string)"/>
+        /// </summary>
         private void UdfyldBlanketHvisAlleredeEksisterende() {
             if (CurrentElev.elev.DanNiveau > FagNiveau.Null) {
                 UdfyldBlanket.UdfyldComboBox(cmbDansk, (int)CurrentElev.elev.DanNiveau - 1);
@@ -72,6 +83,9 @@ namespace GFElevInterview.Views
             }
         }
 
+        /// <summary>
+        /// Bliver kaldt på opstart, og ændrer <see cref="parent"/>s knappers udseende.
+        /// </summary>
         private void SætKnapper() {
             // Bliver ændret i VisitationsView
             parent.btnFrem.Content = "Frem";
@@ -81,6 +95,8 @@ namespace GFElevInterview.Views
         }
 
         #endregion Klargøring
+
+        #region Frem/Tilbage
 
         /// <summary>
         /// Håndterer <see cref="BlanketView"/> knap funktion.
@@ -111,7 +127,11 @@ namespace GFElevInterview.Views
             return;
         }
 
-        //
+        #endregion Frem/Tilbage
+
+        /// <summary>
+        /// Sætter blanket værdier ind i <see cref="CurrentElev.elev"/>.
+        /// </summary>
         private void SætCurrentElevVærdier() {
             CurrentElev.elev.DanNiveau = (FagNiveau)cmbDansk.SelectedIndex + 1;
             CurrentElev.elev.EngNiveau = (FagNiveau)cmbEngelsk.SelectedIndex + 1;
@@ -127,7 +147,7 @@ namespace GFElevInterview.Views
         }
 
         /// <summary>
-        /// check at der skal have værdi
+        /// Tjekker om blanketten er blevet udfyldt, og highlighter border ved mangler.
         /// </summary>
         /// <returns><c>true</c> hvis valideret; ellers <c>false</c></returns>
         private bool ErValideret() {
@@ -140,15 +160,17 @@ namespace GFElevInterview.Views
             return erValideret;
         }
 
-        //Events
+        /// <summary>
+        /// Scroller viewet op efter item er blevet valgt.
+        /// </summary>
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
-            //Change the focus to scrollview in BlanketView.
             parent.scroll.Focus();
         }
 
-        // TODO
-        ///Mangel på obejct refernce i CurrentElev.elev.niveau
-        ///CurrentElev.elev virker til at have mangel på informationer, hvilket kunne skyldes
+
+        /// <summary>
+        /// Sætter valgte ComboBox item til <see cref="CurrentElev.elev"/>.
+        /// </summary>
         private void ComboboxFagNiveau_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             ComboBox cb = sender as ComboBox;
             int selectedIndex = cb.SelectedIndex + 1;
