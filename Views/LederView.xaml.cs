@@ -62,6 +62,12 @@ namespace GFElevInterview.Views
             /* ComboBox */
             cmbKategori.SelectionChanged += QueryKategori_SelectionChanged;
             cmbSubkategori.SelectionChanged += QuerySubkategori_SelectionChanged;
+            /* Password */
+            btnSkiftPassword.Click += SkiftPassword_btnClick;
+            btnValiderKodeord.Click += ValiderOpdaterPassword_btnClick;
+            btnTilbage.Click += Button_Click;
+            /* DataGrid */
+            gridElevTabel.SelectionChanged += ElevTabel_SelectionChanged;
         }
 
         /// <summary>
@@ -79,7 +85,6 @@ namespace GFElevInterview.Views
             cmbSubkategori.IsEnabled = false;
         }
 
-        //TODO DOKU
         private void InitialiserDataGrid() {
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
@@ -100,7 +105,6 @@ namespace GFElevInterview.Views
             gridElevTabel.ItemsSource = elevData;
         }
 
-        //TODO Doku
         private void VisAlleDataGrid() {
             cmbSubkategori.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
@@ -109,8 +113,10 @@ namespace GFElevInterview.Views
         #endregion Funktioner
 
         #region Datagrid EventHandler
-
-        private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+        /// <summary>
+        /// Aktiver / Deaktiver funktionalitet baseret på den valgte elev.
+        /// </summary>
+        private void ElevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
 
             if (elev == null) {
@@ -128,7 +134,9 @@ namespace GFElevInterview.Views
 
         #region Button EventHandler
 
-        //TODO doku og navngivning
+        /// <summary>
+        /// henter elever fra databasen.
+        /// </summary>
         private void HentElever_Click(object sender, RoutedEventArgs e) {
             Button btn = sender as Button;
 
@@ -157,6 +165,9 @@ namespace GFElevInterview.Views
             FilHandler.VisBlanketIExplorer((sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
         }
 
+        /// <summary>
+        /// Eksporter blanketter.
+        /// </summary>
         private void Eksporter_Click(object sender, RoutedEventArgs e) {
             switch ((sender as Button) == btnExportMerit) {
                 case true:
@@ -184,8 +195,8 @@ namespace GFElevInterview.Views
         /// <br/>CurrentUser bliver NulStillet, En pop op besked bliver vist og brugeren bliver sendt til bage til login siden.
         /// </summary>
         private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e) {
-            if (txtKodeord.Text == txtValiderKodeord.Text) {
-                if (DbTools.Instance.OpdaterPassword(txtKodeord.Text)) {
+            if (txtKodeord.Password == txtValiderKodeord.Password) {
+                if (DbTools.Instance.OpdaterPassword(txtKodeord.Password)) {
                     AlertBoxes.OnSuccessfulPasswordChange();
                     CurrentUser.NulstilCurrentUser();
                     MainWindow.Instance.CheckLederEllerLogin();
