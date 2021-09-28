@@ -18,7 +18,11 @@ namespace GFElevInterview.Tools
 
         public static string SamletMeritFilnavn => RessourceFil.samletMerit.Substring(RessourceFil.samletMerit.LastIndexOf('\\') + 1);
         public static string SamletRKVFilNavn => RessourceFil.samletRKV.Substring(RessourceFil.samletRKV.LastIndexOf('\\') + 1);
-
+      
+         /// <summary>
+        /// Henter en liste af unikkeskoler(-plus og merit).
+        /// </summary>
+        /// <returns>skoler</returns>
         public static List<string> HentUnikkeSkoler() {
             return new List<string>() {
                 RessourceFil.ballerup,
@@ -27,6 +31,11 @@ namespace GFElevInterview.Tools
             };
         }
 
+        /// <summary>
+        /// Henter alle skoler med merit status.
+        /// </summary>
+        /// <param name="harMerit"> checker om den har merit: ja(true), nej(false)</param>
+        /// <returns></returns>
         public static List<string> HentSkoler(bool harMerit) {
             if (harMerit) {
                 return HentUnikkeSkoler();
@@ -34,6 +43,10 @@ namespace GFElevInterview.Tools
             return new List<string>() { RessourceFil.ballerup };
         }
 
+        /// <summary>
+        /// Henter skoler med merit og uden udfra navn og meritgivelse. 
+        /// </summary>
+        /// <returns>skoler</returns>
         public static List<string> HentAlleSkoler() {
             List<string> skoler = HentUnikkeSkoler();
             skoler.AddRange(new[] {
@@ -44,6 +57,11 @@ namespace GFElevInterview.Tools
             return skoler;
         }
 
+        /// <summary>
+        /// Returnerer uddannelser: "itsupport, infrastruktur, programmering og vedikke (hvis de ikke er EUV)".
+        /// </summary>
+        /// <param name="erEUV"></param>
+        /// <returns></returns>
         public static List<string> HentUddannelser(bool erEUV) {
             List<string> uddannelser = new List<string>() {
                 RessourceFil.itsupporter,
@@ -56,14 +74,6 @@ namespace GFElevInterview.Tools
             return uddannelser;
         }
 
-        public static List<string> HentUddannelserCmb() {
-            return new List<string>() {
-                RessourceFil.itsupporter,
-                RessourceFil.infrastruktur,
-                RessourceFil.programmering
-            };
-        }
-
         /// <summary>
         /// Returnerer arrayet "Ballerup, Frederiksberg, Lyngby, BalPlus, BalFuld".
         /// </summary>
@@ -74,6 +84,10 @@ namespace GFElevInterview.Tools
             }
         }
 
+        /// <summary>
+        /// Tæller antallet af elever i hver skole (samt plus og fuld merit fra ballerup)
+        /// </summary>
+        /// <returns></returns>
         public static Dictionary<string, int> HentCounterDict() {
             Dictionary<string, int> skoleAntal = new Dictionary<string, int>();
 

@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel  Grid.Column="1">
             <Label Content="Interview guide til RKV elever"  FontSize="18" FontWeight="Bold" FontStyle="Italic" />
-            <Border BorderBrush="Gray" BorderThickness="1" x:Name="bdrEducation">
+            <Border x:Name="bdrEducation" BorderBrush="Gray" BorderThickness="1">
                 <StackPanel>
                     <DockPanel>
                         <Label Content="Uddanelse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
@@ -27,7 +27,7 @@
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Border Style="{StaticResource bdrEUV2}" x:Name="bdrAdresse">
+            <Border x:Name="bdrAdresse" Style="{StaticResource bdrEUV2}">
                 <StackPanel>
                     <DockPanel>
                         <Label Content="Adresse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
@@ -113,7 +113,7 @@
                                     </StackPanel>
                                 </Border>
                                 <Separator Style="{StaticResource SepSpaceH}" />
-                                <Border Style="{StaticResource bdrEUV}" x:Name="bdrEuv1Svar">
+                                <Border x:Name="bdrEuv1Svar" Style="{StaticResource bdrEUV}">
                                     <DockPanel>
                                         <Label Content="EUV1:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
                                         <StackPanel HorizontalAlignment="Stretch">
@@ -163,7 +163,7 @@
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Border Style="{StaticResource bdrEUV2}" x:Name="bdrSps" Height="70">
+            <Border x:Name="bdrSps" Style="{StaticResource bdrEUV2}" Height="70">
                 <DockPanel x:Name="stackSps">
                     <Label Content="SPS:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
                     <StackPanel>
@@ -184,7 +184,7 @@
                 </DockPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Border Style="{StaticResource bdrEUV2}" x:Name="bdrEud" Height="70">
+            <Border x:Name="bdrEud" Style="{StaticResource bdrEUV2}" Height="70">
                 <DockPanel x:Name="stackEud">
                     <Label Content="EUD:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
                     <StackPanel>

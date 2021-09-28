@@ -23,7 +23,7 @@
                         <Label FontSize="20" FontWeight="Bold" FontStyle="Italic">Søg elev:</Label>
                         <TextBox x:Name="txtSearch" Style="{StaticResource txtSearchB}" TextChanged="SearchStudentTxt_TextChanged"/>
                         <Separator Width="5" Background="Transparent"/>
-                        <Button Width="80" Height="30" Content="Vis Alle Elever" x:Name="btnVisAlle" Click="btnVisAlle_Click"/>
+                        <Button x:Name="btnVisAlle" Click="btnVisAlle_Click" Width="80" Height="30" Content="Vis Alle Elever"/>
                     </DockPanel>
                 </Border>
 
@@ -39,12 +39,12 @@
 
                 <Border Grid.Row="2" BorderBrush="Gray">
                     <WrapPanel>
-                        <Label FontSize="16" Content="" x:Name="lblStudentInfo" VerticalContentAlignment="Top" />
+                        <Label x:Name="lblStudentInfo" FontSize="16" Content="" VerticalContentAlignment="Top" />
                     </WrapPanel>
                 </Border>
 
                 <Border  BorderBrush="Gray" Grid.Row="3" Panel.ZIndex="0">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" x:Name="scroll">
+                    <ScrollViewer x:Name="scroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <ContentControl x:Name="cntMain" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ContentControl x:Name="cntMerit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <ContentControl x:Name="cntWord" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -60,8 +60,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnTilbage" Content="Tilbage" Grid.Column="0" Click="Tilbage_Click" Style="{StaticResource btnNavigate}" />
-                        <Button x:Name="btnFrem" Content="Frem" Grid.Column="1" Click="Frem_Click" Style="{StaticResource btnNavigate}" />
+                        <Button x:Name="btnTilbage" Click="Tilbage_Click" Content="Tilbage" Grid.Column="0" Style="{StaticResource btnNavigate}" />
+                        <Button x:Name="btnFrem" Click="Frem_Click" Content="Frem" Grid.Column="1" Style="{StaticResource btnNavigate}" />
                     </Grid>
                 </Border>
             </Grid>
