@@ -28,6 +28,13 @@ namespace GFElevInterview.Views
             InitialiserUddannelsesComboBox();
 
             btnReset.Click += ResetButton_Click;
+
+            /* ny select function */
+            btnSPS.Click += Select_btnClick;
+            btnEUD.Click += Select_btnClick;
+            btnMerit.Click += Select_btnClick;
+            btnRKV.Click += Select_btnClick;
+            btnVisAlle.Click += Select_btnClick;
         }
 
         //On Constructor call
@@ -46,28 +53,20 @@ namespace GFElevInterview.Views
             cmbUddanelse.ItemsSource = StandardVaerdier.HentUddannelser(false);
         }
 
-        private void InitialiserUddannelsesComboBox()
-        {
+        private void InitialiserUddannelsesComboBox() {
             cmbUddanelse.ItemsSource = StandardVaerdier.HentUddannelserCmb();
         }
-
 
         public void OpdaterDataGrid(List<ElevModel> elevData) {
             gridElevTabel.ItemsSource = elevData;
         }
 
-        //TODO FilHandler.VisBlanketIExplorer(blanketNavn);
         /// <summary>
         /// Åbner en ny stifinder og viser den valgte fil.
         /// </summary>
         /// <param name="blanketNavn">filnavnet på blanketten.</param>
         private void ÅbenFilPlacering(string blanketNavn) {
-            string currentDir = Directory.GetCurrentDirectory();
-            int index = currentDir.LastIndexOf('\\');  //finder positionen på sidste "\" i current dir
-            //kombinerer strings til at give os filstien på den valgte pdf
-            string filSti = Path.Combine(currentDir.Substring(0, index), RessourceFil.outputMappeNavn, blanketNavn);
-
-            Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
+            FilHandler.VisBlanketIExplorer(blanketNavn);
         }
 
         //TODO ryk ind i Tools/Filhandler hvis muligt.
@@ -121,23 +120,28 @@ namespace GFElevInterview.Views
 
         #region Knap metoder
 
-        private void SPS_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisSPS());
+        private void Select_btnClick(object sender, RoutedEventArgs e) {
+            Button btn = sender as Button;
+
+            if (btn == btnSPS) {
+                OpdaterDataGrid(DbTools.Instance.VisSPS());
+            }
+            else if (btn == btnEUD) {
+                OpdaterDataGrid(DbTools.Instance.VisEUD());
+            }
+            else if (btn == btnRKV) {
+                OpdaterDataGrid(DbTools.Instance.VisRKV());
+            }
+            else if (btn == btnMerit) {
+                OpdaterDataGrid(DbTools.Instance.VisMerit());
+            }
+            else {
+                cmbSchool.SelectedIndex = -1;
+                OpdaterDataGrid(DbTools.Instance.VisAlle());
+            }
         }
 
-        private void EUD_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisEUD());
-        }
-
-        private void RKV_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisRKV());
-        }
-
-        private void Merit_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisMerit());
-        }
-
-        private void visAlle_Click(object sender, RoutedEventArgs e) {
+        private void VisAlleDataGrid() {
             cmbSchool.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
@@ -152,7 +156,6 @@ namespace GFElevInterview.Views
         }
 
         private void Open_Merit_Click(object sender, RoutedEventArgs e) {
-
             ÅbenFilPlacering(elev.FilnavnMerit);
         }
 
@@ -164,6 +167,7 @@ namespace GFElevInterview.Views
             //}
             ÅbenFilPlacering(elev.FilnavnRKV);
         }
+
         #endregion TODO Implementer HentBlanket_btnClick
 
         #region TODO implementer Eksporter_btnClick
@@ -175,6 +179,7 @@ namespace GFElevInterview.Views
                         FilHandler.KombinerMeritFiler();
                     }
                     break;
+
                 case false:
                     if (AlertBoxes.OnExportRKV()) {
                         FilHandler.ZipRKVFiler();
@@ -196,7 +201,6 @@ namespace GFElevInterview.Views
         }
 
         #endregion TODO implementer Eksporter_btnClick
-
 
         private void SkoleDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if ((sender as ComboBox).SelectedIndex == -1) {
@@ -246,11 +250,10 @@ namespace GFElevInterview.Views
                 btnOpen_RKV.IsEnabled = false;
             else
                 btnOpen_RKV.IsEnabled = true;
-            
+
             //NOTE understående burde være det samme som overstående.
             btnOpen_Merit.IsEnabled = elev.DanNiveau > FagNiveau.Null;
             btnOpen_RKV.IsEnabled = elev.ElevType > EUVType.Null;
-
         }
 
         #endregion Events
@@ -309,7 +312,7 @@ namespace GFElevInterview.Views
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportMerit()) {
                 if (DbTools.Instance.NulstilEleverAlt()) {
-                    visAlle_Click(btnVisAlle, new RoutedEventArgs());
+                    VisAlleDataGrid();
                     MessageBox.Show("SUC RESET");
                 }
             }
