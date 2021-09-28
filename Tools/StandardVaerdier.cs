@@ -16,6 +16,9 @@ namespace GFElevInterview.Tools
 
         public static string BallerupFuld => string.Format("{0} ({1})", RessourceFil.ballerup, RessourceFil.skoleIngenMerit);
 
+        public static string SamletMeritFilnavn => RessourceFil.samletMerit.Substring(RessourceFil.samletMerit.LastIndexOf('\\') + 1);
+        public static string SamletRKVFilNavn => RessourceFil.samletRKV.Substring(RessourceFil.samletRKV.LastIndexOf('\\') + 1);
+
         public static List<string> HentUnikkeSkoler() {
             return new List<string>() {
                 RessourceFil.ballerup,
