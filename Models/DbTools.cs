@@ -54,7 +54,7 @@ namespace GFElevInterview.Models
         /// </summary>
         /// <param name="brugerInput">Søge query.</param>
         /// <returns>Elever med matchende CPRnr/Fornavn/Efternavn.</returns>
-        public List<ElevModel> SearchElever(string brugerInput) {
+        public List<ElevModel> VisQueryElever(string brugerInput) {
             brugerInput = brugerInput.ToLower();
 
             return Elever.Where(e => e.CPRNr.StartsWith(brugerInput)
@@ -106,7 +106,6 @@ namespace GFElevInterview.Models
         public List<ElevModel> VisAlle() {
             instance = new DbTools();  //"Refresher" databasen hvis der er sket andre i en anden instans.
 
-            //return Elever.Select(e => e).ToList();
             return (from e in Elever
                     select e).ToList();
         }
@@ -200,6 +199,8 @@ namespace GFElevInterview.Models
 
         #endregion Gets
 
+        #region Tilføjelse til Database
+
         /// <summary>
         /// Tilføjer udiskrimineret alle <see cref="ElevModel"/> objekter til <see cref="Elever"/>.
         /// </summary>
@@ -237,6 +238,10 @@ namespace GFElevInterview.Models
             }
         }
 
+        #endregion Tilføjelse til Database
+
+        #region Password til LederView
+
         /// <summary>
         /// Passworded bliver opdateret og ændringerne gemt i databasen.
         /// </summary>
@@ -251,6 +256,8 @@ namespace GFElevInterview.Models
 
             return true;
         }
+
+        #endregion Password til LederView
 
         #region DbContext.OnConfiguring, DbContext.OnModelCreating
 

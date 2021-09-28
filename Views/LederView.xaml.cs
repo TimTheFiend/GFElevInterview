@@ -35,6 +35,8 @@ namespace GFElevInterview.Views
             btnMerit.Click += Select_btnClick;
             btnRKV.Click += Select_btnClick;
             btnVisAlle.Click += Select_btnClick;
+
+            Sogefelt.TextChanged += Query_TekstInput;
         }
 
         //On Constructor call
@@ -254,6 +256,18 @@ namespace GFElevInterview.Views
             //NOTE understående burde være det samme som overstående.
             btnOpen_Merit.IsEnabled = elev.DanNiveau > FagNiveau.Null;
             btnOpen_RKV.IsEnabled = elev.ElevType > EUVType.Null;
+        }
+
+        private void Query_TekstInput(object sender, TextChangedEventArgs e) {
+            string query = (sender as TextBox).Text;
+            //Nulstil datagrid
+
+            if (string.IsNullOrEmpty(query)) {
+                VisAlleDataGrid();
+                return;
+            }
+
+            OpdaterDataGrid(DbTools.Instance.VisQueryElever(query));
         }
 
         #endregion Events
