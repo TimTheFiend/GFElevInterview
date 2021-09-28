@@ -136,7 +136,7 @@ namespace GFElevInterview.Views
             btnOpen_Merit.IsEnabled = elev.DanNiveau > FagNiveau.Null;
             btnOpen_RKV.IsEnabled = elev.ElevType > EUVType.Null;
         }
-
+        
         #endregion Datagrid EventHandler
 
         #region Button EventHandler

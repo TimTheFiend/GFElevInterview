@@ -83,7 +83,7 @@
                 <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding MatNiveau}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Visible">
+        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
             <Border Background="Black" Opacity="0.35"/>
             <Border VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Padding="20">
                 <StackPanel VerticalAlignment="Center">
