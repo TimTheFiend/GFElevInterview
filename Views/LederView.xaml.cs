@@ -114,7 +114,6 @@ namespace GFElevInterview.Views
         /// </summary>
         private void VisAlleDataGrid() {
             cmbSubkategori.SelectedIndex = -1;
-            cmbKategori.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
