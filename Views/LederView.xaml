@@ -68,7 +68,7 @@
             <Button  Width="80" Height="25" x:Name="btnSkiftPassword" Content="Skift Password" Click="SkiftPassword_btnClick" />
         </StackPanel>
 
-        <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" SelectionChanged="ElevTabel_SelectionChanged" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="CPR" Binding="{Binding CPRNr}" />
                 <DataGridTextColumn Header="Fornavn" Binding="{Binding Fornavn}" />

@@ -109,7 +109,6 @@ namespace GFElevInterview.Views
         /// </summary>
         private void VisAlleDataGrid() {
             cmbSubkategori.SelectedIndex = -1;
-            cmbKategori.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
@@ -117,7 +116,7 @@ namespace GFElevInterview.Views
 
         #region Datagrid EventHandler
 
-        private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+        private void ElevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
 
             if (elev == null) {
