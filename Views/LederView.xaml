@@ -19,53 +19,53 @@
         </Grid.RowDefinitions>
         <Grid HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0">
             <DockPanel Height="30" VerticalAlignment="Top">
-                <Button x:Name="btnRKV" Content="RKV" Click="RKV_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnRKV" Content="RKV" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <Button x:Name="btnMerit" Content="Merit" Click="Merit_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnMerit" Content="Merit" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <Button x:Name="btnVisAlle" Content="Vis Alle" Click="visAlle_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnVisAlle" Content="Vis Alle" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
             </DockPanel>
-            <Separator Background="Transparent"/>
+            <Separator Background="Transparent" />
             <DockPanel Height="30" VerticalAlignment="Bottom">
-                <Button x:Name="btnSPS" Content="SPS" Click="SPS_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnSPS" Content="SPS" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource btnShow}" />
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <Button x:Name="btnEUD" Content="EUD" Click="EUD_Click"  HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnEUD" Content="EUD" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource btnShow}" />
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <TextBox Width="160" Height="20" x:Name="Sogefelt" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox Width="160" Height="20" x:Name="txtSearch" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </DockPanel>
         </Grid>
         <DockPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">
-        <StackPanel VerticalAlignment="Center">
-            <ComboBox Width="200" Height="25" x:Name="cmbUddanelse" HorizontalAlignment="Left" VerticalAlignment="Bottom" SelectionChanged="cmbUddanelse_SelectionChanged" />
-            <Separator Background="Transparent" Height="5"/>
-            <ComboBox Width="200" Height="25" x:Name="cmbSchool" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="SkoleDropDown_SelectionChanged" />
-        </StackPanel>
             <StackPanel VerticalAlignment="Center">
-                <Label Content="Udd. Linje"/>
-                <Separator Background="Transparent" Height="5"/>
-                <Label Content="Add. Linje"/>
+                <ComboBox Width="200" Height="25" x:Name="cmbKategori" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <Separator Background="Transparent" Height="5" />
+                <ComboBox Width="200" Height="25" x:Name="cmbSubkategori" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center">
+                <Label Content="Udd. Linje" />
+                <Separator Background="Transparent" Height="5" />
+                <Label Content="Add. Linje" />
             </StackPanel>
         </DockPanel>
         <Border Grid.Column="3" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
             <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
-        <StackPanel Background="#495057" Grid.Column="3" Grid.Row="1" >
+        <StackPanel Background="#495057" Grid.Column="3" Grid.Row="1">
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button Content="Merit Export" Click="ExportMerit_Click" Style="{StaticResource btnAdmin}" />
+            <Button x:Name="btnExportMerit" Content="Merit Export" Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button Content="RKV Export" Click="ExportRKV_Click"  Style="{StaticResource btnAdmin}" />
+            <Button x:Name="btnExportRKV" Content="RKV Export" Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
             <TextBlock Text="EXCEL" HorizontalAlignment="Center" FontSize="25" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button Content="Tilføj" x:Name="TilføjKnp" Click="TilføjKnp_Click" Style="{StaticResource btnAdmin}" />
+            <Button x:Name="btnExcel" Content="Tilføj"  Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
             <Button x:Name="btnReset" Content="Reset" Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button Width="80" Height="20" x:Name="btnOpen_RKV" Content="Åben RKV" Click="Open_RKV_Click" IsEnabled="False" />
+            <Button Width="80" Height="20" x:Name="btnOpen_RKV" Content="Åben RKV" IsEnabled="False" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" Click="Open_Merit_Click" IsEnabled="False" />
+            <Button  Width="80" Height="20" x:Name="btnOpen_Merit" Content="Åben Merit" IsEnabled="False" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button  Width="80" Height="25" x:Name="btnSkiftPassword" Content="Skift Password" Click="SkiftPassword_btnClick"/>
+            <Button  Width="80" Height="25" x:Name="btnSkiftPassword" Content="Skift Password" Click="SkiftPassword_btnClick" />
         </StackPanel>
 
         <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" SelectionChanged="elevTabel_SelectionChanged" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -78,31 +78,24 @@
                 <DataGridTextColumn Header="SPS" Binding="{Binding SPS}" />
                 <DataGridTextColumn Header="EUD" Binding="{Binding EUD}" />
                 <DataGridTextColumn Header="ElevType" Binding="{Binding ElevType}" />
-                <!--<DataGridTextColumn Header="DanskEksammen" Binding="{Binding danskEksamen}" />
-                <DataGridTextColumn Header="DanskUndervisning" Binding="{Binding danskUndervisning}" />
-                <DataGridTextColumn Header="danskNiveau" Binding="{Binding danskNiveau}" />
-                <DataGridTextColumn Header="EngelskEksammen" Binding="{Binding engelskEksamen}" />
-                <DataGridTextColumn Header="EngelskUndervisning" Binding="{Binding engelskUndervisning}" />
-                <DataGridTextColumn Header="EngelskNiveau" Binding="{Binding engelskNiveau}" />
-                <DataGridTextColumn Header="MatematikEksammen" Binding="{Binding matematikEksamen}" />
-                <DataGridTextColumn Header="MatematikUndervisning" Binding="{Binding matematikUndervisning}" />
-                <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding matematikNiveau}" />
-                <DataGridTextColumn Header="UddannelsesLængdeIUger" Binding="{Binding uddannelsesLængdeIUger}" />-->
+                <DataGridTextColumn Header="danskNiveau" Binding="{Binding DanNiveau}" />
+                <DataGridTextColumn Header="EngelskNiveau" Binding="{Binding EngNiveau}" />
+                <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding MatNiveau}" />
             </DataGrid.Columns>
         </DataGrid>
         <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
-            <Border Background="Black" Opacity="0.35"/>
+            <Border Background="Black" Opacity="0.35" />
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Width="200" Height="20" Text="Kodeord" FontSize="16" TextAlignment="Justify"/>
-                <TextBox Width="200" Height="20" x:Name="txtKodeord"/>
-                <Separator Height="12" Background="Transparent"/>
-                <TextBlock Width="200" Height="20" Text="Bekræft Kodeord" FontSize="16" TextAlignment="Justify"/>
-                <TextBox Width="200" Height="20" x:Name="txtValiderKodeord"/>
-                <Separator Height="12" Background="Transparent"/>
+                <TextBlock Width="200" Height="20" Text="Kodeord" FontSize="16" TextAlignment="Justify" />
+                <TextBox Width="200" Height="20" x:Name="txtKodeord" />
+                <Separator Height="12" Background="Transparent" />
+                <TextBlock Width="200" Height="20" Text="Bekræft Kodeord" FontSize="16" TextAlignment="Justify" />
+                <TextBox Width="200" Height="20" x:Name="txtValiderKodeord" />
+                <Separator Height="12" Background="Transparent" />
                 <DockPanel HorizontalAlignment="Center">
-                    <Button Width="95" Height="30" FontSize="15" Content="Tilbage" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightBlue" Click="Button_Click"/>
-                    <Separator Width="10"/>
-                    <Button Width="95" Height="30" FontSize="15" Content="Skift Kodeord" x:Name="btnValiderKodeord" Background="LightBlue" Click="ValiderOpdaterPassword_btnClick"/>
+                    <Button Width="95" Height="30" FontSize="15" Content="Tilbage" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightBlue" Click="Button_Click" />
+                    <Separator Width="10" />
+                    <Button Width="95" Height="30" FontSize="15" Content="Skift Kodeord" x:Name="btnValiderKodeord" Background="LightBlue" Click="ValiderOpdaterPassword_btnClick" />
                 </DockPanel>
             </StackPanel>
         </Grid>

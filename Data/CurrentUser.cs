@@ -9,28 +9,22 @@ namespace GFElevInterview.Data
     {
         public static LoginModel User { get; set; }
 
-        static CurrentUser()
-        {
+        static CurrentUser() {
             NulstilCurrentUser();
         }
 
-        //TODO @Victor Doku 
         /// <summary>
         /// NulStiller CurrentUser hvis kaldet.
         /// </summary>
-        public static void NulstilCurrentUser()
-        {
+        public static void NulstilCurrentUser() {
             User = new LoginModel();
         }
 
-        //TODO @Victor Doku 
         /// <summary>
         /// Checker om CurrentUser er loget ind eller ej.
         /// </summary>
-        public static bool ErLoggetInd
-        {
-            get
-            {
+        public static bool ErLoggetInd {
+            get {
                 return !string.IsNullOrEmpty(User.brugernavn);
             }
         }

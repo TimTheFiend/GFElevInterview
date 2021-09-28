@@ -6,10 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using BC = BCrypt.Net.BCrypt;
 
 namespace GFElevInterview.Views
 {
@@ -24,11 +22,13 @@ namespace GFElevInterview.Views
         public LederView() {
             InitializeComponent();
             InitialiserView();
-            InitialiserSkoleComboBox();
-            InitialiserUddannelsesComboBox();
 
-            btnReset.Click += ResetButton_Click;
+            SetEventHandlers();
+
+            InitialiserComboBoxes();
         }
+
+        #region Initialisering af view
 
         //On Constructor call
         private void InitialiserView() {
@@ -37,172 +37,79 @@ namespace GFElevInterview.Views
             lederOverlayLoading = overlayLoading;
         }
 
+        /// <summary>
+        /// Sætter Eventhandlers på <see cref="Control"/> ved opstart.
+        /// </summary>
+        private void SetEventHandlers() {
+            /* Reset */
+            btnReset.Click += ResetButton_Click;
+            /* Excel */
+            btnExcel.Click += Excel_Click;
+            /* Eksport */
+            btnExportMerit.Click += Eksporter_Click;
+            btnExportRKV.Click += Eksporter_Click;
+            /* Database Gets */
+            btnSPS.Click += HentElever_Click;
+            btnEUD.Click += HentElever_Click;
+            btnMerit.Click += HentElever_Click;
+            btnRKV.Click += HentElever_Click;
+            btnVisAlle.Click += HentElever_Click;
+            /* Blanket Gets */
+            btnOpen_Merit.Click += HentBlanket_Click;
+            btnOpen_RKV.Click += HentBlanket_Click;
+            /* TextBox */
+            txtSearch.TextChanged += ElevQuery_TextChanged;
+            /* ComboBox */
+            cmbKategori.SelectionChanged += QueryKategori_SelectionChanged;
+            cmbSubkategori.SelectionChanged += QuerySubkategori_SelectionChanged;
+        }
+
+        /// <summary>
+        /// Initialiserer <see cref="cmbKategori"/> med værdier, og disabler <see cref="cmbSubkategori"/>
+        /// </summary>
+        private void InitialiserComboBoxes() {
+            cmbKategori.ItemsSource = new string[] {
+                "Uddannelser",
+                "Skole Adresser",
+                "Dansk Fagniveau",
+                "Engelsk Fagniveau",
+                "Matematik Fagniveau"
+            };
+
+            cmbSubkategori.IsEnabled = false;
+        }
+
+        //TODO DOKU
         private void InitialiserDataGrid() {
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
-        private void InitialiserSkoleComboBox() {
-            cmbSchool.ItemsSource = StandardVaerdier.HentAlleSkoler();
-            cmbUddanelse.ItemsSource = StandardVaerdier.HentUddannelser(false);
-        }
+        #endregion Initialisering af view
 
-        private void InitialiserUddannelsesComboBox()
-        {
-            cmbUddanelse.ItemsSource = StandardVaerdier.HentUddannelserCmb();
-        }
+        #region Funktioner
 
+        /// <summary>
+        /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig).
+        /// </summary>
+        /// <param name="harBrugerInput"></param>
+        public static void SetBrugerInput(bool harBrugerInput) {
+            lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
+        }
 
         public void OpdaterDataGrid(List<ElevModel> elevData) {
             gridElevTabel.ItemsSource = elevData;
         }
 
-        /// <summary>
-        /// Åbner en ny stifinder og viser den valgte fil.
-        /// </summary>
-        /// <param name="blanketNavn">filnavnet på blanketten.</param>
-        private void ÅbenFilPlacering(string blanketNavn) {
-            string currentDir = Directory.GetCurrentDirectory();
-            int index = currentDir.LastIndexOf('\\');  //finder positionen på sidste "\" i current dir
-            //kombinerer strings til at give os filstien på den valgte pdf
-            string filSti = Path.Combine(currentDir.Substring(0, index), RessourceFil.outputMappeNavn, blanketNavn);
-
-            Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
-        }
-
-        ////TODO @Joakim Doku
-        private void ÅbenFil() {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-            openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
-
-            Nullable<bool> result = openFile.ShowDialog();
-            if ((bool)result) {
-                //ProcessstartInfo bruges til at køre python scriptet.
-                ProcessStartInfo info = new ProcessStartInfo();
-                List<ElevModel> elever = new List<ElevModel>();
-
-                //Python filen bliver hentet ned til filename fil lokationen.
-                //info.FileName = ".venv\\Scripts\\python.exe";
-                info.FileName = RessourceFil.pythonScript;
-                //Python scripted bliver hentet og kørt ved hjælp af fileName.
-                info.Arguments = string.Format("\"{0}\"", openFile.FileName);
-
-                info.UseShellExecute = false;
-                info.RedirectStandardOutput = true;
-                info.CreateNoWindow = true;
-                info.UseShellExecute = false;
-
-                //processeren bliver kørt, med informationerne fra ProcessStartInfo.
-                using (Process process = Process.Start(info)) {
-                    using (StreamReader reader = process.StandardOutput) {
-                        //data´en fra reader(python) bliver overført til linje(string) en linje adgangen så længe den ikke finde et null.
-                        string linje;
-                        while ((linje = reader.ReadLine()) != null) {
-                            //Data´en fra linje, bliver splittet op i et string array.
-                            string[] elev = linje.Split(';');  //Note: hardCoded seperator
-                            if (elev.Length < 2) {
-                                AlertBoxes.OnExcelReadingError(linje);
-                                return;
-                            }
-                            //Data´en fra String Array´et bliver tilføjet til elev listen.
-                            elever.Add(new ElevModel(elev[0], elev[1], elev[2]));
-                        }
-                    }
-                }
-                //DbTools TilføjElever bliver kaldt, hvorefter at eleverne bliver tilføjet til databasen.
-                DbTools.Instance.TilføjElever(elever);
-                btnVisAlle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            }
-        }
-
-        #region Events
-
-        #region Knap metoder
-
-        private void SPS_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisSPS());
-        }
-
-        private void EUD_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisEUD());
-        }
-
-        private void RKV_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisRKV());
-        }
-
-        private void Merit_Click(object sender, RoutedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisMerit());
-        }
-
-        private void visAlle_Click(object sender, RoutedEventArgs e) {
-            cmbSchool.SelectedIndex = -1;
+        //TODO Doku
+        private void VisAlleDataGrid() {
+            cmbSubkategori.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
-        #endregion Knap metoder
+        #endregion Funktioner
 
-        private void Open_Merit_Click(object sender, RoutedEventArgs e) {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
-            ÅbenFilPlacering(elev.FilnavnMerit);
-        }
+        #region Datagrid EventHandler
 
-        private void Open_RKV_Click(object sender, RoutedEventArgs e) {
-            //TODO Reduce redundancy
-            //if (elev == null)
-            //{
-            //    return;
-            //}
-            ÅbenFilPlacering(elev.FilnavnRKV);
-        }
-
-        private void ExportMerit_Click(object sender, RoutedEventArgs e) {
-            if (AlertBoxes.OnExportMerit()) {
-                FilHandler.KombinerMeritFiler();
-            }
-        }
-
-        private void ExportRKV_Click(object sender, RoutedEventArgs e) {
-            if (AlertBoxes.OnExportRKV()) {
-                FilHandler.ZipRKVFiler();
-            }
-        }
-
-        private void SkoleDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if ((sender as ComboBox).SelectedIndex == -1) {
-                return;
-            }
-            string skole = (sender as ComboBox).SelectedItem.ToString();
-
-            if (skole.Contains(' ')) {
-                string ændretSkole = skole.Substring(0, skole.IndexOf(' '));
-                Console.WriteLine();
-                //Merit forløb
-                if (skole.Contains('+')) {
-                    //Tekst fra skole variablen, fra start til mellemrummet.
-                    //Også skal vi sætte det rigtige fagniveau.
-                    OpdaterDataGrid(DbTools.Instance.VisSkole(ændretSkole, FagNiveau.F, true));
-                }
-                //Ingen merit
-                else {
-                    OpdaterDataGrid(DbTools.Instance.VisSkole(ændretSkole, FagNiveau.E, false));
-                }
-            }
-            else {
-                OpdaterDataGrid(DbTools.Instance.VisSkole(skole));
-            }
-        }
-
-        private void cmbUddanelse_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            OpdaterDataGrid(DbTools.Instance.VisUddannelse((sender as ComboBox).SelectedItem.ToString()));
-        }
-
-        //TODO kan sætte elev som tom række
         private void elevTabel_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             elev = (sender as DataGrid).SelectedItem as ElevModel;
 
@@ -212,35 +119,70 @@ namespace GFElevInterview.Views
                 return;
             }
 
-            if (elev.DanNiveau == FagNiveau.Null)
-                btnOpen_Merit.IsEnabled = false;
-            else
-                btnOpen_Merit.IsEnabled = true;
-
-            if (elev.ElevType == EUVType.Null)
-                btnOpen_RKV.IsEnabled = false;
-            else
-                btnOpen_RKV.IsEnabled = true;
-
-            //Er eleven færdig med interview?
-            //Hvis ja, enable knap,
-            //Hvis nej, disable knap.
+            //NOTE understående burde være det samme som overstående.
+            btnOpen_Merit.IsEnabled = elev.DanNiveau > FagNiveau.Null;
+            btnOpen_RKV.IsEnabled = elev.ElevType > EUVType.Null;
         }
 
-        #endregion Events
+        #endregion Datagrid EventHandler
 
-        private void TilføjKnp_Click(object sender, RoutedEventArgs e) {
-            ÅbenFil();
+        #region Button EventHandler
+
+        //TODO doku og navngivning
+        private void HentElever_Click(object sender, RoutedEventArgs e) {
+            Button btn = sender as Button;
+
+            if (btn == btnSPS) {
+                OpdaterDataGrid(DbTools.Instance.VisSPS());
+            }
+            else if (btn == btnEUD) {
+                OpdaterDataGrid(DbTools.Instance.VisEUD());
+            }
+            else if (btn == btnRKV) {
+                OpdaterDataGrid(DbTools.Instance.VisRKV());
+            }
+            else if (btn == btnMerit) {
+                OpdaterDataGrid(DbTools.Instance.VisMerit());
+            }
+            else {
+                cmbSubkategori.SelectedIndex = -1;
+                OpdaterDataGrid(DbTools.Instance.VisAlle());
+            }
         }
 
-        //TODO DOKU Victor
+        /// <summary>
+        /// Åbner en ny stifinder og viser den valgte fil.
+        /// </summary>
+        private void HentBlanket_Click(object sender, RoutedEventArgs e) {
+            FilHandler.VisBlanketIExplorer((sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
+        }
+
+        private void Eksporter_Click(object sender, RoutedEventArgs e) {
+            switch ((sender as Button) == btnExportMerit) {
+                case true:
+                    if (AlertBoxes.OnExportMerit()) {
+                        FilHandler.KombinerMeritFiler();
+                    }
+                    break;
+
+                case false:
+                    if (AlertBoxes.OnExportRKV()) {
+                        FilHandler.ZipRKVFiler();
+                    }
+                    break;
+            }
+        }
+
+        private void Excel_Click(object sender, RoutedEventArgs e) {
+            FilHandler.OpenFileDialog();
+            VisAlleDataGrid();
+        }
+
         /// <summary>
         /// Tjekker om de indtastede passwords passer over ens med hinanden.
         /// Hvis de passer over ens bliver passwordet opdateret og gemt i databasen,
         /// <br/>CurrentUser bliver NulStillet, En pop op besked bliver vist og brugeren bliver sendt til bage til login siden.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e) {
             if (txtKodeord.Text == txtValiderKodeord.Text) {
                 if (DbTools.Instance.OpdaterPassword(txtKodeord.Text)) {
@@ -260,43 +202,103 @@ namespace GFElevInterview.Views
             }
         }
 
-        //TODO @Victor Doku + Navneændring
         /// <summary>
         /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e) {
             SetBrugerInput(true);
         }
 
-        //TODO @Victor Doku
         /// <summary>
         /// Sætter værdien for <see cref="SetBrugerInput(bool)"/> til false(Synlig)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SkiftPassword_btnClick(object sender, RoutedEventArgs e) {
             SetBrugerInput(false);
         }
 
-        //TODO @Victor Doku
-        //TODO @Joakim overvej at rykke metode
-        /// <summary>
-        /// Sætter visibility for lederOverlayLaoding, ud fra om den får en true(Usynlig) eller false(Synlig).
-        /// </summary>
-        /// <param name="harBrugerInput"></param>
-        public static void SetBrugerInput(bool harBrugerInput) {
-            lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
-        }
-
+        //TODO Alertboxes
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
             if (AlertBoxes.OnExportMerit()) {
                 if (DbTools.Instance.NulstilEleverAlt()) {
-                    visAlle_Click(btnVisAlle, new RoutedEventArgs());
+                    VisAlleDataGrid();
                     MessageBox.Show("SUC RESET");
                 }
             }
         }
+
+        #endregion Button EventHandler
+
+        #region Combobox Eventhandler
+
+        private void QueryKategori_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            int index = (sender as ComboBox).SelectedIndex;
+            cmbSubkategori.ItemsSource = null;
+
+            switch (index) {
+                case -1:
+                    cmbSubkategori.IsEnabled = false;
+                    return;
+
+                case 0:
+                    cmbSubkategori.ItemsSource = StandardVaerdier.HentUddannelser(false);
+                    break;
+
+                case 1:
+                    cmbSubkategori.ItemsSource = StandardVaerdier.HentAlleSkoler();
+                    break;
+
+                default:
+                    cmbSubkategori.ItemsSource = StandardVaerdier.HentFagNiveau();
+                    break;
+            }
+            cmbSubkategori.IsEnabled = true;
+        }
+
+        private void QuerySubkategori_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            int index = cmbKategori.SelectedIndex;
+
+            if (index < 0 || cmbSubkategori.SelectedIndex < 0) {
+                VisAlleDataGrid();
+                return;
+            }
+
+            List<ElevModel> elever;
+            string text = cmbSubkategori.SelectedItem.ToString();
+
+            switch (index) {
+                case 0:
+                    elever = DbTools.Instance.VisUddannelse(text);
+                    break;
+
+                case 1:
+                    elever = DbTools.Instance._VisSkole(text);
+                    break;
+
+                default:
+                    elever = DbTools.Instance.VisFagNiveau(cmbKategori.SelectedItem.ToString(), (FagNiveau)cmbSubkategori.SelectedIndex + 1);
+                    break;
+            }
+
+            OpdaterDataGrid(elever);
+        }
+
+        #endregion Combobox Eventhandler
+
+        #region TextBox EventHandler
+
+        //TODO doku og navngivning
+        private void ElevQuery_TextChanged(object sender, TextChangedEventArgs e) {
+            string query = (sender as TextBox).Text;
+            //Nulstil datagrid
+
+            if (string.IsNullOrEmpty(query)) {
+                VisAlleDataGrid();
+                return;
+            }
+
+            OpdaterDataGrid(DbTools.Instance.VisQueryElever(query));
+        }
+
+        #endregion TextBox EventHandler
     }
 }

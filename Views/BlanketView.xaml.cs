@@ -23,8 +23,8 @@ namespace GFElevInterview.Views
             InitialiserBlanket();
             this.Loaded += Window_Loaded;
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
             txtSearch.Focus();
         }
 
@@ -169,11 +169,12 @@ namespace GFElevInterview.Views
         private void SearchStudentTxt_TextChanged(object sender, TextChangedEventArgs e) {
             string query = (sender as TextBox).Text;
             lstSearch.ItemsSource = null;
+
             if (string.IsNullOrEmpty(query)) {
                 return;
             }
-            //TODO Ryk til DbTools
-            lstSearch.ItemsSource = DbTools.Instance.SearchElever(query);
+
+            lstSearch.ItemsSource = DbTools.Instance.VisQueryElever(query);
         }
 
         /// <summary>
@@ -196,8 +197,7 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void btnVisAlle_Click(object sender, RoutedEventArgs e)
-        {
+        private void btnVisAlle_Click(object sender, RoutedEventArgs e) {
             lstSearch.ItemsSource = DbTools.Instance.VisAlle();
         }
     }

@@ -41,12 +41,11 @@ namespace GFElevInterview.Views
 
         #region Klargøring
 
-
         /// <summary>
         /// Klargører viewet til brug ved opstart.
         /// </summary>
         private void InitialiserBlanket() {
-        InitialiserComboBox();
+            InitialiserComboBox();
             SætKnapper();
         }
 
@@ -54,6 +53,7 @@ namespace GFElevInterview.Views
         /// Fylder ComboBoxene op med karaktere.
         /// </summary>
         private void InitialiserComboBox() {
+            //StandardVaerdier.HentFagNiveau
             var fagNiveauArray = Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString());
             cmbDansk.ItemsSource = fagNiveauArray;
             cmbEngelsk.ItemsSource = fagNiveauArray;
@@ -166,7 +166,6 @@ namespace GFElevInterview.Views
         private void Combobox_DropDownClosed(object sender, EventArgs e) {
             parent.scroll.Focus();
         }
-
 
         /// <summary>
         /// Sætter valgte ComboBox item til <see cref="CurrentElev.elev"/>.

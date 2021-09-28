@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using GFElevInterview.Models;
 
 namespace GFElevInterview.Tools
 {
@@ -9,7 +10,11 @@ namespace GFElevInterview.Tools
         /// <summary>
         /// Returnerer <c>16</c>, da det er minimums længden på grundforløb.
         /// </summary>
-        public static int MinimumUgerGF { get; } = Int32.Parse(RessourceFil.minimumGrundforløbLængde);
+        public static int MinimumUgerGF { get; } = int.Parse(RessourceFil.minimumGrundforløbLængde);
+
+        public static string BallerupMerit => string.Format("{0} ({1})", RessourceFil.ballerup, RessourceFil.skoleMerit);
+
+        public static string BallerupFuld => string.Format("{0} ({1})", RessourceFil.ballerup, RessourceFil.skoleIngenMerit);
 
         public static List<string> HentUnikkeSkoler() {
             return new List<string>() {
@@ -29,8 +34,8 @@ namespace GFElevInterview.Tools
         public static List<string> HentAlleSkoler() {
             List<string> skoler = HentUnikkeSkoler();
             skoler.AddRange(new[] {
-                string.Format("{0} ({1})", RessourceFil.ballerup, RessourceFil.skoleMerit),
-                string.Format("{0} ({1})", RessourceFil.ballerup, RessourceFil.skoleIngenMerit),
+                BallerupMerit,
+                BallerupFuld,
             });
 
             return skoler;
@@ -48,8 +53,7 @@ namespace GFElevInterview.Tools
             return uddannelser;
         }
 
-        public static List<string> HentUddannelserCmb()
-        {
+        public static List<string> HentUddannelserCmb() {
             return new List<string>() {
                 RessourceFil.itsupporter,
                 RessourceFil.infrastruktur,
@@ -75,6 +79,10 @@ namespace GFElevInterview.Tools
             }
 
             return skoleAntal;
+        }
+
+        public static List<string> HentFagNiveau() {
+            return Enum.GetNames(typeof(FagNiveau)).Where(x => x != FagNiveau.Null.ToString()).ToList();
         }
     }
 }
