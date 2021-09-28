@@ -101,12 +101,20 @@ namespace GFElevInterview.Views
             lederOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
+        /// <summary>
+        /// Opdaterer indholdet i <see cref="gridElevTabel"/>.
+        /// </summary>
+        /// <param name="elevData">Ny elev data.</param>
         public void OpdaterDataGrid(List<ElevModel> elevData) {
             gridElevTabel.ItemsSource = elevData;
         }
 
+        /// <summary>
+        /// Nulstiller viewet og viser alle elever i databasen.
+        /// </summary>
         private void VisAlleDataGrid() {
             cmbSubkategori.SelectedIndex = -1;
+            cmbKategori.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
         }
 
@@ -173,12 +181,14 @@ namespace GFElevInterview.Views
                 case true:
                     if (AlertBoxes.OnExportMerit()) {
                         FilHandler.KombinerMeritFiler();
+                        FilHandler.VisBlanketIExplorer(StandardVaerdier.SamletMeritFilnavn);
                     }
                     break;
 
                 case false:
                     if (AlertBoxes.OnExportRKV()) {
                         FilHandler.ZipRKVFiler();
+                        FilHandler.VisBlanketIExplorer(StandardVaerdier.SamletRKVFilNavn);
                     }
                     break;
             }

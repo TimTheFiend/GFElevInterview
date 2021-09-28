@@ -16,7 +16,10 @@ namespace GFElevInterview.Tools
 
         public static string BallerupFuld => string.Format("{0} ({1})", RessourceFil.ballerup, RessourceFil.skoleIngenMerit);
 
-        /// <summary>
+        public static string SamletMeritFilnavn => RessourceFil.samletMerit.Substring(RessourceFil.samletMerit.LastIndexOf('\\') + 1);
+        public static string SamletRKVFilNavn => RessourceFil.samletRKV.Substring(RessourceFil.samletRKV.LastIndexOf('\\') + 1);
+      
+         /// <summary>
         /// Henter en liste af unikkeskoler(-plus og merit).
         /// </summary>
         /// <returns>skoler</returns>
