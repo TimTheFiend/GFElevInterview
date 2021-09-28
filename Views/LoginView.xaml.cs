@@ -21,12 +21,10 @@ namespace GFElevInterview.Views
             this.Loaded += Window_Loaded;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
             txtPassword.Focus();
         }
 
-        //TODO @Victor Doku 
         /// <summary>
         /// Login Tjekker om vores indtastet password passer over ens med det password(som bliver ukrypteret) fra databasen.
         /// <br/> Brugeren vil herefter forblive logget ind som leder.

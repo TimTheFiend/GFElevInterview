@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GFElevInterview.Tools;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,6 +111,27 @@ namespace GFElevInterview.Models
                     select e).ToList();
         }
 
+        public List<ElevModel> VisFagNiveau(string fagNavn, FagNiveau fagNiveau) {
+            char forbogstav = fagNavn.ToUpper().ToCharArray()[0];
+            List<ElevModel> elever = new List<ElevModel>();
+
+            switch (forbogstav) {
+                case 'D':  //Dansk
+                    elever = (from e in Elever where e.DanNiveau == fagNiveau select e).ToList();
+                    break;
+
+                case 'E':  //Engelsk
+                    elever = (from e in Elever where e.EngNiveau == fagNiveau select e).ToList();
+                    break;
+
+                case 'M':  //Matematik
+                    elever = (from e in Elever where e.MatNiveau == fagNiveau select e).ToList();
+                    break;
+            }
+
+            return elever;
+        }
+
         /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én uddannelseslinje.
         /// </summary>
@@ -129,6 +151,20 @@ namespace GFElevInterview.Models
         /// <returns></returns>
         public List<ElevModel> VisSkole(string skoleNavn) {
             //return Elever.Where(e => e.uddannelseAdresse == skoleNavn).Select(e => e).ToList();
+            return (from e in Elever
+                    where e.UddAdr == skoleNavn
+                    select e).ToList();
+        }
+
+        public List<ElevModel> _VisSkole(string skoleNavn) {
+            if (skoleNavn.Contains(' ')) {
+                string _skoleNavn = skoleNavn.Substring(0, skoleNavn.IndexOf(' '));
+
+                if (skoleNavn == StandardVaerdier.BallerupMerit) {
+                    return VisSkole(_skoleNavn, FagNiveau.F, true);
+                }
+                return VisSkole(_skoleNavn, FagNiveau.E, false);
+            }
             return (from e in Elever
                     where e.UddAdr == skoleNavn
                     select e).ToList();

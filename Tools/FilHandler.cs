@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Diagnostics;
 using Microsoft.Win32;
+using GFElevInterview.Models;
 
 namespace GFElevInterview.Tools
 {
@@ -107,12 +108,45 @@ namespace GFElevInterview.Tools
         public static void OpenFileDialog() {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
             openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
 
-            bool? result = openFile.ShowDialog();
-
+            Nullable<bool> result = openFile.ShowDialog();
             if ((bool)result) {
-                //TODO
+                //ProcessstartInfo bruges til at køre python scriptet.
+                ProcessStartInfo info = new ProcessStartInfo();
+                List<ElevModel> elever = new List<ElevModel>();
+
+                //Python filen bliver hentet ned til filename fil lokationen.
+                //info.FileName = ".venv\\Scripts\\python.exe";
+                info.FileName = RessourceFil.pythonScript;
+                //Python scripted bliver hentet og kørt ved hjælp af fileName.
+                info.Arguments = string.Format("\"{0}\"", openFile.FileName);
+
+                info.UseShellExecute = false;
+                info.RedirectStandardOutput = true;
+                info.CreateNoWindow = true;
+                info.UseShellExecute = false;
+
+                //processeren bliver kørt, med informationerne fra ProcessStartInfo.
+                using (Process process = Process.Start(info)) {
+                    using (StreamReader reader = process.StandardOutput) {
+                        //data´en fra reader(python) bliver overført til linje(string) en linje adgangen så længe den ikke finde et null.
+                        string linje;
+                        while ((linje = reader.ReadLine()) != null) {
+                            //Data´en fra linje, bliver splittet op i et string array.
+                            string[] elev = linje.Split(';');  //Note: hardCoded seperator
+                            if (elev.Length < 2) {
+                                AlertBoxes.OnExcelReadingError(linje);
+                                return;
+                            }
+                            //Data´en fra String Array´et bliver tilføjet til elev listen.
+                            elever.Add(new ElevModel(elev[0], elev[1], elev[2]));
+                        }
+                    }
+                }
+                //DbTools TilføjElever bliver kaldt, hvorefter at eleverne bliver tilføjet til databasen.
+                DbTools.Instance.TilføjElever(elever);
             }
         }
     }
