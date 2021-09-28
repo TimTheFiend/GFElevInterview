@@ -291,7 +291,7 @@ namespace GFElevInterview.Views
                     break;
 
                 case 1:
-                    elever = DbTools.Instance._VisSkole(text);
+                    elever = DbTools.Instance.VisSkole(text);
                     break;
 
                 default:

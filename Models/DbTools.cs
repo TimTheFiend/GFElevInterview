@@ -150,13 +150,6 @@ namespace GFElevInterview.Models
         /// <param name="skoleNavn"></param>
         /// <returns></returns>
         public List<ElevModel> VisSkole(string skoleNavn) {
-            //return Elever.Where(e => e.uddannelseAdresse == skoleNavn).Select(e => e).ToList();
-            return (from e in Elever
-                    where e.UddAdr == skoleNavn
-                    select e).ToList();
-        }
-
-        public List<ElevModel> _VisSkole(string skoleNavn) {
             if (skoleNavn.Contains(' ')) {
                 string _skoleNavn = skoleNavn.Substring(0, skoleNavn.IndexOf(' '));
 
@@ -177,7 +170,7 @@ namespace GFElevInterview.Models
         /// <param name="ekslusivNiveau"></param>
         /// <param name="erNiveauHøjere"></param>
         /// <returns></returns>
-        public List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere) {
+        private List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere) {
             if (erNiveauHøjere) {
                 return (from e in Elever
                         where e.UddAdr == skole &&
