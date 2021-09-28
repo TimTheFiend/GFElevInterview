@@ -3,8 +3,6 @@ using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
 using GFElevInterview.Tools;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -112,7 +110,6 @@ namespace GFElevInterview.Views
             InitialiserKnapper(false);
         }
 
-        //TODO ryk til DbTools
         private bool OpdaterElevIDatabase() {
             try {
                 DbTools.Instance.OpdaterElevData(CurrentElev.elev);
@@ -197,7 +194,10 @@ namespace GFElevInterview.Views
             }
         }
 
-        private void btnVisAlle_Click(object sender, RoutedEventArgs e) {
+        /// <summary>
+        /// Viser en liste af alle elever.
+        /// </summary>
+        private void VisAlle_Click(object sender, RoutedEventArgs e) {
             lstSearch.ItemsSource = DbTools.Instance.VisAlle();
         }
     }

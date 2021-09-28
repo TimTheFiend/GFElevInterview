@@ -10,6 +10,7 @@ namespace GFElevInterview.Tools
         /* readonly Fields for konsistent udskrivning. */
         private static readonly string msgError = "Fejl!";
         private static readonly string msgWarning = "Advarsel!";
+        private static readonly string msgSuccess = "Succes!";
 
         /* Fields */
         private static string breadText = "Placeholder text, shouldn't be seen by users.";
@@ -78,12 +79,11 @@ namespace GFElevInterview.Tools
         /// </summary>
         public static void OnSuccessfulPasswordChange() {
             breadText = "Password Ændret.";
-            captionText = msgError;
+            captionText = msgSuccess;
 
             ShowAlertBox();
         }
 
-        //TODO @Victor Doku
         /// <summary>
         /// Viser en besked som poper op hvis passwordene ikke passer ens over hinanden.
         /// </summary>
@@ -114,6 +114,16 @@ namespace GFElevInterview.Tools
             breadText = "Databasen har været slettet, og der er blevet lavet en ny.\n" +
                 "Indholdet af databasen er mistet, og admin password er blevet nulstillet.";
             captionText = "Database fejl!";
+
+            ShowAlertBox();
+        }
+
+        /// <summary>
+        /// Kaldes efter databasen er blevet nulstillet.
+        /// </summary>
+        public static void OnPostResetDatabase() {
+            breadText = "Databasen er blevet nulstillet.";
+            captionText = msgSuccess;
 
             ShowAlertBox();
         }
@@ -159,6 +169,17 @@ namespace GFElevInterview.Tools
         /// <returns><c>true</c> hvis de vælger "Ja"; ellers <c>false</c>.</returns>
         public static bool OnSelectingNewStudent() {
             breadText = "Er du sikker på at skifte til en ny elev?";
+            captionText = msgWarning;
+
+            return ShowYesNoAlertBox();
+        }
+
+        /// <summary>
+        /// Kaldes når nulstilling af database funktion knappen bliver trykket.
+        /// </summary>
+        /// <returns><c>true</c> hvis de vælger "Ja"; ellers <c>false</c>.</returns>
+        public static bool OnResettingDatabase() {
+            breadText = "Er du sikker på at du vil nulstille databasen, samt slette Merit-, og RKV-blanketter?";
             captionText = msgWarning;
 
             return ShowYesNoAlertBox();

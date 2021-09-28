@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using GFElevInterview.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Diagnostics;
-using Microsoft.Win32;
-using GFElevInterview.Models;
 
 namespace GFElevInterview.Tools
 {
@@ -40,7 +40,7 @@ namespace GFElevInterview.Tools
                 filer = Directory.GetFiles(RessourceFil.outputMappe, $"*{endelse}").ToList();
             }
             catch (DirectoryNotFoundException) {
-                //TODO Alertbox
+                //Just in case.
             }
             return filer;
         }
@@ -50,12 +50,14 @@ namespace GFElevInterview.Tools
         /// </summary>
         public static void KombinerMeritFiler() {
             List<string> filNavne = HentFiler(RessourceFil.endMerit);
+            if (filNavne.Count == 0) {
+                return;
+            }
 
             Document nytDokument = new Document();
             using (FileStream fs = new FileStream(RessourceFil.samletMerit, FileMode.Create)) {
                 PdfCopy writer = new PdfCopy(nytDokument, fs);
                 if (writer == null) {
-                    //TODO fejlmeddelse
                     return;
                 }
 
@@ -81,6 +83,9 @@ namespace GFElevInterview.Tools
         /// </summary>
         public static void ZipRKVFiler() {
             List<string> filNavne = HentFiler(RessourceFil.endRKV);
+            if (filNavne.Count == 0) {
+                return;
+            }
 
             string filSti = RessourceFil.samletRKV;
             if (File.Exists(filSti)) {
@@ -105,6 +110,9 @@ namespace GFElevInterview.Tools
             Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
         }
 
+        /// <summary>
+        /// Åbner et <see cref="OpenFileDialog"/> vindue, til tilføjelse af Excel-ark til databasen.
+        /// </summary>
         public static void OpenFileDialog() {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -136,6 +144,7 @@ namespace GFElevInterview.Tools
                         while ((linje = reader.ReadLine()) != null) {
                             //Data´en fra linje, bliver splittet op i et string array.
                             string[] elev = linje.Split(';');  //Note: hardCoded seperator
+                            //TODO Skift til ændring efter ændring i python script.
                             if (elev.Length < 2) {
                                 AlertBoxes.OnExcelReadingError(linje);
                                 return;

@@ -62,11 +62,12 @@ namespace GFElevInterview
             xelOverlayLoading.Visibility = harBrugerInput ? Visibility.Collapsed : Visibility.Visible;
         }
 
-        //TODO ordinær+ og fuldtforløb
+        /// <summary>
+        /// Opdaterer Skole/Elev tælleren.
+        /// </summary>
         public static void OpdaterSkoleOptæller() {
             //var dict = Data.AdminTools.HentAntalEleverPåSkole();
-            if(Models.DbTools.Instance == null)
-            {
+            if (Models.DbTools.Instance == null) {
                 System.Console.WriteLine();
             }
             Dictionary<string, int> skoleAntal = Models.DbTools.Instance.GetAntalEleverPerSkole();  //Placeholder
@@ -107,35 +108,32 @@ namespace GFElevInterview
         /// <summary>
         /// Viser <see cref="Views.LoginView"/> viewet, før <see cref="Views.LederView"/> bliver vist.
         /// </summary>
-        private void LederButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void LederButton_Click(object sender, RoutedEventArgs e) {
             CheckLederEllerLogin();
         }
 
-        public void CheckLederEllerLogin()
-        {
-            if (Data.CurrentUser.ErLoggetInd)
-            {
+        public void CheckLederEllerLogin() {
+            if (Data.CurrentUser.ErLoggetInd) {
                 mainContent.Content = new Views.LederView();
             }
-            else
-            {
+            else {
                 mainContent.Content = new Views.LoginView(this);
             }
             UnderviserPanel.Visibility = Visibility.Visible;
             OpdaterSkoleOptæller();
         }
 
-        //TODO tænk på bedre løsning.
+        /// <summary>
+        /// Ændrer <see cref="mainContent"/> til at være <see cref="Views.LederView"/> efter succesfuldt login.
+        /// </summary>
         public void LoginTilLederView() {
-
             mainContent.Content = new Views.LederView();
         }
 
         #endregion LederView
 
         /// <summary>
-        /// Viser <see cref="PLACEHOLDER"/> viewet.
+        /// Viser <see cref="Views.VejledningView"/>.
         /// </summary>
         private void VejledningButton_Click(object sender, RoutedEventArgs e) {
             //mainContent.Content = new Views.VejledningsView();

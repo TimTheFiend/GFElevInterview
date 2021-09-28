@@ -1,7 +1,7 @@
 ﻿using GFElevInterview.Data;
-using GFElevInterview.Tools;
 using GFElevInterview.Interfaces;
 using GFElevInterview.Models;
+using GFElevInterview.Tools;
 using System;
 using System.Linq;
 using System.Windows.Controls;
@@ -112,9 +112,10 @@ namespace GFElevInterview.Views
                 else {
                     newView = new VisitationsView(parent);
                 }
-                //TODO hvis ikke RKV
+
                 if (newView == null) {
                     AlertBoxes.OnUnlikelyError();
+                    return;
                 }
                 parent.SkiftBlanket(newView);
             }

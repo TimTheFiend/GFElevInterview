@@ -1,7 +1,7 @@
-﻿using System;
+﻿using GFElevInterview.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using GFElevInterview.Models;
 
 namespace GFElevInterview.Tools
 {
@@ -18,8 +18,8 @@ namespace GFElevInterview.Tools
 
         public static string SamletMeritFilnavn => RessourceFil.samletMerit.Substring(RessourceFil.samletMerit.LastIndexOf('\\') + 1);
         public static string SamletRKVFilNavn => RessourceFil.samletRKV.Substring(RessourceFil.samletRKV.LastIndexOf('\\') + 1);
-      
-         /// <summary>
+
+        /// <summary>
         /// Henter en liste af unikkeskoler(-plus og merit).
         /// </summary>
         /// <returns>skoler</returns>
@@ -44,7 +44,7 @@ namespace GFElevInterview.Tools
         }
 
         /// <summary>
-        /// Henter skoler med merit og uden udfra navn og meritgivelse. 
+        /// Henter skoler med merit og uden udfra navn og meritgivelse.
         /// </summary>
         /// <returns>skoler</returns>
         public static List<string> HentAlleSkoler() {

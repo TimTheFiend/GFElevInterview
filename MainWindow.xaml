@@ -24,24 +24,24 @@
                 <Border BorderBrush="Gray" BorderThickness="1" Width="230">
                     <StackPanel>
                         <DockPanel>
-                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup:"/>
-                            <TextBlock x:Name="txtAntalBal" Style="{StaticResource txtCounterAntal}" Text="0"/>
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup:" />
+                            <TextBlock x:Name="txtAntalBal" Style="{StaticResource txtCounterAntal}" Text="0" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Fredriksberg:"/>
-                            <TextBlock x:Name="txtAntalFred" Style="{StaticResource txtCounterAntal}" Text="0"/>
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Fredriksberg:" />
+                            <TextBlock x:Name="txtAntalFred" Style="{StaticResource txtCounterAntal}" Text="0" />
                         </DockPanel>
                         <DockPanel>
                             <TextBlock Style="{StaticResource txtCounterSkole}"  Text="Lyngby:" />
                             <TextBlock x:Name="txtAntalLyn" Style="{StaticResource txtCounterAntal}" Text="0" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup+:"/>
-                            <TextBlock x:Name="txtAntalBalPlus" Style="{StaticResource txtCounterAntal}" Text="0"/>
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup+:" />
+                            <TextBlock x:Name="txtAntalBalPlus" Style="{StaticResource txtCounterAntal}" Text="0" />
                         </DockPanel>
                         <DockPanel>
-                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup FF:"/>
-                            <TextBlock x:Name="txtAntalBalFuld" Style="{StaticResource txtCounterAntal}" Text="0"/>
+                            <TextBlock Style="{StaticResource txtCounterSkole}" Text="Ballerup FF:" />
+                            <TextBlock x:Name="txtAntalBalFuld" Style="{StaticResource txtCounterAntal}" Text="0" />
                         </DockPanel>
                     </StackPanel>
                 </Border>
@@ -55,10 +55,10 @@
             <ContentControl x:Name="mainContent" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             </ContentControl>
         </Border>
-    
+
     <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
-        <Border Background="White" Opacity="0.5"/>
-        <Image Source="/Resources/TECLOGO.png" Opacity="1" Height="200"/>
+        <Border Background="White" Opacity="0.5" />
+        <Image Source="/Resources/TECLOGO.png" Opacity="1" Height="200" />
     </Grid>
 </Grid>
 </Window>

@@ -1,6 +1,5 @@
 ﻿using GFElevInterview.Tools;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -111,6 +110,12 @@ namespace GFElevInterview.Models
                     select e).ToList();
         }
 
+        /// <summary>
+        /// Returnerer en liste af elever med specifikt fagniveau i et givent fag.
+        /// </summary>
+        /// <param name="fagNavn">Navn på faget.</param>
+        /// <param name="fagNiveau">Fagniveauet elev skal have.</param>
+        /// <returns></returns>
         public List<ElevModel> VisFagNiveau(string fagNavn, FagNiveau fagNiveau) {
             char forbogstav = fagNavn.ToUpper().ToCharArray()[0];
             List<ElevModel> elever = new List<ElevModel>();
@@ -277,11 +282,9 @@ namespace GFElevInterview.Models
         /// <param name="nytPw"></param>
         /// <returns></returns>
         public bool OpdaterPassword(string nytPw) {
-            //TODO Crypter password
-            //Data.CurrentUser.User.Password = nytPw;
             Data.CurrentUser.User.OpdaterPassword(nytPw);
             Login.Update(Data.CurrentUser.User);
-            this.SaveChanges();
+            SaveChanges();
 
             return true;
         }

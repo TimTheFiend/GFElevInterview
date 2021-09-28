@@ -23,7 +23,7 @@
                         <Label FontSize="20" FontWeight="Bold" FontStyle="Italic">Søg elev:</Label>
                         <TextBox x:Name="txtSearch" Style="{StaticResource txtSearchB}" TextChanged="SearchStudentTxt_TextChanged"/>
                         <Separator Width="5" Background="Transparent"/>
-                        <Button x:Name="btnVisAlle" Click="btnVisAlle_Click" Width="80" Height="30" Content="Vis Alle Elever"/>
+                        <Button x:Name="btnVisAlle" Click="VisAlle_Click" Width="80" Height="30" Content="Vis Alle Elever"/>
                     </DockPanel>
                 </Border>
 

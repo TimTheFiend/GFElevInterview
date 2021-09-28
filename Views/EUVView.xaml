@@ -1,9 +1,8 @@
 ﻿<UserControl x:Class="GFElevInterview.Views.EUVView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d"
              d:DesignHeight="1450" d:DesignWidth="800" Background="White">
     <!--Default Height "450" Width "800"-->
@@ -18,7 +17,7 @@
             <Border x:Name="bdrEducation" BorderBrush="Gray" BorderThickness="1">
                 <StackPanel>
                     <DockPanel>
-                        <Label Content="Uddanelse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                        <Label Content="Uddanelse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black" />
                         <StackPanel HorizontalAlignment="Stretch">
                             <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="16" HorizontalAlignment="Center" />
                             <ComboBox x:Name="cmbEducation" Width="240" />
@@ -30,7 +29,7 @@
             <Border x:Name="bdrAdresse" Style="{StaticResource bdrEUV2}">
                 <StackPanel>
                     <DockPanel>
-                        <Label Content="Adresse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                        <Label Content="Adresse:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black" />
                         <StackPanel HorizontalAlignment="Stretch">
                             <TextBlock TextWrapping="WrapWithOverflow" Text="Hvilken adresse ønske du at starte på?" FontSize="16" HorizontalAlignment="Center" />
                             <ComboBox x:Name="cmbUddannelse" Width="160" />
@@ -42,7 +41,7 @@
             <Border BorderBrush="Gray" BorderThickness="1">
                 <StackPanel>
                     <DockPanel>
-                        <Label Content="EUV1:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                        <Label Content="EUV1:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black" />
                         <StackPanel HorizontalAlignment="Stretch">
                             <Label  Content="Har du 2 års relevant erhvervserfaring, inde for de sidste 5 år?" FontSize="13" HorizontalAlignment="Center" />
                             <DockPanel Style="{StaticResource docKnapH}">
@@ -115,7 +114,7 @@
                                 <Separator Style="{StaticResource SepSpaceH}" />
                                 <Border x:Name="bdrEuv1Svar" Style="{StaticResource bdrEUV}">
                                     <DockPanel>
-                                        <Label Content="EUV1:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                                        <Label Content="EUV1:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black" />
                                         <StackPanel HorizontalAlignment="Stretch">
                                             <TextBlock Text="Passer disse spørgsmål til din erfaring?" FontSize="16" HorizontalAlignment="Center" />
                                             <DockPanel Name="docEuv1Sprg" Style="{StaticResource docKnapH}">
@@ -140,7 +139,7 @@
                     <Expander x:Name="expEuv2">
                         <Border  x:Name="bdrEuv2">
                             <DockPanel>
-                                <Label Content="EUV2:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                                <Label Content="EUV2:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black" />
                                 <StackPanel>
 
                                     <TextBlock TextWrapping="WrapWithOverflow" Text="Har du en dokumenteret afsluttet uddannelse og/eller har du mindre end 2 års relevant dokumenteret erhvervserfaring." FontSize="16"  HorizontalAlignment="Center" />
@@ -165,7 +164,7 @@
             <Separator Style="{StaticResource SepSpaceH}" />
             <Border x:Name="bdrSps" Style="{StaticResource bdrEUV2}" Height="70">
                 <DockPanel x:Name="stackSps">
-                    <Label Content="SPS:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                    <Label Content="SPS:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black" />
                     <StackPanel>
                         <TextBlock TextWrapping="WrapWithOverflow" Text="Har du modtaget særlige støtte eller ønsker du at søge om særlige pædagogiske støtte?" FontSize="16" HorizontalAlignment="Center" />
                         <DockPanel Style="{StaticResource docKnapH}">
@@ -186,7 +185,7 @@
             <Separator Style="{StaticResource SepSpaceH}" />
             <Border x:Name="bdrEud" Style="{StaticResource bdrEUV2}" Height="70">
                 <DockPanel x:Name="stackEud">
-                    <Label Content="EUD:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black"/>
+                    <Label Content="EUD:" FontSize="15" VerticalContentAlignment="Center" FontWeight="Black" />
                     <StackPanel>
                         <TextBlock TextWrapping="WrapWithOverflow" Text="Ønsker du en samtale med en eud vejleder?" FontSize="16" HorizontalAlignment="Center" />
                         <DockPanel Style="{StaticResource docKnapH}">

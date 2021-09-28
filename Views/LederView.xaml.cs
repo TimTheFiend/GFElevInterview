@@ -1,11 +1,7 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Models;
 using GFElevInterview.Tools;
-using Microsoft.Win32;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -120,6 +116,7 @@ namespace GFElevInterview.Views
         #endregion Funktioner
 
         #region Datagrid EventHandler
+
         /// <summary>
         /// Aktiver / Deaktiver funktionalitet baseret på den valgte elev.
         /// </summary>
@@ -136,7 +133,7 @@ namespace GFElevInterview.Views
             btnOpen_Merit.IsEnabled = elev.DanNiveau > FagNiveau.Null;
             btnOpen_RKV.IsEnabled = elev.ElevType > EUVType.Null;
         }
-        
+
         #endregion Datagrid EventHandler
 
         #region Button EventHandler
@@ -211,8 +208,7 @@ namespace GFElevInterview.Views
                     MainWindow.Instance.CheckLederEllerLogin();
                 }
                 else {
-                    //TODO
-                    MessageBox.Show("Nej");
+                    AlertBoxes.OnUnlikelyError();
                 }
             }
             else {
@@ -236,12 +232,14 @@ namespace GFElevInterview.Views
             SetBrugerInput(false);
         }
 
-        //TODO Alertboxes
+        /// <summary>
+        /// Nulstiller Elev tabellen i Databasen, og sletter alle merit og RKV blanketter.
+        /// </summary>
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
-            if (AlertBoxes.OnExportMerit()) {
+            if (AlertBoxes.OnResettingDatabase()) {
                 if (DbTools.Instance.NulstilEleverAlt()) {
                     VisAlleDataGrid();
-                    MessageBox.Show("SUC RESET");
+                    AlertBoxes.OnPostResetDatabase();
                 }
             }
         }
@@ -306,7 +304,9 @@ namespace GFElevInterview.Views
 
         #region TextBox EventHandler
 
-        //TODO doku og navngivning
+        /// <summary>
+        /// Opdaterer DataGrid når indholdet af TextBox bliver ændret.
+        /// </summary>
         private void ElevQuery_TextChanged(object sender, TextChangedEventArgs e) {
             string query = (sender as TextBox).Text;
             //Nulstil datagrid

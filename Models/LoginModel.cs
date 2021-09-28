@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using BC = BCrypt.Net.BCrypt;
 
 namespace GFElevInterview.Models
@@ -18,14 +16,13 @@ namespace GFElevInterview.Models
         [DataType(DataType.Password)]
         public string password { get; set; }
 
-        public void OpdaterPassword(string nytPassword)
-        {
+        public void OpdaterPassword(string nytPassword) {
             password = BC.HashPassword(nytPassword);
         }
 
-        [NotMapped]
-        public string Password { get { return password; } set { password = BC.HashPassword(value); } }
-
+        /// <summary>
+        /// Opretter en "default" admin bruger, efter en ny database bliver lavet.
+        /// </summary>
         public LoginModel CreateInitialLogin() {
             return new LoginModel() {
                 id = 1,
@@ -33,7 +30,5 @@ namespace GFElevInterview.Models
                 password = BC.HashPassword(RessourceFil.standardPassword)
             };
         }
-
-        
     }
 }

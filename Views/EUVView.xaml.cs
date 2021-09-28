@@ -33,8 +33,9 @@ namespace GFElevInterview.Views
             SætButtons();
 
             #region Sæt ComboBox værdier
+
             cmbUddannelse.ItemsSource = Tools.StandardVaerdier.HentSkoler(CurrentElev.elev.DanNiveau > FagNiveau.F);
-            
+
             if (cmbUddannelse.Items.Count == 1) {
                 cmbUddannelse.SelectedIndex = 0;
             }
@@ -119,7 +120,8 @@ namespace GFElevInterview.Views
             //erValideret Tjekker her om radiobuttons er valideret, ved at tjekke knapperne givet til den. hvis den ikke finder
             //den udfyldt så bliver den lyst op med en rød border.
             erValideret = InputValidering.ValiderToRadioButtons(rbEuv1Ja, rbEuv1Nej, out erElevEUV1, bdrEuv1) && erValideret;
-            //TODO
+
+            //Sørger for at der kigges i passende RadioButton gruppe
             if (erElevEUV1) {
                 erValideret = InputValidering.ValiderToRadioButtons(rbEuv1SprgJa, rbEuv1SprgNej, bdrEuv1) && erValideret;
             }

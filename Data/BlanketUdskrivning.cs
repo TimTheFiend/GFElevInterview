@@ -23,7 +23,6 @@ namespace GFElevInterview.Data
         /// informationen indsættes i felterne, og gemmes som pdf fil.
         /// </summary>
         public static void UdskrivningRKV() {
-            //TODO `Metrit #` skal ændres til at matche med minimums karakter
             try {
                 string inputFil = GetRKVBlanketTemplate;
                 //Udskrivnings filen.
@@ -56,7 +55,6 @@ namespace GFElevInterview.Data
                 pdfFormFields.SetField("kompetence 3", "Engelsk");
                 pdfFormFields.SetField("Metrit 3", CurrentElev.elev.EngNiveau > FagNiveau.F ? "Yes" : "No");
 
-                //TODO Side 4 Grundforløb
                 //NOTE laver udregningen her, ellers er der ingen værdi.
                 CurrentElev.elev.BeregnMeritIUger();
 
@@ -64,7 +62,6 @@ namespace GFElevInterview.Data
                 pdfFormFields.SetField("GF Samlet antal dages merit", $"{ CurrentElev.elev.MeritLængdeIDage}");
                 pdfFormFields.SetField("GF Samlet antal på GF", $"{100 - CurrentElev.elev.MeritLængdeIDage}");
 
-                //TODO MAX
                 //Side 5 Special Støtte
                 //pdfFormFields.SetField("Specialpæd ja", CurrentElev.elev.SPS.ToString());
                 //pdfFormFields.SetField("GF Samlet antal dages merit", "10");
