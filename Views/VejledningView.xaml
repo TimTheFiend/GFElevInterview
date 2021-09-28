@@ -25,14 +25,14 @@
 
             <StackPanel>
                 <Label Content="Vejleder guide" FontSize="25" HorizontalAlignment="Center"></Label>
-                <Button x:Name="buttonVej" Width="65" Height="30" ></Button>
+                <Button x:Name="buttonVej" Width="65" Height="30" Click="buttonVej_Click"></Button>
             </StackPanel>
         </Border>
 
         <Border Grid.Row="1">
             <StackPanel>
                 <Label Content="Leder Guide" FontSize="25" HorizontalAlignment="Center"></Label>
-                <Button x:Name="buttonLeder" Height="30" Width="65"  ></Button>
+                <Button x:Name="buttonLeder" Height="30" Width="65" Click="buttonLeder_Click" ></Button>
             </StackPanel>
         </Border>
 

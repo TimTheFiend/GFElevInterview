@@ -191,5 +191,10 @@ namespace GFElevInterview.Views
         private void UdfoldEUV_RadioButtonChecked(object sender, RoutedEventArgs e) {
             OpdaterExpanders((bool)rbEuv1Ja.IsChecked, (bool)rbEuv1Nej.IsChecked);
         }
+
+        private void rbEuv1Nej_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

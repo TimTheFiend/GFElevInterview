@@ -178,6 +178,15 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vejledning.
+        /// </summary>
+        internal static string outputMappeTest {
+            get {
+                return ResourceManager.GetString("outputMappeTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Programmering.
         /// </summary>
         internal static string programmering {

@@ -138,7 +138,7 @@ namespace GFElevInterview
         /// Viser <see cref="PLACEHOLDER"/> viewet.
         /// </summary>
         private void VejledningButton_Click(object sender, RoutedEventArgs e) {
-            //mainContent.Content = new Views.VejledningsView();
+            mainContent.Content = new Views.VejledningView();
             UnderviserPanel.Visibility = Visibility.Visible;
             OpdaterSkoleOptæller();
         }

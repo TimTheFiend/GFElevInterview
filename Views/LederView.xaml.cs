@@ -291,7 +291,7 @@ namespace GFElevInterview.Views
         }
 
         private void ResetButton_Click(object sender, RoutedEventArgs e) {
-            if (AlertBoxes.OnExportMerit()) {
+            if (AlertBoxes.OnResetDatabase()) {
                 if (DbTools.Instance.NulstilEleverAlt()) {
                     visAlle_Click(btnVisAlle, new RoutedEventArgs());
                     MessageBox.Show("SUC RESET");

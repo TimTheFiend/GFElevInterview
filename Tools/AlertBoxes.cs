@@ -64,6 +64,17 @@ namespace GFElevInterview.Tools
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static void OnExcelReadingExist()
+        {
+            breadText = "Disse elever eksister allerede og ingen nye elever er blevet tilføjet";
+            captionText = msgError;
+
+            ShowAlertBox();
+        }
+
+        /// <summary>
         /// Viser en besked om at de har skrevet et forkert password ind og at adgangen derfor er nægtet.
         /// </summary>
         public static void OnFailedLoginAttempt() {
@@ -149,6 +160,14 @@ namespace GFElevInterview.Tools
         public static bool OnExportRKV() {
             breadText = "Er du sikker på at zippe RKV-dokumenterne?";
             captionText = "Export";
+
+            return ShowYesNoAlertBox();
+        }
+
+        public static bool OnResetDatabase()
+        {
+            breadText = "Er du sikker på at du vil nulstille database";
+            captionText = "Nulstil";
 
             return ShowYesNoAlertBox();
         }
