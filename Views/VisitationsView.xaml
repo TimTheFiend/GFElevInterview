@@ -12,7 +12,7 @@
             <Border x:Name="bdrEducation" Style="{StaticResource bdrVisitation}" Width="600" Height="80">
                 <StackPanel VerticalAlignment="Center">
                     <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="15" HorizontalAlignment="Center" />
-                    <ComboBox x:Name="cmbEducation" Width="250" />
+                    <ComboBox x:Name="cmbUddannelse" Width="250" />
                 </StackPanel>
             </Border>
             <Separator Style="{StaticResource SepSpaceH}" />

@@ -1,5 +1,6 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Interfaces;
+using GFElevInterview.Tools;
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
@@ -29,7 +30,7 @@ namespace GFElevInterview.Views
             SætKomboBokse();
 
             //Sæt EventHandlers
-            cmbEducation.DropDownClosed += Combobox_DropDownClosed;
+            cmbUddannelse.DropDownClosed += Combobox_DropDownClosed;
             cmbAdresse.DropDownClosed += Combobox_DropDownClosed;
 
             UdfyldBlanketHvisAlleredeEksisterende();
@@ -39,17 +40,21 @@ namespace GFElevInterview.Views
         /// Fylder <see cref="ComboBox"/> op med indhold.
         /// </summary>
         private void SætKomboBokse() {
-            cmbAdresse.ItemsSource = new List<string>() {
-                RessourceFil.ballerup,
-                RessourceFil.frederiksberg,
-                RessourceFil.lyngby
-            };
-            cmbEducation.ItemsSource = new List<string>() {
-                RessourceFil.infrastruktur,
-                RessourceFil.itsupporter,
-                RessourceFil.programmering,
-                RessourceFil.vedIkke
-            };
+
+            cmbAdresse.ItemsSource = StandardVaerdier.HentSkoler(CurrentElev.elev.DanNiveau > Models.FagNiveau.F);
+
+            if (cmbAdresse.Items.Count == 1)
+            {
+                cmbAdresse.SelectedIndex = 0;
+            }
+            cmbUddannelse.ItemsSource = StandardVaerdier.HentUddannelser(false);
+
+            //cmbUddannelse.ItemsSource = new List<string>() {
+            //    RessourceFil.infrastruktur,
+            //    RessourceFil.itsupporter,
+            //    RessourceFil.programmering,
+            //    RessourceFil.vedIkke
+            //};
         }
 
         /// <summary>
@@ -68,7 +73,7 @@ namespace GFElevInterview.Views
                 UdfyldBlanket.UdfyldRadioButton(rbSpsJa, rbSpsNej, CurrentElev.elev.SPS);
                 UdfyldBlanket.UdfyldRadioButton(rbEudJa, rbEudNej, CurrentElev.elev.EUD);
 
-                UdfyldBlanket.UdfyldComboBox(cmbEducation, CurrentElev.elev.UddLinje);
+                UdfyldBlanket.UdfyldComboBox(cmbUddannelse, CurrentElev.elev.UddLinje);
                 UdfyldBlanket.UdfyldComboBox(cmbAdresse, CurrentElev.elev.UddAdr);
             }
         }
@@ -91,7 +96,7 @@ namespace GFElevInterview.Views
         /// </summary>
         private void SætCurrentElevVærdier() {
             CurrentElev.elev.UddAdr = cmbAdresse.Text;
-            CurrentElev.elev.UddLinje = cmbEducation.Text;
+            CurrentElev.elev.UddLinje = cmbUddannelse.Text;
             CurrentElev.elev.SPS = (bool)rbSpsJa.IsChecked;
             CurrentElev.elev.EUD = (bool)rbEudJa.IsChecked;
         }
@@ -105,7 +110,7 @@ namespace GFElevInterview.Views
         private bool ErValideret() {
             return InputValidering.ValiderToRadioButtons(rbSpsJa, rbSpsNej, bdrSps)
                 && InputValidering.ValiderToRadioButtons(rbEudJa, rbEudNej, bdrEud)
-                && InputValidering.ValiderComboBox(cmbEducation, bdrEducation)
+                && InputValidering.ValiderComboBox(cmbUddannelse, bdrEducation)
                 && InputValidering.ValiderComboBox(cmbAdresse, bdrAdresse);
         }
 
