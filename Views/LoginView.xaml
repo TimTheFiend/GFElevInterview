@@ -18,8 +18,6 @@
         </Grid.RowDefinitions>
         <Image Grid.Column="1" Grid.Row="0" Source="/Resources/TECLOGO.png" />
         <StackPanel Grid.Column="1" Grid.Row="1">
-            <Label Content="Brugernavn" HorizontalAlignment="Center" />
-            <TextBox x:Name="txtUsername" Width="250" Height="25" HorizontalAlignment="Center" BorderThickness="2" />
             <Label Content="Kodeord" HorizontalAlignment="Center" />
             <PasswordBox x:Name="txtPassword" Width="250" Height="25" HorizontalAlignment="Center" BorderThickness="2" />
             <Separator Style="{StaticResource SepSpaceH}" />

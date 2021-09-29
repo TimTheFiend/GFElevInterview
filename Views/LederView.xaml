@@ -40,9 +40,9 @@
                 <ComboBox x:Name="cmbSubkategori" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" />
             </StackPanel>
             <StackPanel VerticalAlignment="Center">
-                <Label Content="Udd. Linje" />
+                <Label Content="Søge kategori" />
                 <Separator Background="Transparent" Height="5" />
-                <Label Content="Add. Linje" />
+                <Label Content="Elev Variabel" />
             </StackPanel>
         </DockPanel>
         <Border Grid.Column="3" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
@@ -58,12 +58,14 @@
             <Separator Style="{StaticResource SepSpaceH}" />
             <Button x:Name="btnExcel" Content="Tilføj"  Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnReset" Content="Reset" Style="{StaticResource btnAdmin}" />
+            <Button x:Name="btnReset" Content="Nulstil DB" Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnOpen_RKV" Width="80" Height="20" Content="Åben RKV" IsEnabled="False" />
+            <Button x:Name="btnOpen_RKV" Width="80" Height="25" Content="Åben RKV" IsEnabled="False" />
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnOpen_Merit" Width="80" Height="20" Content="Åben Merit" IsEnabled="False" />
-            <Separator Style="{StaticResource SepSpaceH}" />
+            <Button x:Name="btnOpen_Merit" Width="80" Height="25" Content="Åben Merit" IsEnabled="False" />
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnOutputDir" Width="80" Height="25" Content="Åben Mappe"/>
+            <Separator Style="{StaticResource SepSpaceH}"/>
             <Button x:Name="btnSkiftPassword" Width="80" Height="25"  Content="Skift Password" />
         </StackPanel>
 
