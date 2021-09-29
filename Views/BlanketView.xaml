@@ -20,7 +20,7 @@
                 <Border Grid.Row="0" BorderBrush="Gray">
 
                     <DockPanel>
-                        <Label FontSize="20" FontWeight="Bold" FontStyle="Italic">Søg elev:</Label>
+                        <Label FontSize="20" FontWeight="Bold" FontStyle="Italic">Find elev:</Label>
                         <TextBox x:Name="txtSearch" Style="{StaticResource txtSearchB}" TextChanged="SearchStudentTxt_TextChanged"/>
                         <Separator Width="5" Background="Transparent"/>
                         <Button x:Name="btnVisAlle" Click="VisAlle_Click" Width="80" Height="30" Content="Vis Alle Elever"/>

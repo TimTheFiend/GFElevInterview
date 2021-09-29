@@ -59,6 +59,7 @@
     <Style x:Key="bdrEUV2" TargetType="Border">
         <Setter Property="BorderBrush" Value="Gray" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
     <Style x:Key="bdrSpace" TargetType="Border">
         <Setter Property="Height" Value="10" />
@@ -73,6 +74,8 @@
     <Style x:Key="bdrVisitation" TargetType="Border">
         <Setter Property="BorderBrush" Value="Gray" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Width" Value="600" />
     </Style>
     <Style x:Key="labVisitation" TargetType="Label">
         <Setter Property="FontSize" Value="17" />
@@ -113,6 +116,12 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Width" Value="200" />
+    </Style>
+    <Style x:Key="lblOverskrift2" TargetType="Label">
+        <Setter Property="FontSize" Value="25" />
+        <Setter Property="Width" Value="160" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
     <!--#endregion-->
     <!--#region Blandet-->
