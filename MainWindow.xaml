@@ -6,14 +6,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GFElevInterview"
         mc:Ignorable="d"
-        Title="GF2 - " Height="700" Width="1200">
+        Title="GF Interview"
+        MinHeight="700" MinWidth="1200"
+        Height="700" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="3">
-                <StackPanel>
+            <StackPanel>
                 <Separator Height="20" Background="Transparent" Margin="0" />
                 <Button Name="btnUnderviser" Click="UnderviserButton_Click" Style="{StaticResource btnPanel}" Width="230">Underviser</Button>
                 <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
@@ -56,9 +58,9 @@
             </ContentControl>
         </Border>
 
-    <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
-        <Border Background="White" Opacity="0.5" />
-        <Image Source="/Resources/TECLOGO.png" Opacity="1" Height="200" />
+        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="2" Visibility="Collapsed">
+            <Border Background="White" Opacity="0.5" />
+            <Image Source="/Resources/TECLOGO.png" Opacity="1" Height="200" />
+        </Grid>
     </Grid>
-</Grid>
 </Window>

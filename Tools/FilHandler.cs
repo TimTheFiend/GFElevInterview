@@ -48,17 +48,17 @@ namespace GFElevInterview.Tools
         /// <summary>
         /// Kombinerer alle merit-blanketter ind i én .PDF-fil.
         /// </summary>
-        public static void KombinerMeritFiler() {
+        public static bool KombinerMeritFiler() {
             List<string> filNavne = HentFiler(RessourceFil.endMerit);
             if (filNavne.Count == 0) {
-                return;
+                return false;
             }
 
             Document nytDokument = new Document();
             using (FileStream fs = new FileStream(RessourceFil.samletMerit, FileMode.Create)) {
                 PdfCopy writer = new PdfCopy(nytDokument, fs);
                 if (writer == null) {
-                    return;
+                    return false;
                 }
 
                 nytDokument.Open();
@@ -75,16 +75,17 @@ namespace GFElevInterview.Tools
                 //NOTE Hvis der ikke er nogle sider, så crasher.
                 writer.Close();
                 nytDokument.Close();
+                return true;
             }
         }
 
         /// <summary>
         /// Zipper alle RKV-blanketter ind i én zip-fil.
         /// </summary>
-        public static void ZipRKVFiler() {
+        public static bool ZipRKVFiler() {
             List<string> filNavne = HentFiler(RessourceFil.endRKV);
             if (filNavne.Count == 0) {
-                return;
+                return false;
             }
 
             string filSti = RessourceFil.samletRKV;
@@ -97,12 +98,13 @@ namespace GFElevInterview.Tools
                 zip.CreateEntryFromFile(filNavn, Path.GetFileName(filNavn), CompressionLevel.Optimal);
             }
             zip.Dispose();
+            return true;
         }
 
         /// <summary>
         /// Åbner en ny instans af Explorer med den valgte fil selected.
         /// </summary>
-        public static void VisBlanketIExplorer(string filNavn) {
+        public static void VisFilIExplorer(string filNavn) {
             string curDir = Directory.GetCurrentDirectory();
             int index = curDir.LastIndexOf('\\');
 
@@ -119,17 +121,15 @@ namespace GFElevInterview.Tools
 
             openFile.Filter = "Excel File |*.xls;*.xlsx;*.xlsm";
 
-            Nullable<bool> result = openFile.ShowDialog();
-            if ((bool)result) {
+            if ((bool)openFile.ShowDialog()) {
                 //ProcessstartInfo bruges til at køre python scriptet.
                 ProcessStartInfo info = new ProcessStartInfo();
                 List<ElevModel> elever = new List<ElevModel>();
 
                 //Python filen bliver hentet ned til filename fil lokationen.
-                //info.FileName = ".venv\\Scripts\\python.exe";
                 info.FileName = RessourceFil.pythonScript;
                 //Python scripted bliver hentet og kørt ved hjælp af fileName.
-                info.Arguments = string.Format("\"{0}\"", openFile.FileName);
+                info.Arguments = $"\"{openFile.FileName}\"";
 
                 info.UseShellExecute = false;
                 info.RedirectStandardOutput = true;
@@ -141,21 +141,27 @@ namespace GFElevInterview.Tools
                     using (StreamReader reader = process.StandardOutput) {
                         //data´en fra reader(python) bliver overført til linje(string) en linje adgangen så længe den ikke finde et null.
                         string linje;
+
                         while ((linje = reader.ReadLine()) != null) {
                             //Data´en fra linje, bliver splittet op i et string array.
-                            string[] elev = linje.Split(';');  //Note: hardCoded seperator
-                            //TODO Skift til ændring efter ændring i python script.
-                            if (elev.Length < 2) {
+                            string[] elev = linje.Split(';');
+
+                            //På denne måde behøver der ikke at tjekkes efter fejl, kun efter om den kan tilføjes.
+                            if (elev.Length == 3) {
+                                elever.Add(new ElevModel(elev[0], elev[1], elev[2]));
+                            }
+                            else {
                                 AlertBoxes.OnExcelReadingError(linje);
                                 return;
                             }
-                            //Data´en fra String Array´et bliver tilføjet til elev listen.
-                            elever.Add(new ElevModel(elev[0], elev[1], elev[2]));
-                        }
-                    }
-                }
-                //DbTools TilføjElever bliver kaldt, hvorefter at eleverne bliver tilføjet til databasen.
+                        }  //While ((linje ...
+                    }  //using (StreamReader ...
+                }  // using (Process ...
+
+                //Tilføj elever når færdig.
+                int aktuelleElevAntal = DbTools.Instance.AntalEleverIAlt;
                 DbTools.Instance.TilføjElever(elever);
+                AlertBoxes.OnSuccessfulDatabaseInsert(DbTools.Instance.AntalEleverIAlt - aktuelleElevAntal);
             }
         }
     }

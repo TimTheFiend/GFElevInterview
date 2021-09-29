@@ -60,7 +60,7 @@ namespace GFElevInterview.Views
             cmbSubkategori.SelectionChanged += QuerySubkategori_SelectionChanged;
             /* Password */
             btnSkiftPassword.Click += SkiftPassword_btnClick;
-            btnValiderKodeord.Click += ValiderOpdaterPassword_btnClick;
+            btnValiderKodeord.Click += ValiderOpdaterPassword_Click;
             btnTilbage.Click += Button_Click;
             /* DataGrid */
             gridElevTabel.SelectionChanged += ElevTabel_SelectionChanged;
@@ -166,7 +166,7 @@ namespace GFElevInterview.Views
         /// Åbner en ny stifinder og viser den valgte fil.
         /// </summary>
         private void HentBlanket_Click(object sender, RoutedEventArgs e) {
-            FilHandler.VisBlanketIExplorer((sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
+            FilHandler.VisFilIExplorer((sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
         }
 
         /// <summary>
@@ -176,15 +176,23 @@ namespace GFElevInterview.Views
             switch ((sender as Button) == btnExportMerit) {
                 case true:
                     if (AlertBoxes.OnExportMerit()) {
-                        FilHandler.KombinerMeritFiler();
-                        FilHandler.VisBlanketIExplorer(StandardVaerdier.SamletMeritFilnavn);
+                        if (FilHandler.KombinerMeritFiler()) {
+                            FilHandler.VisFilIExplorer(StandardVaerdier.SamletMeritFilnavn);
+                        }
+                        else {
+                            AlertBoxes.OnNoDocumentsForExport();
+                        }
                     }
                     break;
 
                 case false:
                     if (AlertBoxes.OnExportRKV()) {
-                        FilHandler.ZipRKVFiler();
-                        FilHandler.VisBlanketIExplorer(StandardVaerdier.SamletRKVFilNavn);
+                        if (FilHandler.ZipRKVFiler()) {
+                            FilHandler.VisFilIExplorer(StandardVaerdier.SamletRKVFilNavn);
+                        }
+                        else {
+                            AlertBoxes.OnNoDocumentsForExport();
+                        }
                     }
                     break;
             }
@@ -200,7 +208,7 @@ namespace GFElevInterview.Views
         /// Hvis de passer over ens bliver passwordet opdateret og gemt i databasen,
         /// <br/>CurrentUser bliver NulStillet, En pop op besked bliver vist og brugeren bliver sendt til bage til login siden.
         /// </summary>
-        private void ValiderOpdaterPassword_btnClick(object sender, RoutedEventArgs e) {
+        private void ValiderOpdaterPassword_Click(object sender, RoutedEventArgs e) {
             if (txtKodeord.Password == txtValiderKodeord.Password) {
                 if (DbTools.Instance.OpdaterPassword(txtKodeord.Password)) {
                     AlertBoxes.OnSuccessfulPasswordChange();

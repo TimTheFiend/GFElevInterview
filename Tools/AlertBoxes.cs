@@ -128,6 +128,24 @@ namespace GFElevInterview.Tools
             ShowAlertBox();
         }
 
+        /// <summary>
+        /// Viser en besked på succesfuld tilføjelse af elever.
+        /// </summary>
+        /// <param name="antalNyeElever">Antal elever der er blevet tilføjet.</param>
+        public static void OnSuccessfulDatabaseInsert(int antalNyeElever) {
+            breadText = $"Databasen har tilføjet {antalNyeElever} nye elev(er) til databasen.";
+            captionText = msgSuccess;
+
+            ShowAlertBox();
+        }
+
+        public static void OnNoDocumentsForExport() {
+            breadText = "Der er ingen af den type blanket at eksporterer.";
+            captionText = msgError;
+
+            ShowAlertBox();
+        }
+
         #endregion AlertBoxes med én knap
 
         #region AlertBoxes med to knapper

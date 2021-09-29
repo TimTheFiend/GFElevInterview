@@ -187,7 +187,7 @@ namespace GFElevInterview {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PyExcel\\GFElevInterviewExcel.exe.
+        ///   Looks up a localized string similar to PyExcel\\GFExcel.exe.
         /// </summary>
         internal static string pythonScript {
             get {

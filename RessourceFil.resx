@@ -174,7 +174,7 @@
     <comment>Udd. Linje</comment>
   </data>
   <data name="pythonScript" xml:space="preserve">
-    <value>PyExcel\\GFElevInterviewExcel.exe</value>
+    <value>PyExcel\\GFExcel.exe</value>
     <comment>Relativ filsti til python script.</comment>
   </data>
   <data name="samletMerit" xml:space="preserve">

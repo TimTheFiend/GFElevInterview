@@ -27,14 +27,18 @@ namespace GFElevInterview.Models
         }
 
         /// <summary>
+        /// Henter antal elever i <see cref="Elever"/>.
+        /// </summary>
+        public int AntalEleverIAlt => Elever.Select(e => e).Count();
+
+        /// <summary>
         /// Tømmer <see cref="Elever"/> tabellen, og sletter alle individuelle blanketter i <see cref="RessourceFil.outputMappe"/>.
         /// </summary>
         public bool NulstilEleverAlt() {
-            if (Tools.FilHandler.SletDokumenterIOutputMappe()) {
+            if (FilHandler.SletDokumenterIOutputMappe()) {
                 Elever.RemoveRange(Elever);
                 SaveChanges();
 
-                Tools.AlertBoxes.OnFinishedInterview();
                 return true;
             }
             return false;
