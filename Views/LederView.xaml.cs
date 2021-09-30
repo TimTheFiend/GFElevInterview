@@ -1,6 +1,7 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Models;
 using GFElevInterview.Tools;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -64,6 +65,13 @@ namespace GFElevInterview.Views
             btnTilbage.Click += Button_Click;
             /* DataGrid */
             gridElevTabel.SelectionChanged += ElevTabel_SelectionChanged;
+            /* Åben Mappe */
+            btnOutputDir.Click += OpenOutputDirectory_Click;
+        }
+
+        private void OpenOutputDirectory_Click(object sender, RoutedEventArgs e)
+        {
+            FilHandler.VisFilIExplorer(false);
         }
 
         /// <summary>

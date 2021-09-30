@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:GFElevInterview.Views"
-             mc:Ignorable="d" Background="White"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -12,15 +12,15 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="0.1*" />
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="0" Visibility="Visible">
+        <Border Grid.Column="1" BorderBrush="Gray">
             <StackPanel x:Name="stackMerit" Grid.Column="0" Grid.Row="4">
                 <Label Content="Ansøgning om merit på Grundforløb , GF2:" FontSize="20" FontWeight="Bold" />
                 <Separator Height="20" Background="Transparent" />
-                <Border x:Name="bdrDanskValidation" BorderBrush="Gray" BorderThickness="1" Height="80">
+                <Border x:Name="bdrDanskValidation" Style="{StaticResource bdrMerit}">
                     <DockPanel>
                         <Label Content="Dansk:" Style="{StaticResource lblOverskrift}" />
                         <Label Content="Niveau" FontSize="15" VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
-                        <ComboBox x:Name="cmbDansk" SelectionChanged="ComboboxFagNiveau_SelectionChanged" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Style="{StaticResource cmbFag}" />
+                        <ComboBox x:Name="cmbDansk" SelectionChanged="ComboboxFagNiveau_SelectionChanged" Style="{StaticResource cmbFag}" />
                         <StackPanel VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="J" />
@@ -55,8 +55,8 @@
                         </StackPanel>
                     </DockPanel>
                 </Border>
-                <Separator Height="20" Background="Transparent" Padding="0" Margin="0" />
-                <Border x:Name="bdrEngelskValidation" BorderBrush="Gray" BorderThickness="1" Height="80">
+                <Separator Style="{StaticResource SepSpaceH}" />
+                <Border x:Name="bdrEngelskValidation" Style="{StaticResource bdrMerit}">
                     <DockPanel>
                         <Label Content="Engelsk:" Style="{StaticResource lblOverskrift}" />
                         <Label Content="Niveau" FontSize="15" VerticalAlignment="Center" />
@@ -95,9 +95,8 @@
                         </StackPanel>
                     </DockPanel>
                 </Border>
-                <!--<Border Style="{StaticResource bdrSpace}" />-->
-                <Separator Height="20" Background="Transparent" Padding="0" Margin="0" />
-                <Border x:Name="bdrMatematikValidation" BorderBrush="Gray" BorderThickness="1" Height="80">
+                <Separator Style="{StaticResource SepSpaceH}" />
+                <Border x:Name="bdrMatematikValidation" Style="{StaticResource bdrMerit}">
                     <DockPanel>
                         <Label Content="Matematik:" Style="{StaticResource lblOverskrift}" />
                         <Label Content="Niveau" FontSize="15" VerticalAlignment="Center" />
@@ -105,13 +104,13 @@
                         <StackPanel VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="J" FontSize="13" />
-                                <RadioButton x:Name="rbMatematikEksamenJa" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMEksamen">
+                                <RadioButton x:Name="rbMatematikEksamenJa" Style="{StaticResource rbnValg}" GroupName="rbMEksamen">
                                     <RadioButton.LayoutTransform>
                                         <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                     </RadioButton.LayoutTransform>
                                 </RadioButton>
                                 <Label Content="N" FontSize="13" />
-                                <RadioButton x:Name="rbMatematikEksamenNej" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMEksamen">
+                                <RadioButton x:Name="rbMatematikEksamenNej" Style="{StaticResource rbnValg}" GroupName="rbMEksamen">
                                     <RadioButton.LayoutTransform>
                                         <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                     </RadioButton.LayoutTransform>
@@ -120,13 +119,13 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="J" FontSize="13" />
-                                <RadioButton x:Name="rbMatematikUndervisJa" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMUndervis">
+                                <RadioButton x:Name="rbMatematikUndervisJa" Style="{StaticResource rbnValg}" GroupName="rbMUndervis">
                                     <RadioButton.LayoutTransform>
                                         <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                     </RadioButton.LayoutTransform>
                                 </RadioButton>
                                 <Label Content="N" FontSize="13" />
-                                <RadioButton x:Name="rbMatematikUndervisNej" Style="{StaticResource rbnValg}" VerticalAlignment="Center" GroupName="rbMUndervis">
+                                <RadioButton x:Name="rbMatematikUndervisNej" Style="{StaticResource rbnValg}" GroupName="rbMUndervis">
                                     <RadioButton.LayoutTransform>
                                         <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                     </RadioButton.LayoutTransform>
