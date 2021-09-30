@@ -101,15 +101,18 @@ namespace GFElevInterview.Tools
             return true;
         }
 
-        /// <summary>
-        /// Åbner en ny instans af Explorer med den valgte fil selected.
-        /// </summary>
-        public static void VisFilIExplorer(string filNavn) {
+        //TODO Joakim kommentar.
+        public static void VisFilIExplorer(bool erICurdir, params string[] objNavne)
+        {
             string curDir = Directory.GetCurrentDirectory();
-            int index = curDir.LastIndexOf('\\');
+            List<string> filSti = objNavne.ToList();
 
-            string filSti = Path.Combine(curDir.Substring(0, index), RessourceFil.outputMappeNavn, filNavn);
-            Process.Start("explorer.exe", $"/select,\"{filSti}");  //"/select," highlighter den valgte fil.
+            if (!erICurdir) {
+                filSti.Insert(0, RessourceFil.outputMappeNavn);
+                curDir = curDir.Substring(0, curDir.LastIndexOf('\\'));
+            }
+            filSti.Insert(0, curDir);
+            Process.Start("explorer.exe", $"/select,\"{ Path.Combine(filSti.ToArray()) }");  //"/select," highlighter den valgte fil.
         }
 
         /// <summary>

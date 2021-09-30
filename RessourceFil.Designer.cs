@@ -70,6 +70,33 @@ namespace GFElevInterview {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brugervejledning - Leder.pdf.
+        /// </summary>
+        internal static string brugVejLeder {
+            get {
+                return ResourceManager.GetString("brugVejLeder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brugervejledning.
+        /// </summary>
+        internal static string brugVejMappe {
+            get {
+                return ResourceManager.GetString("brugVejMappe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brugervejledning - Underviser.pdf.
+        /// </summary>
+        internal static string brugVejUnderviser {
+            get {
+                return ResourceManager.GetString("brugVejUnderviser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to elevDB.db.
         /// </summary>
         internal static string db {

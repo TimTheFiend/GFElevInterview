@@ -50,7 +50,7 @@
         </Border>
         <StackPanel Background="#495057" Grid.Column="3" Grid.Row="1">
             <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnExportMerit" Content="Merit Export" Style="{StaticResource btnAdmin}" />
+            <Button x:Name="btnExportMerit" Content="Merit Export" Style="{StaticResource btnAdmin}"/>
             <Separator Style="{StaticResource SepSpaceH}" />
             <Button x:Name="btnExportRKV" Content="RKV Export" Style="{StaticResource btnAdmin}" />
             <Separator Style="{StaticResource SepSpaceH}" />
