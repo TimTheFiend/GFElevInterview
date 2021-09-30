@@ -66,7 +66,7 @@
             <Separator Style="{StaticResource SepSpaceH}"/>
             <Button x:Name="btnOutputDir" Width="80" Height="25" Content="Åben Mappe"/>
             <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button x:Name="btnSkiftPassword" Width="80" Height="25"  Content="Skift Password" />
+            <Button x:Name="btnSkiftPassword" Width="80" Height="25"  Content="Skift Kodeord" />
         </StackPanel>
 
         <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -84,7 +84,7 @@
                 <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding MatNiveau}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Visible">
+        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
             <Border Background="Black" Opacity="0.35" />
             <Border VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Padding="20">
                 <StackPanel VerticalAlignment="Center">
