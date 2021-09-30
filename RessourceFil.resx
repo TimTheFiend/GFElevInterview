@@ -121,6 +121,15 @@
     <value>Ballerup</value>
     <comment>Add. Linje</comment>
   </data>
+  <data name="brugVejLeder" xml:space="preserve">
+    <value>Brugervejledning - Leder.pdf</value>
+  </data>
+  <data name="brugVejMappe" xml:space="preserve">
+    <value>Brugervejledning</value>
+  </data>
+  <data name="brugVejUnderviser" xml:space="preserve">
+    <value>Brugervejledning - Underviser.pdf</value>
+  </data>
   <data name="db" xml:space="preserve">
     <value>elevDB.db</value>
     <comment>Database. Elev</comment>

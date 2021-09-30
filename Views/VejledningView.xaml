@@ -14,39 +14,64 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0"  BorderThickness="2">
-
-            <StackPanel>
-                <Label Content="Vejleder guide" FontSize="25" HorizontalAlignment="Center"></Label>
-                <Button x:Name="btnVej" Width="65" Height="30" ></Button>
-            </StackPanel>
+        <Border Grid.Row="0">
+            <Button x:Name="btnUnderviser" MaxWidth="650" MaxHeight="90" Content="Klik her for brugervejledning for underviser" FontSize="25" Background="LightSlateGray"/>
         </Border>
 
         <Border Grid.Row="1">
-            <StackPanel>
-                <Label Content="Leder Guide" FontSize="25" HorizontalAlignment="Center"></Label>
-                <Button x:Name="btnLeder" Height="30" Width="65"  ></Button>
-            </StackPanel>
+            <Button x:Name="btnLeder" MaxWidth="650" MaxHeight="90" Content="Klik her for brugervejledning for leder" FontSize="25" Background="LightSlateGray"/>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="0">
-            <Label Content="Credits!" FontSize="25" HorizontalAlignment="Center"></Label>
-        </Border>
-
-        <Border Grid.Row="3" Grid.Column="0">
-            <StackPanel>
-                <Label Content="Navn: Navn1" HorizontalAlignment="Center" FontSize="20"></Label>
-                <Label Content="Navn: Navn2" HorizontalAlignment="Center" FontSize="20"></Label>
-                <Label Content="Navn: Navn3" HorizontalAlignment="Center" FontSize="20"></Label>
-                <Label Content="Navn: Navn4" HorizontalAlignment="Center" FontSize="20"></Label>
-            </StackPanel>
+        <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
+            <DockPanel HorizontalAlignment="Stretch">
+                <Label Content="Lavet af:" VerticalAlignment="Top" HorizontalAlignment="Stretch" FontSize="15"/>
+                <StackPanel HorizontalAlignment="Right">
+                    <Label Content="Projekt leder / Programmør" HorizontalAlignment="Center" FontSize="18"/>
+                    <Label Content="Programmør" HorizontalAlignment="Center" FontSize="18"/>
+                    <Label Content="Programmør" HorizontalAlignment="Center" FontSize="18"/>
+                    <Label Content="Programmør" HorizontalAlignment="Center" FontSize="18"/>
+                </StackPanel>
+                <Separator Width="40" Background="Transparent"/>
+                <StackPanel HorizontalAlignment="Right">
+                    <DockPanel>
+                    <Label Content="Joakim Krugstrup" HorizontalAlignment="Center" FontSize="18"/>
+                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Hyperlink NavigateUri="https://www.linkedin.com/in/joakim-krugstrup-ba123b182/" RequestNavigate="Hyperlink_RequestNavigate">
+                            LinkedIn
+                        </Hyperlink>
+                        </TextBlock>
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="Victor Gawron" HorizontalAlignment="Center" FontSize="18"/>
+                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Hyperlink NavigateUri="https://www.linkedin.com/in/victor-gawron-9497a2157/" RequestNavigate="Hyperlink_RequestNavigate">
+                            LinkedIn
+                        </Hyperlink>
+                        </TextBlock>
+                    </DockPanel>
+                    <DockPanel>
+                        <Label Content="Vincent Schuurhof" HorizontalAlignment="Center" FontSize="18"/>
+                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Hyperlink NavigateUri="https://www.linkedin.com/in/vincent-schuurhof-a490a714a/" RequestNavigate="Hyperlink_RequestNavigate">
+                            LinkedIn
+                        </Hyperlink>
+                    </TextBlock>
+                    </DockPanel>
+                    <DockPanel>
+                    <Label Content="Afsaneh Bajoori" HorizontalAlignment="Center" FontSize="18"/>
+                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Hyperlink NavigateUri="https://www.linkedin.com/in/afsaneh-bajoori-a6046659/" RequestNavigate="Hyperlink_RequestNavigate">
+                            LinkedIn
+                        </Hyperlink>
+                    </TextBlock>
+                    </DockPanel>
+                </StackPanel>
+                <Separator Width="40" Background="Transparent"/>
+            </DockPanel>
         </Border>
     </Grid>
 </UserControl>

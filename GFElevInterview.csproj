@@ -83,6 +83,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Blanketter\Brugervejledning\Brugervejledning - Underviser.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Blanketter\Templates\EUV1 - Infrastruktur.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -166,7 +166,7 @@ namespace GFElevInterview.Views
         /// Åbner en ny stifinder og viser den valgte fil.
         /// </summary>
         private void HentBlanket_Click(object sender, RoutedEventArgs e) {
-            FilHandler.VisFilIExplorer((sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
+            FilHandler.VisFilIExplorer(false, (sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace GFElevInterview.Views
                 case true:
                     if (AlertBoxes.OnExportMerit()) {
                         if (FilHandler.KombinerMeritFiler()) {
-                            FilHandler.VisFilIExplorer(StandardVaerdier.SamletMeritFilnavn);
+                            FilHandler.VisFilIExplorer(false, StandardVaerdier.SamletMeritFilnavn);
                         }
                         else {
                             AlertBoxes.OnNoDocumentsForExport();
@@ -188,7 +188,7 @@ namespace GFElevInterview.Views
                 case false:
                     if (AlertBoxes.OnExportRKV()) {
                         if (FilHandler.ZipRKVFiler()) {
-                            FilHandler.VisFilIExplorer(StandardVaerdier.SamletRKVFilNavn);
+                            FilHandler.VisFilIExplorer(false, StandardVaerdier.SamletRKVFilNavn);
                         }
                         else {
                             AlertBoxes.OnNoDocumentsForExport();
