@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="20">
 
         <Grid.ColumnDefinitions>
@@ -19,51 +19,51 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Border Grid.Row="0">
-            <Button x:Name="btnUnderviser" MaxWidth="650" MaxHeight="90" Content="Klik her for brugervejledning for underviser" FontSize="25" Background="LightSlateGray"/>
+            <Button x:Name="btnUnderviser" Content="Klik her for brugervejledning for underviser" Style="{StaticResource btnVejledning}"/>
         </Border>
 
         <Border Grid.Row="1">
-            <Button x:Name="btnLeder" MaxWidth="650" MaxHeight="90" Content="Klik her for brugervejledning for leder" FontSize="25" Background="LightSlateGray"/>
+            <Button x:Name="btnLeder" Content="Klik her for brugervejledning for leder" Style="{StaticResource btnVejledning}"/>
         </Border>
 
         <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray">
             <DockPanel HorizontalAlignment="Stretch">
                 <Label Content="Lavet af:" VerticalAlignment="Top" HorizontalAlignment="Stretch" FontSize="15"/>
                 <StackPanel HorizontalAlignment="Right">
-                    <Label Content="Projekt leder / Programmør" HorizontalAlignment="Center" FontSize="18"/>
-                    <Label Content="Programmør" HorizontalAlignment="Center" FontSize="18"/>
-                    <Label Content="Programmør" HorizontalAlignment="Center" FontSize="18"/>
-                    <Label Content="Programmør" HorizontalAlignment="Center" FontSize="18"/>
+                    <Label Content="Projekt leder / Programmør" Style="{StaticResource lblVejledning}"/>
+                    <Label Content="Programmør" Style="{StaticResource lblVejledning}" HorizontalAlignment="Right"/>
+                    <Label Content="Programmør" Style="{StaticResource lblVejledning}" HorizontalAlignment="Right"/>
+                    <Label Content="Programmør" Style="{StaticResource lblVejledning}" HorizontalAlignment="Right"/>
                 </StackPanel>
                 <Separator Width="40" Background="Transparent"/>
                 <StackPanel HorizontalAlignment="Right">
                     <DockPanel>
-                    <Label Content="Joakim Krugstrup" HorizontalAlignment="Center" FontSize="18"/>
-                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Label Content="Joakim Krugstrup" Style="{StaticResource lblVejledning}"/>
+                        <TextBlock Style="{StaticResource txtVejledning}">
                         <Hyperlink NavigateUri="https://www.linkedin.com/in/joakim-krugstrup-ba123b182/" RequestNavigate="Hyperlink_RequestNavigate">
                             LinkedIn
                         </Hyperlink>
                         </TextBlock>
                     </DockPanel>
                     <DockPanel>
-                        <Label Content="Victor Gawron" HorizontalAlignment="Center" FontSize="18"/>
-                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Label Content="Victor Gawron" Style="{StaticResource lblVejledning}"/>
+                        <TextBlock Style="{StaticResource txtVejledning}">
                         <Hyperlink NavigateUri="https://www.linkedin.com/in/victor-gawron-9497a2157/" RequestNavigate="Hyperlink_RequestNavigate">
                             LinkedIn
                         </Hyperlink>
                         </TextBlock>
                     </DockPanel>
                     <DockPanel>
-                        <Label Content="Vincent Schuurhof" HorizontalAlignment="Center" FontSize="18"/>
-                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Label Content="Vincent Schuurhof" Style="{StaticResource lblVejledning}"/>
+                        <TextBlock Style="{StaticResource txtVejledning}">
                         <Hyperlink NavigateUri="https://www.linkedin.com/in/vincent-schuurhof-a490a714a/" RequestNavigate="Hyperlink_RequestNavigate">
                             LinkedIn
                         </Hyperlink>
                     </TextBlock>
                     </DockPanel>
                     <DockPanel>
-                    <Label Content="Afsaneh Bajoori" HorizontalAlignment="Center" FontSize="18"/>
-                        <TextBlock FontSize="18" TextAlignment="Justify" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Label Content="Afsaneh Bajoori" Style="{StaticResource lblVejledning}"/>
+                        <TextBlock Style="{StaticResource txtVejledning}">
                         <Hyperlink NavigateUri="https://www.linkedin.com/in/afsaneh-bajoori-a6046659/" RequestNavigate="Hyperlink_RequestNavigate">
                             LinkedIn
                         </Hyperlink>

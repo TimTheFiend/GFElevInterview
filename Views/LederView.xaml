@@ -84,7 +84,7 @@
                 <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding MatNiveau}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
+        <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Visible">
             <Border Background="Black" Opacity="0.35" />
             <Border VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Padding="20">
                 <StackPanel VerticalAlignment="Center">
@@ -93,11 +93,11 @@
                     <Separator Height="12" Background="Transparent" />
                     <TextBlock Width="200" Height="20" Text="Bekræft Kodeord" FontSize="16" TextAlignment="Justify" />
                     <PasswordBox x:Name="txtValiderKodeord" Width="200" Height="20" />
-                    <Separator Height="12" Background="Transparent" />
+                    <Separator Height="12" Background="Transparent"/>
                     <DockPanel HorizontalAlignment="Center">
-                        <Button x:Name="btnTilbage" Width="95" Height="30" FontSize="15" Content="Tilbage" VerticalAlignment="Center" HorizontalAlignment="Left" Background="LightBlue" />
-                        <Separator Width="10" Background="Transparent" />
-                        <Button x:Name="btnValiderKodeord" Width="95" Height="30" FontSize="15" Content="Skift Kodeord" Background="LightBlue" />
+                        <Button x:Name="btnTilbage" Content="Tilbage" Style="{StaticResource btnPassword}"/>
+                        <Separator Width="10" Background="Transparent"/>
+                        <Button x:Name="btnValiderKodeord" Content="Skift Kodeord" Style="{StaticResource btnPassword}"/>
                     </DockPanel>
                 </StackPanel>
             </Border>

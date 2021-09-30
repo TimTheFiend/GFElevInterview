@@ -16,7 +16,8 @@
 
     <Style x:Key="lstSearchB" TargetType="ListBox">
         <Setter Property="MaxHeight" Value="300"/>
-        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
     </Style>
 
     <Style x:Key="txtSearchB" TargetType="TextBox">
@@ -46,6 +47,12 @@
         <Setter Property="Height" Value="40" />
         <Setter Property="FontSize" Value="13" />
     </Style>
+    <Style x:Key="btnPassword" TargetType="Button">
+        <Setter Property="Background" Value="LightBlue" />
+        <Setter Property="Width" Value="95" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
     <!--#endregion-->
     <!--#region EUVView-->
     <Style x:Key="txtEUV" TargetType="TextBlock">
@@ -60,14 +67,27 @@
         <Setter Property="BorderBrush" Value="Gray" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="10" />
     </Style>
     <Style x:Key="bdrSpace" TargetType="Border">
         <Setter Property="Height" Value="10" />
         <Setter Property="BorderThickness" Value="0" />
     </Style>
-    <Style x:Key="rbnNej" TargetType="RadioButton">
+    <Style x:Key="rbtnNej" TargetType="RadioButton">
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Content" Value="Nej" />
+    </Style>
+    <Style x:Key="rbtnJa" TargetType="RadioButton">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Content" Value="Ja" />
+    </Style>
+    <Style x:Key="txtEUVSprg" TargetType="TextBlock">
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Center" />
     </Style>
     <!--#endregion-->
     <!--#region VisitationsView-->
@@ -77,10 +97,17 @@
         <Setter Property="Padding" Value="10" />
         <Setter Property="Width" Value="600" />
     </Style>
-    <Style x:Key="labVisitation" TargetType="Label">
+    <Style x:Key="lblVisitation" TargetType="Label">
         <Setter Property="FontSize" Value="17" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="FontStyle" Value="Italic" />
+    </Style>
+    <Style x:Key="txtVisitation" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        <Setter Property="Padding" Value="5" />
     </Style>
     <!--#endregion-->
     <!--#region MainWindow-->
@@ -98,9 +125,16 @@
     <!--#region MeritView-->
     <Style x:Key="cmbFag" TargetType="ComboBox">
         <Setter Property="Text" Value="A-G" />
-        <Setter Property="Height" Value="20" />
+        <Setter Property="Height" Value="30" />
         <Setter Property="Width" Value="120" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+    <Style x:Key="bdrMerit" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Gray" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10" />
     </Style>
     <Style x:Key="rbnValg" TargetType="RadioButton">
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -145,6 +179,24 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
+    </Style>
+    <!--#endregion-->
+    <!--#region Vejledning-->
+    <Style x:Key="btnVejledning" TargetType="Button">
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Width" Value="650"/>
+        <Setter Property="Height" Value="90"/>
+        <Setter Property="Background" Value="LightSlateGray"/>
+    </Style>
+    <Style x:Key="lblVejledning" TargetType="Label">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+    <Style x:Key="txtVejledning" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="FontSize" Value="18"/>
     </Style>
     <!--#endregion-->
     <!--#region Counter-->

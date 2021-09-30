@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:GFElevInterview.Views"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800" Background="WhiteSmoke">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border x:Name="bdrBlanketView" BorderBrush="Gray">
             <Grid>
@@ -20,7 +20,7 @@
                 <Border Grid.Row="0" BorderBrush="Gray">
 
                     <DockPanel>
-                        <Label FontSize="20" FontWeight="Bold" FontStyle="Italic">Find elev:</Label>
+                        <Label FontSize="20" FontWeight="Bold" Content="Find elev:" FontStyle="Italic"/>
                         <TextBox x:Name="txtSearch" Style="{StaticResource txtSearchB}" TextChanged="SearchStudentTxt_TextChanged"/>
                         <Separator Width="5" Background="Transparent"/>
                         <Button x:Name="btnVisAlle" Click="VisAlle_Click" Width="80" Height="30" Content="Vis Alle Elever"/>
@@ -28,7 +28,7 @@
                 </Border>
 
                 <Border Grid.Row="1" BorderBrush="Gray">
-                    <ListBox x:Name="lstSearch" SelectionChanged="SearchStudentBox_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource lstSearchB}">
+                    <ListBox x:Name="lstSearch" SelectionChanged="SearchStudentBox_SelectionChanged" Style="{StaticResource lstSearchB}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding}" />
