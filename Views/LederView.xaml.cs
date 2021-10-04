@@ -206,6 +206,9 @@ namespace GFElevInterview.Views
             }
         }
 
+        /// <summary>
+        /// EventHandler for tilføjelse af Excel-ark til databasen.
+        /// </summary>
         private void Excel_Click(object sender, RoutedEventArgs e) {
             FilHandler.OpenFileDialog();
             VisAlleDataGrid();
@@ -264,6 +267,9 @@ namespace GFElevInterview.Views
 
         #region Combobox Eventhandler
 
+        /// <summary>
+        /// Håndterer behavior for <see cref="cmbKategori"/>, som indsætter items ind i <see cref="cmbSubkategori"/>.
+        /// </summary>
         private void QueryKategori_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             int index = (sender as ComboBox).SelectedIndex;
             cmbSubkategori.ItemsSource = null;
@@ -288,6 +294,9 @@ namespace GFElevInterview.Views
             cmbSubkategori.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Håndterer hentning af data fra databasen. Er kun aktiv hvis <see cref="cmbKategori"/> har en værdi.
+        /// </summary>
         private void QuerySubkategori_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             int index = cmbKategori.SelectedIndex;
 
