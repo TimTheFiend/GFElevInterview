@@ -13,9 +13,7 @@ namespace GFElevInterview.Models
         [Key]
         public string CPRNr { get; set; }
 
-        [Display(Name = "Fornavn")]
         public string Fornavn { get; set; }
-
         public string Efternavn { get; set; }
 
         [Display(Name = "Udd. Linje")]
