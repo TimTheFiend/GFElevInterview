@@ -25,6 +25,20 @@ namespace GFElevInterview.Views
             InitialiserComboBoxes();
         }
 
+        /// <summary>
+        /// psudo code summary for vincent in regards to creating a method which creates and forwards a list consisting of cpr name and most recently searched variable---------->
+        /// 
+        /// fetch most recent search criteria
+        /// 
+        /// make generic list
+        /// 
+        /// fill list containing full name, cpr and most recently searched variable
+        /// 
+        /// forward list to victorMethod()
+        /// 
+        /// 
+        /// </summary>
+
         #region Initialisering af view
 
         //On Constructor call
