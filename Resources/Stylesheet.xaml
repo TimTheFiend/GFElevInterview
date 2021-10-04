@@ -42,16 +42,30 @@
         <Setter Property="FontSize" Value="13" />
     </Style>
     <Style x:Key="btnAdminOpen" TargetType="Button">
-        <Setter Property="Background" Value="Gray" />
-        <Setter Property="Width" Value="80" />
-        <Setter Property="Height" Value="40" />
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontSize" Value="13"/>
     </Style>
     <Style x:Key="btnPassword" TargetType="Button">
-        <Setter Property="Background" Value="LightBlue" />
-        <Setter Property="Width" Value="95" />
-        <Setter Property="Height" Value="30" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Background" Value="LightBlue"/>
+        <Setter Property="Width" Value="95"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="Background" Value="#FFF"/>
+        <Setter Property="AlternationCount" Value="2"/>
+    </Style>
+    <Style TargetType="{x:Type DataGridRow}">
+        <Style.Triggers>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#CCC"/>
+            </Trigger>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#EEE"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <!--#endregion-->
     <!--#region EUVView-->
