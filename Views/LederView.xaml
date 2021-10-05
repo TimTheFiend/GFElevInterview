@@ -67,6 +67,8 @@
             <Button x:Name="btnOutputDir" Width="80" Height="25" Content="Åben Mappe"/>
             <Separator Style="{StaticResource SepSpaceH}"/>
             <Button x:Name="btnSkiftPassword" Width="80" Height="25"  Content="Skift Kodeord" />
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnTestGen" Width="80" Height="25"  Content="Generate"/>
         </StackPanel>
 
         <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

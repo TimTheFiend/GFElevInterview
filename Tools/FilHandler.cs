@@ -166,6 +166,6 @@ namespace GFElevInterview.Tools
                 DbTools.Instance.TilføjElever(elever);
                 AlertBoxes.OnSuccessfulDatabaseInsert(DbTools.Instance.AntalEleverIAlt - aktuelleElevAntal);
             }
-        }
+        }        
     }
 }

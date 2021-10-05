@@ -1,7 +1,9 @@
 ﻿using GFElevInterview.Models;
 using iTextSharp.text.pdf;
+using iTextSharp.text;
 using Spire.Doc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GFElevInterview.Data
@@ -88,7 +90,7 @@ namespace GFElevInterview.Data
                     UdskrivningRKV();
                 }
 
-                Document doc = new Document();
+                Spire.Doc.Document doc = new Spire.Doc.Document();
                 //Henter "Template" fil fra given string sti.
                 doc.LoadFromFile(GetMeritBlanketTemplate);
 
@@ -121,6 +123,67 @@ namespace GFElevInterview.Data
                 return false;
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Jeg vil få til sendt en liste og en string fra vincent del.
+        /// Metoden skal tage imod disse data´er og putte dem ud i linjer efter hver elev.
+        /// 
+        /// 1. Sæt informationer givet i parameterne, ind i et excel ark.
+        /// . Et loop skal tage data´en med hver elev 
+        /// . Lav et loop som sætter ind alle eleverne og deres informationer, en linje ad gangen.
+        /// . (Informationerne sættes ind i et excel ark som bliver konverteret videre til et pdf format).
+        /// 2. Initialiser Konverteringen af pdf processen.
+        /// 3. Udskriv pdf dokumentet til blanketten.
+        /// </summary>
+        public static PdfPTable UdskrivningDataTabel(List<ElevModel> elever, string query, PdfPTable tableLayout)
+        {
+            //PdfPTable tableLayout;
+            query = "Elever der vil have SPS";
+            //Floaten giver 
+            float[] headers =
+            {
+                20, 20, 20, 20
+            };
+            //Headernes bredde vil blive sat her.
+            tableLayout.SetWidths(headers);
+            tableLayout.WidthPercentage = 80;
+            tableLayout.AddCell(new PdfPCell(new Phrase("Den valgte "+query))
+            {
+                Colspan = 4,
+                Border = 0,
+                PaddingBottom = 20,
+                HorizontalAlignment = Element.ALIGN_CENTER
+            });
+            AddCellToHeader(tableLayout, "CPR");
+            AddCellToHeader(tableLayout, "Fornavn");
+            AddCellToHeader(tableLayout, "Efternavn");
+            AddCellToHeader(tableLayout, "Valgte");
+            foreach (var item in elever)
+            {
+                AddCellToBody(tableLayout, item.CPRNr);
+                AddCellToBody(tableLayout, item.Fornavn);
+                AddCellToBody(tableLayout, item.Efternavn);
+                AddCellToBody(tableLayout, query);
+            }
+            return tableLayout;
+        }
+
+        private static void AddCellToHeader(PdfPTable tableLayout, string cellText)
+        {
+            tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                Padding = 5,
+            });
+        }
+        private static void AddCellToBody(PdfPTable tableLayout, string cellText)
+        {
+            tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                Padding = 5,
+            });
         }
 
         /// <summary>

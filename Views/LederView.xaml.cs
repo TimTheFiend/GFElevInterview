@@ -1,8 +1,12 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Models;
 using GFElevInterview.Tools;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,7 +25,6 @@ namespace GFElevInterview.Views
             InitialiserView();
 
             SetEventHandlers();
-
             InitialiserComboBoxes();
         }
 
@@ -67,6 +70,7 @@ namespace GFElevInterview.Views
             gridElevTabel.SelectionChanged += ElevTabel_SelectionChanged;
             /* Åben Mappe */
             btnOutputDir.Click += OpenOutputDirectory_Click;
+            btnTestGen.Click += testGenKnap;
         }
 
         private void OpenOutputDirectory_Click(object sender, RoutedEventArgs e)
@@ -119,7 +123,7 @@ namespace GFElevInterview.Views
         private void VisAlleDataGrid() {
             cmbSubkategori.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
-        }
+        }      
 
         #endregion Funktioner
 
@@ -145,6 +149,8 @@ namespace GFElevInterview.Views
         #endregion Datagrid EventHandler
 
         #region Button EventHandler
+
+
 
         /// <summary>
         /// henter elever fra databasen.
@@ -176,6 +182,76 @@ namespace GFElevInterview.Views
         private void HentBlanket_Click(object sender, RoutedEventArgs e) {
             FilHandler.VisFilIExplorer(false, (sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
         }
+
+        private void testGenKnap(object sender, RoutedEventArgs e)
+        {
+            List<ElevModel> elever = new List<ElevModel>();
+            string outputPath = RessourceFil.outputMappe;
+            string query = "Elever SPS.pdf";
+            Document doc = new Document();
+            PdfPTable tableLayout = new PdfPTable(4);
+            PdfWriter.GetInstance(doc, new FileStream(outputPath + @"\\" + query, FileMode.Create));
+            doc.Open();            
+            doc.Add(BlanketUdskrivning.UdskrivningDataTabel(elever, query, tableLayout));
+            doc.Close();
+        }
+
+        //private PdfPTable Add_Content_To_PDF(PdfPTable tableLayout)
+        //{
+        //    string søgning = "Elever der vil have SPS";
+        //    List<ElevModel> elever = new List<ElevModel>()
+        //    {
+        //        new ElevModel("010193-1234", "Brexit Party", "Like What?"),
+        //        new ElevModel("010193-1235", "British", " RubberDuckers"),
+        //        new ElevModel("010193-1236", "Broadcasting", "From the station"),
+        //        new ElevModel("010193-1237", "Company", "policies"),
+        //    };
+        //    float[] headers =
+        //    {
+        //        20,
+        //        20,
+        //        20,
+        //        20
+        //    };
+        //    tableLayout.SetWidths(headers);
+        //    tableLayout.WidthPercentage = 80;
+        //    tableLayout.AddCell(new PdfPCell(new Phrase("Creating PDF file using ItextSharp"))
+        //    {
+        //        Colspan = 4,
+        //        Border = 0,
+        //        PaddingBottom = 20,
+        //        HorizontalAlignment = Element.ALIGN_CENTER
+        //    });
+        //    AddCellToHeader(tableLayout, "CPR");
+        //    AddCellToHeader(tableLayout, "Fornavn");
+        //    AddCellToHeader(tableLayout, "Efternavn");
+        //    AddCellToHeader(tableLayout, "Valgte");
+        //    foreach (var item in elever)
+        //    {
+        //        AddCellToBody(tableLayout, item.CPRNr);
+        //        AddCellToBody(tableLayout, item.Fornavn);
+        //        AddCellToBody(tableLayout, item.Efternavn);
+        //        AddCellToBody(tableLayout, søgning);
+        //    }
+
+        //    return tableLayout;
+        //}
+        //private static void AddCellToHeader(PdfPTable tableLayout, string cellText)
+        //{
+        //    tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
+        //    {
+        //        HorizontalAlignment = Element.ALIGN_CENTER,
+        //        Padding = 5,
+        //    });
+        //}
+        //private static void AddCellToBody(PdfPTable tableLayout, string cellText)
+        //{
+        //    tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
+        //    {
+        //        HorizontalAlignment = Element.ALIGN_CENTER,
+        //        Padding = 5,
+        //    });
+        //}
 
         /// <summary>
         /// Eksporter blanketter.
