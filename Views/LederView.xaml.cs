@@ -1,8 +1,12 @@
 ﻿using GFElevInterview.Data;
 using GFElevInterview.Models;
 using GFElevInterview.Tools;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,14 +19,61 @@ namespace GFElevInterview.Views
     {
         private ElevModel elev;
         private static Grid lederOverlayLoading;
+        private Control sidsteBrugteControl = null;
 
         public LederView() {
             InitializeComponent();
             InitialiserView();
 
             SetEventHandlers();
-
             InitialiserComboBoxes();
+        }
+
+        /// <summary>
+        ///send til viktor liste af elever + string med søgning feks. listen af elever + sps
+        //Den her metode laver en liste af alle elever i datagrid, og sætter "query" variablen til en string der beskriver hvad det er der er blevet søgt på
+        /// </summary>
+        public void UdskrivAktuelDataGrid()
+        {                  
+            //listen af elever fra datagrid
+            List<ElevModel> elever = (List<ElevModel>) gridElevTabel.ItemsSource;
+            string query = "";
+           
+            if (sidsteBrugteControl != null)
+            {
+                //hvis den sidste brugte kontrol er en knap
+                if (sidsteBrugteControl.GetType() == typeof(Button))
+                {
+                    
+                    Button button = sidsteBrugteControl as Button;
+
+                    if (button == btnEUD)
+                    {
+                        query = "Elever med EUD";
+                    }
+                    else if (button == btnSPS)
+                    {
+                        query = "Elever med SPS";
+                    }
+                    else if (button == btnRKV)
+                    {
+                        query = "Elever med RKV";
+                    }
+                    else if (button == btnMerit)
+                    {
+                        query = "Elever med Merit";
+                    }
+                }
+                // hvis sidste brugte control var en combobox
+                else if(sidsteBrugteControl.GetType() == typeof(ComboBox))
+                {
+                    query = $"{cmbKategori.SelectedItem} {cmbSubkategori.SelectedItem}";
+                }
+
+                if (!string.IsNullOrEmpty(query)){                   
+                   BlanketUdskrivning.UdskrivningDataTabel(elever, query);                   
+                }
+            }
         }
 
         #region Initialisering af view
@@ -67,6 +118,7 @@ namespace GFElevInterview.Views
             gridElevTabel.SelectionChanged += ElevTabel_SelectionChanged;
             /* Åben Mappe */
             btnOutputDir.Click += OpenOutputDirectory_Click;
+            btnTestGen.Click += DatatabelUdskrivning;
         }
 
         private void OpenOutputDirectory_Click(object sender, RoutedEventArgs e)
@@ -119,7 +171,7 @@ namespace GFElevInterview.Views
         private void VisAlleDataGrid() {
             cmbSubkategori.SelectedIndex = -1;
             OpdaterDataGrid(DbTools.Instance.VisAlle());
-        }
+        }      
 
         #endregion Funktioner
 
@@ -168,6 +220,9 @@ namespace GFElevInterview.Views
                 cmbSubkategori.SelectedIndex = -1;
                 OpdaterDataGrid(DbTools.Instance.VisAlle());
             }
+
+            sidsteBrugteControl = sender as Control;
+            
         }
 
         /// <summary>
@@ -175,6 +230,11 @@ namespace GFElevInterview.Views
         /// </summary>
         private void HentBlanket_Click(object sender, RoutedEventArgs e) {
             FilHandler.VisFilIExplorer(false, (sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
+        }
+
+        private void DatatabelUdskrivning(object sender, RoutedEventArgs e)
+        {
+            UdskrivAktuelDataGrid();           
         }
 
         /// <summary>
@@ -302,6 +362,13 @@ namespace GFElevInterview.Views
 
             if (index < 0 || cmbSubkategori.SelectedIndex < 0) {
                 VisAlleDataGrid();
+
+                //if lastCtrolPressed == cmb sub category så nulstil
+                if (sidsteBrugteControl == cmbSubkategori)
+                {
+                    sidsteBrugteControl = null;
+                }
+
                 return;
             }
 
@@ -323,6 +390,8 @@ namespace GFElevInterview.Views
             }
 
             OpdaterDataGrid(elever);
+            sidsteBrugteControl = cmbSubkategori;
+            
         }
 
         #endregion Combobox Eventhandler
@@ -340,8 +409,13 @@ namespace GFElevInterview.Views
                 VisAlleDataGrid();
                 return;
             }
-
+            if (sidsteBrugteControl == sender as Control)
+            {
+                sidsteBrugteControl = null;
+            }
             OpdaterDataGrid(DbTools.Instance.VisQueryElever(query));
+            sidsteBrugteControl = sender as Control;
+
         }
 
         #endregion TextBox EventHandler
