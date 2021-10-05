@@ -25,25 +25,14 @@ namespace GFElevInterview.Views
             InitialiserComboBoxes();
         }
 
-        /// <summary>
-        /// pseudo code summary for vincent in regards to creating a method which creates and forwards a list consisting of cpr name and most recently searched variable---------->
-        /// 
-        /// fetch most recent search criteria
-        /// 
-        /// ✔️ make generic list
-        /// 
-        /// fill list containing full name, cpr and most recently searched variable
-        /// 
-        /// forward list to victorMethod()
-        /// 
-        /// 
-        /// </summary>
 
         public Control sidsteBrugteControl = null;
-        
-        //send til viktor liste af elever + string med søgning feks. listen af elever + sps
 
+
+        /// <summary>
+        ///send til viktor liste af elever + string med søgning feks. listen af elever + sps
         //Den her metode laver en liste af alle elever i datagrid, og sætter "query" variablen til en string der beskriver hvad det er der er blevet søgt på
+        /// </summary>
         public void Test()
         {
             //listen af elever fra datagrid
