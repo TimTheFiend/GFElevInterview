@@ -33,7 +33,7 @@ namespace GFElevInterview.Views
         ///send til viktor liste af elever + string med søgning feks. listen af elever + sps
         //Den her metode laver en liste af alle elever i datagrid, og sætter "query" variablen til en string der beskriver hvad det er der er blevet søgt på
         /// </summary>
-        public void Test()
+        public void UdskrivAktuelDataGrid()
         {
             //listen af elever fra datagrid
             List<ElevModel> elever = (List<ElevModel>) gridElevTabel.ItemsSource;
