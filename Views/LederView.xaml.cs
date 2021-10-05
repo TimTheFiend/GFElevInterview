@@ -26,11 +26,11 @@ namespace GFElevInterview.Views
         }
 
         /// <summary>
-        /// psudo code summary for vincent in regards to creating a method which creates and forwards a list consisting of cpr name and most recently searched variable---------->
+        /// pseudo code summary for vincent in regards to creating a method which creates and forwards a list consisting of cpr name and most recently searched variable---------->
         /// 
         /// fetch most recent search criteria
         /// 
-        /// make generic list
+        /// ✔️ make generic list
         /// 
         /// fill list containing full name, cpr and most recently searched variable
         /// 
@@ -38,6 +38,65 @@ namespace GFElevInterview.Views
         /// 
         /// 
         /// </summary>
+
+        public Control sidsteBrugteControl = null;
+        
+        //send til viktor liste af elever + string med søgning feks. listen af elever + sps
+
+        //Den her metode laver en liste af alle elever i datagrid, og sætter "query" variablen til en string der beskriver hvad det er der er blevet søgt på
+        public void Test()
+        {
+            //listen af elever fra datagrid
+            List<ElevModel> elever = (List<ElevModel>) gridElevTabel.ItemsSource;
+            string query = "";
+            
+            if (sidsteBrugteControl != null)
+            {
+                //hvis den sidste brugte kontrol er en knap
+                if (sidsteBrugteControl.GetType() == typeof(Button))
+                {
+                    
+                    Button button = sidsteBrugteControl as Button;
+
+                    if (button == btnEUD)
+                    {
+                        query = "Elever med EUD";
+                    }
+                    else if (button == btnSPS)
+                    {
+                        query = "Elever med SPS";
+                    }
+                    else if (button == btnRKV)
+                    {
+                        query = "Elever med RKV";
+                    }
+                    else if (button == btnMerit)
+                    {
+                        query = "Elever med Merit";
+                    }
+                }
+                // hvis sidste brugte control var en combobox
+                else if(sidsteBrugteControl.GetType() == typeof(ComboBox))
+                {
+                    query = $"{cmbKategori.SelectedItem} {cmbSubkategori.SelectedItem}";
+                }
+
+                if (!string.IsNullOrEmpty(query)){
+                    VictorFunc(elever, query);
+                }
+            }
+        }
+
+        //note eksistere kun fordi mangler viktors udprint metode - fjern efter merge
+        public void VictorFunc(List<ElevModel> elever, string query)
+        {
+            foreach (ElevModel elev in elever)
+            {
+                Console.WriteLine($"{elev.CPRNr}, {elev.Efternavn}, {elev.Fornavn} - {query}");
+            }
+            Console.WriteLine();
+        }
+
 
         #region Initialisering af view
 
@@ -182,6 +241,9 @@ namespace GFElevInterview.Views
                 cmbSubkategori.SelectedIndex = -1;
                 OpdaterDataGrid(DbTools.Instance.VisAlle());
             }
+
+            sidsteBrugteControl = sender as Control;
+            
         }
 
         /// <summary>
@@ -316,6 +378,13 @@ namespace GFElevInterview.Views
 
             if (index < 0 || cmbSubkategori.SelectedIndex < 0) {
                 VisAlleDataGrid();
+
+                //if lastCtrolPressed == cmb sub category så nulstil
+                if (sidsteBrugteControl == cmbSubkategori)
+                {
+                    sidsteBrugteControl = null;
+                }
+
                 return;
             }
 
@@ -337,6 +406,8 @@ namespace GFElevInterview.Views
             }
 
             OpdaterDataGrid(elever);
+            sidsteBrugteControl = cmbSubkategori;
+            
         }
 
         #endregion Combobox Eventhandler
@@ -354,8 +425,13 @@ namespace GFElevInterview.Views
                 VisAlleDataGrid();
                 return;
             }
-
+            if (sidsteBrugteControl == sender as Control)
+            {
+                sidsteBrugteControl = null;
+            }
             OpdaterDataGrid(DbTools.Instance.VisQueryElever(query));
+            sidsteBrugteControl = sender as Control;
+
         }
 
         #endregion TextBox EventHandler
