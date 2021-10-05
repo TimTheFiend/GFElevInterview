@@ -106,7 +106,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisAlle() {
             instance = new DbTools();  //"Refresher" databasen hvis der er sket andre i en anden instans.
 
@@ -119,7 +119,7 @@ namespace GFElevInterview.Models
         /// </summary>
         /// <param name="fagNavn">Navn på faget.</param>
         /// <param name="fagNiveau">Fagniveauet elev skal have.</param>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisFagNiveau(string fagNavn, FagNiveau fagNiveau) {
             char forbogstav = fagNavn.ToUpper().ToCharArray()[0];
             List<ElevModel> elever = new List<ElevModel>();
@@ -145,7 +145,7 @@ namespace GFElevInterview.Models
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én uddannelseslinje.
         /// </summary>
         /// <param name="skoleNavn"></param>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisUddannelse(string uddannelseNavn) {
             //return Elever.Where(e => e.uddannelseAdresse == skoleNavn).Select(e => e).ToList();
             return (from e in Elever
@@ -157,7 +157,7 @@ namespace GFElevInterview.Models
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én skole.
         /// </summary>
         /// <param name="skoleNavn"></param>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisSkole(string skoleNavn) {
             if (skoleNavn.Contains(' ')) {
                 string _skoleNavn = skoleNavn.Substring(0, skoleNavn.IndexOf(' '));
@@ -175,10 +175,10 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> fra én skoles forløb.
         /// </summary>
-        /// <param name="skole"></param>
-        /// <param name="ekslusivNiveau"></param>
-        /// <param name="erNiveauHøjere"></param>
-        /// <returns></returns>
+        /// <param name="skole">Navnet på skolen</param>
+        /// <param name="ekslusivNiveau">Grænsen for Fagnivea</param>
+        /// <param name="erNiveauHøjere">Er elevens fagniveau større?</param>
+        /// <returns>Liste af elever.</returns>
         private List<ElevModel> VisSkole(string skole, FagNiveau ekslusivNiveau, bool erNiveauHøjere) {
             if (erNiveauHøjere) {
                 return (from e in Elever
@@ -198,7 +198,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.SPS"/> er <c>true</c>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisSPS() {
             return (from e in Elever
                     where e.SPS == true
@@ -208,7 +208,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> hvor <see cref="ElevModel.EUD"/> er <c>true</c>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisEUD() {
             return (from e in Elever
                     where e.EUD == true
@@ -218,7 +218,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> som har en udskrevet RKV-blanket.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisRKV() {
             return (from e in Elever
                     where e.ElevType != 0
@@ -228,7 +228,7 @@ namespace GFElevInterview.Models
         /// <summary>
         /// Henter alle <see cref="ElevModel"/> fra <see cref="Elever"/> som har en udskrevet merit-blanket.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public List<ElevModel> VisMerit() {
             return (from e in Elever
                     where e.DanNiveau > 0
@@ -284,7 +284,7 @@ namespace GFElevInterview.Models
         /// Passworded bliver opdateret og ændringerne gemt i databasen.
         /// </summary>
         /// <param name="nytPw"></param>
-        /// <returns></returns>
+        /// <returns>Liste af elever.</returns>
         public bool OpdaterPassword(string nytPw) {
             Data.CurrentUser.User.OpdaterPassword(nytPw);
             Login.Update(Data.CurrentUser.User);

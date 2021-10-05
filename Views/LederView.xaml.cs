@@ -28,6 +28,68 @@ namespace GFElevInterview.Views
             InitialiserComboBoxes();
         }
 
+
+        public Control sidsteBrugteControl = null;
+
+
+        /// <summary>
+        ///send til viktor liste af elever + string med søgning feks. listen af elever + sps
+        //Den her metode laver en liste af alle elever i datagrid, og sætter "query" variablen til en string der beskriver hvad det er der er blevet søgt på
+        /// </summary>
+        public void UdskrivAktuelDataGrid()
+        {
+            //listen af elever fra datagrid
+            List<ElevModel> elever = (List<ElevModel>) gridElevTabel.ItemsSource;
+            string query = "";
+            
+            if (sidsteBrugteControl != null)
+            {
+                //hvis den sidste brugte kontrol er en knap
+                if (sidsteBrugteControl.GetType() == typeof(Button))
+                {
+                    
+                    Button button = sidsteBrugteControl as Button;
+
+                    if (button == btnEUD)
+                    {
+                        query = "Elever med EUD";
+                    }
+                    else if (button == btnSPS)
+                    {
+                        query = "Elever med SPS";
+                    }
+                    else if (button == btnRKV)
+                    {
+                        query = "Elever med RKV";
+                    }
+                    else if (button == btnMerit)
+                    {
+                        query = "Elever med Merit";
+                    }
+                }
+                // hvis sidste brugte control var en combobox
+                else if(sidsteBrugteControl.GetType() == typeof(ComboBox))
+                {
+                    query = $"{cmbKategori.SelectedItem} {cmbSubkategori.SelectedItem}";
+                }
+
+                if (!string.IsNullOrEmpty(query)){
+                    VictorFunc(elever, query);
+                }
+            }
+        }
+
+        //note eksistere kun fordi mangler viktors udprint metode - fjern efter merge
+        public void VictorFunc(List<ElevModel> elever, string query)
+        {
+            foreach (ElevModel elev in elever)
+            {
+                Console.WriteLine($"{elev.CPRNr}, {elev.Efternavn}, {elev.Fornavn} - {query}");
+            }
+            Console.WriteLine();
+        }
+
+
         #region Initialisering af view
 
         //On Constructor call
@@ -174,6 +236,9 @@ namespace GFElevInterview.Views
                 cmbSubkategori.SelectedIndex = -1;
                 OpdaterDataGrid(DbTools.Instance.VisAlle());
             }
+
+            sidsteBrugteControl = sender as Control;
+            
         }
 
         /// <summary>
@@ -282,6 +347,9 @@ namespace GFElevInterview.Views
             }
         }
 
+        /// <summary>
+        /// EventHandler for tilføjelse af Excel-ark til databasen.
+        /// </summary>
         private void Excel_Click(object sender, RoutedEventArgs e) {
             FilHandler.OpenFileDialog();
             VisAlleDataGrid();
@@ -340,6 +408,9 @@ namespace GFElevInterview.Views
 
         #region Combobox Eventhandler
 
+        /// <summary>
+        /// Håndterer behavior for <see cref="cmbKategori"/>, som indsætter items ind i <see cref="cmbSubkategori"/>.
+        /// </summary>
         private void QueryKategori_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             int index = (sender as ComboBox).SelectedIndex;
             cmbSubkategori.ItemsSource = null;
@@ -364,11 +435,21 @@ namespace GFElevInterview.Views
             cmbSubkategori.IsEnabled = true;
         }
 
+        /// <summary>
+        /// Håndterer hentning af data fra databasen. Er kun aktiv hvis <see cref="cmbKategori"/> har en værdi.
+        /// </summary>
         private void QuerySubkategori_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             int index = cmbKategori.SelectedIndex;
 
             if (index < 0 || cmbSubkategori.SelectedIndex < 0) {
                 VisAlleDataGrid();
+
+                //if lastCtrolPressed == cmb sub category så nulstil
+                if (sidsteBrugteControl == cmbSubkategori)
+                {
+                    sidsteBrugteControl = null;
+                }
+
                 return;
             }
 
@@ -390,6 +471,8 @@ namespace GFElevInterview.Views
             }
 
             OpdaterDataGrid(elever);
+            sidsteBrugteControl = cmbSubkategori;
+            
         }
 
         #endregion Combobox Eventhandler
@@ -407,8 +490,13 @@ namespace GFElevInterview.Views
                 VisAlleDataGrid();
                 return;
             }
-
+            if (sidsteBrugteControl == sender as Control)
+            {
+                sidsteBrugteControl = null;
+            }
             OpdaterDataGrid(DbTools.Instance.VisQueryElever(query));
+            sidsteBrugteControl = sender as Control;
+
         }
 
         #endregion TextBox EventHandler
