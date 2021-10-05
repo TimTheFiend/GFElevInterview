@@ -19,6 +19,7 @@ namespace GFElevInterview.Views
     {
         private ElevModel elev;
         private static Grid lederOverlayLoading;
+        private Control sidsteBrugteControl = null;
 
         public LederView() {
             InitializeComponent();
@@ -28,20 +29,16 @@ namespace GFElevInterview.Views
             InitialiserComboBoxes();
         }
 
-
-        public Control sidsteBrugteControl = null;
-
-
         /// <summary>
         ///send til viktor liste af elever + string med søgning feks. listen af elever + sps
         //Den her metode laver en liste af alle elever i datagrid, og sætter "query" variablen til en string der beskriver hvad det er der er blevet søgt på
         /// </summary>
         public void UdskrivAktuelDataGrid()
-        {
+        {                  
             //listen af elever fra datagrid
             List<ElevModel> elever = (List<ElevModel>) gridElevTabel.ItemsSource;
             string query = "";
-            
+           
             if (sidsteBrugteControl != null)
             {
                 //hvis den sidste brugte kontrol er en knap
@@ -73,22 +70,11 @@ namespace GFElevInterview.Views
                     query = $"{cmbKategori.SelectedItem} {cmbSubkategori.SelectedItem}";
                 }
 
-                if (!string.IsNullOrEmpty(query)){
-                    VictorFunc(elever, query);
+                if (!string.IsNullOrEmpty(query)){                   
+                   BlanketUdskrivning.UdskrivningDataTabel(elever, query);                   
                 }
             }
         }
-
-        //note eksistere kun fordi mangler viktors udprint metode - fjern efter merge
-        public void VictorFunc(List<ElevModel> elever, string query)
-        {
-            foreach (ElevModel elev in elever)
-            {
-                Console.WriteLine($"{elev.CPRNr}, {elev.Efternavn}, {elev.Fornavn} - {query}");
-            }
-            Console.WriteLine();
-        }
-
 
         #region Initialisering af view
 
@@ -132,7 +118,7 @@ namespace GFElevInterview.Views
             gridElevTabel.SelectionChanged += ElevTabel_SelectionChanged;
             /* Åben Mappe */
             btnOutputDir.Click += OpenOutputDirectory_Click;
-            btnTestGen.Click += testGenKnap;
+            btnTestGen.Click += DatatabelUdskrivning;
         }
 
         private void OpenOutputDirectory_Click(object sender, RoutedEventArgs e)
@@ -212,8 +198,6 @@ namespace GFElevInterview.Views
 
         #region Button EventHandler
 
-
-
         /// <summary>
         /// henter elever fra databasen.
         /// </summary>
@@ -248,75 +232,10 @@ namespace GFElevInterview.Views
             FilHandler.VisFilIExplorer(false, (sender as Button) == btnOpen_Merit ? elev.FilnavnMerit : elev.FilnavnRKV);
         }
 
-        private void testGenKnap(object sender, RoutedEventArgs e)
+        private void DatatabelUdskrivning(object sender, RoutedEventArgs e)
         {
-            List<ElevModel> elever = new List<ElevModel>();
-            string outputPath = RessourceFil.outputMappe;
-            string query = "Elever SPS.pdf";
-            Document doc = new Document();
-            PdfPTable tableLayout = new PdfPTable(4);
-            PdfWriter.GetInstance(doc, new FileStream(outputPath + @"\\" + query, FileMode.Create));
-            doc.Open();            
-            doc.Add(BlanketUdskrivning.UdskrivningDataTabel(elever, query, tableLayout));
-            doc.Close();
+            UdskrivAktuelDataGrid();           
         }
-
-        //private PdfPTable Add_Content_To_PDF(PdfPTable tableLayout)
-        //{
-        //    string søgning = "Elever der vil have SPS";
-        //    List<ElevModel> elever = new List<ElevModel>()
-        //    {
-        //        new ElevModel("010193-1234", "Brexit Party", "Like What?"),
-        //        new ElevModel("010193-1235", "British", " RubberDuckers"),
-        //        new ElevModel("010193-1236", "Broadcasting", "From the station"),
-        //        new ElevModel("010193-1237", "Company", "policies"),
-        //    };
-        //    float[] headers =
-        //    {
-        //        20,
-        //        20,
-        //        20,
-        //        20
-        //    };
-        //    tableLayout.SetWidths(headers);
-        //    tableLayout.WidthPercentage = 80;
-        //    tableLayout.AddCell(new PdfPCell(new Phrase("Creating PDF file using ItextSharp"))
-        //    {
-        //        Colspan = 4,
-        //        Border = 0,
-        //        PaddingBottom = 20,
-        //        HorizontalAlignment = Element.ALIGN_CENTER
-        //    });
-        //    AddCellToHeader(tableLayout, "CPR");
-        //    AddCellToHeader(tableLayout, "Fornavn");
-        //    AddCellToHeader(tableLayout, "Efternavn");
-        //    AddCellToHeader(tableLayout, "Valgte");
-        //    foreach (var item in elever)
-        //    {
-        //        AddCellToBody(tableLayout, item.CPRNr);
-        //        AddCellToBody(tableLayout, item.Fornavn);
-        //        AddCellToBody(tableLayout, item.Efternavn);
-        //        AddCellToBody(tableLayout, søgning);
-        //    }
-
-        //    return tableLayout;
-        //}
-        //private static void AddCellToHeader(PdfPTable tableLayout, string cellText)
-        //{
-        //    tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
-        //    {
-        //        HorizontalAlignment = Element.ALIGN_CENTER,
-        //        Padding = 5,
-        //    });
-        //}
-        //private static void AddCellToBody(PdfPTable tableLayout, string cellText)
-        //{
-        //    tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
-        //    {
-        //        HorizontalAlignment = Element.ALIGN_CENTER,
-        //        Padding = 5,
-        //    });
-        //}
 
         /// <summary>
         /// Eksporter blanketter.

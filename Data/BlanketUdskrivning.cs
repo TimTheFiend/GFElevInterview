@@ -136,29 +136,31 @@ namespace GFElevInterview.Data
         /// 2. Initialiser Konverteringen af pdf processen.
         /// 3. Udskriv pdf dokumentet til blanketten.
         /// </summary>
-        public static PdfPTable UdskrivningDataTabel(List<ElevModel> elever, string query, PdfPTable tableLayout)
+        public static void UdskrivningDataTabel(List<ElevModel> elever, string query)
         {
-            //PdfPTable tableLayout;
-            query = "Elever der vil have SPS";
-            //Floaten giver 
-            float[] headers =
-            {
-                20, 20, 20, 20
-            };
-            //Headernes bredde vil blive sat her.
-            tableLayout.SetWidths(headers);
+            PdfPTable tableLayout = new PdfPTable(4);
+
+            iTextSharp.text.Document doc = new iTextSharp.text.Document();
+            string outputPath = RessourceFil.outputMappe;
+            PdfWriter.GetInstance(doc, new FileStream(outputPath + @"\\" + query + ".pdf", FileMode.Create));
+            doc.Open();
+            //Tabellenslayout for sat sin bredde for hver item i tabellen.
+            tableLayout.SetWidths(new float[] { 20, 20, 20, 20 });
             tableLayout.WidthPercentage = 80;
-            tableLayout.AddCell(new PdfPCell(new Phrase("Den valgte "+query))
+            //En overskrift over tabellen vil blive lavet.
+            tableLayout.AddCell(new PdfPCell(new Phrase("Den valgte " + query))
             {
                 Colspan = 4,
                 Border = 0,
                 PaddingBottom = 20,
                 HorizontalAlignment = Element.ALIGN_CENTER
             });
+            //AddCellToHeader indsætter tabelenslayout og giver den et navn.
             AddCellToHeader(tableLayout, "CPR");
             AddCellToHeader(tableLayout, "Fornavn");
             AddCellToHeader(tableLayout, "Efternavn");
             AddCellToHeader(tableLayout, "Valgte");
+            //vi kører her alle eleverne fra listen igennem og putter informationerne ind i tabellen.
             foreach (var item in elever)
             {
                 AddCellToBody(tableLayout, item.CPRNr);
@@ -166,9 +168,16 @@ namespace GFElevInterview.Data
                 AddCellToBody(tableLayout, item.Efternavn);
                 AddCellToBody(tableLayout, query);
             }
-            return tableLayout;
+
+            doc.Add(tableLayout);
+            doc.Close();
         }
 
+        /// <summary>
+        /// Metoden bruges til at laves en celle i tabellens header. 
+        /// </summary>
+        /// <param name="tableLayout"></param>
+        /// <param name="cellText"></param>
         private static void AddCellToHeader(PdfPTable tableLayout, string cellText)
         {
             tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
@@ -177,6 +186,12 @@ namespace GFElevInterview.Data
                 Padding = 5,
             });
         }
+
+        /// <summary>
+        /// Metoden bruges til at laves en celle i tabellens body. 
+        /// </summary>
+        /// <param name="tableLayout"></param>
+        /// <param name="cellText"></param>
         private static void AddCellToBody(PdfPTable tableLayout, string cellText)
         {
             tableLayout.AddCell(new PdfPCell(new Phrase(cellText))
