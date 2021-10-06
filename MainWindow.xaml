@@ -17,11 +17,11 @@
         <Border Grid.Column="0" Style="{StaticResource bdrMain}" Width="250" HorizontalAlignment="Center" BorderThickness="3">
             <StackPanel>
                 <Separator Height="20" Background="Transparent" Margin="0" />
-                <Button Name="btnUnderviser" Click="UnderviserButton_Click" Style="{StaticResource btnPanel}" Width="230">Underviser</Button>
+                <Button Name="btnUnderviser" Click="UnderviserButton_Click" Style="{StaticResource btnPanel}">Underviser</Button>
                 <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
-                <Button Name="btnLeder" Click="LederButton_Click" Style="{StaticResource btnPanel}" Width="230" >Leder</Button>
+                <Button Name="btnLeder" Click="LederButton_Click" Style="{StaticResource btnPanel}">Leder</Button>
                 <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
-                <Button Name="btnVejled" Click="VejledningButton_Click" Style="{StaticResource btnPanel}" Width="230">Vejledning</Button>
+                <Button Name="btnVejled" Click="VejledningButton_Click" Style="{StaticResource btnPanel}">Vejledning</Button>
                 <Separator Height="40" Background="Transparent" Padding="0" Margin="0" />
                 <Border BorderBrush="Gray" BorderThickness="1" Width="230">
                     <StackPanel>

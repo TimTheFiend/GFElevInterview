@@ -18,83 +18,83 @@
         </Grid.RowDefinitions>
         <Grid HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0">
             <DockPanel Height="30" VerticalAlignment="Top">
-                <Button x:Name="btnRKV" Content="RKV" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnRKV" Content="RKV" VerticalAlignment="Bottom" Style="{StaticResource btnShow}"/>
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <Button x:Name="btnMerit" Content="Merit" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnMerit" Content="Merit" VerticalAlignment="Bottom" Style="{StaticResource btnShow}"/>
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <Button x:Name="btnVisAlle" Content="Vis Alle" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnVisAlle" Content="Vis Alle" VerticalAlignment="Bottom" Style="{StaticResource btnShow}"/>
             </DockPanel>
             <Separator Background="Transparent" />
             <DockPanel Height="30" VerticalAlignment="Bottom">
-                <Button x:Name="btnSPS" Content="SPS" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnSPS" Content="SPS" VerticalAlignment="Top" Style="{StaticResource btnShow}"/>
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <Button x:Name="btnEUD" Content="EUD" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource btnShow}" />
+                <Button x:Name="btnEUD" Content="EUD" VerticalAlignment="Top" Style="{StaticResource btnShow}"/>
                 <Separator Style="{StaticResource SepSpaceW}" />
-                <TextBox x:Name="txtSearch" Width="160" Height="20" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <TextBox x:Name="txtSearch" Style="{StaticResource txtSearchElev}" Grid.Column="0" Grid.Row="0"/>
             </DockPanel>
         </Grid>
         <DockPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">
             <StackPanel VerticalAlignment="Center">
-                <ComboBox x:Name="cmbKategori" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-                <Separator Background="Transparent" Height="5" />
-                <ComboBox x:Name="cmbSubkategori" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <ComboBox x:Name="cmbKategori" Style="{StaticResource cmbSearch}" VerticalAlignment="Bottom" />
+                <Separator Background="Transparent" Height="5"/>
+                <ComboBox x:Name="cmbSubkategori" Style="{StaticResource cmbSearch}" VerticalAlignment="Top"/>
             </StackPanel>
             <StackPanel VerticalAlignment="Center">
-                <Label Content="Søge kategori" />
-                <Separator Background="Transparent" Height="5" />
-                <Label Content="Elev Variabel" />
+                <Label Content="Søge kategori"/>
+                <Separator Background="Transparent" Height="5"/>
+                <Label Content="Elev Variabel"/>
             </StackPanel>
         </DockPanel>
         <Border Grid.Column="3" Grid.Row="0" Background="#495057" BorderThickness="5" BorderBrush="Gray">
-            <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock  Text="Admin" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <StackPanel Background="#495057" Grid.Column="3" Grid.Row="1">
-            <Separator Style="{StaticResource SepSpaceH}" />
+            <Separator Style="{StaticResource SepSpaceH}"/>
             <Button x:Name="btnExportMerit" Content="Merit Export" Style="{StaticResource btnAdmin}"/>
-            <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnExportRKV" Content="RKV Export" Style="{StaticResource btnAdmin}" />
-            <Separator Style="{StaticResource SepSpaceH}" />
-            <TextBlock Text="EXCEL" HorizontalAlignment="Center" FontSize="25" />
-            <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnExcel" Content="Tilføj"  Style="{StaticResource btnAdmin}" />
-            <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnReset" Content="Nulstil DB" Style="{StaticResource btnAdmin}" />
-            <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnOpen_RKV" Width="80" Height="25" Content="Åben RKV" IsEnabled="False" />
-            <Separator Style="{StaticResource SepSpaceH}" />
-            <Button x:Name="btnOpen_Merit" Width="80" Height="25" Content="Åben Merit" IsEnabled="False" />
             <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button x:Name="btnOutputDir" Width="80" Height="25" Content="Åben Mappe"/>
+            <Button x:Name="btnExportRKV" Content="RKV Export" Style="{StaticResource btnAdmin}"/>
             <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button x:Name="btnSkiftPassword" Width="80" Height="25"  Content="Skift Kodeord" />
+            <TextBlock Text="EXCEL" Style="{StaticResource txtOverskrift}" FontSize="28"/>
             <Separator Style="{StaticResource SepSpaceH}"/>
-            <Button x:Name="btnTestGen" Width="80" Height="25"  Content="Generate"/>
+            <Button x:Name="btnExcel" Content="Tilføj"  Style="{StaticResource btnAdmin}"/>
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnReset" Content="Nulstil DB" Style="{StaticResource btnAdmin}"/>
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnOpen_RKV" Content="Åben RKV" IsEnabled="False" Style="{StaticResource btnAdmin}"/>
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnOpen_Merit" Content="Åben Merit" IsEnabled="False" Style="{StaticResource btnAdmin}"/>
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnOutputDir" Content="Åben Mappe" Style="{StaticResource btnAdmin}"/>
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnSkiftPassword" Content="Skift Kodeord" Style="{StaticResource btnAdmin}"/>
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Button x:Name="btnTestGen" Content="Udskriv tabel" Style="{StaticResource btnAdmin}"/>
         </StackPanel>
 
-        <DataGrid x:Name="gridElevTabel" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DataGrid x:Name="gridElevTabel" Grid.Column="1" Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="CPR" Binding="{Binding CPRNr}" />
-                <DataGridTextColumn Header="Fornavn" Binding="{Binding Fornavn}" />
-                <DataGridTextColumn Header="Efternavn" Binding="{Binding Efternavn}" />
-                <DataGridTextColumn Header="Uddannelse" Binding="{Binding UddLinje}" />
-                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding UddAdr}" />
-                <DataGridTextColumn Header="SPS" Binding="{Binding SPS}" />
-                <DataGridTextColumn Header="EUD" Binding="{Binding EUD}" />
-                <DataGridTextColumn Header="ElevType" Binding="{Binding ElevType}" />
-                <DataGridTextColumn Header="danskNiveau" Binding="{Binding DanNiveau}" />
-                <DataGridTextColumn Header="EngelskNiveau" Binding="{Binding EngNiveau}" />
-                <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding MatNiveau}" />
+                <DataGridTextColumn Header="CPR" Binding="{Binding CPRNr}"/>
+                <DataGridTextColumn Header="Fornavn" Binding="{Binding Fornavn}"/>
+                <DataGridTextColumn Header="Efternavn" Binding="{Binding Efternavn}"/>
+                <DataGridTextColumn Header="Uddannelse" Binding="{Binding UddLinje}"/>
+                <DataGridTextColumn Header="UdannelseAdresse" Binding="{Binding UddAdr}"/>
+                <DataGridTextColumn Header="SPS" Binding="{Binding SPS}"/>
+                <DataGridTextColumn Header="EUD" Binding="{Binding EUD}"/>
+                <DataGridTextColumn Header="ElevType" Binding="{Binding ElevType}"/>
+                <DataGridTextColumn Header="danskNiveau" Binding="{Binding DanNiveau}"/>
+                <DataGridTextColumn Header="EngelskNiveau" Binding="{Binding EngNiveau}"/>
+                <DataGridTextColumn Header="MatematikNiveau" Binding="{Binding MatNiveau}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid x:Name="overlayLoading" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed">
-            <Border Background="Black" Opacity="0.35" />
+            <Border Background="Black" Opacity="0.35"/>
             <Border VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Padding="20">
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Width="200" Height="20" Text="Kodeord" FontSize="16" TextAlignment="Justify" />
-                    <PasswordBox x:Name="txtKodeord" Width="200" Height="20" />
-                    <Separator Height="12" Background="Transparent" />
-                    <TextBlock Width="200" Height="20" Text="Bekræft Kodeord" FontSize="16" TextAlignment="Justify" />
-                    <PasswordBox x:Name="txtValiderKodeord" Width="200" Height="20" />
+                    <TextBlock Text="Kodeord" Style="{StaticResource txtOverlayKode}"/>
+                    <PasswordBox x:Name="txtKodeord" Style="{StaticResource pssOverlayKode}"/>
+                    <Separator Height="12" Background="Transparent"/>
+                    <TextBlock Text="Bekræft Kodeord" Style="{StaticResource txtOverlayKode}"/>
+                    <PasswordBox x:Name="txtValiderKodeord" Style="{StaticResource pssOverlayKode}"/>
                     <Separator Height="12" Background="Transparent"/>
                     <DockPanel HorizontalAlignment="Center">
                         <Button x:Name="btnTilbage" Content="Tilbage" Style="{StaticResource btnPassword}"/>

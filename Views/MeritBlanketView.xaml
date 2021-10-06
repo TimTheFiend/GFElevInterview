@@ -19,7 +19,7 @@
                 <Border x:Name="bdrDanskValidation" Style="{StaticResource bdrMerit}">
                     <DockPanel>
                         <Label Content="Dansk:" Style="{StaticResource lblOverskrift}" />
-                        <Label Content="Niveau" FontSize="15" VerticalAlignment="Stretch" VerticalContentAlignment="Center" />
+                        <Label Content="Niveau" Style="{StaticResource lblNiveau}"/>
                         <ComboBox x:Name="cmbDansk" SelectionChanged="ComboboxFagNiveau_SelectionChanged" Style="{StaticResource cmbFag}" />
                         <StackPanel VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
@@ -59,7 +59,7 @@
                 <Border x:Name="bdrEngelskValidation" Style="{StaticResource bdrMerit}">
                     <DockPanel>
                         <Label Content="Engelsk:" Style="{StaticResource lblOverskrift}" />
-                        <Label Content="Niveau" FontSize="15" VerticalAlignment="Center" />
+                        <Label Content="Niveau" Style="{StaticResource lblNiveau}"/>
                         <ComboBox x:Name="cmbEngelsk" Style="{StaticResource cmbFag}" />
                         <StackPanel VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
@@ -99,7 +99,7 @@
                 <Border x:Name="bdrMatematikValidation" Style="{StaticResource bdrMerit}">
                     <DockPanel>
                         <Label Content="Matematik:" Style="{StaticResource lblOverskrift}" />
-                        <Label Content="Niveau" FontSize="15" VerticalAlignment="Center" />
+                        <Label Content="Niveau" Style="{StaticResource lblNiveau}"/>
                                 <ComboBox x:Name="cmbMatematik" Style="{StaticResource cmbFag}" />
                         <StackPanel VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
