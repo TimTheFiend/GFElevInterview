@@ -13,14 +13,14 @@
             <ColumnDefinition Width="0.1*" />
         </Grid.ColumnDefinitions>
         <StackPanel  Grid.Column="1">
-            <Label Content="Interview guide til RKV elever"  FontSize="18" FontWeight="Bold" FontStyle="Italic" />
+            <Label Content="Interview guide til RKV elever" FontSize="18" FontWeight="Bold" FontStyle="Italic" />
             <Border x:Name="bdrEducation" Style="{StaticResource bdrEUV2}">
                 <StackPanel>
                     <DockPanel>
                         <Label Content="Uddannelse:"  Style="{StaticResource lblOverskrift2}"/>
                         <StackPanel HorizontalAlignment="Stretch">
                             <TextBlock  Text="Hvilken uddannelse ønske du at påbegynde?" Style="{StaticResource txtEUVSprg}"/>
-                            <ComboBox x:Name="cmbEducation" Width="240" />
+                            <ComboBox x:Name="cmbEducation" Width="240"/>
                         </StackPanel>
                     </DockPanel>
                 </StackPanel>
@@ -32,7 +32,7 @@
                         <Label Content="Adresse:"  Style="{StaticResource lblOverskrift2}"/>
                         <StackPanel HorizontalAlignment="Stretch">
                             <TextBlock Text="Hvilken adresse ønske du at starte på?" Style="{StaticResource txtEUVSprg}"/>
-                            <ComboBox x:Name="cmbUddannelse" Width="200" />
+                            <ComboBox x:Name="cmbUddannelse" Width="240" />
                         </StackPanel>
                     </DockPanel>
                 </StackPanel>

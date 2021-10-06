@@ -31,9 +31,9 @@
                 <Label Content="Lavet af:" VerticalAlignment="Top" HorizontalAlignment="Stretch" FontSize="15"/>
                 <StackPanel HorizontalAlignment="Right">
                     <Label Content="Projekt leder / Programmør" Style="{StaticResource lblVejledning}"/>
-                    <Label Content="Programmør" Style="{StaticResource lblVejledning}" HorizontalAlignment="Right"/>
-                    <Label Content="Programmør" Style="{StaticResource lblVejledning}" HorizontalAlignment="Right"/>
-                    <Label Content="Programmør" Style="{StaticResource lblVejledning}" HorizontalAlignment="Right"/>
+                    <Label Content="Programmør" Style="{StaticResource lblVejledning}"/>
+                    <Label Content="Programmør" Style="{StaticResource lblVejledning}"/>
+                    <Label Content="Programmør" Style="{StaticResource lblVejledning}"/>
                 </StackPanel>
                 <Separator Width="40" Background="Transparent"/>
                 <StackPanel HorizontalAlignment="Right">

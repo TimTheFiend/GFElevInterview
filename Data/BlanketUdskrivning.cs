@@ -138,6 +138,7 @@ namespace GFElevInterview.Data
         /// </summary>
         public static void UdskrivningDataTabel(List<ElevModel> elever, string query)
         {
+            //pdftable bliver lavet og antallet af kolloner bliver lavet.
             PdfPTable tableLayout = new PdfPTable(4);
 
             iTextSharp.text.Document doc = new iTextSharp.text.Document();
@@ -168,7 +169,6 @@ namespace GFElevInterview.Data
                 AddCellToBody(tableLayout, item.Efternavn);
                 AddCellToBody(tableLayout, query);
             }
-
             doc.Add(tableLayout);
             doc.Close();
         }

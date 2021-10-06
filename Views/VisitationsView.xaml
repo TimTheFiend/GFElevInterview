@@ -13,27 +13,27 @@
             <ColumnDefinition Width="0.1*" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="1">
-            <Label Content="Interview guide til Visitations elever"  Style="{StaticResource lblVisitation}" />
+            <Label Content="Interview guide til Visitations elever" Style="{StaticResource lblVisitation}"/>
             <Border x:Name="bdrEducation" Style="{StaticResource bdrVisitation}" Width="600">
                 <DockPanel>
-                    <Label Content="Uddannelse:"  Style="{StaticResource lblOverskrift2}"/>
+                    <Label Content="Uddannelse:" Style="{StaticResource lblOverskrift2}"/>
                     <StackPanel VerticalAlignment="Center">
-                        <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="15" HorizontalAlignment="Center" />
-                        <ComboBox x:Name="cmbUddannelse" Width="250" />
+                        <Label  Content="Hvilken uddannelse ønske du at påbegynde?" FontSize="15" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="cmbUddannelse" Width="250"/>
                     </StackPanel>
                 </DockPanel>
             </Border>
-            <Separator Style="{StaticResource SepSpaceH}" />
+            <Separator Style="{StaticResource SepSpaceH}"/>
             <Border x:Name="bdrAdresse" Style="{StaticResource bdrVisitation}">
                 <DockPanel>
                     <Label Content="Adresse:"  Style="{StaticResource lblOverskrift2}"/>
                     <StackPanel VerticalAlignment="Center">
-                        <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="15" HorizontalAlignment="Center" />
-                        <ComboBox x:Name="cmbAdresse" Width="250" />
+                        <Label  Content="Hvilken adresse ønske du at starte på?" FontSize="15" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="cmbAdresse" Width="250"/>
                     </StackPanel>
                 </DockPanel>
             </Border>
-            <Separator Style="{StaticResource SepSpaceH}" />
+            <Separator Style="{StaticResource SepSpaceH}"/>
             <Border x:Name="bdrSps" Style="{StaticResource bdrVisitation}">
                 <DockPanel>
                     <Label Content="SPS:"  Style="{StaticResource lblOverskrift2}"/>
@@ -43,20 +43,20 @@
                         <DockPanel x:Name="docsps" Width="150" HorizontalAlignment="Center">
                             <RadioButton x:Name="rbSpsJa" GroupName="spsSupport" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <RadioButton.RenderTransform>
-                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                                 </RadioButton.RenderTransform>
                             </RadioButton>
                             <RadioButton GroupName="spsSupport" x:Name="rbSpsNej" Content="Nej" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <RadioButton.RenderTransform>
-                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                                 </RadioButton.RenderTransform>
                             </RadioButton>
                         </DockPanel>
                     </StackPanel>
                 </DockPanel>
             </Border>
-            <Separator Style="{StaticResource SepSpaceH}" />
-            <Border x:Name="bdrEud" Style="{StaticResource bdrVisitation}" >
+            <Separator Style="{StaticResource SepSpaceH}"/>
+            <Border x:Name="bdrEud" Style="{StaticResource bdrVisitation}">
                 <DockPanel>
                 <Label Content="EUD:"  Style="{StaticResource lblOverskrift2}"/>
                     <StackPanel VerticalAlignment="Center">
@@ -64,12 +64,12 @@
                         <DockPanel x:Name="docEud" Width="150">
                             <RadioButton x:Name="rbEudJa" GroupName="eudSupport" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <RadioButton.RenderTransform>
-                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                                 </RadioButton.RenderTransform>
                             </RadioButton>
                             <RadioButton x:Name="rbEudNej" GroupName="eudSupport" Content="Nej" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <RadioButton.RenderTransform>
-                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
                                 </RadioButton.RenderTransform>
                             </RadioButton>
                         </DockPanel>

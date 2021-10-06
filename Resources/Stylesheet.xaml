@@ -20,6 +20,11 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
     </Style>
 
+    <Style x:Key="contSearch" TargetType="ContentControl">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+    
     <Style x:Key="txtSearchB" TargetType="TextBox">
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="500"/>
@@ -34,18 +39,13 @@
         <Setter Property="Width" Value="80" />
         <Setter Property="Grid.Column" Value="0" />
         <Setter Property="Grid.Row" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
     <Style x:Key="btnAdmin" TargetType="Button">
         <Setter Property="Background" Value="Gray" />
         <Setter Property="Width" Value="80" />
         <Setter Property="Height" Value="40" />
         <Setter Property="FontSize" Value="13" />
-    </Style>
-    <Style x:Key="btnAdminOpen" TargetType="Button">
-        <Setter Property="Background" Value="Gray"/>
-        <Setter Property="Width" Value="80"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="FontSize" Value="13"/>
     </Style>
     <Style x:Key="btnPassword" TargetType="Button">
         <Setter Property="Background" Value="LightBlue"/>
@@ -56,6 +56,10 @@
     <Style TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="#FFF"/>
         <Setter Property="AlternationCount" Value="2"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
     <Style TargetType="{x:Type DataGridRow}">
         <Style.Triggers>
@@ -66,6 +70,32 @@
                 <Setter Property="Background" Value="#EEE"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+    <Style x:Key="txtSearchElev" TargetType="TextBox">
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+    <Style x:Key="txtOverlayKode" TargetType="TextBlock">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+    </Style>
+    <Style x:Key="pssOverlayKode" TargetType="PasswordBox">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="20"/>
+    </Style>
+    <Style x:Key="txtOverskrift" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="28"/>
+    </Style>
+    <Style x:Key="cmbSearch" TargetType="ComboBox">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
     <!--#endregion-->
     <!--#region EUVView-->
@@ -130,6 +160,7 @@
         <Setter Property="Height" Value="50" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontSize" Value="22" />
+        <Setter Property="Width" Value="230" />
     </Style>
     <Style x:Key="bdrMain" TargetType="Border">
         <Setter Property="Background" Value="WhiteSmoke" />
@@ -171,6 +202,10 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
+    <Style x:Key="lblNiveau" TargetType="Label">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
     <!--#endregion-->
     <!--#region Blandet-->
     <Style x:Key="docKnapH" TargetType="DockPanel">
@@ -205,6 +240,7 @@
     <Style x:Key="lblVejledning" TargetType="Label">
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="18"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
     </Style>
     <Style x:Key="txtVejledning" TargetType="TextBlock">
         <Setter Property="HorizontalAlignment" Value="Right"/>
