@@ -2,6 +2,10 @@
 using System.Windows;
 using System.Windows.Controls;
 
+using System.Linq;
+using System;
+using GFElevInterview.Models;
+
 namespace GFElevInterview
 {
     /// <summary>
@@ -26,6 +30,13 @@ namespace GFElevInterview
         public MainWindow() {
             InitializeComponent();
             InitialiserWindow();
+
+            List<string> fag = Enum.GetNames(typeof(FagNiveau)).Where(x => x.ToString() == "C" || x.ToString() == "B").ToList();
+
+            if ("C" == Models.FagNiveau.C.ToString())
+            {
+                System.Console.WriteLine();
+            }
         }
 
         private void InitialiserWindow() {

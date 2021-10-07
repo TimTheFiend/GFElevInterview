@@ -15,6 +15,7 @@ namespace GFElevInterview.Views
     {
         private ElevModel elev;
         private static Grid lederOverlayLoading;
+        
 
         public LederView() {
             InitializeComponent();
@@ -288,7 +289,18 @@ namespace GFElevInterview.Views
                     break;
 
                 default:
-                    cmbSubkategori.ItemsSource = StandardVaerdier.HentFagNiveau();
+                    //Lav nyt indhold til cmbSubkategori
+                    // (G&F), E, D, (C&B&A)
+                    //cmbSubkategori.ItemsSource = StandardVaerdier.HentFagNiveau();
+
+                    List<string> Fagniveau = new List<string>() {
+                        "G&F",
+                        "E",
+                        "D",
+                        "C&B&A"
+                    };
+
+                    cmbSubkategori.ItemsSource = Fagniveau;
                     break;
             }
             cmbSubkategori.IsEnabled = true;
@@ -318,7 +330,9 @@ namespace GFElevInterview.Views
                     break;
 
                 default:
-                    elever = DbTools.Instance.VisFagNiveau(cmbKategori.SelectedItem.ToString(), (FagNiveau)cmbSubkategori.SelectedIndex + 1);
+
+
+                    elever = DbTools.Instance._VisFagNiveau(cmbKategori.SelectedItem.ToString(), cmbSubkategori.SelectedItem.ToString());
                     break;
             }
 
@@ -345,5 +359,6 @@ namespace GFElevInterview.Views
         }
 
         #endregion TextBox EventHandler
+
     }
 }

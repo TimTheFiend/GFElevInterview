@@ -120,21 +120,66 @@ namespace GFElevInterview.Models
         /// <param name="fagNavn">Navn på faget.</param>
         /// <param name="fagNiveau">Fagniveauet elev skal have.</param>
         /// <returns>Liste af elever.</returns>
-        public List<ElevModel> VisFagNiveau(string fagNavn, FagNiveau fagNiveau) {
-            char forbogstav = fagNavn.ToUpper().ToCharArray()[0];
-            List<ElevModel> elever = new List<ElevModel>();
+        /// 
+        //public List<ElevModel> VisFagNiveau(string fagNavn, FagNiveau fagNiveau) {
+        //    char forbogstav = fagNavn.ToUpper().ToCharArray()[0];
+        //    List<ElevModel> elever = new List<ElevModel>();
 
-            switch (forbogstav) {
+        //    switch (forbogstav) {
+        //        case 'D':  //Dansk
+        //            elever = (from e in Elever where e.DanNiveau == fagNiveau select e).ToList();
+        //            break;
+
+        //        case 'E':  //Engelsk
+        //            elever = (from e in Elever where e.EngNiveau == fagNiveau select e).ToList();
+        //            break;
+
+        //        case 'M':  //Matematik
+        //            elever = (from e in Elever where e.MatNiveau == fagNiveau select e).ToList();
+        //            break;
+        //    }
+
+        //    return elever;
+        //}
+
+
+        public List<ElevModel> _VisFagNiveau(string fagNavn, string fagNiveau)
+        {
+            //sætter forbugstav til det valgt fag
+            char forbogstav = fagNavn.ToUpper().ToCharArray()[0];
+            
+            List<ElevModel> elever = new List<ElevModel>();
+            List<FagNiveau> fagNiv = new List<FagNiveau>();
+
+            //for hvert bogstav i favieau bliver der lavet en string med 1 karakter
+            foreach (string bogstav in fagNiveau.Split('&'))
+            {
+                //adder værdien af bogstav til fagniv 
+                fagNiv.Add((FagNiveau)System.Enum.Parse(typeof(FagNiveau), bogstav));
+            }
+
+            //hvis forbugstav er D E eller M
+            switch (forbogstav)
+            {
                 case 'D':  //Dansk
-                    elever = (from e in Elever where e.DanNiveau == fagNiveau select e).ToList();
+                    foreach (FagNiveau fn in fagNiv)
+                    {
+                        elever.AddRange((from e in Elever where e.DanNiveau == fn select e).ToList());
+                    }
                     break;
 
                 case 'E':  //Engelsk
-                    elever = (from e in Elever where e.EngNiveau == fagNiveau select e).ToList();
+                    foreach (FagNiveau fn in fagNiv)
+                    {
+                        elever.AddRange((from e in Elever where e.EngNiveau == fn select e).ToList());
+                    }
                     break;
 
                 case 'M':  //Matematik
-                    elever = (from e in Elever where e.MatNiveau == fagNiveau select e).ToList();
+                    foreach (FagNiveau fn in fagNiv)
+                    {
+                        elever.AddRange((from e in Elever where e.MatNiveau == fn select e).ToList());
+                    }
                     break;
             }
 
