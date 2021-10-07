@@ -72,10 +72,7 @@ namespace GFElevInterview.Views
         public void Frem() {
             if (ErValideret()) {
                 SætElevType();
-                CurrentElev.elev.UddLinje = cmbEducation.Text.ToString();
-                CurrentElev.elev.UddAdr = cmbUddannelse.Text.ToString();
-                CurrentElev.elev.SPS = rbSpsJa.IsChecked;
-                CurrentElev.elev.EUD = rbEudNej.IsChecked;
+                SætCurrentElevVærdier();
                 parent.FærdiggørInterview();
             }
         }
@@ -85,11 +82,17 @@ namespace GFElevInterview.Views
         }
 
         #endregion Frem/Tilbage
-
-        /// <summary>
-        /// Sætter <see cref="CurrentElev.elev"/>s <see cref="EUVType"/> baseret på radioknapper.
-        /// </summary>
-        private void SætElevType() {
+        private void SætCurrentElevVærdier()
+        {
+            CurrentElev.elev.UddLinje = cmbEducation.Text.ToString();
+            CurrentElev.elev.UddAdr = cmbUddannelse.Text.ToString();
+            CurrentElev.elev.SPS = rbSpsJa.IsChecked;
+            CurrentElev.elev.EUD = rbEudNej.IsChecked;
+        }
+            /// <summary>
+            /// Sætter <see cref="CurrentElev.elev"/>s <see cref="EUVType"/> baseret på radioknapper.
+            /// </summary>
+            private void SætElevType() {
             EUVType elevType = EUVType.Null;
             //Navneændring på rb
             bool rbValider1 = (bool)rbEuv1Ja.IsChecked;
