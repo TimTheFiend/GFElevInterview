@@ -86,8 +86,8 @@ namespace GFElevInterview.Views
         {
             CurrentElev.elev.UddLinje = cmbEducation.Text.ToString();
             CurrentElev.elev.UddAdr = cmbUddannelse.Text.ToString();
-            CurrentElev.elev.SPS = rbSpsJa.IsChecked;
-            CurrentElev.elev.EUD = rbEudNej.IsChecked;
+            CurrentElev.elev.SPS = (bool)rbSpsJa.IsChecked;
+            CurrentElev.elev.EUD = (bool)rbEudJa.IsChecked;
         }
             /// <summary>
             /// Sætter <see cref="CurrentElev.elev"/>s <see cref="EUVType"/> baseret på radioknapper.
