@@ -75,7 +75,7 @@ namespace GFElevInterview.Views
                 CurrentElev.elev.UddLinje = cmbEducation.Text.ToString();
                 CurrentElev.elev.UddAdr = cmbUddannelse.Text.ToString();
                 CurrentElev.elev.SPS = rbSpsJa.IsChecked;
-                CurrentElev.elev.EUD = rbSpsNej.IsChecked;
+                CurrentElev.elev.EUD = rbEudNej.IsChecked;
                 parent.FærdiggørInterview();
             }
         }
