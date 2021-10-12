@@ -127,7 +127,7 @@ namespace GFElevInterview.Data
 
         /// <summary>
         /// Her laves et <see cref="Document"/> som udskriver en pdf fil med informationerne fra <see cref="ElevModel"></see>
-        /// og en af 
+        /// den vil også udskrive en valgt information fra den tidligere metode. 
         /// </summary>
         /// <param name="elever"></param>
         /// <param name="query"></param>
