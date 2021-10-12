@@ -126,16 +126,11 @@ namespace GFElevInterview.Data
         }
 
         /// <summary>
-        /// Jeg vil få til sendt en liste og en string fra vincent del.
-        /// Metoden skal tage imod disse data´er og putte dem ud i linjer efter hver elev.
-        /// 
-        /// 1. Sæt informationer givet i parameterne, ind i et excel ark.
-        /// . Et loop skal tage data´en med hver elev 
-        /// . Lav et loop som sætter ind alle eleverne og deres informationer, en linje ad gangen.
-        /// . (Informationerne sættes ind i et excel ark som bliver konverteret videre til et pdf format).
-        /// 2. Initialiser Konverteringen af pdf processen.
-        /// 3. Udskriv pdf dokumentet til blanketten.
+        /// Her laves et <see cref="Document"/> som udskriver en pdf fil med informationerne fra <see cref="ElevModel"></see>
+        /// og en af 
         /// </summary>
+        /// <param name="elever"></param>
+        /// <param name="query"></param>
         public static void UdskrivningDataTabel(List<ElevModel> elever, string query)
         {
             //pdftable bliver lavet og antallet af kolloner bliver lavet.
